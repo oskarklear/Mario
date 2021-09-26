@@ -14,7 +14,7 @@ namespace Mario
         public MovementCommand MoveRight { get; set; }
         public MovementCommand Jump { get; set; }
         public MovementCommand Crouch { get; set; }
-        public MovementCommand Fireball { get; set; }
+        //public MovementCommand Fireball { get; set; }
 
         private List<Input> GetInput()
         {
@@ -87,7 +87,7 @@ namespace Mario
 
                     // Dash/throw Fireball
                     case (int)Keys.Space:
-                        Fireball.Execute();
+                        //Fireball.Execute();
                         break;
 
                     // Game Exit
