@@ -181,7 +181,23 @@
 /processorParam:TextureFormat=Color
 /build:enemies/koopa/koopa_shell_red_moving.png
 
+<<<<<<< HEAD
 #begin items/coins.png
+=======
+#begin fireRunningMario.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:fireRunningMario.png
+
+#begin green_mushroom.png
+>>>>>>> bb70e444569a262ad1a065c849a0af5f9fa96ee6
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
