@@ -5,7 +5,7 @@ using Mario.Sprites.Mario;
 
 namespace Mario.Movement
 {
-    class MoveLeftCommand : Movement
+    class MoveLeftCommand : MovementCommand
     {
         private SuperMario mario;
         public MoveLeftCommand(SuperMario M)
@@ -18,7 +18,7 @@ namespace Mario.Movement
         }
     }
 
-    class MoveRightCommand : Movement
+    class MoveRightCommand : MovementCommand
     {
         private SuperMario mario;
         public MoveRightCommand(SuperMario M)
@@ -31,7 +31,7 @@ namespace Mario.Movement
         }
     }
 
-    class JumpCommand : Movement
+    class JumpCommand : MovementCommand
     {
         private SuperMario mario;
         public JumpCommand(SuperMario M)

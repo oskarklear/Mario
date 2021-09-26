@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Mario.Movement
 {
-    public interface Movement
+    public interface MovementCommand
     {
         void Execute();
     }

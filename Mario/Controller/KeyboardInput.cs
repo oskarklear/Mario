@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Mario.Controller;
+using Mario.Movement;
 
 namespace Mario
 {
@@ -9,8 +10,11 @@ namespace Mario
     {
         private KeyboardState previousKeyboardState;
         public Game1 GameObj { get; set; }
-        public ICommand MoveLeft { get; set; }
-        public ICommand MoveRight { get; set; }
+        public MovementCommand MoveLeft { get; set; }
+        public MovementCommand MoveRight { get; set; }
+        public MovementCommand Jump { get; set; }
+        public MovementCommand Crouch { get; set; }
+        public MovementCommand Fireball { get; set; }
 
         private List<Input> GetInput()
         {
@@ -63,22 +67,27 @@ namespace Mario
 
                     // Jump (W key)
                     case (int)Keys.W:
+                        Jump.Execute();
                         break;
 
                     // Jump (Up Arrow)
                     case (int)Keys.Up:
+                        Jump.Execute();
                         break;
 
                     // Crouch (S key)
                     case (int)Keys.S:
+                        Crouch.Execute();
                         break;
 
                     // Crouch (Down Arrow)
                     case (int)Keys.Down:
+                        Crouch.Execute();
                         break;
 
                     // Dash/throw Fireball
                     case (int)Keys.Space:
+                        Fireball.Execute();
                         break;
 
                     // Game Exit
@@ -88,10 +97,32 @@ namespace Mario
 
                     // Pause
                     case (int)Keys.P:
+                        //Pause.Execute();
                         break;
 
                     // Mute
                     case (int)Keys.M:
+                        //Mute.Execute();
+                        break;
+
+                    // Standard state
+                    case (int)Keys.Y:
+                        //StandardState.Execute();
+                        break;
+
+                    // Super state
+                    case (int)Keys.U:
+                        //SuperState.Execute();
+                        break;
+
+                    // Fire state
+                    case (int)Keys.I:
+                        //FireState.Execute();
+                        break;
+
+                    // Damage avatar
+                    case (int)Keys.O:
+                        //Damage.Execute();
                         break;
                 }
             }
