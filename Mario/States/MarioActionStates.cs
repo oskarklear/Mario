@@ -6,6 +6,7 @@ namespace Mario.States
 {
     class MarioActionStates
     {
+
         public abstract class MarioActionState
         {
             protected double yVelocity;
