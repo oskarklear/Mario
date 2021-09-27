@@ -7,53 +7,46 @@ namespace Mario.Movement
 {
     class MoveLeftCommand : MarioCommand
     {
-        private SuperMario mario;
-        public MoveLeftCommand(SuperMario M)
+        public MoveLeftCommand(SuperMario receiver) : base(receiver)
         {
-            mario = M;
         }
-        public void Execute()
+        public override void Execute()
         {
-            mario.moveLeft();
+            receiver.MoveLeftCommand();
         }
     }
 
     class MoveRightCommand : MarioCommand
     {
-        private SuperMario mario;
-        public MoveRightCommand(SuperMario M)
+        public MoveRightCommand(SuperMario receiver) : base(receiver)
         {
-            mario = M;
         }
-        public void Execute()
+        public override void Execute()
         {
-            mario.moveRight();
+            receiver.MoveRightCommand();
         }
     }
 
     class JumpCommand : MarioCommand
     {
-        private SuperMario mario;
-        public JumpCommand(SuperMario M)
+        public JumpCommand(SuperMario receiver) : base(receiver)
         {
-            mario = M;
         }
-        public void Execute()
+        public override void Execute()
         {
-            mario.jump();
+            receiver.JumpCommand();
         }
     }
 
     class CrouchCommand : MarioCommand
     {
         private SuperMario mario;
-        public CrouchCommand(SuperMario M)
+        public CrouchCommand(SuperMario receiver) : base(receiver)
         {
-            mario = M;
         }
-        public void Execute()
+        public override void Execute()
         {
-            mario.crouch();
+            receiver.CrouchCommand();
         }
     }
 }

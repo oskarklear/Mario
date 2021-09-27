@@ -12,8 +12,8 @@ namespace Mario
         public Game1 GameObj { get; set; }
         public ICommand MoveLeftCommand { get; set; }
         public ICommand MoveRightCommand { get; set; }
-        public ICommand Jump { get; set; }
-        public ICommand Crouch { get; set; }
+        public ICommand JumpCommand { get; set; }
+        public ICommand CrouchCommand { get; set; }
         //public MovementCommand Fireball { get; set; }
 
         private List<Input> GetInput()
@@ -67,27 +67,62 @@ namespace Mario
 
                     // Jump (W key)
                     case (int)Keys.W:
-                        Jump.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            JumpCommand.Execute();
+                        }
                         break;
 
                     // Jump (Up Arrow)
                     case (int)Keys.Up:
-                        Jump.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            JumpCommand.Execute();
+                        }
                         break;
 
                     // Crouch (S key)
                     case (int)Keys.S:
-                        Crouch.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            CrouchCommand.Execute();
+                        }
                         break;
 
                     // Crouch (Down Arrow)
                     case (int)Keys.Down:
-                        Crouch.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            CrouchCommand.Execute();
+                        }
                         break;
 
                     // Dash/throw Fireball
                     case (int)Keys.Space:
-                        //Fireball.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            // FireballCommand.Execute();
+                        }
                         break;
 
                     // Game Exit
@@ -97,6 +132,7 @@ namespace Mario
 
                     // Pause
                     case (int)Keys.P:
+                        GameObj.IsMenuVisible = !GameObj.IsMenuVisible;
                         //Pause.Execute();
                         break;
 

@@ -6,7 +6,7 @@ namespace Mario.Sprites.Blocks
 {
     public class BlockSprites
     {
-        public void bump()
+        public void BumpCommand()
         {
             Console.WriteLine("Bump");
         }

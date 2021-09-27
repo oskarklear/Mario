@@ -8,12 +8,14 @@ namespace Mario
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        public bool IsMenuVisible;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            IsMenuVisible = false;
         }
 
         protected override void Initialize()
