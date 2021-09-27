@@ -14,6 +14,7 @@ namespace Mario
         public ICommand MoveRightCommand { get; set; }
         public ICommand JumpCommand { get; set; }
         public ICommand CrouchCommand { get; set; }
+        public ICommand ExitCommand { get; set; }
         //public MovementCommand Fireball { get; set; }
 
         private List<Input> GetInput()
@@ -127,7 +128,7 @@ namespace Mario
 
                     // Game Exit
                     case (int)Keys.Q:
-                        GameObj.Exit();
+                        ExitCommand.Execute();
                         break;
 
                     // Pause

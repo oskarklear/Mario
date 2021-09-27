@@ -50,5 +50,9 @@ namespace Mario
 
             base.Draw(gameTime);
         }
+        public void ExitCommand()
+        {
+            Exit();
+        }
     }
 }

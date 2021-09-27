@@ -33,4 +33,17 @@ namespace Mario
 
         public abstract void Execute();
     }
+
+    public abstract class GameCommand : ICommand
+    {
+        protected Game1 receiver;
+
+        protected GameCommand(Game1 receiver)
+        {
+            this.receiver = receiver;
+        }
+        public abstract void Execute();
+    }
+
 }
+
