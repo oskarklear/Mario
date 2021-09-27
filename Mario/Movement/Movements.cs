@@ -5,42 +5,48 @@ using Mario.Sprites.Mario;
 
 namespace Mario.Movement
 {
-    class MoveLeftCommand : MovementCommand
+    class MoveLeftCommand : MarioCommand
     {
-        private SuperMario mario;
-        public MoveLeftCommand(SuperMario M)
+        public MoveLeftCommand(SuperMario receiver) : base(receiver)
         {
-            mario = M;
         }
-        public void Execute()
+        public override void Execute()
         {
-            mario.moveLeft();
+            receiver.MoveLeftCommand();
         }
     }
 
-    class MoveRightCommand : MovementCommand
+    class MoveRightCommand : MarioCommand
     {
-        private SuperMario mario;
-        public MoveRightCommand(SuperMario M)
+        public MoveRightCommand(SuperMario receiver) : base(receiver)
         {
-            mario = M;
         }
-        public void Execute()
+        public override void Execute()
         {
-            mario.moveRight();
+            receiver.MoveRightCommand();
         }
     }
 
-    class JumpCommand : MovementCommand
+    class JumpCommand : MarioCommand
+    {
+        public JumpCommand(SuperMario receiver) : base(receiver)
+        {
+        }
+        public override void Execute()
+        {
+            receiver.JumpCommand();
+        }
+    }
+
+    class CrouchCommand : MarioCommand
     {
         private SuperMario mario;
-        public JumpCommand(SuperMario M)
+        public CrouchCommand(SuperMario receiver) : base(receiver)
         {
-            mario = M;
         }
-        public void Execute()
+        public override void Execute()
         {
-            mario.jump();
+            receiver.CrouchCommand();
         }
     }
 }

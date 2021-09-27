@@ -10,10 +10,10 @@ namespace Mario
     {
         private KeyboardState previousKeyboardState;
         public Game1 GameObj { get; set; }
-        public MovementCommand MoveLeft { get; set; }
-        public MovementCommand MoveRight { get; set; }
-        public MovementCommand Jump { get; set; }
-        public MovementCommand Crouch { get; set; }
+        public ICommand MoveLeftCommand { get; set; }
+        public ICommand MoveRightCommand { get; set; }
+        public ICommand JumpCommand { get; set; }
+        public ICommand CrouchCommand { get; set; }
         //public MovementCommand Fireball { get; set; }
 
         private List<Input> GetInput()
@@ -47,47 +47,82 @@ namespace Mario
                 {
                     // Leftward Movement (A key)
                     case (int)Keys.A:
-                        MoveLeft.Execute();
+                        MoveLeftCommand.Execute();
                         break;
                     
                     // Leftward Movement (Left Arrow)
                     case (int)Keys.Left:
-                        MoveLeft.Execute();
+                        MoveLeftCommand.Execute();
                         break;
 
                     // Rightward Movement (D key)
                     case (int)Keys.D:
-                        MoveRight.Execute();
+                        MoveRightCommand.Execute();
                         break;
 
                     // Rightward Movement (Right Arrow)
                     case (int)Keys.Right:
-                        MoveRight.Execute();
+                        MoveRightCommand.Execute();
                         break;
 
                     // Jump (W key)
                     case (int)Keys.W:
-                        Jump.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            JumpCommand.Execute();
+                        }
                         break;
 
                     // Jump (Up Arrow)
                     case (int)Keys.Up:
-                        Jump.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            JumpCommand.Execute();
+                        }
                         break;
 
                     // Crouch (S key)
                     case (int)Keys.S:
-                        Crouch.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            CrouchCommand.Execute();
+                        }
                         break;
 
                     // Crouch (Down Arrow)
                     case (int)Keys.Down:
-                        Crouch.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            CrouchCommand.Execute();
+                        }
                         break;
 
                     // Dash/throw Fireball
                     case (int)Keys.Space:
-                        //Fireball.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            // FireballCommand.Execute();
+                        }
                         break;
 
                     // Game Exit
@@ -97,6 +132,7 @@ namespace Mario
 
                     // Pause
                     case (int)Keys.P:
+                        GameObj.IsMenuVisible = !GameObj.IsMenuVisible;
                         //Pause.Execute();
                         break;
 

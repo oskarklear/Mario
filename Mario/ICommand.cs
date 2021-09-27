@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.Sprites.Mario;
+using Mario.Sprites.Blocks;
 
 namespace Mario
 {
@@ -9,19 +11,26 @@ namespace Mario
         void Execute();
     }
 
-/*    public abstract class MoveLeft : ICommand
+    public abstract class MarioCommand : ICommand
     {
-        protected Game1 receiver;
+        protected SuperMario receiver;
 
-        protected MoveLeft(Game1 receiver)
+        protected MarioCommand(SuperMario receiver)
         {
             this.receiver = receiver;
         }
         public abstract void Execute();
     }
 
-    public abstract class MoveRight : ICommand
+    public abstract class BlockCommand : ICommand
     {
-        protected 
-    }*/
+        protected BlockSprites receiver;
+
+        protected BlockCommand(BlockSprites receiver)
+        {
+            this.receiver = receiver;
+        }
+
+        public abstract void Execute();
+    }
 }
