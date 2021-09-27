@@ -7,7 +7,7 @@ public class MarioContext
 	MarioPowerupState PowerupState;
 	public MarioContext()
 	{
-		ActionState = new IdleState();
+		ActionState = new IdleStateLeft();
 		PowerupState = new StandardMarioState();
 	}
 	public MarioActionState GetActionState()
@@ -18,7 +18,7 @@ public class MarioContext
     {
 		return PowerupState;
     }
-	public void SetActionState(MarioActionStates NewActionState)
+	public void SetActionState(MarioActionState NewActionState)
     {
 		ActionState = NewActionState;
     }
@@ -27,9 +27,21 @@ public class MarioContext
 		PowerupState = NewPowerUpState;
     }
 
-	public void Handle()
+	public void PressUp()
     {
-		ActionState.Handle();
+		ActionState.PressUp(this);
+    }
+	public void PressDown()
+    {
+		ActionState.PressDown(this);
+    }
+	public void PressRight()
+	{
+		ActionState.PressRight(this);
+	}
+	public void PressLeft()
+    {
+		ActionState.PressLeft(this);
     }
 	public void TakeDamage()
     {
