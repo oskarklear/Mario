@@ -6,8 +6,12 @@ namespace Mario.Sprites.Mario
 {
     public class SuperMario
     {
+
+
+
         public void moveLeft()
         {
+            //currentactionstate
             Console.WriteLine("Move Left");
         }
 
@@ -18,7 +22,13 @@ namespace Mario.Sprites.Mario
 
         public void jump()
         {
+            //CurrentActionState.Jump();
             Console.WriteLine("Jump");
+        }
+
+        public void crouch()
+        {
+            Console.WriteLine("Crouch");
         }
     }
 }

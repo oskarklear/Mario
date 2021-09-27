@@ -5,7 +5,7 @@ using Mario.Sprites.Mario;
 
 namespace Mario.Movement
 {
-    class MoveLeftCommand : MovementCommand
+    class MoveLeftCommand : MarioCommand
     {
         private SuperMario mario;
         public MoveLeftCommand(SuperMario M)
@@ -18,7 +18,7 @@ namespace Mario.Movement
         }
     }
 
-    class MoveRightCommand : MovementCommand
+    class MoveRightCommand : MarioCommand
     {
         private SuperMario mario;
         public MoveRightCommand(SuperMario M)
@@ -31,7 +31,7 @@ namespace Mario.Movement
         }
     }
 
-    class JumpCommand : MovementCommand
+    class JumpCommand : MarioCommand
     {
         private SuperMario mario;
         public JumpCommand(SuperMario M)
@@ -41,6 +41,19 @@ namespace Mario.Movement
         public void Execute()
         {
             mario.jump();
+        }
+    }
+
+    class CrouchCommand : MarioCommand
+    {
+        private SuperMario mario;
+        public CrouchCommand(SuperMario M)
+        {
+            mario = M;
+        }
+        public void Execute()
+        {
+            mario.crouch();
         }
     }
 }

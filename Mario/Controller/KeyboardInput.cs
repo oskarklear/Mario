@@ -10,10 +10,10 @@ namespace Mario
     {
         private KeyboardState previousKeyboardState;
         public Game1 GameObj { get; set; }
-        public MovementCommand MoveLeft { get; set; }
-        public MovementCommand MoveRight { get; set; }
-        public MovementCommand Jump { get; set; }
-        public MovementCommand Crouch { get; set; }
+        public ICommand MoveLeftCommand { get; set; }
+        public ICommand MoveRightCommand { get; set; }
+        public ICommand Jump { get; set; }
+        public ICommand Crouch { get; set; }
         //public MovementCommand Fireball { get; set; }
 
         private List<Input> GetInput()
@@ -47,22 +47,22 @@ namespace Mario
                 {
                     // Leftward Movement (A key)
                     case (int)Keys.A:
-                        MoveLeft.Execute();
+                        MoveLeftCommand.Execute();
                         break;
                     
                     // Leftward Movement (Left Arrow)
                     case (int)Keys.Left:
-                        MoveLeft.Execute();
+                        MoveLeftCommand.Execute();
                         break;
 
                     // Rightward Movement (D key)
                     case (int)Keys.D:
-                        MoveRight.Execute();
+                        MoveRightCommand.Execute();
                         break;
 
                     // Rightward Movement (Right Arrow)
                     case (int)Keys.Right:
-                        MoveRight.Execute();
+                        MoveRightCommand.Execute();
                         break;
 
                     // Jump (W key)
