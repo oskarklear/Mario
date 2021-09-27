@@ -17,12 +17,12 @@ public class BlockContext
     }
 	public void Bump(MarioContext Mario)
     {
-		state.Bump(this,Mario);
+		state.Bump(this, Mario);
     }
 }
 public abstract class BlockState
 {
-	public abstract void Bump(BlockContext context,MarioContext Mario);
+	public abstract void Bump(BlockContext context, MarioContext Mario);
 	protected void Movement()
     {
 		//TODO

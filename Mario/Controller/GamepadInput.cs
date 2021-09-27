@@ -11,10 +11,10 @@ namespace Mario
     {
         private GamePadState previousGamePadState;
         public Game1 GameObj { get; set; }
-        public MovementCommand MoveLeft { get; set; }
-        public MovementCommand MoveRight { get; set; }
-        public MovementCommand Jump { get; set; }
-        public MovementCommand Crouch { get; set; }
+        public ICommand MoveLeft { get; set; }
+        public ICommand MoveRight { get; set; }
+        public ICommand Jump { get; set; }
+        public ICommand Crouch { get; set; }
         //public MovementCommand Fireball { get; set; }
 
         private List<Input> GetInput()
