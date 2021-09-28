@@ -42,11 +42,7 @@ namespace Mario.Sprites.Mario
         }
         public void MoveLeftCommand()
         {
-            //MarioActionState context.GetActionState() = context.GetActionState();
-            //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
             context.GetActionState().PressLeft(context);
-            //context.GetActionState().PressLeft(context);
-            
             System.Diagnostics.Debug.WriteLine("Left");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
@@ -56,7 +52,6 @@ namespace Mario.Sprites.Mario
             //MarioActionState context.GetActionState() = context.GetActionState();
             //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
             context.GetActionState().PressRight(context);
-            //context.GetActionState().PressRight(context);
             
             System.Diagnostics.Debug.WriteLine("Right");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -291,15 +286,11 @@ namespace Mario.Sprites.Mario
 
                 Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                spriteBatch.Begin();
                 spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
-                spriteBatch.End();
             }
             else
             {
-                spriteBatch.Begin();
                 spriteBatch.Draw(texture, position, Color.White);
-                spriteBatch.End();
             }
 
             

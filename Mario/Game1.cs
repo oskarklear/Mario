@@ -52,8 +52,9 @@ namespace Mario
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin();
             mario.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
