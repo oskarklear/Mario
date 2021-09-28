@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Mario.Controller;
 using Mario.Movement;
+using Mario.Sprites.Mario;
 
 namespace Mario
 {
@@ -15,7 +16,12 @@ namespace Mario
         public ICommand JumpCommand { get; set; }
         public ICommand CrouchCommand { get; set; }
         //public MovementCommand Fireball { get; set; }
-
+        public KeyboardInput(SuperMario mario)
+        {
+            MoveLeftCommand = new MoveLeftCommand(mario);
+            MoveRightCommand = new MoveRightCommand(mario);
+            JumpCommand = new JumpCommand(mario);
+        }
         private List<Input> GetInput()
         {
             List<Input> inputs = new List<Input>();
