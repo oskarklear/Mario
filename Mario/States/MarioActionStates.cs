@@ -16,6 +16,7 @@ namespace Mario.States
         public abstract void PressRight(MarioContext context);
 
         public abstract void PressLeft(MarioContext context);
+        public override abstract string ToString();
     }
 
     public class IdleStateLeft : MarioActionState
@@ -46,6 +47,10 @@ namespace Mario.States
         public override void PressLeft(MarioContext context)
         {
             context.SetActionState(new RunningStateLeft());
+        }
+        public override string ToString()
+        {
+            return ("IdleStateLeft");
         }
     }
 
@@ -78,6 +83,10 @@ namespace Mario.States
         {
             context.SetActionState(new IdleStateLeft());
         }
+        public override string ToString()
+        {
+            return ("IdleStateRight");
+        }
     }
 
     public class CrouchingStateLeft : MarioActionState
@@ -105,6 +114,10 @@ namespace Mario.States
         {
             //Does nothing
         }
+        public override string ToString()
+        {
+            return ("CrouchingStateLeft");
+        }
     }
 
     public class CrouchingStateRight : MarioActionState
@@ -131,6 +144,10 @@ namespace Mario.States
         public override void PressLeft(MarioContext context)
         {
             //Does nothing
+        }
+        public override string ToString()
+        {
+            return ("CrouchingStateRight");
         }
     }
 
@@ -160,6 +177,10 @@ namespace Mario.States
         {
             //Does nothing
         }
+        public override string ToString()
+        {
+            return ("JumpingStateLeft");
+        }
     }
 
     public class JumpingStateRight : MarioActionState
@@ -187,7 +208,10 @@ namespace Mario.States
         {
             //Does nothing
         }
-
+        public override string ToString()
+        {
+            return ("JumpingStateRight");
+        }
     }
     public class FallingStateLeft : MarioActionState
     {
@@ -212,6 +236,10 @@ namespace Mario.States
         public override void PressLeft(MarioContext context)
         {
             //Does nothing
+        }
+        public override string ToString()
+        {
+            return ("FallingStateLeft");
         }
     }
 
@@ -239,6 +267,10 @@ namespace Mario.States
         {
             //Does nothing
         }
+        public override string ToString()
+        {
+            return ("FallingStateRight");
+        }
     }
 
     public class RunningStateLeft : MarioActionState
@@ -264,6 +296,10 @@ namespace Mario.States
         public override void PressLeft(MarioContext context)
         {
             //Does nothing
+        }
+        public override string ToString()
+        {
+            return ("RunningStateLeft");
         }
     }
 
@@ -291,6 +327,10 @@ namespace Mario.States
         public override void PressLeft(MarioContext context)
         {
             context.SetActionState(new IdleStateRight());
+        }
+        public override string ToString()
+        {
+            return ("RunningStateRight");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Mario.Sprites.Mario;
 using Mario.States;
 
 public class MarioContext
@@ -21,6 +22,7 @@ public class MarioContext
 	public void SetActionState(MarioActionState NewActionState)
     {
 		ActionState = NewActionState;
+		//if (GetActionState().ToString().Equals(""));
     }
 	public void SetPowerUpState(MarioPowerupState NewPowerUpState)
     {
