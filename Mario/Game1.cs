@@ -14,6 +14,7 @@ namespace Mario
         SuperMario mario;
         MarioContext context;
         IController kb;
+        IController gp;
 
         public Game1()
         {
@@ -37,13 +38,14 @@ namespace Mario
             mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL")) { animated = false };
             mario.LoadContent(this.Content);
             kb = new KeyboardInput(mario) { GameObj = this };
+            gp = new GamepadInput(mario) { GameObj = this };
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            gp.UpdateInput();
             kb.UpdateInput();
             mario.Update();
             base.Update(gameTime);
