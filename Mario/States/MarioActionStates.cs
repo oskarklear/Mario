@@ -6,8 +6,6 @@ namespace Mario.States
 {
     public abstract class MarioActionState
     {
-        protected double yVelocity;
-        protected double xVelocity;
 
         public abstract void PressUp(MarioContext context);
 
@@ -23,8 +21,6 @@ namespace Mario.States
     {
         public IdleStateLeft()
         {
-            this.yVelocity = 0;
-            this.xVelocity = 0;
         }
 
         public override void PressUp(MarioContext context)
@@ -58,8 +54,6 @@ namespace Mario.States
     {
         public IdleStateRight()
         {
-            this.yVelocity = 0;
-            this.xVelocity = 0;
         }
 
         public override void PressUp(MarioContext context)
@@ -93,8 +87,6 @@ namespace Mario.States
     {
         public CrouchingStateLeft()
         {
-            this.yVelocity = 0;
-            this.xVelocity = 0;
         }
 
         public override void PressUp(MarioContext context)
@@ -124,8 +116,6 @@ namespace Mario.States
     {
         public CrouchingStateRight()
         {
-            this.yVelocity = 0;
-            this.xVelocity = 0;
         }
 
         public override void PressUp(MarioContext context)
@@ -156,8 +146,6 @@ namespace Mario.States
         //??? Y velocity upwards? Acceleration? Physics? What is going on?
         public JumpingStateLeft()
         {
-            this.yVelocity = 5;
-            this.xVelocity = 0;
         }
 
         public override void PressUp(MarioContext context)
@@ -188,8 +176,6 @@ namespace Mario.States
         //??? Y velocity upwards? Acceleration? Physics? What is going on?
         public JumpingStateRight()
         {
-            this.yVelocity = 5;
-            this.xVelocity = 0;
         }
 
         public override void PressUp(MarioContext context)
@@ -217,8 +203,6 @@ namespace Mario.States
     {
         public FallingStateLeft()
         {
-            this.yVelocity = -5;
-            this.xVelocity = 0;
         }
 
         public override void PressUp(MarioContext context)
@@ -247,8 +231,6 @@ namespace Mario.States
     {
         public FallingStateRight()
         {
-            this.yVelocity = -5;
-            this.xVelocity = 0;
         }
 
         public override void PressUp(MarioContext context)
@@ -277,8 +259,6 @@ namespace Mario.States
     {
         public RunningStateLeft()
         {
-            this.yVelocity = 0;
-            this.xVelocity = 5;
         }
 
         public override void PressUp(MarioContext context)
@@ -307,8 +287,6 @@ namespace Mario.States
     {
         public RunningStateRight()
         {
-            this.yVelocity = 0;
-            this.xVelocity = 5;
         }
 
         public override void PressUp(MarioContext context)
