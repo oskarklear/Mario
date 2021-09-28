@@ -1,11 +1,11 @@
 ﻿using System;
+using Mario.Sprites.Mario;
 using Mario.States;
 
 public class MarioContext
 {
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
-
 	public MarioContext()
 	{
 		ActionState = new IdleStateLeft();
@@ -22,7 +22,7 @@ public class MarioContext
 	public void SetActionState(MarioActionState NewActionState)
     {
 		ActionState = NewActionState;
-		if (GetActionState())
+		//if (GetActionState().ToString().Equals(""));
     }
 	public void SetPowerUpState(MarioPowerupState NewPowerUpState)
     {

@@ -34,7 +34,7 @@ namespace Mario
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL"));
+            mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL")) { animated = false };
             mario.LoadContent(this.Content);
             kb = new KeyboardInput(mario) { GameObj = this };
         }
@@ -45,7 +45,7 @@ namespace Mario
                 Exit();
 
             kb.UpdateInput();
-
+            mario.animate();
             base.Update(gameTime);
         }
 
