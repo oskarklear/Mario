@@ -1,10 +1,12 @@
 ﻿using System;
 using Mario.States;
+using Mario.Sprites;
 
 public class MarioContext
 {
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
+	ISprite sprite;
 	public MarioContext()
 	{
 		ActionState = new IdleState();
