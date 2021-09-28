@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Mario.Controller;
 using Mario.Movement;
+using Mario.Sprites.Mario;
 
 namespace Mario
 {
@@ -15,12 +16,21 @@ namespace Mario
         private GamePadState previousGamePadState4;
        
         public Game1 GameObj { get; set; }
-        public ICommand MoveLeft { get; set; }
-        public ICommand MoveRight { get; set; }
-        public ICommand Jump { get; set; }
-        public ICommand Crouch { get; set; }
+        public ICommand MoveLeftCommand { get; set; }
+        public ICommand MoveRightCommand { get; set; }
+        public ICommand JumpCommand { get; set; }
+        public ICommand CrouchCommand { get; set; }
+        public ICommand ExitCommand { get; set; }
+        private MarioContext context;
         //public MovementCommand Fireball { get; set; }
-
+        public GamepadInput(SuperMario mario)
+        {
+            MoveLeftCommand = new MoveLeftCommand(mario);
+            MoveRightCommand = new MoveRightCommand(mario);
+            JumpCommand = new JumpCommand(mario);
+            CrouchCommand = new CrouchCommand(mario);
+            context = mario.context;
+        }
         private List<Input> GetInput()
         {
             List<Input> inputs = new List<Input>();
@@ -43,7 +53,6 @@ namespace Mario
             previousGamePadStates.Add(previousGamePadState2);
             previousGamePadStates.Add(previousGamePadState3);
             previousGamePadStates.Add(previousGamePadState4);
-
             for (int i = 0; i < currentGamePadStates.Count; i++)
             {
                 if (currentGamePadStates[i].IsConnected) // Process input only if connected.
@@ -80,22 +89,22 @@ namespace Mario
                 {
                     // Leftward Movement
                     case (int)Buttons.DPadLeft:
-                        MoveLeft.Execute();
+                        MoveLeftCommand.Execute();
                         break;
 
                     // Rightward Movement
                     case (int)Buttons.DPadRight:
-                        MoveRight.Execute();
+                        MoveRightCommand.Execute();
                         break;
 
                     // Jump
                     case (int)Buttons.A:
-                        Jump.Execute();
+                        JumpCommand.Execute();
                         break;
 
                     // Crouch
                     case (int)Buttons.DPadDown:
-                        Crouch.Execute();
+                        CrouchCommand.Execute();
                         break;
 
                     // Dash/throw Fireball
