@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -62,7 +62,8 @@ namespace Mario.Sprites
         {
             if (moveDistance < moveRange && moving)
             {
-                Location.X++;
+                Location.Y++;
+                moveDistance++;
             }
             else if (moveDistance == moveRange)
             {
@@ -70,7 +71,8 @@ namespace Mario.Sprites
             }
             else if (moveDistance > 0)
             {
-                Location.X--;
+                Location.Y--;
+                moveDistance--;
             }
             currentFrame++;
             if (currentFrame == totalFrames)
