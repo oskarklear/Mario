@@ -5,6 +5,7 @@ public class MarioContext
 {
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
+
 	public MarioContext()
 	{
 		ActionState = new IdleStateLeft();
@@ -21,7 +22,7 @@ public class MarioContext
 	public void SetActionState(MarioActionState NewActionState)
     {
 		ActionState = NewActionState;
-
+		if (GetActionState())
     }
 	public void SetPowerUpState(MarioPowerupState NewPowerUpState)
     {

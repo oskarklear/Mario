@@ -10,7 +10,7 @@ namespace Mario.Sprites.Mario
 {
     public class SuperMario
     {
-        MarioContext context;
+        public MarioContext context { get; set; }
         Texture2D texture;
         ContentManager Content;
         Vector2 position;
@@ -41,6 +41,10 @@ namespace Mario.Sprites.Mario
                 {
                     texture = sprites["smallIdleMarioL"];
                 }
+                else if (context.GetActionState().ToString().Equals("IdleStateRight"))
+                {
+                        texture = sprites["smallIdleMarioR"];
+                }
                 else if (context.GetActionState().ToString().Equals("RunningStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/smallRunningMarioL");
@@ -50,7 +54,7 @@ namespace Mario.Sprites.Mario
             {
                 if (context.GetActionState().ToString().Equals("mario/IdleStateLeft"))
                 {
-                    texture = Content.Load<Texture2D>("bigIdleMarioR");
+                    texture = Content.Load<Texture2D>("bigIdleMarioL");
                 }
                 else if (context.GetActionState().ToString().Equals("RunningStateLeft"))
                 {
@@ -84,6 +88,10 @@ namespace Mario.Sprites.Mario
                 if (context.GetActionState().ToString().Equals("IdleStateRight"))
                 {
                     texture = sprites["smallIdleMarioR"];
+                }
+                else if (context.GetActionState().ToString().Equals("IdleStateLeft"))
+                {
+                    texture = sprites["smallIdleMarioL"];
                 }
                 else if (context.GetActionState().ToString().Equals("RunningStateRight"))
                 {
@@ -155,7 +163,8 @@ namespace Mario.Sprites.Mario
                     texture = Content.Load<Texture2D>("mario/fireJumpingMarioR");
                 }
             }
-            Console.WriteLine("Jump");
+            System.Diagnostics.Debug.WriteLine("Up");
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         public void CrouchCommand()
@@ -197,7 +206,8 @@ namespace Mario.Sprites.Mario
                     texture = Content.Load<Texture2D>("mario/fireCrouchingMarioR");
                 }
             }
-            Console.WriteLine("Crouch");
+            System.Diagnostics.Debug.WriteLine("Down");
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         /*
