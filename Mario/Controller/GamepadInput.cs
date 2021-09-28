@@ -9,7 +9,11 @@ namespace Mario
 {
     class GamepadInput : IController
     {
-        private GamePadState previousGamePadState;
+        private GamePadState previousGamePadState1;
+        private GamePadState previousGamePadState2;
+        private GamePadState previousGamePadState3;
+        private GamePadState previousGamePadState4;
+       
         public Game1 GameObj { get; set; }
         public ICommand MoveLeft { get; set; }
         public ICommand MoveRight { get; set; }
@@ -20,34 +24,50 @@ namespace Mario
         private List<Input> GetInput()
         {
             List<Input> inputs = new List<Input>();
-
+            List<GamePadState> previousGamePadStates = new List<GamePadState>();
+            List<GamePadState> currentGamePadStates = new List<GamePadState>();
             GamePadState emptyInput = new GamePadState(); //(Vector2.Zero, Vector2.Zero, 0, 0);
 
             // Get the current GamePad state.
-            GamePadState currentGamePadState = GamePad.GetState(PlayerIndex.One);
+            GamePadState P1currentGamePadState = GamePad.GetState(PlayerIndex.One);
+            GamePadState P2currentGamePadState = GamePad.GetState(PlayerIndex.Two);
+            GamePadState P3currentGamePadState = GamePad.GetState(PlayerIndex.Three);
+            GamePadState P4currentGamePadState = GamePad.GetState(PlayerIndex.Four);
+            
+            currentGamePadStates.Add(P1currentGamePadState);
+            currentGamePadStates.Add(P2currentGamePadState);
+            currentGamePadStates.Add(P3currentGamePadState);
+            currentGamePadStates.Add(P4currentGamePadState);
 
-            // Process input only if connected.
-            if (currentGamePadState.IsConnected)
+            previousGamePadStates.Add(previousGamePadState1);
+            previousGamePadStates.Add(previousGamePadState2);
+            previousGamePadStates.Add(previousGamePadState3);
+            previousGamePadStates.Add(previousGamePadState4);
+
+            for (int i = 0; i < currentGamePadStates.Count; i++)
             {
-                if (currentGamePadState != emptyInput) // Button Pressed
+                if (currentGamePadStates[i].IsConnected) // Process input only if connected.
                 {
-                    var buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
-
-                    foreach (var button in buttonList)
+                    if (currentGamePadStates[i] != emptyInput) // Button Pressed
                     {
-                        if (currentGamePadState.IsButtonDown(button) &&
-                            !previousGamePadState.IsButtonDown(button))
+                        var buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+
+                        foreach (var button in buttonList)
                         {
-                            Input input = new Input();
-                            input.Controller = Input.ControllerType.Gamepad;
-                            input.Key = (int)button;
-                            inputs.Add(input);
+                            if (currentGamePadStates[i].IsButtonDown(button) && !previousGamePadStates[i].IsButtonDown(button))
+                            {
+                                Input input = new Input();
+                                input.Controller = Input.ControllerType.Gamepad;
+                                input.Key = (int)button;
+                                inputs.Add(input);
+                            }
                         }
                     }
                 }
+                previousGamePadStates[i] = currentGamePadStates[i];
             }
 
-            previousGamePadState = currentGamePadState;
+            
 
             return inputs;
         }
