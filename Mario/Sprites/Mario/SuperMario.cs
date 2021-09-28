@@ -34,13 +34,11 @@ namespace Mario.Sprites.Mario
             currentFrame = 0;
             totalFrames = 2;
             timeSinceLastFrame = 0;
-            millisecondsPerFrame = 11;
+            millisecondsPerFrame = 10;
         }
         public void LoadContent(ContentManager content)
         {
             Content = content;
-            sprites.Add("smallIdleMarioL", Content.Load<Texture2D>("mario/smallIdleMarioL"));
-            sprites.Add("smallIdleMarioR", Content.Load<Texture2D>("mario/smallIdleMarioR"));
         }
         public void MoveLeftCommand()
         {
@@ -48,50 +46,7 @@ namespace Mario.Sprites.Mario
             //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
             context.GetActionState().PressLeft(context);
             //context.GetActionState().PressLeft(context);
-            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
-            {
-                if (context.GetActionState().ToString().Equals("IdleStateLeft"))
-                {
-                    texture = sprites["smallIdleMarioL"];
-                    Columns = 1;
-                    animated = false;
-                }
-                else if (context.GetActionState().ToString().Equals("IdleStateRight"))
-                {
-                    texture = sprites["smallIdleMarioR"];
-                    Columns = 1;
-                    animated = false;
-                }
-                else if (context.GetActionState().ToString().Equals("RunningStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/smallRunningMarioL");
-                    Columns = 2;
-                    animated = true;
-                }
-            }
-            else if (context.GetPowerUpState().ToString().Equals("SuperMario"))
-            {
-                if (context.GetActionState().ToString().Equals("mario/IdleStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("bigIdleMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("RunningStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/bigRunningMarioL");
-                }
-            }
-            else if (context.GetPowerUpState().ToString().Equals("FireMario"))
-            {
-                if (context.GetActionState().ToString().Equals("IdleStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/fireIdleMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("RunningStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/fireRunningMarioL");
-                }
-            }
-
+            
             System.Diagnostics.Debug.WriteLine("Left");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
@@ -102,49 +57,7 @@ namespace Mario.Sprites.Mario
             //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
             context.GetActionState().PressRight(context);
             //context.GetActionState().PressRight(context);
-            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
-            {
-                if (context.GetActionState().ToString().Equals("IdleStateRight"))
-                {
-                    texture = sprites["smallIdleMarioR"];
-                    Columns = 1;
-                    animated = false;
-                }
-                else if (context.GetActionState().ToString().Equals("IdleStateLeft"))
-                {
-                    texture = sprites["smallIdleMarioL"];
-                    Columns = 1;
-                    animated = false;
-                }
-                else if (context.GetActionState().ToString().Equals("RunningStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/smallRunningMarioR");
-                    Columns = 2;
-                    animated = true;
-                }
-            }
-            else if (context.GetPowerUpState().ToString().Equals("SuperMario"))
-            {
-                if (context.GetActionState().ToString().Equals("IdleStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/bigIdleMarioR");
-                }
-                else if (context.GetActionState().ToString().Equals("RunningStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/bigRunningMarioR");
-                }
-            }
-            else if (context.GetPowerUpState().ToString().Equals("FireMario"))
-            {
-                if (context.GetActionState().ToString().Equals("IdleStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/fireIdleMarioR");
-                }
-                else if (context.GetActionState().ToString().Equals("RunningStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/fireRunningMarioR");
-                }
-            }
+            
             System.Diagnostics.Debug.WriteLine("Right");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
@@ -155,39 +68,7 @@ namespace Mario.Sprites.Mario
             //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
             context.GetActionState().PressUp(context);
             //context.GetActionState().PressUp(context);
-            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
-            {
-                if (context.GetActionState().ToString().Equals("JumpingStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/smallJumpingMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("JumpingStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/smallJumpingMarioR");
-                }
-            }
-            else if (context.GetPowerUpState().ToString().Equals("SuperMario"))
-            {
-                if (context.GetActionState().ToString().Equals("JumpingStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/bigJumpingMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("JumpingStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/bigJumpingMarioR");
-                }
-            }
-            else if (context.GetPowerUpState().ToString().Equals("FireMario"))
-            {
-                if (context.GetActionState().ToString().Equals("JumpingStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/fireJumpingMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("JumpingStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/fireJumpingMarioR");
-                }
-            }
+            
             System.Diagnostics.Debug.WriteLine("Up");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
@@ -198,63 +79,7 @@ namespace Mario.Sprites.Mario
             //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
             context.GetActionState().PressDown(context);
             //context.GetActionState().PressDown(context);
-            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
-            {
-                if (context.GetActionState().ToString().Equals("CrouchingStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/smallCrouchingMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("CrouchingStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/smallCrouchingMarioR");
-                }
-                else if (context.GetActionState().ToString().Equals("IdleStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/smallIdleMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("IdleStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/smallIdleMarioR");
-                }
-            }
-            else if (context.GetPowerUpState().ToString().Equals("SuperMario"))
-            {
-                if (context.GetActionState().ToString().Equals("CrouchingStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/bigCrouchingMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("CrouchingStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/bigCrouchingMarioR");
-                }
-                else if (context.GetActionState().ToString().Equals("IdleStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/bigIdleMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("IdleStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/bigIdleMarioR");
-                }
-            }
-            else if (context.GetPowerUpState().ToString().Equals("FireMario"))
-            {
-                if (context.GetActionState().ToString().Equals("CrouchingStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/fireCrouchingMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("CrouchingStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/fireCrouchingMarioR");
-                }
-                else if (context.GetActionState().ToString().Equals("IdleStateLeft"))
-                {
-                    texture = Content.Load<Texture2D>("mario/fireIdleMarioL");
-                }
-                else if (context.GetActionState().ToString().Equals("IdleStateRight"))
-                {
-                    texture = Content.Load<Texture2D>("mario/fireIdleMarioR");
-                }
-            }
+            
             System.Diagnostics.Debug.WriteLine("Down");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
@@ -266,8 +91,182 @@ namespace Mario.Sprites.Mario
         {
             this.texture = texture;
         }
-        public void animate()
+        public void Update()
         {
+            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
+            {
+                switch (context.GetActionState().ToString())
+                {
+                    case "IdleStateLeft":
+                        texture = Content.Load<Texture2D>("mario/smallIdleMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "IdleStateRight":
+                        texture = Content.Load<Texture2D>("mario/smallIdleMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "CrouchingStateLeft":
+                        texture = Content.Load<Texture2D>("mario/smallCrouchingMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "CrouchingStateRight":
+                        texture = Content.Load<Texture2D>("mario/smallCrouchingMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "JumpingStateLeft":
+                        texture = Content.Load<Texture2D>("mario/smallJumpingMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "JumpingStateRight":
+                        texture = Content.Load<Texture2D>("mario/smallJumpingMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "FallingStateLeft":
+                        texture = Content.Load<Texture2D>("mario/smallFallingMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "FallingStateRight":
+                        texture = Content.Load<Texture2D>("mario/smallFallingMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "RunningStateLeft":
+                        texture = Content.Load<Texture2D>("mario/smallRunningMarioL");
+                        Columns = 2;
+                        animated = true;
+                        break;
+                    case "RunningStateRight":
+                        texture = Content.Load<Texture2D>("mario/smallRunningMarioR");
+                        Columns = 2;
+                        animated = true;
+                        break;
+                }
+            }
+            if (context.GetPowerUpState().ToString().Equals("SuperMario"))
+            {
+                switch (context.GetActionState().ToString())
+                {
+                    case "IdleStateLeft":
+                        texture = Content.Load<Texture2D>("mario/bigIdleMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "IdleStateRight":
+                        texture = Content.Load<Texture2D>("mario/bigIdleMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "CrouchingStateLeft":
+                        texture = Content.Load<Texture2D>("mario/bigCrouchingMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "CrouchingStateRight":
+                        texture = Content.Load<Texture2D>("mario/bigCrouchingMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "JumpingStateLeft":
+                        texture = Content.Load<Texture2D>("mario/bigJumpingMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "JumpingStateRight":
+                        texture = Content.Load<Texture2D>("mario/bigJumpingMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "FallingStateLeft":
+                        texture = Content.Load<Texture2D>("mario/bigFallingMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "FallingStateRight":
+                        texture = Content.Load<Texture2D>("mario/bigFallingMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "RunningStateLeft":
+                        texture = Content.Load<Texture2D>("mario/bigRunningMarioL");
+                        Columns = 3;
+                        animated = true;
+                        break;
+                    case "RunningStateRight":
+                        texture = Content.Load<Texture2D>("mario/bigRunningMarioR");
+                        Columns = 3;
+                        animated = true;
+                        break;
+                }
+            }
+            if (context.GetPowerUpState().ToString().Equals("FireMario"))
+            {
+                switch (context.GetActionState().ToString())
+                {
+                    case "IdleStateLeft":
+                        texture = Content.Load<Texture2D>("mario/fireIdleMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "IdleStateRight":
+                        texture = Content.Load<Texture2D>("mario/fireIdleMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "CrouchingStateLeft":
+                        texture = Content.Load<Texture2D>("mario/fireCrouchingMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "CrouchingStateRight":
+                        texture = Content.Load<Texture2D>("mario/fireCrouchingMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "JumpingStateLeft":
+                        texture = Content.Load<Texture2D>("mario/fireJumpingMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "JumpingStateRight":
+                        texture = Content.Load<Texture2D>("mario/fireJumpingMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "FallingStateLeft":
+                        texture = Content.Load<Texture2D>("mario/fireFallingMarioL");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "FallingStateRight":
+                        texture = Content.Load<Texture2D>("mario/fireFallingMarioR");
+                        Columns = 1;
+                        animated = false;
+                        break;
+                    case "RunningStateLeft":
+                        texture = Content.Load<Texture2D>("mario/fireRunningMarioL");
+                        Columns = 3;
+                        animated = true;
+                        break;
+                    case "RunningStateRight":
+                        texture = Content.Load<Texture2D>("mario/fireRunningMarioR");
+                        Columns = 3;
+                        animated = true;
+                        break;
+                }
+            }
+            if (context.GetPowerUpState().ToString().Equals("DeadMario"))
+            {
+                texture = Content.Load<Texture2D>("mario/deadMario");
+                Columns = 2;
+                animated = true;
+            }
             if (animated)
             {
                 if (timeSinceLastFrame > millisecondsPerFrame)
@@ -283,17 +282,27 @@ namespace Mario.Sprites.Mario
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int width = texture.Width / Columns;
-            int height = texture.Height / Rows;
-            int row = currentFrame / Columns;
-            int column = currentFrame % Columns;
+            if (animated)
+            {
+                int width = texture.Width / Columns;
+                int height = texture.Height / Rows;
+                int row = currentFrame / Columns;
+                int column = currentFrame % Columns;
 
-            Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+                Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                spriteBatch.Begin();
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+                spriteBatch.End();
+            }
+            else
+            {
+                spriteBatch.Begin();
+                spriteBatch.Draw(texture, position, Color.White);
+                spriteBatch.End();
+            }
 
-            spriteBatch.Begin();
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
-            spriteBatch.End();
+            
         }
     }
 }

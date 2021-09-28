@@ -45,7 +45,7 @@ namespace Mario
                 Exit();
 
             kb.UpdateInput();
-            mario.animate();
+            mario.Update();
             base.Update(gameTime);
         }
 
