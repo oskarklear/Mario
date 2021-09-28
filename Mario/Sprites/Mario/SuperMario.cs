@@ -31,124 +31,126 @@ namespace Mario.Sprites.Mario
         }
         public void MoveLeftCommand()
         {
-            MarioActionState actionState = context.GetActionState();
-            MarioPowerupState powerupState = context.GetPowerUpState();
+            //MarioActionState context.GetActionState() = context.GetActionState();
+            //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
+            context.GetActionState().PressLeft(context);
             //context.GetActionState().PressLeft(context);
-            actionState.PressLeft(context);
-            if (powerupState.ToString().Equals("StandardMario"))
+            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
-                if (actionState.ToString().Equals("IdleStateLeft"))
+                if (context.GetActionState().ToString().Equals("IdleStateLeft"))
                 {
                     texture = sprites["smallIdleMarioL"];
                 }
-                else if (actionState.ToString().Equals("RunningStateLeft"))
+                else if (context.GetActionState().ToString().Equals("RunningStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/smallRunningMarioL");
                 }
             }
-            else if (powerupState.ToString().Equals("SuperMario"))
+            else if (context.GetPowerUpState().ToString().Equals("SuperMario"))
             {
-                if (actionState.ToString().Equals("mario/IdleStateLeft"))
+                if (context.GetActionState().ToString().Equals("mario/IdleStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("bigIdleMarioR");
                 }
-                else if (actionState.ToString().Equals("RunningStateLeft"))
+                else if (context.GetActionState().ToString().Equals("RunningStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/bigRunningMarioL");
                 }
             }
-            else if (powerupState.ToString().Equals("FireMario"))
+            else if (context.GetPowerUpState().ToString().Equals("FireMario"))
             {
-                if (actionState.ToString().Equals("IdleStateLeft"))
+                if (context.GetActionState().ToString().Equals("IdleStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/fireIdleMarioL");
                 }
-                else if (actionState.ToString().Equals("RunningStateLeft"))
+                else if (context.GetActionState().ToString().Equals("RunningStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/fireRunningMarioL");
                 }
             }
 
-            Console.WriteLine("Move Left");
+            System.Diagnostics.Debug.WriteLine("Left");
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         public void MoveRightCommand()
         {
-            MarioActionState actionState = context.GetActionState();
-            MarioPowerupState powerupState = context.GetPowerUpState();
-            //context.GetActionState().PressLeft(context);
-            actionState.PressRight(context);
-            if (powerupState.ToString().Equals("StandardMario"))
+            //MarioActionState context.GetActionState() = context.GetActionState();
+            //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
+            context.GetActionState().PressRight(context);
+            //context.GetActionState().PressRight(context);
+            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
-                if (actionState.ToString().Equals("IdleStateRight"))
+                if (context.GetActionState().ToString().Equals("IdleStateRight"))
                 {
                     texture = sprites["smallIdleMarioR"];
                 }
-                else if (actionState.ToString().Equals("RunningStateRight"))
+                else if (context.GetActionState().ToString().Equals("RunningStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/smallRunningMarioR");
                 }
             }
-            else if (powerupState.ToString().Equals("SuperMario"))
+            else if (context.GetPowerUpState().ToString().Equals("SuperMario"))
             {
-                if (actionState.ToString().Equals("IdleStateRight"))
+                if (context.GetActionState().ToString().Equals("IdleStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/bigIdleMarioR");
                 }
-                else if (actionState.ToString().Equals("RunningStateRight"))
+                else if (context.GetActionState().ToString().Equals("RunningStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/bigRunningMarioR");
                 }
             }
-            else if (powerupState.ToString().Equals("FireMario"))
+            else if (context.GetPowerUpState().ToString().Equals("FireMario"))
             {
-                if (actionState.ToString().Equals("IdleStateRight"))
+                if (context.GetActionState().ToString().Equals("IdleStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/fireIdleMarioR");
                 }
-                else if (actionState.ToString().Equals("RunningStateRight"))
+                else if (context.GetActionState().ToString().Equals("RunningStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/fireRunningMarioR");
                 }
             }
-            Console.WriteLine("Move Right");
+            System.Diagnostics.Debug.WriteLine("Right");
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         public void JumpCommand()
         {
-            MarioActionState actionState = context.GetActionState();
-            MarioPowerupState powerupState = context.GetPowerUpState();
-            //context.GetActionState().PressLeft(context);
-            actionState.PressUp(context);
-            if (powerupState.ToString().Equals("StandardMario"))
+            //MarioActionState context.GetActionState() = context.GetActionState();
+            //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
+            context.GetActionState().PressUp(context);
+            //context.GetActionState().PressUp(context);
+            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
-                if (actionState.ToString().Equals("JumpingStateLeft"))
+                if (context.GetActionState().ToString().Equals("JumpingStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/smallJumpingMarioL");
                 }
-                else if (actionState.ToString().Equals("JumpingStateRight"))
+                else if (context.GetActionState().ToString().Equals("JumpingStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/smallJumpingMarioR");
                 }
             }
-            else if (powerupState.ToString().Equals("SuperMario"))
+            else if (context.GetPowerUpState().ToString().Equals("SuperMario"))
             {
-                if (actionState.ToString().Equals("JumpingStateLeft"))
+                if (context.GetActionState().ToString().Equals("JumpingStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/bigJumpingMarioL");
                 }
-                else if (actionState.ToString().Equals("JumpingStateRight"))
+                else if (context.GetActionState().ToString().Equals("JumpingStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/bigJumpingMarioR");
                 }
             }
-            else if (powerupState.ToString().Equals("FireMario"))
+            else if (context.GetPowerUpState().ToString().Equals("FireMario"))
             {
-                if (actionState.ToString().Equals("JumpingStateLeft"))
+                if (context.GetActionState().ToString().Equals("JumpingStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/fireJumpingMarioL");
                 }
-                else if (actionState.ToString().Equals("JumpingStateRight"))
+                else if (context.GetActionState().ToString().Equals("JumpingStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/fireJumpingMarioR");
                 }
@@ -158,39 +160,39 @@ namespace Mario.Sprites.Mario
 
         public void CrouchCommand()
         {
-            MarioActionState actionState = context.GetActionState();
-            MarioPowerupState powerupState = context.GetPowerUpState();
-            //context.GetActionState().PressLeft(context);
-            actionState.PressDown(context);
-            if (powerupState.ToString().Equals("StandardMario"))
+            //MarioActionState context.GetActionState() = context.GetActionState();
+            //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
+            context.GetActionState().PressDown(context);
+            //context.GetActionState().PressDown(context);
+            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
-                if (actionState.ToString().Equals("CrouchingStateLeft"))
+                if (context.GetActionState().ToString().Equals("CrouchingStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/smallCrouchingMarioL");
                 }
-                else if (actionState.ToString().Equals("CrouchingStateRight"))
+                else if (context.GetActionState().ToString().Equals("CrouchingStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/smallCrouchingMarioR");
                 }
             }
-            else if (powerupState.ToString().Equals("SuperMario"))
+            else if (context.GetPowerUpState().ToString().Equals("SuperMario"))
             {
-                if (actionState.ToString().Equals("CrouchingStateLeft"))
+                if (context.GetActionState().ToString().Equals("CrouchingStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/bigCrouchingMarioL");
                 }
-                else if (actionState.ToString().Equals("CrouchingStateRight"))
+                else if (context.GetActionState().ToString().Equals("CrouchingStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/bigCrouchingMarioR");
                 }
             }
-            else if (powerupState.ToString().Equals("FireMario"))
+            else if (context.GetPowerUpState().ToString().Equals("FireMario"))
             {
-                if (actionState.ToString().Equals("CrouchingStateLeft"))
+                if (context.GetActionState().ToString().Equals("CrouchingStateLeft"))
                 {
                     texture = Content.Load<Texture2D>("mario/fireCrouchingMarioL");
                 }
-                else if (actionState.ToString().Equals("CrouchingStateRight"))
+                else if (context.GetActionState().ToString().Equals("CrouchingStateRight"))
                 {
                     texture = Content.Load<Texture2D>("mario/fireCrouchingMarioR");
                 }
