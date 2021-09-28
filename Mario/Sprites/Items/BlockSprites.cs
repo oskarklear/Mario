@@ -31,6 +31,7 @@ namespace Mario.Sprites
 
         protected Rectangle sourceRectangle;
         protected Rectangle destinationRectangle;
+        protected BlockContext Context;
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             
@@ -50,6 +51,11 @@ namespace Mario.Sprites
         {
             moveRange = range;
             moving = true;
+        }
+
+        public Vector2 GetLocation()
+        {
+            return Location;
         }
 
         public virtual void Update()
@@ -75,8 +81,8 @@ namespace Mario.Sprites
         }
     }
     public class BrickBlockSprite : BlockSprite
-    {               
-        public BrickBlockSprite(Game1 theatre, Vector2 location)
+    {
+        public BrickBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
             
             Texture = theatre.Content.Load<Texture2D>("Brick Block");
@@ -90,6 +96,7 @@ namespace Mario.Sprites
             totalFrames = 1;            
             width = Texture.Width;
             height = Texture.Height;
+            Context = context;
             
 
         }        
@@ -97,7 +104,7 @@ namespace Mario.Sprites
 
     public class QuestionBlockSprite : BlockSprite
     {
-        public QuestionBlockSprite(Game1 theatre, Vector2 location)
+        public QuestionBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
             Texture = theatre.Content.Load<Texture2D>("Item Block");
@@ -111,11 +118,12 @@ namespace Mario.Sprites
             totalFrames = 4;
             width = Texture.Width/4;
             height = Texture.Height;
+            Context = context;
         }
     }
     public class UsedBlockSprite : BlockSprite
     {
-        public UsedBlockSprite(Game1 theatre, Vector2 location)
+        public UsedBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
             Texture = theatre.Content.Load<Texture2D>("Used Item Block");
@@ -129,11 +137,12 @@ namespace Mario.Sprites
             totalFrames = 1;
             width = Texture.Width;
             height = Texture.Height;
+            Context = context;
         }
     }
     public class HiddenBlockSprite : BlockSprite
     {
-        public HiddenBlockSprite(Game1 theatre, Vector2 location)
+        public HiddenBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
             Texture = theatre.Content.Load<Texture2D>("Item Block");
@@ -147,6 +156,7 @@ namespace Mario.Sprites
             totalFrames = 1;
             width = Texture.Width;
             height = Texture.Height;
+            Context = context;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -156,10 +166,12 @@ namespace Mario.Sprites
 
     public class BrokenBlockSprite : BlockSprite
     {
-        public BrokenBlockSprite(Game1 theatre, Vector2 location)
+        Boolean rubbleActive;
+        Game1 Theatre;
+        public BrokenBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
-            Texture = theatre.Content.Load<Texture2D>("Item Block");
+            Texture = theatre.Content.Load<Texture2D>("Block Debris");
 
             Location = location;
             moveDistance = 0;
@@ -170,17 +182,42 @@ namespace Mario.Sprites
             totalFrames = 8;
             width = Texture.Width/8;
             height = Texture.Height;
+            rubbleActive = false;
+            Context = context;
+            Theatre = theatre;
+
         }
         public override void Update()
         {
-            currentFrame++;
-            if (currentFrame == totalFrames)
+            if (rubbleActive)
             {
-                currentFrame = 0;
+                currentFrame++;
+                if (currentFrame == totalFrames)
+                {
+                    currentFrame = 0;
 
+                }
+                Location.Y--;
+                if(Location.Y < Theatre.GraphicsDevice.PresentationParameters.BackBufferHeight)
+                {
+                    ToggleRubble();
+                }
             }
-            Location.Y--;
+            
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if(rubbleActive)
+            base.Draw(spriteBatch);
+        }
+        public void ToggleRubble()
+        {
+            rubbleActive = !rubbleActive;
+        }
+        
+        
 
         }
+        
     }
-}
+
