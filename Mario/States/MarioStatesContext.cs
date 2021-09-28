@@ -21,6 +21,7 @@ public class MarioContext
 	public void SetActionState(MarioActionState NewActionState)
     {
 		ActionState = NewActionState;
+
     }
 	public void SetPowerUpState(MarioPowerupState NewPowerUpState)
     {
