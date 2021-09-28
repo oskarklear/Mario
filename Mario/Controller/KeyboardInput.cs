@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Mario.Controller;
 using Mario.Movement;
+using Mario.Sprites.Mario;
+using Mario.States;
 
 namespace Mario
 {
@@ -15,8 +17,16 @@ namespace Mario
         public ICommand JumpCommand { get; set; }
         public ICommand CrouchCommand { get; set; }
         public ICommand ExitCommand { get; set; }
+        private MarioContext context;
         //public MovementCommand Fireball { get; set; }
-
+        public KeyboardInput(SuperMario mario)
+        {
+            MoveLeftCommand = new MoveLeftCommand(mario);
+            MoveRightCommand = new MoveRightCommand(mario);
+            JumpCommand = new JumpCommand(mario);
+            CrouchCommand = new CrouchCommand(mario);
+            context = mario.context;
+        }
         private List<Input> GetInput()
         {
             List<Input> inputs = new List<Input>();
@@ -144,22 +154,22 @@ namespace Mario
 
                     // Standard state
                     case (int)Keys.Y:
-                        //StandardState.Execute();
+                        context.SetPowerUpState(new StandardMarioState());
                         break;
 
                     // Super state
                     case (int)Keys.U:
-                        //SuperState.Execute();
+                        context.SetPowerUpState(new SuperMarioState());
                         break;
 
                     // Fire state
                     case (int)Keys.I:
-                        //FireState.Execute();
+                        context.SetPowerUpState(new FireMarioState());
                         break;
 
                     // Damage avatar
                     case (int)Keys.O:
-                        //Damage.Execute();
+                        context.TakeDamage();
                         break;
                 }
             }
