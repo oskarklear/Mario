@@ -20,7 +20,7 @@ namespace Mario.Sprites.Items
         public Star()
         {
             timeSinceLastFrame = 0;
-            millisecondsPerFrame = 15;
+            millisecondsPerFrame = 3;
             currentFrame = 0;
             Columns = 3;
             position = new Vector2(200, 200);

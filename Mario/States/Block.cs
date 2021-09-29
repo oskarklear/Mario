@@ -124,9 +124,6 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
-
-			
-			
 			context.SetState(new UsedBlockState());
 			this.Movement(sprite);
 

@@ -43,18 +43,15 @@ namespace Mario
             IsMouseVisible = true;
             IsMenuVisible = false;
             context = new MarioContext();
-            QuestionBlockLocation = new Vector2(20, 20);
-            HiddenBlockLocation = new Vector2(80, 20);
-            BrickBlockLocation = new Vector2(140, 20);
+            QuestionBlockLocation = new Vector2(100, 250);
+            HiddenBlockLocation = new Vector2(150, 250);
+            BrickBlockLocation = new Vector2(200, 250);
         }
 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            //Vector2 BlockLocation = new Vector2(20, 20);
-            //block = new BlockContext(this,BlockLocation);
-            //System.Diagnostics.Debug.WriteLine(block.ToString());
         }
 
         protected override void LoadContent()
@@ -122,7 +119,8 @@ namespace Mario
             redMushroom.Draw(spriteBatch);
             greenMushroom.Draw(spriteBatch);
             questionBlock.Draw(spriteBatch);
-            //block.Draw(spriteBatch);
+            hiddenBlock.Draw(spriteBatch);
+            brickblock.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
