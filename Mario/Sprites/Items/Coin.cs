@@ -19,7 +19,7 @@ namespace Mario.Sprites.Items
         public Coin()
         {
             timeSinceLastFrame = 0;
-            millisecondsPerFrame = 15;
+            millisecondsPerFrame = 5;
             currentFrame = 0;
             Columns = 4;
             position = new Vector2(150, 200);
