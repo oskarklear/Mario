@@ -18,11 +18,16 @@ namespace Mario
         public ICommand CrouchCommand { get; set; }
         public ICommand ExitCommand { get; set; }
         public ICommand QuestionBumpCommand { get; set; }
+        public ICommand HiddenBumpCommand { get; set; }
+        public ICommand BrickBumpCommand { get; set; }
+
 
         private MarioContext context;
         private BlockContext questionBlockContext;
+        private BlockContext hiddenBlockContext;
+        private BlockContext brickBlockContext;
         //public MovementCommand Fireball { get; set; }
-        public KeyboardInput(SuperMario mario, BlockContext questionBlock)
+        public KeyboardInput(SuperMario mario, BlockContext questionBlock,BlockContext hiddenBlock,BlockContext brickBlock)
         {
             MoveLeftCommand = new MoveLeftCommand(mario);
             MoveRightCommand = new MoveRightCommand(mario);
@@ -30,8 +35,12 @@ namespace Mario
             CrouchCommand = new CrouchCommand(mario);
             context = mario.context;
             questionBlockContext = questionBlock;
+            hiddenBlockContext = hiddenBlock;
+            brickBlockContext = brickBlock;
             System.Diagnostics.Debug.WriteLine(questionBlockContext.ToString());
             QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
+            HiddenBumpCommand = new BumpCommand(hiddenBlockContext, context);
+            BrickBumpCommand = new BumpCommand(brickBlockContext, context);
         }
         private List<Input> GetInput()
         {
@@ -142,8 +151,16 @@ namespace Mario
                         }
                         break;
 
-                    case (int)Keys.H:                      
+                    case (int)Keys.OemQuestion:                      
                         QuestionBumpCommand.Execute();
+                        break;
+
+                    case (int)Keys.H:
+                        HiddenBumpCommand.Execute();
+                        break;
+
+                    case (int)Keys.B:
+                        BrickBumpCommand.Execute();
                         break;
 
                     // Game Exit

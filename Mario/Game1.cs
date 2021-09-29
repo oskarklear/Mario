@@ -15,8 +15,12 @@ namespace Mario
         MarioContext context;
         IController kb;
         IController gp;
-        BlockContext block;
-        Vector2 BlockLocation;
+        BlockContext questionBlock;
+        BlockContext hiddenBlock;
+        BlockContext brickBlock;
+        Vector2 QuestionBlockLocation;
+        Vector2 HiddenBlockLocation;
+        Vector2 BrickBlockLocation;
 
         public Game1()
         {
@@ -25,7 +29,9 @@ namespace Mario
             IsMouseVisible = true;
             IsMenuVisible = false;
             context = new MarioContext();
-            BlockLocation = new Vector2(20, 20);
+            QuestionBlockLocation = new Vector2(20, 20);
+            HiddenBlockLocation = new Vector2(80, 20);
+            BrickBlockLocation = new Vector2(140, 20);
         }
 
         protected override void Initialize()
@@ -42,8 +48,13 @@ namespace Mario
             spriteBatch = new SpriteBatch(GraphicsDevice);
             mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL")) { animated = false };
             mario.LoadContent(this.Content);
-            block = new BlockContext(this, BlockLocation);
-            kb = new KeyboardInput(mario, block) { GameObj = this };
+            questionBlock = new BlockContext(this, QuestionBlockLocation);
+            questionBlock.SetState(new QuestionBlockState());
+            hiddenBlock = new BlockContext(this, HiddenBlockLocation);
+            hiddenBlock.SetState(new HiddenBlockState());
+            brickBlock = new BlockContext(this, BrickBlockLocation);
+            brickBlock.SetState(new BrickBlockState());
+            kb = new KeyboardInput(mario, questionBlock,hiddenBlock,brickBlock) { GameObj = this };
             gp = new GamepadInput(mario) { GameObj = this };
         }
 
@@ -55,7 +66,9 @@ namespace Mario
             kb.UpdateInput();
             mario.Update();
             base.Update(gameTime);
-            block.Update();
+            questionBlock.Update();
+            hiddenBlock.Update();
+            brickBlock.Update();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -63,7 +76,9 @@ namespace Mario
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             mario.Draw(spriteBatch);
-            block.Draw(spriteBatch);
+            questionBlock.Draw(spriteBatch);
+            hiddenBlock.Draw(spriteBatch);
+            brickBlock.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

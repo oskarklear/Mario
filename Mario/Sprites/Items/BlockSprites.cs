@@ -26,7 +26,7 @@ namespace Mario.Sprites
         protected Vector2 Location;
         protected int moveDistance;
         protected int moveRange;
-        protected bool moving;
+        public bool moving;
         protected int currentFrame;
         protected int totalFrames;
 
@@ -65,7 +65,7 @@ namespace Mario.Sprites
         {
             if (moveDistance < moveRange && moving)
             {
-                Location.Y--;
+                Location.Y-=3;
                 moveDistance++;
             }
             else if (moveDistance == moveRange&&moving==true)
@@ -74,8 +74,9 @@ namespace Mario.Sprites
             }
             else if (moveDistance > 0)
             {
-                Location.Y++;
+                Location.Y+=3;
                 moveDistance--;
+                
             }
             if (timeSinceLastFrame > millisecondsPerFrame)
             {

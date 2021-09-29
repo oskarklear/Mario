@@ -9,6 +9,7 @@ namespace Mario.States
 	public class BlockContext : ISprite
 	{
 		BlockState state;
+		BlockState oldState;
 		BlockSprite sprite;
 		Vector2 Location;
 		Game1 Theatre;
@@ -22,21 +23,23 @@ namespace Mario.States
 		{
 			Theatre = theatre;
 			state = new BrickBlockState();
+			oldState = state;
 			Location = location;
 			sprite = new BrickBlockSprite(Theatre, Location, this);
 			Vector2 rubbleLocation1 = sprite.GetLocation();
-			rubbleLocation1.X -= 8;
+			rubbleLocation1.X -= 10;
 			Vector2 rubbleLocation2 = sprite.GetLocation();
-			rubbleLocation2.X -= 4;
+			rubbleLocation2.X -= 5;
 			Vector2 rubbleLocation3 = sprite.GetLocation();
-			rubbleLocation3.X += 4;
+			rubbleLocation3.X += 5;
 			Vector2 rubbleLocation4 = sprite.GetLocation();
-			rubbleLocation4.X += 8;
+			rubbleLocation4.X += 10;
 			rubble1 = new BrokenBlockSprite(Theatre, rubbleLocation1, this);
 			rubble2 = new BrokenBlockSprite(Theatre, rubbleLocation2, this);
 			rubble3 = new BrokenBlockSprite(Theatre, rubbleLocation3, this);
 			rubble4 = new BrokenBlockSprite(Theatre, rubbleLocation4, this);
 			rubbleActive = false;
+			
 			
 
 		}
@@ -47,6 +50,7 @@ namespace Mario.States
 
 		public void SetState(BlockState NewState)
 		{
+			oldState = state;
 			state = NewState;
 			switch (state.ToString())
 			{
@@ -120,8 +124,11 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
-			this.Movement(sprite);
+
+			
+			
 			context.SetState(new UsedBlockState());
+			this.Movement(sprite);
 
 		}
 		public override string ToString()
