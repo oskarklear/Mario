@@ -75,6 +75,7 @@ namespace Mario
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+
             mario.Draw(spriteBatch);
             questionBlock.Draw(spriteBatch);
             hiddenBlock.Draw(spriteBatch);
