@@ -1,4 +1,7 @@
-﻿using Mario.Sprites.Mario;
+﻿using Mario.Sprites;
+using Mario.Sprites.Items;
+using Mario.Sprites.Items.Items;
+using Mario.Sprites.Mario;
 using Mario.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +15,11 @@ namespace Mario
         private SpriteBatch spriteBatch;
         public bool IsMenuVisible;
         SuperMario mario;
+        FireFlower fireFlower;
+        Coin coin;
+        Star star;
+        RedMushroom redMushroom;
+        GreenMushroom greenMushroom;
         MarioContext context;
         IController kb;
         IController gp;
@@ -25,6 +33,9 @@ namespace Mario
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 800;  
+            graphics.PreferredBackBufferHeight = 600;   
+            graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
@@ -56,6 +67,16 @@ namespace Mario
             brickBlock.SetState(new BrickBlockState());
             kb = new KeyboardInput(mario, questionBlock,hiddenBlock,brickBlock) { GameObj = this };
             gp = new GamepadInput(mario) { GameObj = this };
+            fireFlower = new FireFlower();
+            coin = new Coin();
+            star = new Star();
+            redMushroom = new RedMushroom();
+            greenMushroom = new GreenMushroom();
+            fireFlower.LoadContent(this.Content);
+            coin.LoadContent(this.Content);
+            star.LoadContent(this.Content);
+            redMushroom.LoadContent(this.Content);
+            greenMushroom.LoadContent(this.Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -65,6 +86,11 @@ namespace Mario
             gp.UpdateInput();
             kb.UpdateInput();
             mario.Update();
+            fireFlower.Update();
+            coin.Update();
+            star.Update();
+            redMushroom.Update();
+            greenMushroom.Update();
             base.Update(gameTime);
             questionBlock.Update();
             hiddenBlock.Update();
@@ -74,8 +100,17 @@ namespace Mario
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
             spriteBatch.Begin();
+            spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -350), Color.White);
             mario.Draw(spriteBatch);
+            block.Draw(spriteBatch);
+            fireFlower.Draw(spriteBatch);
+            coin.Draw(spriteBatch);
+            star.Draw(spriteBatch);
+            redMushroom.Draw(spriteBatch);
+            greenMushroom.Draw(spriteBatch);
+            questionBlock.Draw(spriteBatch);
             block.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);

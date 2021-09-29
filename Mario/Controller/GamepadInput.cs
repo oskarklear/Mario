@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Mario.Controller;
 using Mario.Movement;
 using Mario.Sprites.Mario;
+using Mario.Sprites;
 
 namespace Mario
 {
