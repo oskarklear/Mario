@@ -111,7 +111,8 @@ namespace Mario
             redMushroom.Draw(spriteBatch);
             greenMushroom.Draw(spriteBatch);
             questionBlock.Draw(spriteBatch);
-            block.Draw(spriteBatch);
+            hiddenBlock.Draw(spriteBatch);
+            brickBlock.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
