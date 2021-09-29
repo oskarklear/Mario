@@ -14,7 +14,6 @@ namespace Mario
         private GamePadState previousGamePadState2;
         private GamePadState previousGamePadState3;
         private GamePadState previousGamePadState4;
-       
         public Game1 GameObj { get; set; }
         public ICommand MoveLeftCommand { get; set; }
         public ICommand MoveRightCommand { get; set; }
@@ -34,8 +33,7 @@ namespace Mario
         private List<Input> GetInput()
         {
             List<Input> inputs = new List<Input>();
-            List<GamePadState> previousGamePadStates = new List<GamePadState>();
-            List<GamePadState> currentGamePadStates = new List<GamePadState>();
+            
             GamePadState emptyInput = new GamePadState(); //(Vector2.Zero, Vector2.Zero, 0, 0);
 
             // Get the current GamePad state.
@@ -43,40 +41,86 @@ namespace Mario
             GamePadState P2currentGamePadState = GamePad.GetState(PlayerIndex.Two);
             GamePadState P3currentGamePadState = GamePad.GetState(PlayerIndex.Three);
             GamePadState P4currentGamePadState = GamePad.GetState(PlayerIndex.Four);
-            
-            currentGamePadStates.Add(P1currentGamePadState);
-            currentGamePadStates.Add(P2currentGamePadState);
-            currentGamePadStates.Add(P3currentGamePadState);
-            currentGamePadStates.Add(P4currentGamePadState);
 
-            previousGamePadStates.Add(previousGamePadState1);
-            previousGamePadStates.Add(previousGamePadState2);
-            previousGamePadStates.Add(previousGamePadState3);
-            previousGamePadStates.Add(previousGamePadState4);
-            for (int i = 0; i < currentGamePadStates.Count; i++)
+            if (P1currentGamePadState.IsConnected) // Process input only if connected.
             {
-                if (currentGamePadStates[i].IsConnected) // Process input only if connected.
+                if (P1currentGamePadState != emptyInput) // Button Pressed
                 {
-                    if (currentGamePadStates[i] != emptyInput) // Button Pressed
-                    {
-                        var buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+                    var buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
 
-                        foreach (var button in buttonList)
+                    foreach (var button in buttonList)
+                    {
+                        if (P1currentGamePadState.IsButtonDown(button) && !previousGamePadState1.IsButtonDown(button))
                         {
-                            if (currentGamePadStates[i].IsButtonDown(button) && !previousGamePadStates[i].IsButtonDown(button))
-                            {
-                                Input input = new Input();
-                                input.Controller = Input.ControllerType.Gamepad;
-                                input.Key = (int)button;
-                                inputs.Add(input);
-                            }
+                            Input input = new Input();
+                            input.Controller = Input.ControllerType.Gamepad;
+                            input.Key = (int)button;
+                            inputs.Add(input);
                         }
                     }
                 }
-                previousGamePadStates[i] = currentGamePadStates[i];
             }
+            previousGamePadState1 = P1currentGamePadState;
 
-            
+            if (P2currentGamePadState.IsConnected) // Process input only if connected.
+            {
+                if (P2currentGamePadState != emptyInput) // Button Pressed
+                {
+                    var buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+
+                    foreach (var button in buttonList)
+                    {
+                        if (P2currentGamePadState.IsButtonDown(button) && !previousGamePadState2.IsButtonDown(button))
+                        {
+                            Input input = new Input();
+                            input.Controller = Input.ControllerType.Gamepad;
+                            input.Key = (int)button;
+                            inputs.Add(input);
+                        }
+                    }
+                }
+            }
+            previousGamePadState2 = P2currentGamePadState;
+
+            if (P3currentGamePadState.IsConnected) // Process input only if connected.
+            {
+                if (P3currentGamePadState != emptyInput) // Button Pressed
+                {
+                    var buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+
+                    foreach (var button in buttonList)
+                    {
+                        if (P3currentGamePadState.IsButtonDown(button) && !previousGamePadState3.IsButtonDown(button))
+                        {
+                            Input input = new Input();
+                            input.Controller = Input.ControllerType.Gamepad;
+                            input.Key = (int)button;
+                            inputs.Add(input);
+                        }
+                    }
+                }
+            }
+            previousGamePadState3 = P3currentGamePadState;
+
+            if (P4currentGamePadState.IsConnected) // Process input only if connected.
+            {
+                if (P4currentGamePadState != emptyInput) // Button Pressed
+                {
+                    var buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+
+                    foreach (var button in buttonList)
+                    {
+                        if (P4currentGamePadState.IsButtonDown(button) && !previousGamePadState4.IsButtonDown(button))
+                        {
+                            Input input = new Input();
+                            input.Controller = Input.ControllerType.Gamepad;
+                            input.Key = (int)button;
+                            inputs.Add(input);
+                        }
+                    }
+                }
+            }
+            previousGamePadState4 = P4currentGamePadState;
 
             return inputs;
         }
