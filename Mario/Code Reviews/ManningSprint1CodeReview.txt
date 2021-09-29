@@ -1,0 +1,35 @@
+﻿Reviewer: Matthew Manning
+
+Date: 9/28/2021
+
+Sprint 1
+
+File: SuperMario.cs
+
+File Author: Oskar Klear
+
+Comments:
+
+"public MarioContext context { get; set; }"
+	- context should be capitalized because it is a property.
+
+"public bool animated { get; set; }"
+	- animated should be capitalized because it is a property.
+
+"ContentManager Content;"
+	- Content should not be capitalized because it is a standard variable.
+
+"Dictionary<string, Texture2D> sprites;"
+	- sprites is not used so it should be deleted.
+
+- The switches in the Update() method look very clean, much better than using excessive if-else statements. Code only loads textures
+  as they are needed rather than all at once upon game startup, which is good.
+
+- The use of a common method for all animated sprites in the Draw method is clean. This will rely on all sprite sheets for animated 
+  sprites being consistent in their spaces.
+
+Minutes taken: 20 minutes
+
+Hypothetically there may be a way to cut down on the three switches used to load the Mario textures. A lot of the case have in common
+the number of columns needed for animation and the animated boolean, which makes it theoretically possible to support said change, but
+it would still be difficult because of how we use GetActionState as strings as our means of choosing which textures to load.

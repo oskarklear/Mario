@@ -23,7 +23,7 @@ namespace Mario
         MarioContext context;
         IController kb;
         IController gp;
-        BlockContext block;
+        BlockContext questionBlock;
 
         public Game1()
         {
@@ -43,7 +43,7 @@ namespace Mario
             // TODO: Add your initialization logic here
             base.Initialize();
             Vector2 BlockLocation = new Vector2(20, 20);
-            block = new BlockContext(this,BlockLocation);
+            questionBlock = new BlockContext(this,BlockLocation);
         }
 
         protected override void LoadContent()
@@ -51,7 +51,7 @@ namespace Mario
             spriteBatch = new SpriteBatch(GraphicsDevice);
             mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL")) { animated = false };
             mario.LoadContent(this.Content);
-            kb = new KeyboardInput(mario) { GameObj = this };
+            kb = new KeyboardInput(mario, questionBlock) { GameObj = this };
             gp = new GamepadInput(mario) { GameObj = this };
             fireFlower = new FireFlower();
             coin = new Coin();
@@ -78,7 +78,7 @@ namespace Mario
             redMushroom.Update();
             greenMushroom.Update();
             base.Update(gameTime);
-            block.Update();
+            questionBlock.Update();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -94,6 +94,8 @@ namespace Mario
             star.Draw(spriteBatch);
             redMushroom.Draw(spriteBatch);
             greenMushroom.Draw(spriteBatch);
+            questionBlock.Draw(spriteBatch);
+            block.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
