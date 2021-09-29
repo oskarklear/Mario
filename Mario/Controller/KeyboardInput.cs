@@ -17,15 +17,21 @@ namespace Mario
         public ICommand JumpCommand { get; set; }
         public ICommand CrouchCommand { get; set; }
         public ICommand ExitCommand { get; set; }
+        public ICommand QuestionBumpCommand { get; set; }
+
         private MarioContext context;
+        private BlockContext questionBlockContext;
         //public MovementCommand Fireball { get; set; }
-        public KeyboardInput(SuperMario mario)
+        public KeyboardInput(SuperMario mario, BlockContext questionBlock)
         {
             MoveLeftCommand = new MoveLeftCommand(mario);
             MoveRightCommand = new MoveRightCommand(mario);
             JumpCommand = new JumpCommand(mario);
             CrouchCommand = new CrouchCommand(mario);
             context = mario.context;
+            questionBlockContext = questionBlock;
+            System.Diagnostics.Debug.WriteLine(questionBlockContext.ToString());
+            QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
         }
         private List<Input> GetInput()
         {
@@ -134,6 +140,10 @@ namespace Mario
                         {
                             // FireballCommand.Execute();
                         }
+                        break;
+
+                    case (int)Keys.H:                      
+                        QuestionBumpCommand.Execute();
                         break;
 
                     // Game Exit

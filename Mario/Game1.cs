@@ -16,6 +16,7 @@ namespace Mario
         IController kb;
         IController gp;
         BlockContext block;
+        Vector2 BlockLocation;
 
         public Game1()
         {
@@ -24,15 +25,16 @@ namespace Mario
             IsMouseVisible = true;
             IsMenuVisible = false;
             context = new MarioContext();
-            
+            BlockLocation = new Vector2(20, 20);
         }
 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            Vector2 BlockLocation = new Vector2(20, 20);
-            block = new BlockContext(this,BlockLocation);
+            //Vector2 BlockLocation = new Vector2(20, 20);
+            //block = new BlockContext(this,BlockLocation);
+            //System.Diagnostics.Debug.WriteLine(block.ToString());
         }
 
         protected override void LoadContent()
@@ -40,7 +42,8 @@ namespace Mario
             spriteBatch = new SpriteBatch(GraphicsDevice);
             mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL")) { animated = false };
             mario.LoadContent(this.Content);
-            kb = new KeyboardInput(mario) { GameObj = this };
+            block = new BlockContext(this, BlockLocation);
+            kb = new KeyboardInput(mario, block) { GameObj = this };
             gp = new GamepadInput(mario) { GameObj = this };
         }
 

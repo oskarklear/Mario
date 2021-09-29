@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Mario.Sprites.Mario;
-using Mario.Sprites.Blocks;
+using Mario.States;
 
 namespace Mario
 {
@@ -24,9 +24,9 @@ namespace Mario
 
     public abstract class BlockCommand : ICommand
     {
-        protected BlockSprites receiver;
+        protected BlockContext receiver;
 
-        protected BlockCommand(BlockSprites receiver)
+        protected BlockCommand(BlockContext receiver)
         {
             this.receiver = receiver;
         }
