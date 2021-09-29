@@ -75,7 +75,9 @@ namespace Mario.States
 
 		public void Update()
 		{
-			sprite.Update();
+            if(rubbleActive){
+				sprite.Update();
+			}
 			rubble1.Update();
 			rubble2.Update();
 			rubble3.Update();
@@ -84,7 +86,10 @@ namespace Mario.States
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			sprite.Draw(spriteBatch);
+			if (rubbleActive)
+			{
+				sprite.Draw(spriteBatch);
+			}
 			rubble1.Draw(spriteBatch);
 			rubble2.Draw(spriteBatch);
 			rubble3.Draw(spriteBatch);
@@ -93,6 +98,7 @@ namespace Mario.States
 		}
 		public void ToggleRubble()
 		{
+			rubbleActive = true;
 			rubble1.ToggleRubble();
 			rubble2.ToggleRubble();
 			rubble3.ToggleRubble();
@@ -138,6 +144,7 @@ namespace Mario.States
 		void Destroy(BlockContext context)
 		{
 			context.ToggleRubble();
+			
 		}
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
