@@ -138,7 +138,10 @@ namespace Mario
                         }
                         break;
 
-
+                    case (int)Keys.H:
+                        QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
+                        QuestionBumpCommand.Execute();
+                        break;
 
                     // Game Exit
                     case (int)Keys.Q:
