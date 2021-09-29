@@ -71,12 +71,12 @@ namespace Mario.States
 		public void Bump(MarioContext Mario)
 		{
 			state.Bump(this, Mario, sprite);
-			System.Diagnostics.Debug.WriteLine("Up");
+			System.Diagnostics.Debug.WriteLine("Bump");
 		}
 
 		public void Update()
 		{
-            if(rubbleActive){
+            if(!rubbleActive){
 				sprite.Update();
 			}
 			rubble1.Update();
