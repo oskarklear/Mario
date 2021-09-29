@@ -75,7 +75,7 @@ namespace Mario.States
 
 		public void Update()
 		{
-            if(rubbleActive){
+            if(!rubbleActive){
 				sprite.Update();
 			}
 			rubble1.Update();
