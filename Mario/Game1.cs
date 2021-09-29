@@ -76,9 +76,7 @@ namespace Mario
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             mario.Draw(spriteBatch);
-            questionBlock.Draw(spriteBatch);
-            hiddenBlock.Draw(spriteBatch);
-            brickBlock.Draw(spriteBatch);
+            block.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
