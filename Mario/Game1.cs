@@ -19,6 +19,7 @@ namespace Mario
         FireFlower fireFlower;
         Coin coin;
         Star star;
+        FloorBlock floorBlock;
         Koopa koopa;
         Goomba goomba;
         RedMushroom redMushroom;
@@ -71,6 +72,7 @@ namespace Mario
             fireFlower = new FireFlower();
             goomba = new Goomba();
             koopa = new Koopa();
+            floorBlock = new FloorBlock();
             coin = new Coin();
             star = new Star();
             pipe = new Pipe();
@@ -84,6 +86,7 @@ namespace Mario
             goomba.LoadContent(this.Content);
             koopa.LoadContent(this.Content);
             pipe.LoadContent(this.Content);
+            floorBlock.LoadContent(this.Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -102,6 +105,7 @@ namespace Mario
             brickBlock.Update();
             goomba.Update();
             koopa.Update();
+            floorBlock.Update();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -123,6 +127,7 @@ namespace Mario
             hiddenBlock.Draw(spriteBatch);
             brickBlock.Draw(spriteBatch);
             pipe.Draw(spriteBatch);
+            floorBlock.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

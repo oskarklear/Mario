@@ -661,7 +661,7 @@
 /processorParam:TextureFormat=Color
 /build:obstacles/Brick Block.png
 
-#begin obstacles/Ground Block.png
+#begin obstacles/GroundBlock.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -671,7 +671,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:obstacles/Ground Block.png
+/build:obstacles/GroundBlock.png
 
 #begin obstacles/Item Block.png
 /importer:TextureImporter
