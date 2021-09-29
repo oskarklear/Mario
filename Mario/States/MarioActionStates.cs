@@ -143,7 +143,6 @@ namespace Mario.States
 
     public class JumpingStateLeft : MarioActionState
     {
-        //??? Y velocity upwards? Acceleration? Physics? What is going on?
         public JumpingStateLeft()
         {
         }
@@ -173,7 +172,6 @@ namespace Mario.States
 
     public class JumpingStateRight : MarioActionState
     {
-        //??? Y velocity upwards? Acceleration? Physics? What is going on?
         public JumpingStateRight()
         {
         }
