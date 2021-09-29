@@ -1,0 +1,10 @@
+Oskar Klear
+9/28/2021
+Sprint 1
+Block.cs
+Bennett Palmer
+- Naming conventions differ from what is used across the entire project
+- Does not have functionality for changing block texture in the air - it changes upon being bumped immediately. Should be reworked to fix.
+- Bump within UsedBlockState is irrelevant and takes up space.
+20 Minutes
+- I also would rework the code to change the texture in the air rather than upon being hit. The current implementation would not easily support this change.
