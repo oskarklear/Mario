@@ -86,7 +86,7 @@ namespace Mario.States
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			if (rubbleActive)
+			if (!rubbleActive)
 			{
 				sprite.Draw(spriteBatch);
 			}
