@@ -5,6 +5,7 @@ using Mario.Controller;
 using Mario.Movement;
 using Mario.Sprites.Mario;
 using Mario.States;
+using Mario.Sprites;
 
 namespace Mario
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Mario.Sprites.Mario;
 using Mario.Sprites.Blocks;
+using Mario.Sprites;
 
 namespace Mario
 {
@@ -24,9 +25,9 @@ namespace Mario
 
     public abstract class BlockCommand : ICommand
     {
-        protected BlockSprites receiver;
+        protected SuperMario receiver;
 
-        protected BlockCommand(BlockSprites receiver)
+        protected BlockCommand(SuperMario receiver)
         {
             this.receiver = receiver;
         }

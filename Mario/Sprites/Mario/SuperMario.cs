@@ -8,14 +8,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Mario.Sprites.Mario
 {
-    public class SuperMario
+    public class SuperMario :ISprite
     {
         public MarioContext context { get; set; }
         public bool animated { get; set; }
         public int Rows { get; set; }
         public int Columns { get; set; }
         private int currentFrame;
-        private int totalFrames;
         private int timeSinceLastFrame;
         private int millisecondsPerFrame;
         Texture2D texture;
@@ -27,14 +26,13 @@ namespace Mario.Sprites.Mario
         {
             this.context = context;
             this.texture = texture;
-            position = new Vector2(100, 100);
+            position = new Vector2(400, 300);
             sprites = new Dictionary<string, Texture2D>();
             Rows = 1;
             Columns = 1;
             currentFrame = 0;
-            totalFrames = 2;
             timeSinceLastFrame = 0;
-            millisecondsPerFrame = 10;
+            millisecondsPerFrame = 6;
         }
         public void LoadContent(ContentManager content)
         {
@@ -49,8 +47,6 @@ namespace Mario.Sprites.Mario
 
         public void MoveRightCommand()
         {
-            //MarioActionState context.GetActionState() = context.GetActionState();
-            //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
             context.GetActionState().PressRight(context);
             
             System.Diagnostics.Debug.WriteLine("Right");
@@ -59,19 +55,13 @@ namespace Mario.Sprites.Mario
 
         public void JumpCommand()
         {
-            //MarioActionState context.GetActionState() = context.GetActionState();
-            //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
             context.GetActionState().PressUp(context);
-            //context.GetActionState().PressUp(context);
-            
             System.Diagnostics.Debug.WriteLine("Up");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         public void CrouchCommand()
         {
-            //MarioActionState context.GetActionState() = context.GetActionState();
-            //MarioPowerupState context.GetPowerUpState() = context.GetPowerUpState();
             context.GetActionState().PressDown(context);
             //context.GetActionState().PressDown(context);
             
@@ -79,13 +69,6 @@ namespace Mario.Sprites.Mario
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
-        /*
-         * Possibly irrelevant
-         */
-        public void UpdateTexture(Texture2D texture)
-        {
-            this.texture = texture;
-        }
         public void Update()
         {
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
@@ -269,7 +252,7 @@ namespace Mario.Sprites.Mario
                     currentFrame++;
                     timeSinceLastFrame = 0;
                 }
-                if (currentFrame == totalFrames)
+                if (currentFrame == Columns)
                     currentFrame = 0;
                 timeSinceLastFrame++;
             }
