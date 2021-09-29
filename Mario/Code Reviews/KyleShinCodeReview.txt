@@ -1,0 +1,13 @@
+﻿Author: Kyle Shin
+Date: 9/28/21
+Sprint 1
+File being reviewed: KeyboardInput.cs
+File author: Dan Jones
+Code quality:
+- Instantiated lots of command objects for blocks
+- Missing a few comments
+- Clean/Precise design. Not messy.
+
+Time spent: 15 minutes
+
+Hypothetical change: Better documentation for what each key does. Should be fairly easy to add a more detailed comment for each key. 

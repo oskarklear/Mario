@@ -7,7 +7,6 @@ public class MarioContext
 {
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
-	ISprite sprite;
 	public MarioContext()
 	{
 		ActionState = new IdleStateLeft();

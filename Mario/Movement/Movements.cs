@@ -40,7 +40,6 @@ namespace Mario.Movement
 
     class CrouchCommand : MarioCommand
     {
-        private SuperMario mario;
         public CrouchCommand(SuperMario receiver) : base(receiver)
         {
         }

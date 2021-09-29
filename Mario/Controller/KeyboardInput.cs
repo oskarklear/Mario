@@ -38,7 +38,6 @@ namespace Mario
             questionBlockContext = questionBlock;
             hiddenBlockContext = hiddenBlock;
             brickBlockContext = brickBlock;
-            System.Diagnostics.Debug.WriteLine(questionBlockContext.ToString());
             QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
             HiddenBumpCommand = new BumpCommand(hiddenBlockContext, context);
             BrickBumpCommand = new BumpCommand(brickBlockContext, context);
@@ -96,7 +95,7 @@ namespace Mario
                     case (int)Keys.W:
                         if (GameObj.IsMenuVisible)
                         {
-                            // TODO
+                            // Do nothing
                         }
                         else
                         {
@@ -108,7 +107,7 @@ namespace Mario
                     case (int)Keys.Up:
                         if (GameObj.IsMenuVisible)
                         {
-                            // TODO
+                            // Do nothing
                         }
                         else
                         {
@@ -120,7 +119,7 @@ namespace Mario
                     case (int)Keys.S:
                         if (GameObj.IsMenuVisible)
                         {
-                            // TODO
+                            // Do nothing
                         }
                         else
                         {
@@ -132,7 +131,7 @@ namespace Mario
                     case (int)Keys.Down:
                         if (GameObj.IsMenuVisible)
                         {
-                            // TODO
+                            // Do nothing
                         }
                         else
                         {
@@ -144,7 +143,7 @@ namespace Mario
                     case (int)Keys.Space:
                         if (GameObj.IsMenuVisible)
                         {
-                            // TODO
+                            // Do nothing
                         }
                         else
                         {
