@@ -18,10 +18,11 @@ namespace Mario.States
 		BrokenBlockSprite rubble4;
 		Boolean rubbleActive;
 
-		public BlockContext(Game1 theatre)
+		public BlockContext(Game1 theatre,Vector2 location)
 		{
 			Theatre = theatre;
 			state = new BrickBlockState();
+			Location = location;
 			sprite = new BrickBlockSprite(Theatre, Location, this);
 			Vector2 rubbleLocation1 = sprite.GetLocation();
 			rubbleLocation1.X -= 8;
@@ -36,6 +37,8 @@ namespace Mario.States
 			rubble3 = new BrokenBlockSprite(Theatre, rubbleLocation3, this);
 			rubble4 = new BrokenBlockSprite(Theatre, rubbleLocation4, this);
 			rubbleActive = false;
+			
+
 		}
 		public Game1 GetGame()
 		{

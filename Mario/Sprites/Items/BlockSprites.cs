@@ -88,7 +88,7 @@ namespace Mario.Sprites
         public BrickBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
             
-            Texture = theatre.Content.Load<Texture2D>("Brick Block");
+            Texture = theatre.Content.Load<Texture2D>("obstacles/Brick Block");
             
             Location = location;
             moveDistance = 0;
@@ -110,7 +110,7 @@ namespace Mario.Sprites
         public QuestionBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
-            Texture = theatre.Content.Load<Texture2D>("Item Block");
+            Texture = theatre.Content.Load<Texture2D>("obstacles/Item Block");
 
             Location = location;
             moveDistance = 0;
@@ -129,7 +129,7 @@ namespace Mario.Sprites
         public UsedBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
-            Texture = theatre.Content.Load<Texture2D>("Used Item Block");
+            Texture = theatre.Content.Load<Texture2D>("obstacles/Used Item Block");
 
             Location = location;
             moveDistance = 0;
@@ -148,7 +148,7 @@ namespace Mario.Sprites
         public HiddenBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
-            Texture = theatre.Content.Load<Texture2D>("Item Block");
+            Texture = theatre.Content.Load<Texture2D>("obstacles/Item Block");
 
             Location = location;
             moveDistance = 0;
@@ -174,7 +174,7 @@ namespace Mario.Sprites
         public BrokenBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
-            Texture = theatre.Content.Load<Texture2D>("Block Debris");
+            Texture = theatre.Content.Load<Texture2D>("obstacles/Block Debris");
 
             Location = location;
             moveDistance = 0;
