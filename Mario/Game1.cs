@@ -1,6 +1,7 @@
 ﻿using Mario.Sprites;
 using Mario.Sprites.Items;
 using Mario.Sprites.Items.Items;
+using Mario.Sprites.Enemies;
 using Mario.Sprites.Mario;
 using Mario.States;
 using Microsoft.Xna.Framework;
@@ -18,6 +19,8 @@ namespace Mario
         FireFlower fireFlower;
         Coin coin;
         Star star;
+        Koopa koopa;
+        Goomba goomba;
         RedMushroom redMushroom;
         GreenMushroom greenMushroom;
         MarioContext context;
@@ -68,6 +71,8 @@ namespace Mario
             kb = new KeyboardInput(mario, questionBlock,hiddenBlock,brickBlock) { GameObj = this };
             gp = new GamepadInput(mario) { GameObj = this };
             fireFlower = new FireFlower();
+            goomba = new Goomba();
+            koopa = new Koopa();
             coin = new Coin();
             star = new Star();
             redMushroom = new RedMushroom();
@@ -77,6 +82,8 @@ namespace Mario
             star.LoadContent(this.Content);
             redMushroom.LoadContent(this.Content);
             greenMushroom.LoadContent(this.Content);
+            goomba.LoadContent(this.Content);
+            koopa.LoadContent(this.Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -95,6 +102,8 @@ namespace Mario
             questionBlock.Update();
             hiddenBlock.Update();
             brickBlock.Update();
+            goomba.Update();
+            koopa.Update();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -108,10 +117,12 @@ namespace Mario
             fireFlower.Draw(spriteBatch);
             coin.Draw(spriteBatch);
             star.Draw(spriteBatch);
+            goomba.Draw(spriteBatch);
+            koopa.Draw(spriteBatch);
             redMushroom.Draw(spriteBatch);
             greenMushroom.Draw(spriteBatch);
             questionBlock.Draw(spriteBatch);
-            block.Draw(spriteBatch);
+            //block.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
