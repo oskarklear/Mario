@@ -138,7 +138,8 @@ namespace Mario
 
                     // Game Exit
                     case (int)Keys.Q:
-                        ExitCommand.Execute();
+                        //ExitCommand.Execute();
+                        GameObj.Exit();
                         break;
 
                     // Pause
