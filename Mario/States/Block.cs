@@ -104,6 +104,7 @@ namespace Mario.States
 			rubble2.ToggleRubble();
 			rubble3.ToggleRubble();
 			rubble4.ToggleRubble();
+			System.Diagnostics.Debug.WriteLine("rubble");
 
 		}
 	}

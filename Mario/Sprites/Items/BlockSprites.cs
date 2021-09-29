@@ -65,16 +65,16 @@ namespace Mario.Sprites
         {
             if (moveDistance < moveRange && moving)
             {
-                Location.Y++;
+                Location.Y--;
                 moveDistance++;
             }
-            else if (moveDistance == moveRange)
+            else if (moveDistance == moveRange&&moving==true)
             {
                 moving = false;
             }
             else if (moveDistance > 0)
             {
-                Location.Y--;
+                Location.Y++;
                 moveDistance--;
             }
             if (timeSinceLastFrame > millisecondsPerFrame)
@@ -214,9 +214,10 @@ namespace Mario.Sprites
                     currentFrame = 0;
 
                 }
-                Location.Y--;
-                if(Location.Y < Theatre.GraphicsDevice.PresentationParameters.BackBufferHeight)
+                Location.Y++;
+                if(Location.Y > Theatre.GraphicsDevice.PresentationParameters.BackBufferHeight)
                 {
+                    System.Diagnostics.Debug.WriteLine("rubble deactivated");
                     ToggleRubble();
                 }
             }
@@ -224,12 +225,18 @@ namespace Mario.Sprites
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if(rubbleActive)
-            base.Draw(spriteBatch);
+            
+            if (rubbleActive)
+            {
+                System.Diagnostics.Debug.WriteLine("rubble draw");
+                base.Draw(spriteBatch);
+            }
         }
         public void ToggleRubble()
         {
+            
             rubbleActive = !rubbleActive;
+            
         }
         
         
