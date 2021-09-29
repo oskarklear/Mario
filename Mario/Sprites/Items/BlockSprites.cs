@@ -33,6 +33,8 @@ namespace Mario.Sprites
         protected Rectangle sourceRectangle;
         protected Rectangle destinationRectangle;
         protected BlockContext Context;
+        protected int timeSinceLastFrame;
+        protected int millisecondsPerFrame;
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             
@@ -75,12 +77,14 @@ namespace Mario.Sprites
                 Location.Y--;
                 moveDistance--;
             }
-            currentFrame++;
-            if (currentFrame == totalFrames)
+            if (timeSinceLastFrame > millisecondsPerFrame)
             {
-                currentFrame = 0;
-
+                currentFrame++;
+                timeSinceLastFrame = 0;
             }
+            if (currentFrame == totalFrames)
+                currentFrame = 0;
+            timeSinceLastFrame++;
         }
     }
     public class BrickBlockSprite : BlockSprite
@@ -100,7 +104,9 @@ namespace Mario.Sprites
             width = Texture.Width;
             height = Texture.Height;
             Context = context;
-            
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
+
 
         }        
     }
@@ -122,6 +128,8 @@ namespace Mario.Sprites
             width = Texture.Width/4;
             height = Texture.Height;
             Context = context;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
         }
     }
     public class UsedBlockSprite : BlockSprite
@@ -141,6 +149,8 @@ namespace Mario.Sprites
             width = Texture.Width;
             height = Texture.Height;
             Context = context;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
         }
     }
     public class HiddenBlockSprite : BlockSprite
@@ -160,6 +170,8 @@ namespace Mario.Sprites
             width = Texture.Width;
             height = Texture.Height;
             Context = context;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -188,6 +200,8 @@ namespace Mario.Sprites
             rubbleActive = false;
             Context = context;
             Theatre = theatre;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
 
         }
         public override void Update()
