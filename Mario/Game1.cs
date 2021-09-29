@@ -104,7 +104,7 @@ namespace Mario
             spriteBatch.Begin();
             spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -350), Color.White);
             mario.Draw(spriteBatch);
-            block.Draw(spriteBatch);
+            
             fireFlower.Draw(spriteBatch);
             coin.Draw(spriteBatch);
             star.Draw(spriteBatch);
