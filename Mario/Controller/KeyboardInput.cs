@@ -17,6 +17,8 @@ namespace Mario
         public ICommand JumpCommand { get; set; }
         public ICommand CrouchCommand { get; set; }
         public ICommand ExitCommand { get; set; }
+        public ICommand QuestionBumpCommand { get; set; }
+
         private MarioContext context;
         //public MovementCommand Fireball { get; set; }
         public KeyboardInput(SuperMario mario)
