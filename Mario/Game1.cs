@@ -61,6 +61,7 @@ namespace Mario
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+
             mario.Draw(spriteBatch);
             block.Draw(spriteBatch);
             spriteBatch.End();
