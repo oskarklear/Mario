@@ -21,6 +21,7 @@ namespace Mario
         RedMushroom redMushroom;
         GreenMushroom greenMushroom;
         MarioContext context;
+        Pipe pipe;
         IController kb;
         IController gp;
         BlockContext questionBlock;
@@ -67,6 +68,7 @@ namespace Mario
             fireFlower = new FireFlower();
             coin = new Coin();
             star = new Star();
+            pipe = new Pipe();
             redMushroom = new RedMushroom();
             greenMushroom = new GreenMushroom();
             fireFlower.LoadContent(this.Content);
@@ -74,6 +76,7 @@ namespace Mario
             star.LoadContent(this.Content);
             redMushroom.LoadContent(this.Content);
             greenMushroom.LoadContent(this.Content);
+            pipe.LoadContent(this.Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -86,8 +89,6 @@ namespace Mario
             fireFlower.Update();
             coin.Update();
             star.Update();
-            redMushroom.Update();
-            greenMushroom.Update();
             base.Update(gameTime);
             questionBlock.Update();
             hiddenBlock.Update();
@@ -110,6 +111,7 @@ namespace Mario
             questionBlock.Draw(spriteBatch);
             hiddenBlock.Draw(spriteBatch);
             brickBlock.Draw(spriteBatch);
+            pipe.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
