@@ -1,0 +1,9 @@
+Author of Code Review:Bennett Palmer
+Date of Code Review: 9/28/2021
+Sprint number:1
+.cs file being reviewed:MarioActionStates.cs
+Author of file:Kyle
+Specific comments about code Quality:Code was well organized and easy to understand, has some unhelpful comments in it, but overall well
+done.
+time spent on code review:15 minutes
+Hypothetical Change: making some states have more behavior associated with them, can be easily done by adding functions to all the classes.

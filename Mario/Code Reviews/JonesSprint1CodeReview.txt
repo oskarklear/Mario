@@ -1,0 +1,23 @@
+Dan Jones -- Code review
+
+Author of Code:  
+Date: 9/28/2021
+Sprint: 1
+File name: GamepadInput.cs
+Author: Oskar Klear
+
+Quality: 
+
+I think this code is pretty great as it does 
+what it needs to do. One thing I noticed was the
+four chonky if blocks of repeated code. 
+
+
+Possible change: 
+
+Perhaps a list of the gamepad states and just iterate
+over all the gamepad states in a for loop, rather than 
+having four nearly identical blocks of code.
+
+
+Mins taken: ~20 minutes

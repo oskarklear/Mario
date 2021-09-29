@@ -5,10 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mario.Sprites.Items
+namespace Mario.Sprites.Enemies
 {
-    
-    class Star : ISprite
+    class Koopa : ISprite
     {
         int timeSinceLastFrame;
         int millisecondsPerFrame;
@@ -17,13 +16,13 @@ namespace Mario.Sprites.Items
         ContentManager Content;
         Texture2D texture;
         Vector2 position;
-        public Star()
+        public Koopa()
         {
             timeSinceLastFrame = 0;
-            millisecondsPerFrame = 3;
+            millisecondsPerFrame = 15;
             currentFrame = 0;
-            Columns = 3;
-            position = new Vector2(200, 200);
+            Columns = 2;
+            position = new Vector2(200, 150);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -51,7 +50,7 @@ namespace Mario.Sprites.Items
         public void LoadContent(ContentManager content)
         {
             Content = content;
-            texture = Content.Load<Texture2D>("items/stars");
+            texture = Content.Load<Texture2D>("enemies/koopa/koopa_green_leftWalking");
         }
     }
 }
