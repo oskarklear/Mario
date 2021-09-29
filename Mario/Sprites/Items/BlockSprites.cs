@@ -33,6 +33,8 @@ namespace Mario.Sprites
         protected Rectangle sourceRectangle;
         protected Rectangle destinationRectangle;
         protected BlockContext Context;
+        protected int timeSinceLastFrame;
+        protected int millisecondsPerFrame;
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             
@@ -75,12 +77,14 @@ namespace Mario.Sprites
                 Location.Y--;
                 moveDistance--;
             }
-            currentFrame++;
-            if (currentFrame == totalFrames)
+            if (timeSinceLastFrame > millisecondsPerFrame)
             {
-                currentFrame = 0;
-
+                currentFrame++;
+                timeSinceLastFrame = 0;
             }
+            if (currentFrame == totalFrames)
+                currentFrame = 0;
+            timeSinceLastFrame++;
         }
     }
     public class BrickBlockSprite : BlockSprite
@@ -88,7 +92,7 @@ namespace Mario.Sprites
         public BrickBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
             
-            Texture = theatre.Content.Load<Texture2D>("Brick Block");
+            Texture = theatre.Content.Load<Texture2D>("obstacles/Brick Block");
             
             Location = location;
             moveDistance = 0;
@@ -100,7 +104,9 @@ namespace Mario.Sprites
             width = Texture.Width;
             height = Texture.Height;
             Context = context;
-            
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
+
 
         }        
     }
@@ -110,7 +116,7 @@ namespace Mario.Sprites
         public QuestionBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
-            Texture = theatre.Content.Load<Texture2D>("Item Block");
+            Texture = theatre.Content.Load<Texture2D>("obstacles/Item Block");
 
             Location = location;
             moveDistance = 0;
@@ -122,6 +128,8 @@ namespace Mario.Sprites
             width = Texture.Width/4;
             height = Texture.Height;
             Context = context;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
         }
     }
     public class UsedBlockSprite : BlockSprite
@@ -129,7 +137,7 @@ namespace Mario.Sprites
         public UsedBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
-            Texture = theatre.Content.Load<Texture2D>("Used Item Block");
+            Texture = theatre.Content.Load<Texture2D>("obstacles/Used Item Block");
 
             Location = location;
             moveDistance = 0;
@@ -141,6 +149,8 @@ namespace Mario.Sprites
             width = Texture.Width;
             height = Texture.Height;
             Context = context;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
         }
     }
     public class HiddenBlockSprite : BlockSprite
@@ -148,7 +158,7 @@ namespace Mario.Sprites
         public HiddenBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
-            Texture = theatre.Content.Load<Texture2D>("Item Block");
+            Texture = theatre.Content.Load<Texture2D>("obstacles/Item Block");
 
             Location = location;
             moveDistance = 0;
@@ -160,6 +170,8 @@ namespace Mario.Sprites
             width = Texture.Width;
             height = Texture.Height;
             Context = context;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -174,7 +186,7 @@ namespace Mario.Sprites
         public BrokenBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
-            Texture = theatre.Content.Load<Texture2D>("Block Debris");
+            Texture = theatre.Content.Load<Texture2D>("obstacles/Block Debris");
 
             Location = location;
             moveDistance = 0;
@@ -188,6 +200,8 @@ namespace Mario.Sprites
             rubbleActive = false;
             Context = context;
             Theatre = theatre;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
 
         }
         public override void Update()

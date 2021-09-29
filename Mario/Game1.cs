@@ -15,6 +15,7 @@ namespace Mario
         MarioContext context;
         IController kb;
         IController gp;
+        BlockContext block;
 
         public Game1()
         {
@@ -30,6 +31,8 @@ namespace Mario
         {
             // TODO: Add your initialization logic here
             base.Initialize();
+            Vector2 BlockLocation = new Vector2(20, 20);
+            block = new BlockContext(this,BlockLocation);
         }
 
         protected override void LoadContent()
@@ -49,6 +52,7 @@ namespace Mario
             kb.UpdateInput();
             mario.Update();
             base.Update(gameTime);
+            block.Update();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -56,6 +60,7 @@ namespace Mario
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             mario.Draw(spriteBatch);
+            block.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

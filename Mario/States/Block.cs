@@ -18,10 +18,11 @@ namespace Mario.States
 		BrokenBlockSprite rubble4;
 		Boolean rubbleActive;
 
-		public BlockContext(Game1 theatre)
+		public BlockContext(Game1 theatre,Vector2 location)
 		{
 			Theatre = theatre;
 			state = new BrickBlockState();
+			Location = location;
 			sprite = new BrickBlockSprite(Theatre, Location, this);
 			Vector2 rubbleLocation1 = sprite.GetLocation();
 			rubbleLocation1.X -= 8;
@@ -36,6 +37,8 @@ namespace Mario.States
 			rubble3 = new BrokenBlockSprite(Theatre, rubbleLocation3, this);
 			rubble4 = new BrokenBlockSprite(Theatre, rubbleLocation4, this);
 			rubbleActive = false;
+			
+
 		}
 		public Game1 GetGame()
 		{
@@ -72,7 +75,9 @@ namespace Mario.States
 
 		public void Update()
 		{
-			sprite.Update();
+            if(rubbleActive){
+				sprite.Update();
+			}
 			rubble1.Update();
 			rubble2.Update();
 			rubble3.Update();
@@ -81,7 +86,10 @@ namespace Mario.States
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			sprite.Draw(spriteBatch);
+			if (rubbleActive)
+			{
+				sprite.Draw(spriteBatch);
+			}
 			rubble1.Draw(spriteBatch);
 			rubble2.Draw(spriteBatch);
 			rubble3.Draw(spriteBatch);
@@ -90,6 +98,7 @@ namespace Mario.States
 		}
 		public void ToggleRubble()
 		{
+			rubbleActive = true;
 			rubble1.ToggleRubble();
 			rubble2.ToggleRubble();
 			rubble3.ToggleRubble();
@@ -135,6 +144,7 @@ namespace Mario.States
 		void Destroy(BlockContext context)
 		{
 			context.ToggleRubble();
+			
 		}
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
