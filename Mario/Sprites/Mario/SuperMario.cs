@@ -41,6 +41,7 @@ namespace Mario.Sprites.Mario
         public void MoveLeftCommand()
         {
             context.GetActionState().PressLeft(context);
+            this.position.X -= 5;
             System.Diagnostics.Debug.WriteLine("Left");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
@@ -48,7 +49,7 @@ namespace Mario.Sprites.Mario
         public void MoveRightCommand()
         {
             context.GetActionState().PressRight(context);
-            
+            this.position.X += 5;
             System.Diagnostics.Debug.WriteLine("Right");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
@@ -56,6 +57,7 @@ namespace Mario.Sprites.Mario
         public void JumpCommand()
         {
             context.GetActionState().PressUp(context);
+
             System.Diagnostics.Debug.WriteLine("Up");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
