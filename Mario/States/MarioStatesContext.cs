@@ -7,6 +7,9 @@ public class MarioContext
 {
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
+	public float xVelocity;
+	public float yVelocity;
+
 	public MarioContext()
 	{
 		ActionState = new IdleStateLeft();

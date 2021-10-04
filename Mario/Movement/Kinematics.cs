@@ -7,5 +7,6 @@ namespace Mario.Movement
     class Kinematics
     {
 
+
     }
 }

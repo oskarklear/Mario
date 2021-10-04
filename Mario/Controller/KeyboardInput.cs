@@ -96,11 +96,17 @@ namespace Mario
                        //Leftward Movement (A key)
                     case (int)Keys.A:
                         MoveLeftCommand.Execute();
+
                         break;
 
                     // Leftward Movement (Left Arrow)
                     case (int)Keys.Left:
+                        
+                        
                         MoveLeftCommand.Execute();
+
+                        //Mario.MoveLeft();
+
                         break;
 
                      //Rightward Movement(D key)

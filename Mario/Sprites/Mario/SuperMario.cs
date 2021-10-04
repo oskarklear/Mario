@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Mario.Sprites.Mario
 {
-    public class SuperMario :ISprite
+    public class SuperMario : ISprite
     {
         public MarioContext context { get; set; }
         public bool animated { get; set; }
@@ -19,9 +19,9 @@ namespace Mario.Sprites.Mario
         private int millisecondsPerFrame;
         Texture2D texture;
         ContentManager Content;
-        float velocity;
         Vector2 position;
         Dictionary<string, Texture2D> sprites;
+        
 
         public SuperMario(MarioContext context, Texture2D texture)
         {
@@ -42,12 +42,6 @@ namespace Mario.Sprites.Mario
         public void MoveLeftCommand()
         {
             context.GetActionState().PressLeft(context);
-            int marioTopLeftSpeed = -3;
-            if (velocity > marioTopLeftSpeed) 
-            {
-                velocity -= (float)0.15;
-            }
-            
 
             System.Diagnostics.Debug.WriteLine("Left");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -56,10 +50,10 @@ namespace Mario.Sprites.Mario
         public void MoveRightCommand()
         {
             context.GetActionState().PressRight(context);
-            int marioTopRightSpeed = 3;
-            if (velocity < marioTopRightSpeed) {
-                velocity += (float)0.15;
-            }
+            //int marioTopRightSpeed = 3;
+            //if (xVelocity < marioTopRightSpeed) {
+            //    xVelocity += (float)0.15;
+            //}
             
             System.Diagnostics.Debug.WriteLine("Right");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -67,6 +61,11 @@ namespace Mario.Sprites.Mario
 
         public void JumpCommand()
         {
+            //int marioTopUpSpeed = 1;
+            //if (yVelocity < marioTopUpSpeed)
+            //{
+            //    yVelocity += (float)0.1;
+            //}
             context.GetActionState().PressUp(context);
             System.Diagnostics.Debug.WriteLine("Up");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -270,31 +269,54 @@ namespace Mario.Sprites.Mario
             }
 
             //set mario's new pos
-            position.X += velocity;
+            position.X += context.xVelocity;
+            position.Y -= context.yVelocity;
 
             // if mario idling, then deccelerate
             if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
             {
-                if (velocity != 0)
+                if (context.xVelocity != 0)
                 {
-                    if (velocity < 0)
+                    if (context.xVelocity < 0)
                     {
-                        velocity += (float)0.3;
+                        context.xVelocity += (float)0.3;
                     }
                     else
                     {
-                        velocity -= (float)0.3;
+                        context.xVelocity -= (float)0.3;
                     }
                 }
 
                 // if there's leftover speed from shitty code, zero it
-                if (Math.Abs(velocity) < 0.08)
+                if (Math.Abs(context.xVelocity) < 0.08)
                 {
-                    velocity = 0;
+                    context.xVelocity = 0;
                 }
 
             }
-     
+
+            if (context.GetActionState().ToString().Equals("JumpingStateLeft") || context.GetActionState().ToString().Equals("JumpingStateRight"))
+            {
+                if (context.yVelocity != 0)
+                {
+                    if (context.yVelocity < 0)
+                    {
+                        context.yVelocity -= (float)0.01;
+                    }
+                    else
+                    {
+                        context.yVelocity -= (float)0.01;
+                    }
+                }
+
+                // if there's leftover speed from shitty code, zero it
+                if (Math.Abs(context.yVelocity) < 0.08)
+                {
+                    context.xVelocity = 0;
+                }
+
+            }
+
 
 
 
