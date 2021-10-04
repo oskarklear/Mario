@@ -87,7 +87,7 @@ namespace Mario
                 {
                     context.SetActionState(new IdleStateRight());
                 }
-            }
+            } 
 
             List<Input> inputs = GetInput();
             foreach (Input input in inputs)
