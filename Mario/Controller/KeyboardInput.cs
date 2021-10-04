@@ -68,7 +68,7 @@ namespace Mario
 
         public void UpdateInput()
         {
-
+            // this is janky as f I know
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 MoveLeftCommand.Execute();
@@ -77,7 +77,8 @@ namespace Mario
             {
                 MoveRightCommand.Execute();
             }
-
+            
+            // if no movement input -- need to add more than just A and D
             if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 if (context.GetActionState().ToString().Equals("RunningStateLeft"))
