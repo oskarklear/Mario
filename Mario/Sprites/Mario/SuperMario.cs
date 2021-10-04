@@ -19,6 +19,7 @@ namespace Mario.Sprites.Mario
         private int millisecondsPerFrame;
         Texture2D texture;
         ContentManager Content;
+        float velocity;
         Vector2 position;
         Dictionary<string, Texture2D> sprites;
 
@@ -41,6 +42,12 @@ namespace Mario.Sprites.Mario
         public void MoveLeftCommand()
         {
             context.GetActionState().PressLeft(context);
+            if (velocity > -3) 
+            {
+                velocity -= (float)0.25;
+            }
+            
+
             System.Diagnostics.Debug.WriteLine("Left");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
@@ -48,6 +55,9 @@ namespace Mario.Sprites.Mario
         public void MoveRightCommand()
         {
             context.GetActionState().PressRight(context);
+            if (velocity < 3) {
+                velocity += (float)0.25;
+            }
             
             System.Diagnostics.Debug.WriteLine("Right");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -256,6 +266,32 @@ namespace Mario.Sprites.Mario
                     currentFrame = 0;
                 timeSinceLastFrame++;
             }
+
+            position.X += velocity;
+            if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
+            {
+                if (velocity != 0)
+                {
+                    if (velocity < 0)
+                    {
+                        velocity += (float)0.3;
+                    }
+                    else
+                    {
+                        velocity -= (float)0.3;
+                    }
+                }
+
+                if (Math.Abs(velocity) < 0.08)
+                {
+                    velocity = 0;
+                }
+
+            }
+     
+
+
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
