@@ -4,17 +4,21 @@ using System.Text;
 
 namespace Mario.States
 {
-    public abstract class MarioActionState
+    public abstract class MarioActionState : IMarioActionState
     {
-
-        public abstract void PressUp(MarioContext context);
-
-        public abstract void PressDown(MarioContext context);
-
-        public abstract void PressRight(MarioContext context);
-
-        public abstract void PressLeft(MarioContext context);
+        public abstract IMarioActionState PreviousActionState { get; }
+        public MarioContext Mario { get { return } }
         public override abstract string ToString();
+        public abstract void Enter(IMarioActionState previousActionState);
+        public abstract void Exit();
+        public abstract void StandingTransition();
+        public abstract void CrouchingTransition();
+        public abstract void WalkingTransition();
+        public abstract void RunningTransition();
+        public abstract void JumpingTransition();
+        public abstract void FallingTransition();
+        public abstract void FaceLeftTransition();
+        public abstract void FaceRightTransition();
     }
 
     public class IdleStateLeft : MarioActionState
