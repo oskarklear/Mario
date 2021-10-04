@@ -42,9 +42,10 @@ namespace Mario.Sprites.Mario
         public void MoveLeftCommand()
         {
             context.GetActionState().PressLeft(context);
-            if (velocity > -3) 
+            int marioTopLeftSpeed = -3;
+            if (velocity > marioTopLeftSpeed) 
             {
-                velocity -= (float)0.25;
+                velocity -= (float)0.15;
             }
             
 
@@ -55,8 +56,9 @@ namespace Mario.Sprites.Mario
         public void MoveRightCommand()
         {
             context.GetActionState().PressRight(context);
-            if (velocity < 3) {
-                velocity += (float)0.25;
+            int marioTopRightSpeed = 3;
+            if (velocity < marioTopRightSpeed) {
+                velocity += (float)0.15;
             }
             
             System.Diagnostics.Debug.WriteLine("Right");
@@ -267,7 +269,10 @@ namespace Mario.Sprites.Mario
                 timeSinceLastFrame++;
             }
 
+            //set mario's new pos
             position.X += velocity;
+
+            // if mario idling, then deccelerate
             if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
             {
                 if (velocity != 0)
@@ -282,6 +287,7 @@ namespace Mario.Sprites.Mario
                     }
                 }
 
+                // if there's leftover speed from shitty code, zero it
                 if (Math.Abs(velocity) < 0.08)
                 {
                     velocity = 0;
