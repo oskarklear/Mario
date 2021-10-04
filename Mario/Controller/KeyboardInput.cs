@@ -52,13 +52,12 @@ namespace Mario
 
             Keys[] keysPressed = currentKeyboardState.GetPressedKeys();
             foreach (Keys key in keysPressed)
-                if (!previousKeyboardState.IsKeyDown(key))
-                {
-                    Input input = new Input();
-                    input.Controller = Input.ControllerType.Keyboard;
-                    input.Key = (int)key;
-                    inputs.Add(input);
-                }
+            {
+                Input input = new Input();
+                input.Controller = Input.ControllerType.Keyboard;
+                input.Key = (int)key;
+                inputs.Add(input);
+            }
 
             // Update previous Keyboard state.
             previousKeyboardState = currentKeyboardState;
@@ -68,15 +67,15 @@ namespace Mario
 
         public void UpdateInput()
         {
-            // this is janky as f I know
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                MoveLeftCommand.Execute();
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                MoveRightCommand.Execute();
-            }
+            //// this is janky as f I know
+            //if (Keyboard.GetState().IsKeyDown(Keys.A))
+            //{
+            //    MoveLeftCommand.Execute();
+            //}
+            //if (Keyboard.GetState().IsKeyDown(Keys.D))
+            //{
+            //    MoveRightCommand.Execute();
+            //}
             
             // if no movement input -- need to add more than just A and D
             if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
@@ -84,7 +83,7 @@ namespace Mario
                 if (context.GetActionState().ToString().Equals("RunningStateLeft"))
                 {
                     context.SetActionState(new IdleStateLeft());
-                } else  if (context.GetActionState().ToString().Equals("RunningStateRight"))
+                } else if (context.GetActionState().ToString().Equals("RunningStateRight"))
                 {
                     context.SetActionState(new IdleStateRight());
                 }
@@ -94,20 +93,20 @@ namespace Mario
             foreach (Input input in inputs)
                 switch (input.Key)
                 {
-                    // Leftward Movement (A key)
-                   // case (int)Keys.A:
-                      //  MoveLeftCommand.Execute();
-                      //  break;
-                    
+                       //Leftward Movement (A key)
+                    case (int)Keys.A:
+                        MoveLeftCommand.Execute();
+                        break;
+
                     // Leftward Movement (Left Arrow)
                     case (int)Keys.Left:
                         MoveLeftCommand.Execute();
                         break;
 
-                    // Rightward Movement (D key)
-                   // case (int)Keys.D:
-                      //  MoveRightCommand.Execute();
-                    //    break;
+                     //Rightward Movement(D key)
+                    case (int)Keys.D:
+                        MoveRightCommand.Execute();
+                        break;
 
                     // Rightward Movement (Right Arrow)
                     case (int)Keys.Right:
