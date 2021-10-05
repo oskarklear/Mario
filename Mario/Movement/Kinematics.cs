@@ -16,5 +16,15 @@ namespace Mario.Movement
             }
         }
 
+        public void AccelerateRight(MarioContext context)
+        {
+            int marioTopRightSpeed = 3;
+            if (context.xVelocity > marioTopRightSpeed)
+            {
+                context.xVelocity += (float)0.15;
+            }
+        }
+
+
     }
 }

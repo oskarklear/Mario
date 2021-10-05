@@ -45,6 +45,7 @@ namespace Mario.States
         }
         public override void PressRight(MarioContext context)
         {
+            kinematics.AccelerateRight(context);
             context.SetActionState(new IdleStateRight());
         }
         public override void PressLeft(MarioContext context)
