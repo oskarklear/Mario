@@ -36,25 +36,17 @@ namespace Mario.Movement
 
         public void MoveUp(MarioContext context)
         {
-            if (context.yVelocity == 0)
-            {
-                context.yVelocity = 2;
-            } else
-            {
-                context.yVelocity = 0;
-            }
-            
+            context.yVelocity = 2;   
+        }
+
+        public void haltVerticalMovement(MarioContext context)
+        {
+            context.yVelocity = 0;
         }
 
         public void MoveDown(MarioContext context)
         {
-            if (context.yVelocity == 0)
-            {
-                context.yVelocity = -2;
-            } else
-            {
-                context.yVelocity = 0;
-            }
+           if (context.jumped) context.yVelocity = -2;
         }
 
         public void IdleXDecelerate(MarioContext context)

@@ -35,6 +35,7 @@ namespace Mario.States
         public override void PressUp(MarioContext context)
         {
             kinematics.MoveUp(context);
+            context.jumped = true;
             context.SetActionState(new JumpingStateLeft());
         }
 
@@ -80,6 +81,7 @@ namespace Mario.States
         public override void PressUp(MarioContext context)
         {
             kinematics.MoveUp(context);
+            context.jumped = true;
             context.SetActionState(new JumpingStateRight());
         }
 
@@ -196,13 +198,14 @@ namespace Mario.States
 
         public override void PressUp(MarioContext context)
         {
-            kinematics.MoveUp(context);
+            //kinematics.MoveUp(context);
             //context.SetActionState(new JumpingStateLeft());
         }
 
         public override void PressDown(MarioContext context)
         {
-            kinematics.MoveDown(context);
+            context.jumped = false;
+            kinematics.haltVerticalMovement(context);
             context.SetActionState(new IdleStateLeft());
         }
         public override void PressRight(MarioContext context)
@@ -235,12 +238,13 @@ namespace Mario.States
 
         public override void PressUp(MarioContext context)
         {
-            kinematics.MoveUp(context);
+            //kinematics.MoveUp(context);
             //context.SetActionState(new JumpingStateRight());
         }
         public override void PressDown(MarioContext context)
         {
-            kinematics.MoveDown(context);
+            context.jumped = false;
+            kinematics.haltVerticalMovement(context);
             context.SetActionState(new IdleStateRight());
         }
         public override void PressRight(MarioContext context)

@@ -9,7 +9,7 @@ public class MarioContext
 	MarioPowerupState PowerupState;
 	public float xVelocity;
 	public float yVelocity;
-	public bool hasJumped;
+	public bool jumped;
 	//public bool isFalling;
 
 	public MarioContext()
