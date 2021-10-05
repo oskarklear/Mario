@@ -18,6 +18,7 @@ namespace Mario
         public Game1 GameObj { get; set; }
         public ICommand MoveLeftCommand { get; set; }
         public ICommand MoveRightCommand { get; set; }
+        public ICommand IdleCommand { get; set; }
         public ICommand JumpCommand { get; set; }
         public ICommand CrouchCommand { get; set; }
         public ICommand ExitCommand { get; set; }
@@ -29,6 +30,7 @@ namespace Mario
             MoveRightCommand = new MoveRightCommand(mario);
             JumpCommand = new JumpCommand(mario);
             CrouchCommand = new CrouchCommand(mario);
+            IdleCommand = new IdleCommand(mario);
             context = mario.context;
         }
         private List<Input> GetInput()
@@ -128,6 +130,12 @@ namespace Mario
 
         public void UpdateInput()
         {
+
+            if (!GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) && !GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft))
+            {
+                IdleCommand.Execute();
+            }
+
             List<Input> inputs = GetInput();
             foreach (Input input in inputs)
                 switch (input.Key)
