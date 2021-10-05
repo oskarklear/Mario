@@ -268,8 +268,10 @@ namespace Mario.States
     }
     public class FallingStateLeft : MarioActionState
     {
+        Kinematics kinematics;
         public FallingStateLeft()
         {
+            kinematics = new Kinematics();
         }
 
         public override void PressUp(MarioContext context)
@@ -286,11 +288,7 @@ namespace Mario.States
         }
         public override void PressLeft(MarioContext context)
         {
-            int marioTopLeftSpeed = -3;
-            if (context.xVelocity > marioTopLeftSpeed)
-            {
-                context.xVelocity -= (float)0.15;
-            }
+            kinematics.AccelerateLeft(context);
         }
 
         public override void PressNothing(MarioContext context)
@@ -305,8 +303,11 @@ namespace Mario.States
 
     public class FallingStateRight : MarioActionState
     {
+        Kinematics kinematics;
+
         public FallingStateRight()
         {
+            kinematics = new Kinematics();
         }
 
         public override void PressUp(MarioContext context)
@@ -323,11 +324,7 @@ namespace Mario.States
         }
         public override void PressLeft(MarioContext context)
         {
-            int marioTopLeftSpeed = -3;
-            if (context.xVelocity > marioTopLeftSpeed)
-            {
-                context.xVelocity -= (float)0.15;
-            }
+            kinematics.AccelerateLeft(context);
         }
 
         public override void PressNothing(MarioContext context)
