@@ -6,6 +6,7 @@ using Mario.Movement;
 using Mario.Sprites.Mario;
 using Mario.States;
 using Mario.Sprites;
+using System.Windows.Input;
 
 namespace Mario
 {
@@ -67,14 +68,36 @@ namespace Mario
 
         public void UpdateInput()
         {
+            // this is janky as f I know
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                MoveLeftCommand.Execute();
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                MoveRightCommand.Execute();
+            }
+            
+            // if no movement input -- need to add more than just A and D
+            if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                if (context.GetActionState().ToString().Equals("RunningStateLeft"))
+                {
+                    context.SetActionState(new IdleStateLeft());
+                } else  if (context.GetActionState().ToString().Equals("RunningStateRight"))
+                {
+                    context.SetActionState(new IdleStateRight());
+                }
+            } 
+
             List<Input> inputs = GetInput();
             foreach (Input input in inputs)
                 switch (input.Key)
                 {
                     // Leftward Movement (A key)
-                    case (int)Keys.A:
-                        MoveLeftCommand.Execute();
-                        break;
+                   // case (int)Keys.A:
+                      //  MoveLeftCommand.Execute();
+                      //  break;
                     
                     // Leftward Movement (Left Arrow)
                     case (int)Keys.Left:
@@ -82,9 +105,9 @@ namespace Mario
                         break;
 
                     // Rightward Movement (D key)
-                    case (int)Keys.D:
-                        MoveRightCommand.Execute();
-                        break;
+                   // case (int)Keys.D:
+                      //  MoveRightCommand.Execute();
+                    //    break;
 
                     // Rightward Movement (Right Arrow)
                     case (int)Keys.Right:

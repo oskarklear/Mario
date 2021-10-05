@@ -19,6 +19,7 @@ namespace Mario.Sprites.Mario
         private int millisecondsPerFrame;
         Texture2D texture;
         ContentManager Content;
+        float velocity;
         Vector2 position;
         Dictionary<string, Texture2D> sprites;
 
@@ -41,6 +42,13 @@ namespace Mario.Sprites.Mario
         public void MoveLeftCommand()
         {
             context.GetActionState().PressLeft(context);
+            int marioTopLeftSpeed = -3;
+            if (velocity > marioTopLeftSpeed) 
+            {
+                velocity -= (float)0.15;
+            }
+            
+
             System.Diagnostics.Debug.WriteLine("Left");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
@@ -48,6 +56,10 @@ namespace Mario.Sprites.Mario
         public void MoveRightCommand()
         {
             context.GetActionState().PressRight(context);
+            int marioTopRightSpeed = 3;
+            if (velocity < marioTopRightSpeed) {
+                velocity += (float)0.15;
+            }
             
             System.Diagnostics.Debug.WriteLine("Right");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -256,6 +268,36 @@ namespace Mario.Sprites.Mario
                     currentFrame = 0;
                 timeSinceLastFrame++;
             }
+
+            //set mario's new pos
+            position.X += velocity;
+
+            // if mario idling, then deccelerate
+            if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
+            {
+                if (velocity != 0)
+                {
+                    if (velocity < 0)
+                    {
+                        velocity += (float)0.3;
+                    }
+                    else
+                    {
+                        velocity -= (float)0.3;
+                    }
+                }
+
+                // if there's leftover speed from shitty code, zero it
+                if (Math.Abs(velocity) < 0.08)
+                {
+                    velocity = 0;
+                }
+
+            }
+     
+
+
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
