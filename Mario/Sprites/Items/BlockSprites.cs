@@ -33,6 +33,10 @@ namespace Mario.Sprites
 
         protected Rectangle sourceRectangle;
         protected Rectangle destinationRectangle;
+        public Rectangle DestinationRectangle
+        {
+            get { return destinationRectangle;}
+        }
         protected BlockContext Context;
         protected int timeSinceLastFrame;
         protected int millisecondsPerFrame;

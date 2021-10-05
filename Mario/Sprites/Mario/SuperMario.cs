@@ -19,15 +19,16 @@ namespace Mario.Sprites.Mario
         private int millisecondsPerFrame;
         Texture2D texture;
         ContentManager Content;
-        float velocity;
+        Vector2 velocity;
         Vector2 position;
         Dictionary<string, Texture2D> sprites;
+        Rectangle hitbox;
 
         public SuperMario(MarioContext context, Texture2D texture)
         {
             this.context = context;
             this.texture = texture;
-            position = new Vector2(400, 300);
+            position = new Vector2(32, 500);
             sprites = new Dictionary<string, Texture2D>();
             Rows = 1;
             Columns = 1;
@@ -43,9 +44,9 @@ namespace Mario.Sprites.Mario
         {
             context.GetActionState().PressLeft(context);
             int marioTopLeftSpeed = -3;
-            if (velocity > marioTopLeftSpeed) 
+            if (velocity.X > marioTopLeftSpeed) 
             {
-                velocity -= (float)0.15;
+                velocity.X -= (float)0.15;
             }
             
 
@@ -57,8 +58,8 @@ namespace Mario.Sprites.Mario
         {
             context.GetActionState().PressRight(context);
             int marioTopRightSpeed = 3;
-            if (velocity < marioTopRightSpeed) {
-                velocity += (float)0.15;
+            if (velocity.X < marioTopRightSpeed) {
+                velocity.X += (float)0.15;
             }
             
             System.Diagnostics.Debug.WriteLine("Right");
@@ -270,33 +271,44 @@ namespace Mario.Sprites.Mario
             }
 
             //set mario's new pos
-            position.X += velocity;
+            position += velocity;
 
             // if mario idling, then deccelerate
             if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
             {
-                if (velocity != 0)
+                if (velocity.X != 0)
                 {
-                    if (velocity < 0)
+                    if (velocity.X < 0)
                     {
-                        velocity += (float)0.3;
+                        velocity.X += (float)0.3;
                     }
                     else
                     {
-                        velocity -= (float)0.3;
+                        velocity.X -= (float)0.3;
                     }
                 }
 
                 // if there's leftover speed from shitty code, zero it
-                if (Math.Abs(velocity) < 0.08)
+                if (Math.Abs(velocity.X) < 0.08)
                 {
-                    velocity = 0;
+                    velocity.X = 0;
                 }
 
             }
-     
+            if (context.GetActionState().ToString().Equals("JumpingStateRight") || context.GetActionState().ToString().Equals("JumpingStateLeft"))
+            {
+                position.Y -= 2f;
+                velocity.Y = -1f;
+            }
+            if (context.GetActionState().ToString().Equals("FallingStateRight") || context.GetActionState().ToString().Equals("FallingStateLeft"))
+            {
+                position.Y += 2f;
+                velocity.Y = 1f;
+            }
+                //if (velocity.Y < 10)
+                //velocity.Y += 0.4f;
 
-
+                hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
 
         }
 
@@ -323,6 +335,39 @@ namespace Mario.Sprites.Mario
 
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
         {
+            if (hitbox.TouchTopOf(newRectangle))
+            {
+                hitbox.Y = newRectangle.Y - hitbox.Height;
+                velocity.Y = 0f;
+
+            }
+
+            if (hitbox.TouchLeftOf(newRectangle))
+            {
+                position.X = newRectangle.X - hitbox.Width - 2;
+            }
+
+            if (hitbox.TouchRightOf(newRectangle))
+            {
+                position.X = newRectangle.X - hitbox.Width + 2;
+            }
+
+            if (hitbox.TouchBottomOf(newRectangle))
+            {
+                velocity.Y = 1f;
+            }
+
+            if (position.X < 0)
+                position.X = 0;
+
+            if (position.X > xOffset - hitbox.Width)
+                position.X = xOffset - hitbox.Width;
+
+            //if (position.Y < 0)     Gravity
+                //velocity.Y = 1f;
+
+            if (position.Y > yOffset - hitbox.Height)
+                position.Y = yOffset - hitbox.Height;
 
         }
     }

@@ -154,7 +154,7 @@ namespace Mario.States
 
         public override void PressDown(MarioContext context)
         {
-            context.SetActionState(new IdleStateLeft());
+            context.SetActionState(new FallingStateLeft());
         }
         public override void PressRight(MarioContext context)
         {
@@ -182,7 +182,7 @@ namespace Mario.States
         }
         public override void PressDown(MarioContext context)
         {
-            context.SetActionState(new IdleStateRight());
+            context.SetActionState(new FallingStateRight());
         }
         public override void PressRight(MarioContext context)
         {
@@ -209,11 +209,11 @@ namespace Mario.States
         }
         public override void PressDown(MarioContext context)
         {
-            //Does nothing
+            
         }
         public override void PressRight(MarioContext context)
         {
-            //Does nothing
+            context.SetActionState(new FallingStateRight());
         }
         public override void PressLeft(MarioContext context)
         {
@@ -245,7 +245,7 @@ namespace Mario.States
         }
         public override void PressLeft(MarioContext context)
         {
-            //Does nothing
+            context.SetActionState(new FallingStateLeft());
         }
         public override string ToString()
         {

@@ -107,6 +107,10 @@ namespace Mario
             gp.UpdateInput();
             kb.UpdateInput();
             mario.Update();
+            foreach(BlockSprite block in map.CollisionTiles)
+            {
+                mario.Collision(block.DestinationRectangle, 800, 608);
+            }
             fireFlower.Update();
             coin.Update();
             star.Update();
