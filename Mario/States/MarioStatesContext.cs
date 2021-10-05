@@ -2,13 +2,14 @@
 using Mario.Sprites.Mario;
 using Mario.States;
 using Mario.Sprites;
+using Microsoft.Xna.Framework;
 
 public class MarioContext
 {
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
-	public float xVelocity;
-	public float yVelocity;
+	public Vector2 Velocity;
+
 
 	public MarioContext()
 	{

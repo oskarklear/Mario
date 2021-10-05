@@ -16,6 +16,7 @@ namespace Mario.Sprites.Enemies
         ContentManager Content;
         Texture2D texture;
         Vector2 position;
+        public Rectangle DestinationRectangle { get; set; }
         public Goomba()
         {
             timeSinceLastFrame = 0;

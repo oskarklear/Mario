@@ -9,8 +9,8 @@ namespace Mario.Map
 {
     class Level
     {
-        private List<BlockSprite> collisionTiles = new List<BlockSprite>();
-        public List<BlockSprite> CollisionTiles
+        private List<ISprite> collisionTiles = new List<ISprite>();
+        public List<ISprite> CollisionTiles
         {
             get { return collisionTiles; }
         }

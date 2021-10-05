@@ -282,9 +282,9 @@ namespace Mario.States
         public override void PressLeft(MarioContext context)
         {
             int marioTopLeftSpeed = -3;
-            if (context.xVelocity > marioTopLeftSpeed)
+            if (context.Velocity.X > marioTopLeftSpeed)
             {
-                context.xVelocity -= (float)0.15;
+                context.Velocity.X -= (float)0.15;
             }
         }
 
@@ -319,6 +319,10 @@ namespace Mario.States
         public override void PressLeft(MarioContext context)
         {
             //Does nothing
+        }
+        public override void PressNothing(MarioContext context)
+        {
+            // do nothing
         }
         public override string ToString()
         {

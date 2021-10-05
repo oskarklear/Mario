@@ -14,8 +14,10 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Mario.Sprites
 {
+    
     public interface ISprite
     {
+        public Rectangle DestinationRectangle { get;}
         public void Update();
 
         public void Draw(SpriteBatch spriteBatch);
