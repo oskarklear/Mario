@@ -46,7 +46,7 @@ namespace Mario.Movement
 
         public void MoveDown(MarioContext context)
         {
-           if (context.jumped) context.yVelocity = -2;
+           if (!context.jumped) context.yVelocity = -2;
         }
 
         public void IdleXDecelerate(MarioContext context)
