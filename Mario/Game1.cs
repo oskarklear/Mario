@@ -106,6 +106,8 @@ namespace Mario
             goomba.Update();
             koopa.Update();
             floorBlock.Update();
+
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         protected override void Draw(GameTime gameTime)

@@ -48,4 +48,15 @@ namespace Mario.Movement
             receiver.CrouchCommand();
         }
     }
+
+    class IdleCommand : MarioCommand
+    {
+        public IdleCommand(SuperMario receiver) : base(receiver)
+        {
+        }
+        public override void Execute()
+        {
+            receiver.IdleCommand();
+        }
+    }
 }

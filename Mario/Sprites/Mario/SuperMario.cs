@@ -80,6 +80,14 @@ namespace Mario.Sprites.Mario
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
+        public void IdleCommand()
+        {
+            context.GetActionState().PressNothing(context);
+
+            System.Diagnostics.Debug.WriteLine("Nothing");
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+        }
+
         public void Update()
         {
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
@@ -272,50 +280,50 @@ namespace Mario.Sprites.Mario
             position.X += context.xVelocity;
             position.Y -= context.yVelocity;
 
-            // if mario idling, then deccelerate
-            if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
-            {
-                if (context.xVelocity != 0)
-                {
-                    if (context.xVelocity < 0)
-                    {
-                        context.xVelocity += (float)0.3;
-                    }
-                    else
-                    {
-                        context.xVelocity -= (float)0.3;
-                    }
-                }
+            //// if mario idling, then deccelerate
+            //if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
+            //{
+            //    if (context.xVelocity != 0)
+            //    {
+            //        if (context.xVelocity < 0)
+            //        {
+            //            context.xVelocity += (float)0.3;
+            //        }
+            //        else
+            //        {
+            //            context.xVelocity -= (float)0.3;
+            //        }
+            //    }
 
-                // if there's leftover speed from shitty code, zero it
-                if (Math.Abs(context.xVelocity) < 0.08)
-                {
-                    context.xVelocity = 0;
-                }
+            //    // if there's leftover speed from shitty code, zero it
+            //    if (Math.Abs(context.xVelocity) < 0.08)
+            //    {
+            //        context.xVelocity = 0;
+            //    }
 
-            }
+            //}
 
-            if (context.GetActionState().ToString().Equals("JumpingStateLeft") || context.GetActionState().ToString().Equals("JumpingStateRight"))
-            {
-                if (context.yVelocity != 0)
-                {
-                    if (context.yVelocity < 0)
-                    {
-                        context.yVelocity -= (float)0.01;
-                    }
-                    else
-                    {
-                        context.yVelocity -= (float)0.01;
-                    }
-                }
+            //if (context.GetActionState().ToString().Equals("JumpingStateLeft") || context.GetActionState().ToString().Equals("JumpingStateRight"))
+            //{
+            //    if (context.yVelocity != 0)
+            //    {
+            //        if (context.yVelocity < 0)
+            //        {
+            //            context.yVelocity -= (float)0.01;
+            //        }
+            //        else
+            //        {
+            //            context.yVelocity -= (float)0.01;
+            //        }
+            //    }
 
-                // if there's leftover speed from shitty code, zero it
-                if (Math.Abs(context.yVelocity) < 0.08)
-                {
-                    context.xVelocity = 0;
-                }
+            //    // if there's leftover speed from shitty code, zero it
+            //    if (Math.Abs(context.yVelocity) < 0.08)
+            //    {
+            //        context.xVelocity = 0;
+            //    }
 
-            }
+            //}
 
 
 
