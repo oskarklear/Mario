@@ -32,6 +32,7 @@ namespace Mario.States
 
         public override void PressUp(MarioContext context)
         {
+            kinematics.MoveUp(context);
             context.SetActionState(new JumpingStateLeft());
         }
 
@@ -40,6 +41,7 @@ namespace Mario.States
             string powerUpState = context.GetPowerUpState().ToString();
             if (powerUpState != "StandardMario" && powerUpState != "DeadMario")
             {
+                kinematics.MoveDown(context);
                 context.SetActionState(new CrouchingStateLeft());
             }
         }
@@ -62,12 +64,15 @@ namespace Mario.States
 
     public class IdleStateRight : MarioActionState
     {
+        Kinematics kinematics;
         public IdleStateRight()
         {
+            kinematics = new Kinematics();
         }
 
         public override void PressUp(MarioContext context)
         {
+            kinematics.MoveUp(context);
             context.SetActionState(new JumpingStateRight());
         }
 
@@ -76,21 +81,18 @@ namespace Mario.States
             string powerUpState = context.GetPowerUpState().ToString();
             if (powerUpState != "StandardMario" && powerUpState != "DeadMario")
             {
+                kinematics.MoveDown(context);
                 context.SetActionState(new CrouchingStateRight());
             }
         }
         public override void PressRight(MarioContext context)
         {
+            kinematics.AccelerateRight(context);
             context.SetActionState(new RunningStateRight());
         }
         public override void PressLeft(MarioContext context)
         {
-            int marioTopLeftSpeed = -3;
-            if (context.xVelocity > marioTopLeftSpeed)
-            {
-                context.xVelocity -= (float)0.15;
-            }
-
+            kinematics.AccelerateLeft(context);
             context.SetActionState(new IdleStateLeft());
         }
         public override string ToString()
@@ -159,30 +161,31 @@ namespace Mario.States
 
     public class JumpingStateLeft : MarioActionState
     {
+        Kinematics kinematics;
         public JumpingStateLeft()
         {
+            kinematics = new Kinematics();
         }
 
         public override void PressUp(MarioContext context)
         {
-            //Does nothing
+            kinematics.MoveUp(context);
+            //context.SetActionState(new JumpingStateLeft());
         }
 
         public override void PressDown(MarioContext context)
         {
+            kinematics.MoveDown(context);
             context.SetActionState(new IdleStateLeft());
         }
         public override void PressRight(MarioContext context)
         {
-            //Does nothing
+            kinematics.AccelerateRight(context);
+            context.SetActionState(new JumpingStateRight());
         }
         public override void PressLeft(MarioContext context)
         {
-            int marioTopLeftSpeed = -3;
-            if (context.xVelocity > marioTopLeftSpeed)
-            {
-                context.xVelocity -= (float)0.15;
-            }
+            kinematics.AccelerateLeft(context);
         }
         public override string ToString()
         {
@@ -192,29 +195,30 @@ namespace Mario.States
 
     public class JumpingStateRight : MarioActionState
     {
+        Kinematics kinematics;
         public JumpingStateRight()
         {
+            kinematics = new Kinematics();
         }
 
         public override void PressUp(MarioContext context)
         {
-            //Does nothing
+            kinematics.MoveUp(context);
+            //context.SetActionState(new JumpingStateRight());
         }
         public override void PressDown(MarioContext context)
         {
+            kinematics.MoveDown(context);
             context.SetActionState(new IdleStateRight());
         }
         public override void PressRight(MarioContext context)
         {
-            //Does nothing
+            kinematics.AccelerateRight(context);
         }
         public override void PressLeft(MarioContext context)
         {
-            int marioTopLeftSpeed = -3;
-            if (context.xVelocity > marioTopLeftSpeed)
-            {
-                context.xVelocity -= (float)0.15;
-            }
+            kinematics.AccelerateLeft(context);
+            context.SetActionState(new JumpingStateLeft());
         }
         public override string ToString()
         {
@@ -287,12 +291,15 @@ namespace Mario.States
 
     public class RunningStateLeft : MarioActionState
     {
+        Kinematics kinematics;
         public RunningStateLeft()
         {
+            kinematics = new Kinematics();
         }
 
         public override void PressUp(MarioContext context)
         {
+            kinematics.MoveUp(context);
             context.SetActionState(new JumpingStateLeft());
         }
         public override void PressDown(MarioContext context)
@@ -305,11 +312,7 @@ namespace Mario.States
         }
         public override void PressLeft(MarioContext context)
         {
-            int marioTopLeftSpeed = -3;
-            if (context.xVelocity > marioTopLeftSpeed)
-            {
-                context.xVelocity -= (float)0.15;
-            }
+            kinematics.AccelerateLeft(context);
         }
         public override string ToString()
         {
@@ -319,12 +322,15 @@ namespace Mario.States
 
     public class RunningStateRight : MarioActionState
     {
+        Kinematics kinematics;
         public RunningStateRight()
         {
+            kinematics = new Kinematics();
         }
 
         public override void PressUp(MarioContext context)
         {
+            kinematics.MoveUp(context);
             context.SetActionState(new JumpingStateRight());
         }
         public override void PressDown(MarioContext context)
@@ -334,15 +340,11 @@ namespace Mario.States
         }
         public override void PressRight(MarioContext context)
         {
-            //Does nothing
+            context.SetActionState(new IdleStateRight());
         }
         public override void PressLeft(MarioContext context)
         {
-            int marioTopLeftSpeed = -3;
-            if (context.xVelocity > marioTopLeftSpeed)
-            {
-                context.xVelocity -= (float)0.15;
-            }
+            kinematics.AccelerateLeft(context);
             context.SetActionState(new IdleStateRight());
         }
         public override string ToString()
