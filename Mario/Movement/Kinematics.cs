@@ -72,7 +72,7 @@ namespace Mario.Movement
             }
 
             // if there's leftover speed from shitty code, zero it
-            if (Math.Abs(context.xVelocity) < 0.08)
+            if (Math.Abs(context.xVelocity) < 0.16)
             {
                 context.xVelocity = 0;
             }
