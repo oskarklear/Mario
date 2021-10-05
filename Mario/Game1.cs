@@ -122,6 +122,7 @@ namespace Mario
             floorBlock.Update();
             map.Update();
             base.Update(gameTime);
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         protected override void Draw(GameTime gameTime)

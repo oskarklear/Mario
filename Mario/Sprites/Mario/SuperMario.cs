@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Mario.Sprites.Mario
 {
-    public class SuperMario :ISprite
+    public class SuperMario : ISprite
     {
         public MarioContext context { get; set; }
         public bool animated { get; set; }
@@ -19,11 +19,10 @@ namespace Mario.Sprites.Mario
         private int millisecondsPerFrame;
         Texture2D texture;
         ContentManager Content;
-        Vector2 velocity;
+        float velocity;
         Vector2 position;
         Dictionary<string, Texture2D> sprites;
         Rectangle hitbox;
-
         public SuperMario(MarioContext context, Texture2D texture)
         {
             this.context = context;
@@ -44,9 +43,9 @@ namespace Mario.Sprites.Mario
         {
             context.GetActionState().PressLeft(context);
             int marioTopLeftSpeed = -3;
-            if (velocity.X > marioTopLeftSpeed) 
+            if (velocity > marioTopLeftSpeed) 
             {
-                velocity.X -= (float)0.15;
+                velocity -= (float)0.15;
             }
             
 
@@ -58,8 +57,8 @@ namespace Mario.Sprites.Mario
         {
             context.GetActionState().PressRight(context);
             int marioTopRightSpeed = 3;
-            if (velocity.X < marioTopRightSpeed) {
-                velocity.X += (float)0.15;
+            if (velocity < marioTopRightSpeed) {
+                velocity += (float)0.15;
             }
             
             System.Diagnostics.Debug.WriteLine("Right");
@@ -68,6 +67,11 @@ namespace Mario.Sprites.Mario
 
         public void JumpCommand()
         {
+            //int marioTopUpSpeed = 1;
+            //if (yVelocity < marioTopUpSpeed)
+            //{
+            //    yVelocity += (float)0.1;
+            //}
             context.GetActionState().PressUp(context);
             System.Diagnostics.Debug.WriteLine("Up");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -79,6 +83,14 @@ namespace Mario.Sprites.Mario
             //context.GetActionState().PressDown(context);
             
             System.Diagnostics.Debug.WriteLine("Down");
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+        }
+
+        public void IdleCommand()
+        {
+            context.GetActionState().PressNothing(context);
+
+            System.Diagnostics.Debug.WriteLine("Nothing");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
@@ -271,44 +283,31 @@ namespace Mario.Sprites.Mario
             }
 
             //set mario's new pos
-            position += velocity;
+            position.X += velocity;
 
             // if mario idling, then deccelerate
             if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
             {
-                if (velocity.X != 0)
+                if (velocity != 0)
                 {
-                    if (velocity.X < 0)
+                    if (velocity < 0)
                     {
-                        velocity.X += (float)0.3;
+                        velocity += (float)0.3;
                     }
                     else
                     {
-                        velocity.X -= (float)0.3;
+                        velocity -= (float)0.3;
                     }
                 }
 
                 // if there's leftover speed from shitty code, zero it
-                if (Math.Abs(velocity.X) < 0.08)
+                if (Math.Abs(velocity) < 0.08)
                 {
-                    velocity.X = 0;
+                    velocity = 0;
                 }
 
             }
-            if (context.GetActionState().ToString().Equals("JumpingStateRight") || context.GetActionState().ToString().Equals("JumpingStateLeft"))
-            {
-                position.Y -= 2f;
-                velocity.Y = -1f;
-            }
-            if (context.GetActionState().ToString().Equals("FallingStateRight") || context.GetActionState().ToString().Equals("FallingStateLeft"))
-            {
-                position.Y += 2f;
-                velocity.Y = 1f;
-            }
-                //if (velocity.Y < 10)
-                //velocity.Y += 0.4f;
-
-                hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
+     
 
         }
 
