@@ -278,5 +278,10 @@ namespace Mario.Sprites.Mario
 
             
         }
+
+        public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
+        {
+
+        }
     }
 }

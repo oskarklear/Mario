@@ -4,9 +4,13 @@ using Mario.Sprites.Items.Items;
 using Mario.Sprites.Enemies;
 using Mario.Sprites.Mario;
 using Mario.States;
+using Mario.Map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
+using System.Linq;
+using System;
 
 namespace Mario
 {
@@ -34,13 +38,12 @@ namespace Mario
         Vector2 QuestionBlockLocation;
         Vector2 HiddenBlockLocation;
         Vector2 BrickBlockLocation;
+        string [][] mapArray;
+        Level map;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 800;  
-            graphics.PreferredBackBufferHeight = 600;   
-            graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
@@ -52,12 +55,20 @@ namespace Mario
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 608;
+            graphics.ApplyChanges();
+            map = new Level();
+            map.Theatre = this;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            Tiles.Content = Content;
+            mapArray = File.ReadLines("map.csv").Select(x => x.Split(',')).ToArray();
+            map.GenerateMap(mapArray, 16);
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL")) { animated = false };
             mario.LoadContent(this.Content);
@@ -99,13 +110,14 @@ namespace Mario
             fireFlower.Update();
             coin.Update();
             star.Update();
-            base.Update(gameTime);
             questionBlock.Update();
             hiddenBlock.Update();
             brickBlock.Update();
             goomba.Update();
             koopa.Update();
             floorBlock.Update();
+            map.Update();
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -113,21 +125,9 @@ namespace Mario
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -350), Color.White);
+            spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -250), Color.White);
             mario.Draw(spriteBatch);
-            
-            fireFlower.Draw(spriteBatch);
-            coin.Draw(spriteBatch);
-            star.Draw(spriteBatch);
-            goomba.Draw(spriteBatch);
-            koopa.Draw(spriteBatch);
-            redMushroom.Draw(spriteBatch);
-            greenMushroom.Draw(spriteBatch);
-            questionBlock.Draw(spriteBatch);
-            hiddenBlock.Draw(spriteBatch);
-            brickBlock.Draw(spriteBatch);
-            pipe.Draw(spriteBatch);
-            floorBlock.Draw(spriteBatch);
+            map.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
