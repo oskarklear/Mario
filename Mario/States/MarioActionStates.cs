@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.Movement;
 
 namespace Mario.States
 {
@@ -23,8 +24,10 @@ namespace Mario.States
 
     public class IdleStateLeft : MarioActionState
     {
+        Kinematics kinematics;
         public IdleStateLeft()
         {
+            kinematics = new Kinematics();
         }
 
         public override void PressUp(MarioContext context)
@@ -46,7 +49,7 @@ namespace Mario.States
         }
         public override void PressLeft(MarioContext context)
         {
-            AccelerateLeft(context);
+            kinematics.AccelerateLeft(context);
             context.SetActionState(new RunningStateLeft());
         }
 
