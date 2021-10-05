@@ -42,10 +42,10 @@ namespace Mario.States
         public override void PressDown(MarioContext context)
         {
             string powerUpState = context.GetPowerUpState().ToString();
+            kinematics.MoveDown(context);
             if (powerUpState != "StandardMario" && powerUpState != "DeadMario")
             {
                 //context.jumped = false;
-                kinematics.MoveDown(context);
                 context.SetActionState(new CrouchingStateLeft());
             }
         }
@@ -89,6 +89,7 @@ namespace Mario.States
         public override void PressDown(MarioContext context)
         {
             string powerUpState = context.GetPowerUpState().ToString();
+            kinematics.MoveDown(context);
             if (powerUpState != "StandardMario" && powerUpState != "DeadMario")
             {
                 //context.jumped = false;

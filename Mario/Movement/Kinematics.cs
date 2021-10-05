@@ -6,6 +6,7 @@ namespace Mario.Movement
 {
     class Kinematics
     {
+        private string prevKinematics;
 
         public void AccelerateLeft(MarioContext context)
         {
