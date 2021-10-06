@@ -229,8 +229,6 @@ namespace Mario
                 }
 
             }
-
-                //if (inputs.Key)
-            }
         }
     }
+}

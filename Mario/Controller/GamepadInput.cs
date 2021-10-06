@@ -22,8 +22,9 @@ namespace Mario
         public ICommand JumpCommand { get; set; }
         public ICommand CrouchCommand { get; set; }
         public ICommand ExitCommand { get; set; }
+
         private MarioContext context;
-        //public MovementCommand Fireball { get; set; }
+
         public GamepadInput(SuperMario mario)
         {
             MoveLeftCommand = new MoveLeftCommand(mario);
@@ -33,6 +34,7 @@ namespace Mario
             IdleCommand = new IdleCommand(mario);
             context = mario.context;
         }
+
         private List<Input> GetInput()
         {
             List<Input> inputs = new List<Input>();
@@ -50,10 +52,10 @@ namespace Mario
                 if (P1currentGamePadState != emptyInput) // Button Pressed
                 {
                     var buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
-
+                    //var buttonList = (Buttons[])
                     foreach (var button in buttonList)
                     {
-                        if (P1currentGamePadState.IsButtonDown(button) && !previousGamePadState1.IsButtonDown(button))
+                        if (P1currentGamePadState.IsButtonDown(button) /*&& !previousGamePadState1.IsButtonDown(button)*/)
                         {
                             Input input = new Input();
                             input.Controller = Input.ControllerType.Gamepad;
@@ -64,6 +66,7 @@ namespace Mario
                 }
             }
             previousGamePadState1 = P1currentGamePadState;
+
 
             if (P2currentGamePadState.IsConnected) // Process input only if connected.
             {
@@ -85,6 +88,7 @@ namespace Mario
             }
             previousGamePadState2 = P2currentGamePadState;
 
+
             if (P3currentGamePadState.IsConnected) // Process input only if connected.
             {
                 if (P3currentGamePadState != emptyInput) // Button Pressed
@@ -104,6 +108,7 @@ namespace Mario
                 }
             }
             previousGamePadState3 = P3currentGamePadState;
+
 
             if (P4currentGamePadState.IsConnected) // Process input only if connected.
             {
@@ -130,7 +135,6 @@ namespace Mario
 
         public void UpdateInput()
         {
-
             if (!GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) && !GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft))
             {
                 IdleCommand.Execute();

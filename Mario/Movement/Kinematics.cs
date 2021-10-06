@@ -56,7 +56,6 @@ namespace Mario.Movement
                 {
                     context.xVelocity -= (float)0.3;
                 }
-
             }
 
             // if there's leftover speed from shitty code, zero it
@@ -86,6 +85,5 @@ namespace Mario.Movement
                 context.yVelocity = 0;
             }
         }
-
     }
 }

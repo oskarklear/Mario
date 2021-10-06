@@ -7,7 +7,6 @@ namespace Mario.States
 {
     public abstract class MarioActionState
     {
-
         public abstract void PressUp(MarioContext context);
 
         public abstract void PressDown(MarioContext context);
@@ -17,16 +16,14 @@ namespace Mario.States
         public abstract void PressLeft(MarioContext context);
 
         public abstract void PressNothing(MarioContext context);
+
         public override abstract string ToString();
-
-
-
     }
-
 
     public class IdleStateLeft : MarioActionState
     {
         Kinematics kinematics;
+
         public IdleStateLeft()
         {
             kinematics = new Kinematics();
@@ -48,11 +45,13 @@ namespace Mario.States
                 context.SetActionState(new CrouchingStateLeft());
             }
         }
+
         public override void PressRight(MarioContext context)
         {
             kinematics.AccelerateRight(context);
             context.SetActionState(new IdleStateRight());
         }
+
         public override void PressLeft(MarioContext context)
         {
             kinematics.AccelerateLeft(context);
@@ -74,6 +73,7 @@ namespace Mario.States
     public class IdleStateRight : MarioActionState
     {
         Kinematics kinematics;
+
         public IdleStateRight()
         {
             kinematics = new Kinematics();
@@ -96,11 +96,13 @@ namespace Mario.States
                 context.SetActionState(new CrouchingStateRight());
             }
         }
+
         public override void PressRight(MarioContext context)
         {
             kinematics.AccelerateRight(context);
             context.SetActionState(new RunningStateRight());
         }
+
         public override void PressLeft(MarioContext context)
         {
             kinematics.AccelerateLeft(context);
@@ -112,18 +114,17 @@ namespace Mario.States
             kinematics.IdleXDecelerate(context);
             kinematics.IdleYDecelerate(context);
         }
+
         public override string ToString()
         {
             return ("IdleStateRight");
         }
-
-
-
     }
 
     public class CrouchingStateLeft : MarioActionState
     {
         Kinematics kinematics;
+
         public CrouchingStateLeft()
         {
             kinematics = new Kinematics();
@@ -138,10 +139,12 @@ namespace Mario.States
         {
             
         }
+
         public override void PressRight(MarioContext context)
         {
             
         }
+
         public override void PressLeft(MarioContext context)
         {
             
@@ -152,6 +155,7 @@ namespace Mario.States
             context.SetActionState(new IdleStateLeft());
 
         }
+
         public override string ToString()
         {
             return ("CrouchingStateLeft");
@@ -161,6 +165,7 @@ namespace Mario.States
     public class CrouchingStateRight : MarioActionState
     {
         Kinematics kinematics;
+
         public CrouchingStateRight()
         {
             kinematics = new Kinematics();
@@ -175,10 +180,12 @@ namespace Mario.States
         {
             //Does nothing
         }
+
         public override void PressRight(MarioContext context)
         {
             //Does nothing
         }
+
         public override void PressLeft(MarioContext context)
         {
             //Does nothing
@@ -189,6 +196,7 @@ namespace Mario.States
             context.SetActionState(new IdleStateRight());
 
         }
+
         public override string ToString()
         {
             return ("CrouchingStateRight");
@@ -198,6 +206,7 @@ namespace Mario.States
     public class JumpingStateLeft : MarioActionState
     {
         Kinematics kinematics;
+
         public JumpingStateLeft()
         {
             kinematics = new Kinematics();
@@ -206,7 +215,6 @@ namespace Mario.States
         public override void PressUp(MarioContext context)
         {
             kinematics.AccelerateUp(context);
-            //context.SetActionState(new JumpingStateLeft());
         }
 
         public override void PressDown(MarioContext context)
@@ -215,11 +223,13 @@ namespace Mario.States
             kinematics.AccelerateDown(context);
             context.SetActionState(new IdleStateLeft());
         }
+
         public override void PressRight(MarioContext context)
         {
             kinematics.AccelerateRight(context);
             context.SetActionState(new JumpingStateRight());
         }
+
         public override void PressLeft(MarioContext context)
         {
             kinematics.AccelerateLeft(context);
@@ -229,6 +239,7 @@ namespace Mario.States
         {
             context.SetActionState(new IdleStateLeft());
         }
+
         public override string ToString()
         {
             return ("JumpingStateLeft");
@@ -238,6 +249,7 @@ namespace Mario.States
     public class JumpingStateRight : MarioActionState
     {
         Kinematics kinematics;
+
         public JumpingStateRight()
         {
             kinematics = new Kinematics();
@@ -246,18 +258,20 @@ namespace Mario.States
         public override void PressUp(MarioContext context)
         {
             kinematics.AccelerateUp(context);
-            //context.SetActionState(new JumpingStateRight());
         }
+
         public override void PressDown(MarioContext context)
         {
             //context.jumped = true;
             kinematics.AccelerateDown(context);
             context.SetActionState(new IdleStateRight());
         }
+
         public override void PressRight(MarioContext context)
         {
             kinematics.AccelerateRight(context);
         }
+
         public override void PressLeft(MarioContext context)
         {
             kinematics.AccelerateLeft(context);
@@ -268,14 +282,17 @@ namespace Mario.States
         {
             context.SetActionState(new IdleStateRight());
         }
+
         public override string ToString()
         {
             return ("JumpingStateRight");
         }
     }
+
     public class FallingStateLeft : MarioActionState
     {
         Kinematics kinematics;
+
         public FallingStateLeft()
         {
             kinematics = new Kinematics();
@@ -285,14 +302,17 @@ namespace Mario.States
         {
             //Does nothing
         }
+
         public override void PressDown(MarioContext context)
         {
             //Does nothing
         }
+
         public override void PressRight(MarioContext context)
         {
             //Does nothing
         }
+
         public override void PressLeft(MarioContext context)
         {
             kinematics.AccelerateLeft(context);
@@ -302,6 +322,7 @@ namespace Mario.States
         {
             // do nothing
         }
+
         public override string ToString()
         {
             return ("FallingStateLeft");
@@ -321,14 +342,17 @@ namespace Mario.States
         {
             //Does nothing
         }
+
         public override void PressDown(MarioContext context)
         {
             //Does nothing
         }
+
         public override void PressRight(MarioContext context)
         {
             //Does nothing
         }
+
         public override void PressLeft(MarioContext context)
         {
 
@@ -347,6 +371,7 @@ namespace Mario.States
     public class RunningStateLeft : MarioActionState
     {
         Kinematics kinematics;
+
         public RunningStateLeft()
         {
             kinematics = new Kinematics();
@@ -357,14 +382,17 @@ namespace Mario.States
             kinematics.AccelerateUp(context);
             context.SetActionState(new JumpingStateLeft());
         }
+
         public override void PressDown(MarioContext context)
         {
             context.SetActionState(new CrouchingStateLeft());
         }
+
         public override void PressRight(MarioContext context)
         {
             context.SetActionState(new IdleStateLeft());
         }
+
         public override void PressLeft(MarioContext context)
         {
             kinematics.AccelerateLeft(context);
@@ -375,6 +403,7 @@ namespace Mario.States
             context.SetActionState(new IdleStateLeft());
 
         }
+
         public override string ToString()
         {
             return ("RunningStateLeft");
@@ -384,6 +413,7 @@ namespace Mario.States
     public class RunningStateRight : MarioActionState
     {
         Kinematics kinematics;
+
         public RunningStateRight()
         {
             kinematics = new Kinematics();
@@ -394,16 +424,19 @@ namespace Mario.States
             kinematics.AccelerateUp(context);
             context.SetActionState(new JumpingStateRight());
         }
+
         public override void PressDown(MarioContext context)
         {
             context.SetActionState(new CrouchingStateRight());
 
         }
+
         public override void PressRight(MarioContext context)
         {
             //context.SetActionState(new IdleStateRight());
             kinematics.AccelerateRight(context);
         }
+
         public override void PressLeft(MarioContext context)
         {
             kinematics.AccelerateLeft(context);
@@ -415,6 +448,7 @@ namespace Mario.States
             context.SetActionState(new IdleStateRight());
 
         }
+
         public override string ToString()
         {
             return ("RunningStateRight");
