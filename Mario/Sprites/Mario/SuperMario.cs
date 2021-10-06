@@ -90,7 +90,8 @@ namespace Mario.Sprites.Mario
 
         public void Update()
         {
-            System.Diagnostics.Debug.WriteLine(context.xVelocity);
+            System.Diagnostics.Debug.WriteLine("X: " + context.xVelocity);
+            System.Diagnostics.Debug.WriteLine("Y: " + context.yVelocity);
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
                 switch (context.GetActionState().ToString())
