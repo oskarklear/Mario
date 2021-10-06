@@ -43,9 +43,9 @@ namespace Mario
 
             // Get the current GamePad state.
             GamePadState P1currentGamePadState = GamePad.GetState(PlayerIndex.One);
-            GamePadState P2currentGamePadState = GamePad.GetState(PlayerIndex.Two);
+            /* GamePadState P2currentGamePadState = GamePad.GetState(PlayerIndex.Two);
             GamePadState P3currentGamePadState = GamePad.GetState(PlayerIndex.Three);
-            GamePadState P4currentGamePadState = GamePad.GetState(PlayerIndex.Four);
+            GamePadState P4currentGamePadState = GamePad.GetState(PlayerIndex.Four); */
 
             if (P1currentGamePadState.IsConnected) // Process input only if connected.
             {
@@ -68,7 +68,7 @@ namespace Mario
             previousGamePadState1 = P1currentGamePadState;
 
 
-            if (P2currentGamePadState.IsConnected) // Process input only if connected.
+            /* if (P2currentGamePadState.IsConnected) // Process input only if connected.
             {
                 if (P2currentGamePadState != emptyInput) // Button Pressed
                 {
@@ -128,7 +128,7 @@ namespace Mario
                     }
                 }
             }
-            previousGamePadState4 = P4currentGamePadState;
+            previousGamePadState4 = P4currentGamePadState; */
 
             return inputs;
         }
