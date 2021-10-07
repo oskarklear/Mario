@@ -30,7 +30,7 @@ namespace Mario
         private BlockContext hiddenBlockContext;
         private BlockContext brickBlockContext;
         //public MovementCommand Fireball { get; set; }
-        public KeyboardInput(SuperMario mario, BlockContext questionBlock,BlockContext hiddenBlock,BlockContext brickBlock)
+        public KeyboardInput(SuperMario mario, BlockContext questionBlock, BlockContext hiddenBlock, BlockContext brickBlock)
         {
             MoveLeftCommand = new MoveLeftCommand(mario);
             MoveRightCommand = new MoveRightCommand(mario);
@@ -98,17 +98,11 @@ namespace Mario
 
                     case (int)Keys.A:
                         MoveLeftCommand.Execute();
-
                         break;
 
                     // Leftward Movement (Left Arrow)
                     case (int)Keys.Left:
-
-
                         MoveLeftCommand.Execute();
-
-                        //Mario.MoveLeft();
-
                         break;
 
                     //Rightward Movement(D key)

@@ -37,20 +37,25 @@ namespace Mario
         {
             List<Input> inputs = new List<Input>();
             
-            GamePadState emptyInput = new GamePadState(); //(Vector2.Zero, Vector2.Zero, 0, 0);
+            //GamePadState emptyInput = new GamePadState(); //(Vector2.Zero, Vector2.Zero, 0, 0);
 
             // Get the current GamePad state.
             GamePadState currentGamePadState = GamePad.GetState(PlayerIndex.One);
 
-            if (currentGamePadState.IsConnected) // Process input only if connected.
-            {
-                if (currentGamePadState != emptyInput) // Button Pressed
-                {
-                    //var buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
-                    var buttonList = new Buttons[] { Buttons.DPadDown, Buttons.DPadUp, Buttons.DPadLeft, Buttons.DPadRight };
-                    foreach (var button in buttonList)
+            //if (currentGamePadState.IsConnected) // Process input only if connected.
+            //{
+                //if (currentGamePadState != emptyInput) // Button Pressed
+                //{
+/*                    Buttons[] buttonsPressed = new Buttons[4];
+                    for (int i = 0; i < buttonsPressed.Length; i++)
                     {
-                        if (currentGamePadState.IsButtonDown(button) /*&& !previousGamePadState1.IsButtonDown(button)*/)
+                        if (GamePad.GetState(PlayerIndex.One).Buttons.)
+                    }*/
+                    Buttons[] buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+                    //Buttons[] buttonList = new Buttons[] { Buttons.DPadDown, Buttons.DPadUp, Buttons.DPadLeft, Buttons.DPadRight };
+                    foreach (Buttons button in buttonList)
+                    {
+                        if (currentGamePadState.IsButtonDown(button)/*GamePad.GetState(PlayerIndex.One).Buttons.button == ButtonState.Pressed*/ /*&& !previousGamePadState1.IsButtonDown(button)*/)
                         {
                             Input input = new Input();
                             input.Controller = Input.ControllerType.Gamepad;
@@ -58,8 +63,8 @@ namespace Mario
                             inputs.Add(input);
                         }
                     }
-                }
-            }
+                //}
+            //}
             previousGamePadState = currentGamePadState;
 
             return inputs;
