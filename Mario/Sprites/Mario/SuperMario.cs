@@ -36,10 +36,12 @@ namespace Mario.Sprites.Mario
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 6;
         }
+
         public void LoadContent(ContentManager content)
         {
             Content = content;
         }
+
         public void MoveLeftCommand()
         {
             context.GetActionState().PressLeft(context);
@@ -57,23 +59,15 @@ namespace Mario.Sprites.Mario
         public void MoveRightCommand()
         {
             context.GetActionState().PressRight(context);
-            int marioTopRightSpeed = 3;
-            if (velocity.X < marioTopRightSpeed) {
-                velocity.X += (float)0.15;
-            }
-            
+
             System.Diagnostics.Debug.WriteLine("Right");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         public void JumpCommand()
         {
-            //int marioTopUpSpeed = 1;
-            //if (yVelocity < marioTopUpSpeed)
-            //{
-            //    yVelocity += (float)0.1;
-            //}
             context.GetActionState().PressUp(context);
+
             System.Diagnostics.Debug.WriteLine("Up");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
@@ -81,7 +75,6 @@ namespace Mario.Sprites.Mario
         public void CrouchCommand()
         {
             context.GetActionState().PressDown(context);
-            //context.GetActionState().PressDown(context);
             
             System.Diagnostics.Debug.WriteLine("Down");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -97,6 +90,9 @@ namespace Mario.Sprites.Mario
 
         public void Update()
         {
+            System.Diagnostics.Debug.WriteLine("X: " + context.xVelocity);
+            System.Diagnostics.Debug.WriteLine("Y: " + context.yVelocity);
+
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
                 switch (context.GetActionState().ToString())
@@ -153,6 +149,7 @@ namespace Mario.Sprites.Mario
                         break;
                 }
             }
+
             if (context.GetPowerUpState().ToString().Equals("SuperMario"))
             {
                 switch (context.GetActionState().ToString())
@@ -209,6 +206,7 @@ namespace Mario.Sprites.Mario
                         break;
                 }
             }
+
             if (context.GetPowerUpState().ToString().Equals("FireMario"))
             {
                 switch (context.GetActionState().ToString())
@@ -265,12 +263,14 @@ namespace Mario.Sprites.Mario
                         break;
                 }
             }
+
             if (context.GetPowerUpState().ToString().Equals("DeadMario"))
             {
                 texture = Content.Load<Texture2D>("mario/deadMario");
                 Columns = 2;
                 animated = true;
             }
+
             if (animated)
             {
                 if (timeSinceLastFrame > millisecondsPerFrame)
@@ -284,31 +284,56 @@ namespace Mario.Sprites.Mario
             }
 
             //set mario's new pos
-            position += velocity;
+            position.X += context.xVelocity;
+            position.Y -= context.yVelocity;
 
-            // if mario idling, then deccelerate
-            if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
-            {
-                if (velocity.X != 0)
-                {
-                    if (velocity.X < 0)
-                    {
-                        velocity.X += (float)0.3;
-                    }
-                    else
-                    {
-                        velocity.X -= (float)0.3;
-                    }
-                }
+            //// if mario idling, then deccelerate
+            //if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
+            //{
+            //    if (context.xVelocity != 0)
+            //    {
+            //        if (context.xVelocity < 0)
+            //        {
+            //            context.xVelocity += (float)0.3;
+            //        }
+            //        else
+            //        {
+            //            context.xVelocity -= (float)0.3;
+            //        }
+            //    }
 
-                // if there's leftover speed from shitty code, zero it
-                if (Math.Abs(velocity.X) < 0.08)
-                {
-                    velocity.X = 0;
-                }
+            //    // if there's leftover speed from shitty code, zero it
+            //    if (Math.Abs(context.xVelocity) < 0.08)
+            //    {
+            //        context.xVelocity = 0;
+            //    }
 
-            }
-     
+            //}
+
+            //if (context.GetActionState().ToString().Equals("JumpingStateLeft") || context.GetActionState().ToString().Equals("JumpingStateRight"))
+            //{
+            //    if (context.yVelocity != 0)
+            //    {
+            //        if (context.yVelocity < 0)
+            //        {
+            //            context.yVelocity -= (float)0.01;
+            //        }
+            //        else
+            //        {
+            //            context.yVelocity -= (float)0.01;
+            //        }
+            //    }
+
+            //    // if there's leftover speed from shitty code, zero it
+            //    if (Math.Abs(context.yVelocity) < 0.08)
+            //    {
+            //        context.xVelocity = 0;
+            //    }
+
+            //}
+
+
+
 
         }
 
@@ -331,44 +356,6 @@ namespace Mario.Sprites.Mario
             }
 
             
-        }
-
-        public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
-        {
-            if (hitbox.TouchTopOf(newRectangle))
-            {
-                hitbox.Y = newRectangle.Y - hitbox.Height;
-                velocity.Y = 0f;
-
-            }
-
-            if (hitbox.TouchLeftOf(newRectangle))
-            {
-                position.X = newRectangle.X - hitbox.Width - 2;
-            }
-
-            if (hitbox.TouchRightOf(newRectangle))
-            {
-                position.X = newRectangle.X - hitbox.Width + 2;
-            }
-
-            if (hitbox.TouchBottomOf(newRectangle))
-            {
-                velocity.Y = 1f;
-            }
-
-            if (position.X < 0)
-                position.X = 0;
-
-            if (position.X > xOffset - hitbox.Width)
-                position.X = xOffset - hitbox.Width;
-
-            //if (position.Y < 0)     Gravity
-                //velocity.Y = 1f;
-
-            //if (position.Y > yOffset - hitbox.Height)
-                //position.Y = yOffset - hitbox.Height;
-
         }
     }
 }

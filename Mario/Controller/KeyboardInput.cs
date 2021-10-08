@@ -30,7 +30,7 @@ namespace Mario
         private BlockContext hiddenBlockContext;
         private BlockContext brickBlockContext;
         //public MovementCommand Fireball { get; set; }
-        public KeyboardInput(SuperMario mario, BlockContext questionBlock,BlockContext hiddenBlock,BlockContext brickBlock)
+        public KeyboardInput(SuperMario mario, BlockContext questionBlock, BlockContext hiddenBlock, BlockContext brickBlock)
         {
             MoveLeftCommand = new MoveLeftCommand(mario);
             MoveRightCommand = new MoveRightCommand(mario);
@@ -80,7 +80,10 @@ namespace Mario
             //}
             
             // if no movement input -- need to add more than just A and D
-            if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A))
+            if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A) 
+                && !Keyboard.GetState().IsKeyDown(Keys.W) && !Keyboard.GetState().IsKeyDown(Keys.S)
+                && !Keyboard.GetState().IsKeyDown(Keys.Right) && !Keyboard.GetState().IsKeyDown(Keys.Left)
+                && !Keyboard.GetState().IsKeyDown(Keys.Up) && !Keyboard.GetState().IsKeyDown(Keys.Down))
             {
                 IdleCommand.Execute();
             } 
@@ -95,17 +98,11 @@ namespace Mario
 
                     case (int)Keys.A:
                         MoveLeftCommand.Execute();
-
                         break;
 
                     // Leftward Movement (Left Arrow)
                     case (int)Keys.Left:
-
-
                         MoveLeftCommand.Execute();
-
-                        //Mario.MoveLeft();
-
                         break;
 
                     //Rightward Movement(D key)
@@ -229,8 +226,6 @@ namespace Mario
                 }
 
             }
-
-                //if (inputs.Key)
-            }
         }
     }
+}

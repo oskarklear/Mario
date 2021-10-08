@@ -31,7 +31,10 @@ namespace Mario
         MarioContext context;
         Pipe pipe;
         IController kb;
-        IController gp;
+        IController gp1;
+        IController gp2;
+        IController gb3;
+        IController gp4;
         BlockContext questionBlock;
         BlockContext hiddenBlock;
         BlockContext brickBlock;
@@ -78,8 +81,9 @@ namespace Mario
             hiddenBlock.SetState(new HiddenBlockState());
             brickBlock = new BlockContext(this, BrickBlockLocation);
             brickBlock.SetState(new BrickBlockState());
-            kb = new KeyboardInput(mario, questionBlock,hiddenBlock,brickBlock) { GameObj = this };
-            gp = new GamepadInput(mario) { GameObj = this };
+            kb = new KeyboardInput(mario, questionBlock, hiddenBlock, brickBlock) { GameObj = this };
+            gp1 = new GamepadInput(mario) { GameObj = this };
+            //gp2 = new GamepadInput(mario)
             fireFlower = new FireFlower();
             goomba = new Goomba();
             koopa = new Koopa();
@@ -104,7 +108,7 @@ namespace Mario
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            gp.UpdateInput();
+            gp1.UpdateInput();
             kb.UpdateInput();
             mario.Update();
             foreach(ISprite sprite in map.CollisionTiles)

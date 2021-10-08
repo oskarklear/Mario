@@ -8,6 +8,7 @@ namespace Mario.Movement
     
     class Kinematics
     {
+        private string prevKinematics;
 
         public Kinematics()
         {
@@ -33,33 +34,19 @@ namespace Mario.Movement
 
         public void AccelerateUp(MarioContext context)
         {
-            int marioTopUpSpeed = 1;
-            if (context.Velocity.Y < marioTopUpSpeed)
+            int marioTopUpSpeed = 2;
+            if (context.yVelocity < marioTopUpSpeed)
             {
                 context.Velocity.Y += (float)0.1;
             }
         }
 
-        public void MoveUp(MarioContext context)
+        public void AccelerateDown(MarioContext context)
         {
-            if (context.Velocity.Y == 0)
+            int marioTopDownSpeed = -2;
+            if (context.yVelocity > marioTopDownSpeed)
             {
-                context.Velocity.Y = 2;
-            } else
-            {
-                context.Velocity.Y = 0;
-            }
-            
-        }
-
-        public void MoveDown(MarioContext context)
-        {
-            if (context.Velocity.Y == 0)
-            {
-                context.Velocity.Y = -2;
-            } else
-            {
-                context.Velocity.Y = 0;
+                context.yVelocity -= (float)0.1;
             }
         }
 
@@ -78,11 +65,31 @@ namespace Mario.Movement
             }
 
             // if there's leftover speed from shitty code, zero it
-            if (Math.Abs(context.Velocity.X) < 0.08)
+            if (Math.Abs(context.xVelocity) < 0.16)
             {
                 context.Velocity.X = 0;
             }
+
         }
 
+        public void IdleYDecelerate(MarioContext context)
+        {
+            if (context.yVelocity != 0)
+            {
+                if (context.yVelocity < 0)
+                {
+                    context.yVelocity += (float)0.3;
+                }
+                else
+                {
+                    context.yVelocity -= (float)0.3;
+                }
+            }
+
+            if (Math.Abs(context.yVelocity) < 0.16)
+            {
+                context.yVelocity = 0;
+            }
+        }
     }
 }
