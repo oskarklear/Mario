@@ -19,7 +19,6 @@ namespace Mario.Sprites.Mario
         private int millisecondsPerFrame;
         Texture2D texture;
         ContentManager Content;
-        Vector2 velocity;
         Vector2 position;
         Dictionary<string, Texture2D> sprites;
         Rectangle hitbox;
@@ -46,9 +45,9 @@ namespace Mario.Sprites.Mario
         {
             context.GetActionState().PressLeft(context);
             int marioTopLeftSpeed = -3;
-            if (velocity.X > marioTopLeftSpeed) 
+            if (context.Velocity.X > marioTopLeftSpeed) 
             {
-                velocity.X -= (float)0.15;
+                context.Velocity.X -= (float)0.15;
             }
             
 
@@ -90,8 +89,8 @@ namespace Mario.Sprites.Mario
 
         public void Update()
         {
-            System.Diagnostics.Debug.WriteLine("X: " + context.xVelocity);
-            System.Diagnostics.Debug.WriteLine("Y: " + context.yVelocity);
+            System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
+            System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
 
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
@@ -284,9 +283,9 @@ namespace Mario.Sprites.Mario
             }
 
             //set mario's new pos
-            position.X += context.xVelocity;
-            position.Y -= context.yVelocity;
+            position += context.Velocity;
 
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             //// if mario idling, then deccelerate
             //if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
             //{
@@ -356,6 +355,40 @@ namespace Mario.Sprites.Mario
             }
 
             
+        }
+
+        public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
+        {
+            if (hitbox.TouchTopOf(newRectangle))
+            {
+                hitbox.Y = newRectangle.Y - hitbox.Height;
+                context.Velocity.Y = 0f;
+            }
+            if (hitbox.TouchLeftOf(newRectangle))
+            {
+                position.X = newRectangle.X - hitbox.Width - 2;
+            }
+            if (hitbox.TouchRightOf(newRectangle))
+            {
+                position.X = newRectangle.X - hitbox.Width + 2;
+            }
+            if (hitbox.TouchBottomOf(newRectangle))
+            {
+                context.Velocity.Y = 1f;
+            }
+
+            if (position.X < 0)
+                position.X = 0;
+
+            if (position.X > xOffset - hitbox.Width)
+                position.X = xOffset - hitbox.Width;
+
+            //if (position.Y < 0)
+                //context.Velocity.Y = 1f;
+
+            if (position.Y > yOffset - hitbox.Height)
+                position.Y = yOffset - hitbox.Height;
+
         }
     }
 }

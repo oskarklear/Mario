@@ -35,7 +35,7 @@ namespace Mario.Movement
         public void AccelerateUp(MarioContext context)
         {
             int marioTopUpSpeed = 2;
-            if (context.yVelocity < marioTopUpSpeed)
+            if (context.Velocity.Y < marioTopUpSpeed)
             {
                 context.Velocity.Y += (float)0.1;
             }
@@ -44,9 +44,9 @@ namespace Mario.Movement
         public void AccelerateDown(MarioContext context)
         {
             int marioTopDownSpeed = -2;
-            if (context.yVelocity > marioTopDownSpeed)
+            if (context.Velocity.Y > marioTopDownSpeed)
             {
-                context.yVelocity -= (float)0.1;
+                context.Velocity.Y -= (float)0.1;
             }
         }
 
@@ -65,7 +65,7 @@ namespace Mario.Movement
             }
 
             // if there's leftover speed from shitty code, zero it
-            if (Math.Abs(context.xVelocity) < 0.16)
+            if (Math.Abs(context.Velocity.Y) < 0.16)
             {
                 context.Velocity.X = 0;
             }
@@ -74,21 +74,21 @@ namespace Mario.Movement
 
         public void IdleYDecelerate(MarioContext context)
         {
-            if (context.yVelocity != 0)
+            if (context.Velocity.Y != 0)
             {
-                if (context.yVelocity < 0)
+                if (context.Velocity.Y < 0)
                 {
-                    context.yVelocity += (float)0.3;
+                    context.Velocity.Y += (float)0.3;
                 }
                 else
                 {
-                    context.yVelocity -= (float)0.3;
+                    context.Velocity.Y -= (float)0.3;
                 }
             }
 
-            if (Math.Abs(context.yVelocity) < 0.16)
+            if (Math.Abs(context.Velocity.Y) < 0.16)
             {
-                context.yVelocity = 0;
+                context.Velocity.Y = 0;
             }
         }
     }

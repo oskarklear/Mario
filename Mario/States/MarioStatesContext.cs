@@ -8,8 +8,7 @@ public class MarioContext
 {
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
-	public float xVelocity;
-	public float yVelocity;
+	public Vector2 Velocity;
 	public bool jumped;
 	//public bool isFalling;
 
