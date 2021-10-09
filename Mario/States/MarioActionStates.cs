@@ -1,475 +1,553 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.States;
 using Mario.Movement;
 
 namespace Mario.States
 {
-    public abstract class MarioActionState
+    public abstract class MarioActionState : IMarioActionState
     {
-        public abstract void PressUp(MarioContext context);
-
-        public abstract void PressDown(MarioContext context);
-
-        public abstract void PressRight(MarioContext context);
-
-        public abstract void PressLeft(MarioContext context);
-
-        public abstract void PressNothing(MarioContext context);
+        public MarioContext marioContext;
+        public MarioPowerupState PowerUpState;
+        public IMarioActionState PreviousActionState;
+        public IMarioActionState CurrentActionState;
+        public Kinematics kinematics;
 
         public override abstract string ToString();
+        public abstract void Enter(IMarioActionState previousActionState);
+        public abstract void Exit();
+        public abstract void PressNothing(MarioContext context);
+        public abstract void StandingTransition();
+        public abstract void CrouchingTransition();
+        public abstract void WalkingTransition();
+        public abstract void RunningTransition();
+        public abstract void JumpingTransition();
+        public abstract void FallingTransition();
+        public abstract void FaceLeftTransition();
+        public abstract void FaceRightTransition();
+        public abstract void CrouchingDiscontinueTransition();
+        //public abstract void WalkingDiscontinueTransition();
+        public abstract void RunningDiscontinueTransition();
+        public abstract void JumpingDiscontinueTransition();
     }
 
-    public class IdleStateLeft : MarioActionState
+    public class IdleState : MarioActionState
     {
-        Kinematics kinematics;
-
-        public IdleStateLeft()
+        public IdleState(MarioContext context)
         {
+            marioContext = context;
+            PowerUpState = context.GetPowerUpState();
+            System.Diagnostics.Debug.WriteLine(PowerUpState.ToString());
             kinematics = new Kinematics();
         }
-
-        public override void PressUp(MarioContext context)
+        public override void Enter(IMarioActionState previousActionState)
         {
-            kinematics.IdleXDecelerate(context);
-            kinematics.AccelerateUp(context);
-            context.SetActionState(new JumpingStateLeft());
+            PreviousActionState = previousActionState;
+            marioContext.SetActionState(this);
+
+        }
+        public override void Exit()
+        {
+            kinematics.IdleXDecelerate(marioContext);
+            kinematics.AccelerateUp(marioContext);
+            marioContext.jumpingState.Enter(this);
+        }
+        public override void PressNothing(MarioContext context)
+        {
+            //Does nothing, since we're already pressing nothing
+            //kinematics.IdleXDecelerate(context);
+            //kinematics.IdleYDecelerate(context);
+        }
+        public override void StandingTransition()
+        {
+            //Does nothing
+        }
+        public override void CrouchingTransition()
+        {
+            if (marioContext.GetPowerUpState().ToString() != "DeadMario")
+            {
+                if (marioContext.GetPowerUpState().ToString() != "StandardMario")
+                    marioContext.crouchingState.Enter(this);
+
+                System.Diagnostics.Debug.WriteLine("Crouch");
+                kinematics.AccelerateDown(marioContext);
+                kinematics.IdleXDecelerate(marioContext);
+
+            }
+        }
+        public override void WalkingTransition()
+        {
+            //Does nothing - for now
         }
 
-        public override void PressDown(MarioContext context)
+        /*public override void PressRight(MarioContext context)
         {
-            string powerUpState = context.GetPowerUpState().ToString();
-            kinematics.AccelerateDown(context);
-            kinematics.IdleXDecelerate(context);
-            if (powerUpState != "DeadMario")
+            //marioContext.SetActionState(new WalkingStateLeft());
+            //Does nothing
+            kinematics.AccelerateRight(context);
+            context.SetActionState(new IdleStateRight());
+        }*/
+        public override void RunningTransition()
+        {
+            System.Diagnostics.Debug.WriteLine("RunningTransition");
+            marioContext.runningState.Enter(this);
+        }
+
+        /*public override void PressLeft(MarioContext context)
+        {
+            System.Diagnostics.Debug.WriteLine("RunningTransition");
+            marioContext.runningState.Enter(this);
+            System.Diagnostics.Debug.WriteLine(marioContext.GetActionState().ToString());
+            kinematics.AccelerateLeft(context);
+        }*/
+        public override void JumpingTransition()
+        {
+            System.Diagnostics.Debug.WriteLine("JumpingTransition");
+            marioContext.jumpingState.Enter(this);
+        }
+        public override void FallingTransition()
+        {
+            System.Diagnostics.Debug.WriteLine("Falling");
+            this.CrouchingTransition();
+        }
+
+        public override void FaceLeftTransition()
+        {
+            System.Diagnostics.Debug.WriteLine("FaceLeft");
+            if (marioContext.facingLeft)
             {
-                //context.jumped = false;
-                context.SetActionState(new CrouchingStateLeft());
+                System.Diagnostics.Debug.WriteLine("Facingleft, go to running");
+                this.RunningTransition();
+            }
+            else
+                marioContext.facingLeft = true;
+        }
+        public override void FaceRightTransition()
+        {
+            System.Diagnostics.Debug.WriteLine("FaceRight");
+            if (marioContext.facingLeft)
+                marioContext.facingLeft = false;
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Facing right, go to running");
+                this.RunningTransition();
             }
         }
 
-        public override void PressRight(MarioContext context)
-        {
-            kinematics.AccelerateRight(context);
-            context.SetActionState(new IdleStateRight());
-        }
-
-        public override void PressLeft(MarioContext context)
-        {
-            kinematics.AccelerateLeft(context);
-            context.SetActionState(new RunningStateLeft());
-        }
-
-        public override void PressNothing(MarioContext context)
-        {
-            kinematics.IdleXDecelerate(context);
-            kinematics.IdleYDecelerate(context);
-        }
-
-        public override string ToString()
-        {
-            return ("IdleStateLeft");
-        }
-    }
-
-    public class IdleStateRight : MarioActionState
-    {
-        Kinematics kinematics;
-
-        public IdleStateRight()
-        {
-            kinematics = new Kinematics();
-        }
-
-        public override void PressUp(MarioContext context)
-        {
-            kinematics.AccelerateUp(context);
-            kinematics.IdleXDecelerate(context);
-            //context.jumped = true;
-            context.SetActionState(new JumpingStateRight());
-        }
-
-        public override void PressDown(MarioContext context)
-        {
-            string powerUpState = context.GetPowerUpState().ToString();
-            kinematics.AccelerateDown(context);
-            kinematics.IdleXDecelerate(context);
-            if (powerUpState != "DeadMario")
-            {
-                //context.jumped = false;
-                context.SetActionState(new CrouchingStateRight());
-            }
-        }
-
-        public override void PressRight(MarioContext context)
-        {
-            kinematics.AccelerateRight(context);
-            context.SetActionState(new RunningStateRight());
-        }
-
-        public override void PressLeft(MarioContext context)
-        {
-            kinematics.AccelerateLeft(context);
-            context.SetActionState(new IdleStateLeft());
-        }
-
-        public override void PressNothing(MarioContext context)
-        {
-            kinematics.IdleXDecelerate(context);
-            kinematics.IdleYDecelerate(context);
-        }
-
-        public override string ToString()
-        {
-            return ("IdleStateRight");
-        }
-    }
-
-    public class CrouchingStateLeft : MarioActionState
-    {
-        Kinematics kinematics;
-
-        public CrouchingStateLeft()
-        {
-            kinematics = new Kinematics();
-        }
-
-        public override void PressUp(MarioContext context)
-        {
-            
-        }
-
-        public override void PressDown(MarioContext context)
-        {
-            kinematics.AccelerateDown(context);
-        }
-
-        public override void PressRight(MarioContext context)
-        {
-            kinematics.AccelerateDown(context);
-        }
-
-        public override void PressLeft(MarioContext context)
-        {
-            kinematics.AccelerateDown(context);
-        }
-
-        public override void PressNothing(MarioContext context)
-        {
-            context.SetActionState(new IdleStateLeft());
-            kinematics.AccelerateDown(context);
-
-        }
-
-        public override string ToString()
-        {
-            return ("CrouchingStateLeft");
-        }
-    }
-
-    public class CrouchingStateRight : MarioActionState
-    {
-        Kinematics kinematics;
-
-        public CrouchingStateRight()
-        {
-            kinematics = new Kinematics();
-        }
-
-        public override void PressUp(MarioContext context)
-        {
-            
-        }
-
-        public override void PressDown(MarioContext context)
-        {
-            kinematics.AccelerateDown(context);
-        }
-
-        public override void PressRight(MarioContext context)
-        {
-            kinematics.AccelerateDown(context);
-        }
-
-        public override void PressLeft(MarioContext context)
-        {
-            kinematics.AccelerateDown(context);
-        }
-
-        public override void PressNothing(MarioContext context)
-        {
-            kinematics.AccelerateDown(context);
-            context.SetActionState(new IdleStateRight());
-
-        }
-
-        public override string ToString()
-        {
-            return ("CrouchingStateRight");
-        }
-    }
-
-    public class JumpingStateLeft : MarioActionState
-    {
-        Kinematics kinematics;
-
-        public JumpingStateLeft()
-        {
-            kinematics = new Kinematics();
-        }
-
-        public override void PressUp(MarioContext context)
-        {
-            kinematics.AccelerateUp(context);
-        }
-
-        public override void PressDown(MarioContext context)
-        {
-            //context.jumped = true;
-            kinematics.AccelerateDown(context);
-            context.SetActionState(new IdleStateLeft());
-        }
-
-        public override void PressRight(MarioContext context)
-        {
-            context.SetActionState(new JumpingStateRight());
-        }
-
-        public override void PressLeft(MarioContext context)
-        {
-            kinematics.AccelerateLeft(context);
-        }
-
-        public override void PressNothing(MarioContext context)
-        {
-            context.SetActionState(new IdleStateLeft());
-        }
-
-        public override string ToString()
-        {
-            return ("JumpingStateLeft");
-        }
-    }
-
-    public class JumpingStateRight : MarioActionState
-    {
-        Kinematics kinematics;
-
-        public JumpingStateRight()
-        {
-            kinematics = new Kinematics();
-        }
-
-        public override void PressUp(MarioContext context)
-        {
-            kinematics.AccelerateUp(context);
-        }
-
-        public override void PressDown(MarioContext context)
-        {
-            //context.jumped = true;
-            kinematics.AccelerateDown(context);
-            context.SetActionState(new IdleStateRight());
-        }
-
-        public override void PressRight(MarioContext context)
-        {
-            kinematics.AccelerateRight(context);
-        }
-
-        public override void PressLeft(MarioContext context)
-        {
-            kinematics.AccelerateLeft(context);
-            context.SetActionState(new JumpingStateLeft());
-        }
-
-        public override void PressNothing(MarioContext context)
-        {
-            context.SetActionState(new IdleStateRight());
-        }
-
-        public override string ToString()
-        {
-            return ("JumpingStateRight");
-        }
-    }
-
-    public class FallingStateLeft : MarioActionState
-    {
-        Kinematics kinematics;
-
-        public FallingStateLeft()
-        {
-            kinematics = new Kinematics();
-        }
-
-        public override void PressUp(MarioContext context)
+        public override void CrouchingDiscontinueTransition()
         {
             //Does nothing
         }
 
-        public override void PressDown(MarioContext context)
+        public override void RunningDiscontinueTransition()
         {
-            
+            //Does nothing
         }
 
-        public override void PressRight(MarioContext context)
+        public override void JumpingDiscontinueTransition()
         {
-            context.SetActionState(new FallingStateRight());
+            //Does nothing
         }
 
-        public override void PressLeft(MarioContext context)
+
+        public override string ToString()
+        {
+            return ("IdleState");
+        }
+
+
+    }
+
+    public class CrouchingState : MarioActionState
+    {
+        public CrouchingState(MarioContext context)
+        {
+            kinematics = new Kinematics();
+            marioContext = context;
+            PowerUpState = context.GetPowerUpState();
+        }
+
+        public override void Enter(IMarioActionState previousActionState)
+        {
+            PreviousActionState = previousActionState;
+            marioContext.SetActionState(this);
+        }
+        public override void Exit()
+        {
+            PreviousActionState.Enter(this);
+        }
+        public override void PressNothing(MarioContext context)
+        {
+            marioContext.idleState.Enter(this);
+            kinematics.AccelerateDown(context);
+
+        }
+        public override void StandingTransition()
+        {
+            marioContext.idleState.Enter(this);
+
+        }
+        public override void CrouchingTransition()
+        {
+            //kinematics.AccelerateDown(context);
+        }
+
+        public override void WalkingTransition()
+        {
+            //Does nothing
+        }
+        public override void RunningTransition()
+        {
+            //Does nothing
+        }
+        public override void JumpingTransition()
+        {
+            this.StandingTransition();
+        }
+        public override void FallingTransition()
+        {
+            marioContext.fallingState.Enter(this);
+        }
+
+        public override void FaceLeftTransition()
+        {
+            System.Diagnostics.Debug.WriteLine("FaceLeft");
+            if (!marioContext.facingLeft)
+                marioContext.facingLeft = true;
+        }
+        public override void FaceRightTransition()
+        {
+            System.Diagnostics.Debug.WriteLine("FaceRight");
+            if (marioContext.facingLeft)
+                marioContext.facingLeft = false;
+        }
+
+        public override void CrouchingDiscontinueTransition()
+        {
+            Exit();
+        }
+
+        public override void RunningDiscontinueTransition()
+        {
+            //Does nothing
+        }
+
+        public override void JumpingDiscontinueTransition()
+        {
+            //Does nothing
+        }
+        public override string ToString()
+        {
+            return ("CrouchingState");
+        }
+    }
+    public class JumpingState : MarioActionState
+    {
+        public JumpingState(MarioContext context)
+        {
+            marioContext = context;
+            PowerUpState = context.GetPowerUpState();
+            kinematics = new Kinematics();
+        }
+
+        public override void Enter(IMarioActionState previousActionState)
+        {
+            PreviousActionState = previousActionState;
+            marioContext.SetActionState(this);
+        }
+
+        public override void Exit()
+        {
+            PreviousActionState.Enter(this);
+            //kinematics.AccelerateUp(context);
+        }
+        public override void PressNothing(MarioContext context)
+        {
+            marioContext.idleState.Enter(this);
+        }
+        public override void StandingTransition()
+        {
+            marioContext.idleState.Enter(this);
+            //context.jumped = true;
+            //kinematics.AccelerateDown(context);
+            //context.SetActionState(new IdleStateLeft());
+        }
+        public override void CrouchingTransition()
+        {
+            //Does nothing - for now
+        }
+
+        /*public override void PressRight(MarioContext context)
+        {
+            context.SetActionState(new JumpingStateRight());
+        }*/
+
+        public override void WalkingTransition()
+        {
+            //Does nothing - for now
+        }
+
+        /*public override void PressLeft(MarioContext context)
+        {
+            kinematics.AccelerateLeft(context);
+        }*/
+        public override void RunningTransition()
+        {
+            //Does nothing - at least, for now we imply that you cannot get into running from jumping
+        }
+        public override void JumpingTransition()
+        {
+            //Does nothing
+        }
+
+        public override void FallingTransition()
+        {
+            //PreviousActionState.Enter(this)
+            marioContext.idleState.Enter(this);
+        }
+        public override void FaceLeftTransition()
+        {
+            System.Diagnostics.Debug.WriteLine("FaceLeft");
+            if (!marioContext.facingLeft)
+                marioContext.facingLeft = true;
+        }
+        public override void FaceRightTransition()
+        {
+            System.Diagnostics.Debug.WriteLine("FaceRight");
+            if (marioContext.facingLeft)
+                marioContext.facingLeft = false;
+        }
+
+        public override void CrouchingDiscontinueTransition()
+        {
+            //Does nothing
+        }
+
+        public override void RunningDiscontinueTransition()
+        {
+            //Does nothing
+        }
+
+        public override void JumpingDiscontinueTransition()
+        {
+            Exit();
+        }
+        public override string ToString()
+        {
+            return ("JumpingState");
+        }
+    }
+    public class FallingState : MarioActionState
+    {
+        public FallingState(MarioContext context)
+        {
+            marioContext = context;
+            PowerUpState = context.GetPowerUpState();
+            kinematics = new Kinematics();
+        }
+
+        public override void Enter(IMarioActionState previousActionState)
+        {
+            PreviousActionState = previousActionState;
+            marioContext.SetActionState(this);
+        }
+
+        public override void Exit()
+        {
+            PreviousActionState.Enter(this);
+        }
+        public override void PressNothing(MarioContext context)
+        {
+            // do nothing
+        }
+
+        /*public override void PressDown(MarioContext context)
+        {
+            PreviousActionState.Enter(this);
+
+        }*/
+
+        public override void StandingTransition()
+        {
+            marioContext.idleState.Enter(this);
+        }
+
+        /*public override void PressRight(MarioContext context)
+        {
+            marioContext.idleState.Enter(this);
+        }*/
+
+        public override void CrouchingTransition()
+        {
+            //Does nothing
+        }
+
+        public override void WalkingTransition()
+        {
+            //Does nothing - for now
+        }
+
+        /*public override void PressLeft(MarioContext context)
         {
             int marioTopLeftSpeed = -3;
             if (context.Velocity.X > marioTopLeftSpeed)
             {
                 context.Velocity.X -= (float)0.15;
             }
-        }
+        }*/
 
-        public override void PressNothing(MarioContext context)
+        public override void RunningTransition()
         {
-            // do nothing
+            marioContext.runningState.Enter(this);
         }
 
-        public override string ToString()
+        public override void JumpingTransition()
         {
-            return ("FallingStateLeft");
-        }
-    }
-
-    public class FallingStateRight : MarioActionState
-    {
-        Kinematics kinematics;
-
-        public FallingStateRight()
-        {
-            kinematics = new Kinematics();
+            marioContext.jumpingState.Enter(this);
         }
 
-        public override void PressUp(MarioContext context)
+        public override void FallingTransition()
         {
             //Does nothing
         }
 
-        public override void PressDown(MarioContext context)
+        public override void FaceLeftTransition()
         {
-            //Does nothing
-        }
-
-        public override void PressRight(MarioContext context)
-        {
-            //Does nothing
-        }
-
-        public override void PressLeft(MarioContext context)
-        {
-            int marioTopLeftSpeed = -3;
-            if (context.Velocity.X > marioTopLeftSpeed)
+            System.Diagnostics.Debug.WriteLine("FaceLeft");
+            if (marioContext.facingLeft)
             {
-                context.Velocity.X -= (float)0.15;
+                System.Diagnostics.Debug.WriteLine("Facingleft, go to running");
+                this.RunningTransition();
+            }
+            else
+                marioContext.facingLeft = true;
+        }
+        public override void FaceRightTransition()
+        {
+            System.Diagnostics.Debug.WriteLine("FaceRight");
+            if (marioContext.facingLeft)
+                marioContext.facingLeft = false;
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Facing right, go to running");
+                this.RunningTransition();
             }
         }
-        public override void PressNothing(MarioContext context)
+
+        public override void CrouchingDiscontinueTransition()
         {
-            // do nothing
+            //Does nothing
         }
+
+        public override void RunningDiscontinueTransition()
+        {
+            //Does nothing
+        }
+
+        public override void JumpingDiscontinueTransition()
+        {
+            //Does nothing
+        }
+
         public override string ToString()
         {
-            return ("FallingStateRight");
+            return ("FallingState");
         }
     }
 
-    public class RunningStateLeft : MarioActionState
+    public class RunningState : MarioActionState
     {
-        Kinematics kinematics;
-
-        public RunningStateLeft()
+        public RunningState(MarioContext context)
         {
+            marioContext = context;
+            PowerUpState = context.GetPowerUpState();
             kinematics = new Kinematics();
         }
 
-        public override void PressUp(MarioContext context)
+        public override void Enter(IMarioActionState previousActionState)
         {
-            kinematics.AccelerateUp(context);
-            context.SetActionState(new JumpingStateLeft());
+            PreviousActionState = previousActionState;
+            marioContext.SetActionState(this);
+            kinematics.AccelerateRight(marioContext);
         }
 
-        public override void PressDown(MarioContext context)
+        public override void Exit()
         {
-            context.SetActionState(new CrouchingStateLeft());
+            PreviousActionState.Enter(this);
         }
-
-        public override void PressRight(MarioContext context)
-        {
-            
-            context.SetActionState(new IdleStateLeft());
-        }
-
-        public override void PressLeft(MarioContext context)
-        {
-            
-            kinematics.AccelerateLeft(context);
-        }
-
         public override void PressNothing(MarioContext context)
         {
             kinematics.IdleYDecelerate(context);
-            context.SetActionState(new IdleStateLeft());
+            //context.SetActionState(new IdleStateLeft());
 
         }
-
-        public override string ToString()
+        public override void StandingTransition()
         {
-            return ("RunningStateLeft");
-        }
-    }
-
-    public class RunningStateRight : MarioActionState
-    {
-        Kinematics kinematics;
-
-        public RunningStateRight()
-        {
-            kinematics = new Kinematics();
+            marioContext.idleState.Enter(this);
+            //kinematics.AccelerateUp(context);
         }
 
-        public override void PressUp(MarioContext context)
+        public override void CrouchingTransition()
         {
-            kinematics.AccelerateUp(context);
-            context.SetActionState(new JumpingStateRight());
+            //Does nothing - for now
         }
 
-        public override void PressDown(MarioContext context)
+        public override void WalkingTransition()
         {
-            context.SetActionState(new CrouchingStateRight());
-
+            //Does nothing - for now
         }
 
-        public override void PressRight(MarioContext context)
+        public override void RunningTransition()
         {
-            //context.SetActionState(new IdleStateRight());
-            
-            kinematics.AccelerateRight(context);
+            //Does nothing, we're already in running state
         }
 
-        public override void PressLeft(MarioContext context)
+        /*public override void PressLeft(MarioContext context)
         {
+
             kinematics.AccelerateLeft(context);
-            //context.SetActionState(new IdleStateRight());
-        }
+        }*/
 
-        public override void PressNothing(MarioContext context)
+        public override void JumpingTransition()
         {
-            kinematics.IdleYDecelerate(context);
-            context.SetActionState(new IdleStateRight());
-
+            marioContext.jumpingState.Enter(this);
         }
 
+        public override void FallingTransition()
+        {
+            marioContext.fallingState.Enter(this);
+        }
+
+        public override void FaceLeftTransition()
+        {
+            if (!marioContext.facingLeft)
+                marioContext.idleState.Enter(this);
+        }
+
+        public override void FaceRightTransition()
+        {
+            if (marioContext.facingLeft)
+                marioContext.idleState.Enter(this);
+        }
+
+        public override void CrouchingDiscontinueTransition()
+        {
+            //Does nothing
+        }
+
+        public override void RunningDiscontinueTransition()
+        {
+            Exit();
+        }
+
+        public override void JumpingDiscontinueTransition()
+        {
+            //Does nothing
+        }
         public override string ToString()
         {
-            return ("RunningStateRight");
+            return ("RunningState");
         }
     }
 }
-
