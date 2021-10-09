@@ -78,7 +78,7 @@ namespace Mario.Sprites.Mario
             context.GetActionState().PressNothing(context);
 
             System.Diagnostics.Debug.WriteLine("Nothing");
-            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            System.Diagnostics.Debug.WriteLine("hgshrt" + context.GetActionState().ToString());
         }
 
         public void Update()

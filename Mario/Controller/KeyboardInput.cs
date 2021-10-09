@@ -45,6 +45,7 @@ namespace Mario
             HiddenBumpCommand = new BumpCommand(hiddenBlockContext, context);
             BrickBumpCommand = new BumpCommand(brickBlockContext, context);
         }
+
         private List<Input> GetInput()
         {
             List<Input> inputs = new List<Input>();
@@ -52,13 +53,18 @@ namespace Mario
             // Get the current Keyboard state.
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
-            Keys[] keysPressed = currentKeyboardState.GetPressedKeys();
-            foreach (Keys key in keysPressed)
+            //Keys[] keysPressed = currentKeyboardState.GetPressedKeys();
+            Keys[] adgaze = (Keys[])Enum.GetValues(typeof(Keys));
+
+            foreach (Keys key in adgaze)
             {
-                Input input = new Input();
-                input.Controller = Input.ControllerType.Keyboard;
-                input.Key = (int)key;
-                inputs.Add(input);
+                if (currentKeyboardState.IsKeyDown(key))
+                {
+                    Input input = new Input();
+                    input.Controller = Input.ControllerType.Keyboard;
+                    input.Key = (int)key;
+                    inputs.Add(input);
+                }
             }
 
             // Update previous Keyboard state.

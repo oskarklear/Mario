@@ -111,7 +111,7 @@ namespace Mario
             koopa.Update();
             floorBlock.Update();
 
-            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         protected override void Draw(GameTime gameTime)
