@@ -549,5 +549,5 @@ namespace Mario.States
             return ("RunningState");
         }
     }
-   }
+}
 
