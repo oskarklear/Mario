@@ -1,4 +1,5 @@
 ﻿using Mario.Sprites;
+using Mario.Sprites.Enemies;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -20,6 +21,10 @@ namespace Mario.Map
             get { return theatre; }
             set { theatre = value; }
         }
+        private const int KOOPAH = 26;
+        private const int KOOPAW = 16;
+        private const int GOOMBAH = 16;
+        private const int GOOMBAW = 16;
         public Level()
         {
 
@@ -46,6 +51,12 @@ namespace Mario.Map
                             case 3:
                                 collisionTiles.Add(new QuestionBlockSprite(theatre, new Vector2(i * size, j * size), null));
                                 break;
+                            case 30:
+                                collisionTiles.Add(new Goomba(theatre, new Vector2(i * GOOMBAH, j * GOOMBAW - size + 1)));
+                                break;
+                            case 31:
+                                collisionTiles.Add(new Koopa(theatre, new Vector2(i * KOOPAH, j * KOOPAW - size)));
+                                break;
                         }
                     }
                         //collisionTiles.Add(new CollisionTiles(number, new Rectangle(i * size, j * size, size, size)));
@@ -56,12 +67,12 @@ namespace Mario.Map
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (BlockSprite tile in collisionTiles)
+            foreach (ISprite tile in collisionTiles)
                 tile.Draw(spriteBatch);
         }
         public void Update()
         {
-            foreach (BlockSprite tile in collisionTiles)
+            foreach (ISprite tile in collisionTiles)
                 tile.Update();
         }
     }
