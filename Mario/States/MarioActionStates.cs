@@ -44,7 +44,7 @@ namespace Mario.States
         public override void Enter(IMarioActionState previousActionState)
         {
             PreviousActionState = previousActionState;
-            marioContext.SetActionState(this);
+            marioContext.SetActionState(this);           
 
         }
         public override void Exit()
@@ -56,8 +56,8 @@ namespace Mario.States
         public override void PressNothing(MarioContext context)
         {
             //Does nothing, since we're already pressing nothing
-            //kinematics.IdleXDecelerate(context);
-            //kinematics.IdleYDecelerate(context);
+            kinematics.IdleXDecelerate(context);
+            kinematics.IdleYDecelerate(context);
         }
         public override void StandingTransition()
         {
@@ -67,9 +67,9 @@ namespace Mario.States
         {
             if (marioContext.GetPowerUpState().ToString() != "DeadMario")
             {
-                if (marioContext.GetPowerUpState().ToString() != "StandardMario")
-                    marioContext.crouchingState.Enter(this);
+                //if (marioContext.GetPowerUpState().ToString() != "StandardMario")
 
+                marioContext.crouchingState.Enter(this);
                 System.Diagnostics.Debug.WriteLine("Crouch");
                 kinematics.AccelerateDown(marioContext);
                 kinematics.IdleXDecelerate(marioContext);
@@ -172,6 +172,7 @@ namespace Mario.States
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
+            kinematics.AccelerateDown(marioContext);
         }
         public override void Exit()
         {
@@ -180,8 +181,6 @@ namespace Mario.States
         public override void PressNothing(MarioContext context)
         {
             marioContext.idleState.Enter(this);
-            kinematics.AccelerateDown(context);
-
         }
         public override void StandingTransition()
         {
@@ -207,7 +206,7 @@ namespace Mario.States
         }
         public override void FallingTransition()
         {
-            marioContext.fallingState.Enter(this);
+            marioContext.crouchingState.Enter(this);
         }
 
         public override void FaceLeftTransition()
@@ -259,6 +258,7 @@ namespace Mario.States
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
+            kinematics.AccelerateUp(marioContext);
         }
 
         public override void Exit()
@@ -366,24 +366,13 @@ namespace Mario.States
         }
         public override void PressNothing(MarioContext context)
         {
-            // do nothing
+            marioContext.idleState.Enter(this);
         }
-
-        /*public override void PressDown(MarioContext context)
-        {
-            PreviousActionState.Enter(this);
-
-        }*/
 
         public override void StandingTransition()
         {
             marioContext.idleState.Enter(this);
         }
-
-        /*public override void PressRight(MarioContext context)
-        {
-            marioContext.idleState.Enter(this);
-        }*/
 
         public override void CrouchingTransition()
         {
@@ -394,15 +383,6 @@ namespace Mario.States
         {
             //Does nothing - for now
         }
-
-        /*public override void PressLeft(MarioContext context)
-        {
-            int marioTopLeftSpeed = -3;
-            if (context.Velocity.X > marioTopLeftSpeed)
-            {
-                context.Velocity.X -= (float)0.15;
-            }
-        }*/
 
         public override void RunningTransition()
         {
@@ -477,7 +457,10 @@ namespace Mario.States
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
-            kinematics.AccelerateRight(marioContext);
+            if (!marioContext.facingLeft)
+                kinematics.AccelerateRight(marioContext);
+            else
+                kinematics.AccelerateLeft(marioContext);
         }
 
         public override void Exit()
@@ -486,8 +469,7 @@ namespace Mario.States
         }
         public override void PressNothing(MarioContext context)
         {
-            kinematics.IdleYDecelerate(context);
-            //context.SetActionState(new IdleStateLeft());
+            marioContext.idleState.Enter(this);
 
         }
         public override void StandingTransition()
@@ -497,7 +479,7 @@ namespace Mario.States
         }
         public override void CrouchingTransition()
         {
-            //Does nothing
+            marioContext.crouchingState.Enter(this);
         }
 
         public override void WalkingTransition()
@@ -517,7 +499,7 @@ namespace Mario.States
 
         public override void FallingTransition()
         {
-            marioContext.fallingState.Enter(this);
+            CrouchingTransition();
         }
         public override void FaceLeftTransition()
         {
@@ -549,5 +531,5 @@ namespace Mario.States
             return ("RunningState");
         }
     }
-   }
+}
 
