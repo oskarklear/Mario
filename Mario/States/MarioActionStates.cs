@@ -221,11 +221,13 @@ namespace Mario.States
             System.Diagnostics.Debug.WriteLine("FaceRight");
             if (marioContext.facingLeft)
                 marioContext.facingLeft = false;
+            
         }
 
         public override void CrouchingDiscontinueTransition()
         {
             Exit();
+            kinematics.AccelerateDown(marioContext);
         }
 
         public override void RunningDiscontinueTransition()
@@ -242,6 +244,8 @@ namespace Mario.States
             return ("CrouchingState");
         }
     }
+
+
     public class JumpingState : MarioActionState
     {
         public JumpingState(MarioContext context)
@@ -306,15 +310,20 @@ namespace Mario.States
             //PreviousActionState.Enter(this)
             marioContext.idleState.Enter(this);
         }
+
+        public override string ToString()
+        {
+            return ("JumpingState");
+        }
+
         public override void FaceLeftTransition()
         {
-            System.Diagnostics.Debug.WriteLine("FaceLeft");
             if (!marioContext.facingLeft)
                 marioContext.facingLeft = true;
         }
+
         public override void FaceRightTransition()
         {
-            System.Diagnostics.Debug.WriteLine("FaceRight");
             if (marioContext.facingLeft)
                 marioContext.facingLeft = false;
         }
@@ -333,11 +342,9 @@ namespace Mario.States
         {
             Exit();
         }
-        public override string ToString()
-        {
-            return ("JumpingState");
-        }
     }
+
+
     public class FallingState : MarioActionState
     {
         public FallingState(MarioContext context)
@@ -422,6 +429,7 @@ namespace Mario.States
             }
             else
                 marioContext.facingLeft = true;
+            kinematics = new Kinematics();
         }
         public override void FaceRightTransition()
         {
@@ -487,10 +495,9 @@ namespace Mario.States
             marioContext.idleState.Enter(this);
             //kinematics.AccelerateUp(context);
         }
-
         public override void CrouchingTransition()
         {
-            //Does nothing - for now
+            //Does nothing
         }
 
         public override void WalkingTransition()
@@ -503,12 +510,6 @@ namespace Mario.States
             //Does nothing, we're already in running state
         }
 
-        /*public override void PressLeft(MarioContext context)
-        {
-
-            kinematics.AccelerateLeft(context);
-        }*/
-
         public override void JumpingTransition()
         {
             marioContext.jumpingState.Enter(this);
@@ -518,13 +519,11 @@ namespace Mario.States
         {
             marioContext.fallingState.Enter(this);
         }
-
         public override void FaceLeftTransition()
         {
             if (!marioContext.facingLeft)
                 marioContext.idleState.Enter(this);
         }
-
         public override void FaceRightTransition()
         {
             if (marioContext.facingLeft)
@@ -550,4 +549,5 @@ namespace Mario.States
             return ("RunningState");
         }
     }
-}
+   }
+
