@@ -44,8 +44,7 @@ namespace Mario
         Vector2 BrickBlockLocation;
         string [][] mapArray;
         Level map;
-        Collision collisionDetector;
-        List<ICollider> DynamicObjects;
+        
 
         public Game1()
         {
@@ -71,8 +70,7 @@ namespace Mario
             //collisionDetector = new Collision(map.CollisionTiles, graphics.GraphicsDevice);
             
             base.Initialize();
-            DynamicObjects = new List<ICollider>();
-            DynamicObjects.Add(mario);
+            
         }
 
         protected override void LoadContent()
@@ -86,7 +84,7 @@ namespace Mario
             mario.LoadContent(this.Content);
             kb = new KeyboardInput(mario, questionBlock, hiddenBlock, brickBlock) { GameObj = this };
             gp1 = new GamepadInput(mario) { GameObj = this };
-            collisionDetector = new Collision(map.CollisionTiles, graphics.GraphicsDevice);
+            
             //gp2 = new GamepadInput(mario)
 
         }
@@ -98,11 +96,17 @@ namespace Mario
             gp1.UpdateInput();
             kb.UpdateInput();
             mario.Update();
-            //foreach(ISprite sprite in map.CollisionTiles)
-            //{
-               // mario.Collision(sprite.DestinationRectangle, 800, 608);
-            //}
-            collisionDetector.Update(DynamicObjects);
+            foreach(ISprite sprite in map.CollisionTiles)
+            {
+                
+
+                    
+                    mario.Collision(sprite, 800, 608);
+                    sprite.Collision(mario, 800, 608);
+                    
+                
+            }
+            //collisionDetector.Update(DynamicObjects);
             map.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());

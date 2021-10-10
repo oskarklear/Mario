@@ -59,9 +59,9 @@ namespace Mario.Sprites
                 int y = dynamic.DestinationRectangle.Y;
                 foreach(ICollider target in CollisionGrid[x / Graphics.Viewport.Width * 10, y / Graphics.Viewport.Height * 10])
                 {
-                    
-                    dynamic.Collision(target, 800, 608);
                     target.Collision(dynamic, 800, 608);
+                    dynamic.Collision(target, 800, 608);
+                    
                 }
             }
         }

@@ -53,5 +53,10 @@ namespace Mario.Sprites.Items.Items
             Content = content;
             texture = Content.Load<Texture2D>("items/fire_flower");
         }
+
+        public void Collision(ISprite collider, int xoffset, int yoffset)
+        {
+            //TODO
+        }
     }
 }

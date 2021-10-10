@@ -92,6 +92,11 @@ namespace Mario.Sprites
                 currentFrame = 0;
             timeSinceLastFrame++;
         }
+
+        public void Collision(ISprite collider, int xoffset, int yoffset)
+        {
+            
+        }
     }
     public class BrickBlockSprite : BlockSprite
     {

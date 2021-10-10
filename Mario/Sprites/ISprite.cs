@@ -21,5 +21,7 @@ namespace Mario.Sprites
         public void Update();
 
         public void Draw(SpriteBatch spriteBatch);
+
+        public void Collision(ISprite collider, int xoffset, int yoffset);
     }
 }

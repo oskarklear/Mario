@@ -50,5 +50,11 @@ namespace Mario.Sprites.Enemies
                 currentFrame = 0;
             timeSinceLastFrame++;
         }
+
+        public void Collision(ISprite collider, int xoffset, int yoffset)
+        {
+            //TODO
+            
+        }
     }
 }

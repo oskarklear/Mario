@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Mario.Sprites.Mario
 {
-    public class SuperMario : ICollider
+    public class SuperMario : ISprite
     {
         public MarioContext context { get; set; }
         public bool animated { get; set; }
@@ -287,6 +287,7 @@ namespace Mario.Sprites.Mario
             position.Y -= context.Velocity.Y;
 
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
+            DestinationRectangle = hitbox;
             //// if mario idling, then deccelerate
             //if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
             //{
@@ -358,30 +359,33 @@ namespace Mario.Sprites.Mario
             
         }
 
-        public void Collision(ICollider collider, int xOffset, int yOffset)
+        public void Collision(ISprite collider, int xOffset, int yOffset)
         {
             if (hitbox.TouchTopOf(collider.DestinationRectangle))
             {
                 hitbox.Y = collider.DestinationRectangle.Y - hitbox.Height - 1;
                 position.Y = hitbox.Y;
                 context.Velocity.Y = 0f;
+                System.Diagnostics.Debug.WriteLine("mario hit the top of something");
             }
             if (hitbox.TouchLeftOf(collider.DestinationRectangle))
             {
                 hitbox.X = collider.DestinationRectangle.X - hitbox.Width - 4;
                 position.X = hitbox.X;
+                System.Diagnostics.Debug.WriteLine("mario hit the left of something");
             }
             if (hitbox.TouchRightOf(collider.DestinationRectangle))
             {
                 hitbox.X = collider.DestinationRectangle.X + hitbox.Width + 4;
                 position.X = hitbox.X;
+                System.Diagnostics.Debug.WriteLine("mario hit the right of something");
             }
             if (hitbox.TouchBottomOf(collider.DestinationRectangle))
             {
                 hitbox.Y = collider.DestinationRectangle.Y + hitbox.Height + 1;
                 position.Y = hitbox.Y;
                 //context.Velocity.Y = 0f;
-                //System.Diagnostics.Debug.WriteLine("collision");
+                System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
             }
 
             if (position.X < 0)

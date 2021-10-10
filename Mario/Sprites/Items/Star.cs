@@ -54,5 +54,10 @@ namespace Mario.Sprites.Items
             Content = content;
             texture = Content.Load<Texture2D>("items/stars");
         }
+
+        public void Collision(ISprite collider, int xoffset, int yoffset)
+        {
+            //TODO
+        }
     }
 }

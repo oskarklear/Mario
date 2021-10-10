@@ -8,7 +8,7 @@ using Mario.Sprites.Mario;
 
 namespace Mario.States
 {
-	public class BlockContext : ICollider
+	public class BlockContext : ISprite
 	{
 		BlockState state;
 		BlockState oldState;
@@ -122,9 +122,10 @@ namespace Mario.States
 
 		}
 
-        public void Collision(ICollider collider, int xOffset, int yOffset)
+        public void Collision(ISprite collider, int xOffset, int yOffset)
         {
-            if (DestinationRectangle.TouchBottomOf(collider.DestinationRectangle))
+			
+			if (DestinationRectangle.TouchTopOf(collider.DestinationRectangle))
             {
 				//System.Diagnostics.Debug.WriteLine("collision");
 				if (collider is SuperMario)
@@ -132,6 +133,9 @@ namespace Mario.States
 					//System.Diagnostics.Debug.WriteLine("collision with mario");
 					SuperMario mario=collider as SuperMario;
 					System.Diagnostics.Debug.WriteLine("collision with mario");
+					//System.Diagnostics.Debug.WriteLine(this.ToString());
+					System.Diagnostics.Debug.WriteLine(sprite.ToString());
+					System.Diagnostics.Debug.WriteLine(mario.ToString());
 					state.Bump(this, mario.context, sprite);
 				}					
 				
