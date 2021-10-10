@@ -46,7 +46,7 @@ namespace Mario
             foreach (Buttons button in buttonList)
             {
                 System.Diagnostics.Debug.WriteLine("Button: " + button + "; Up?: " + currentGamePadState.IsButtonUp(button) + "; Down?: " + previousGamePadState.IsButtonDown(button));
-                if (currentGamePadState.IsButtonUp(button) && previousGamePadState.IsButtonDown(button))
+                if (currentGamePadState.IsButtonDown(button) /*&& previousGamePadState.IsButtonDown(button)*/)
                 {
                     Input input = new Input();
                     input.Controller = Input.ControllerType.Gamepad;
