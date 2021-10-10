@@ -13,6 +13,7 @@ namespace Mario.Sprites.Items
         Game1 Theatre;
         Texture2D texture;
         Vector2 position;
+        ContentManager Content;
         public Rectangle DestinationRectangle { get; set; }
         public RedMushroom(Game1 theatre, Vector2 location)
         {

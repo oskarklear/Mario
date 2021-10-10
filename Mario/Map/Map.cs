@@ -53,12 +53,12 @@ namespace Mario.Map
                             case 1:
                                 BlockContext groundBlock = new BlockContext(theatre, new Vector2(i * size, j * size));
                                 groundBlock.SetState(new GroundBlockState());
-                                collisionTiles.Add(groundBlock);
+                                collisionObjs.Add(groundBlock);
                                 break;
                             case 2:
                                 BlockContext brickBlock = new BlockContext(theatre, new Vector2(i * size, j * size));
                                 brickBlock.SetState(new BrickBlockState());
-                                collisionTiles.Add(brickBlock);
+                                collisionObjs.Add(brickBlock);
                                 break;
                             case 3:
                                 BlockContext qblock = new BlockContext(theatre, new Vector2(i * size, j * size));
