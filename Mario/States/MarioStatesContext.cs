@@ -6,6 +6,11 @@ using Microsoft.Xna.Framework;
 
 public class MarioContext
 {
+	public MarioActionState idleState;
+	public MarioActionState runningState;
+	public MarioActionState jumpingState;
+	public MarioActionState fallingState;
+	public MarioActionState crouchingState;
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
 	public Vector2 Velocity;
