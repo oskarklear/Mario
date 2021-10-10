@@ -105,20 +105,27 @@ namespace Mario.States
 		}
 		public void ToggleRubble()
 		{
-			rubbleActive = true;
-			Vector2 rubbleLocation1 = sprite.GetLocation();
-			rubbleLocation1.X -= 10;
-			Vector2 rubbleLocation2 = sprite.GetLocation();
-			rubbleLocation2.X -= 5;
-			Vector2 rubbleLocation3 = sprite.GetLocation();
-			rubbleLocation3.X += 5;
-			Vector2 rubbleLocation4 = sprite.GetLocation();
-			rubbleLocation4.X += 10;
-			rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation1, this));
-			rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation2, this));
-			rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation3, this));
-			rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation4, this));
-			System.Diagnostics.Debug.WriteLine("rubble");
+			if (!rubbleActive)
+			{
+				rubbleActive = true;
+				Vector2 rubbleLocation1 = sprite.GetLocation();
+				rubbleLocation1.X -= 10;
+				Vector2 rubbleLocation2 = sprite.GetLocation();
+				rubbleLocation2.X -= 5;
+				Vector2 rubbleLocation3 = sprite.GetLocation();
+				rubbleLocation3.X += 5;
+				Vector2 rubbleLocation4 = sprite.GetLocation();
+				rubbleLocation4.X += 10;
+				rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation1, this));
+				rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation2, this));
+				rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation3, this));
+				rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation4, this));
+				foreach (BrokenBlockSprite rubble in rubbleList)
+				{
+					rubble.ToggleRubble();
+				}
+				System.Diagnostics.Debug.WriteLine("rubble");
+			}
 
 		}
 
