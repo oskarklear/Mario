@@ -39,6 +39,10 @@ namespace Mario.Sprites.Mario
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
         }
 
+        public void LoadContent(ContentManager content)
+        {
+            Content = content;
+        }
 
         public void MoveLeftCommand()
         {
