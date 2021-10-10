@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Mario.States;
+using Mario.Sprites.Mario;
 
 namespace Mario.Map
 {
@@ -25,6 +26,11 @@ namespace Mario.Map
             get { return theatre; }
             set { theatre = value; }
         }
+        private SuperMario mario;
+        public SuperMario Mario
+        {
+            get { return mario; }
+        }
         private const int KOOPAH = 26;
         private const int KOOPAW = 16;
         private const int GOOMBAH = 16;
@@ -33,6 +39,7 @@ namespace Mario.Map
         private const int FLOWER = 16;
         private const int COINH = 16;
         private const int COINW = 12;
+        
         public Level()
         {
 
@@ -50,12 +57,12 @@ namespace Mario.Map
                     {
                         switch (number)
                         {
-                            case 1:
+                            case 1: //Ground Block
                                 BlockContext groundBlock = new BlockContext(theatre, new Vector2(i * size, j * size));
                                 groundBlock.SetState(new GroundBlockState());
                                 collisionObjs.Add(groundBlock);
                                 break;
-                            case 2:
+                            case 2: //Brick Block
                                 BlockContext brickBlock = new BlockContext(theatre, new Vector2(i * size, j * size));
                                 brickBlock.SetState(new BrickBlockState());
                                 collisionObjs.Add(brickBlock);
@@ -69,6 +76,14 @@ namespace Mario.Map
                                 BlockContext hblock = new BlockContext(theatre, new Vector2(i * size, j * size));
                                 hblock.SetState(new HiddenBlockState());
                                 collisionObjs.Add(hblock);
+                                break;
+                            case 5:  //Used Block
+                                BlockContext ublock = new BlockContext(theatre, new Vector2(i * size, j * size));
+                                ublock.SetState(new UsedBlockState());
+                                collisionObjs.Add(ublock);
+                                break;
+                            case 6: //Pipe
+                                collisionObjs.Add(new Pipe(theatre, new Vector2(i * 15, j * 15 + 20)));
                                 break;
                             case 10:  //Coin
                                 collisionObjs.Add(new Coin(theatre, new Vector2(i * COINW, j * COINH)));
@@ -90,6 +105,10 @@ namespace Mario.Map
                                 break;
                             case 31:  //Koopa
                                 collisionObjs.Add(new Koopa(theatre, new Vector2(i * KOOPAW, j * KOOPAH - size)));
+                                break;
+                            case 41: //Mario
+                                mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext()) { animated = false };
+                                //collisionObjs.Add(mario);
                                 break;
                         }
                     }

@@ -10,13 +10,13 @@ namespace Mario.Sprites.Items
 
     class Pipe : ISprite
     {
-        ContentManager Content;
         Texture2D texture;
         Vector2 position;
         public Rectangle DestinationRectangle { get; set; }
-        public Pipe()
+        public Pipe(Game1 theatre, Vector2 location)
         {
-            position = new Vector2(400, 200);
+            position = location;
+            texture = theatre.Content.Load<Texture2D>("obstacles/pipe");
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -26,11 +26,6 @@ namespace Mario.Sprites.Items
         public void Update()
         {
 
-        }
-        public void LoadContent(ContentManager content)
-        {
-            Content = content;
-            texture = Content.Load<Texture2D>("obstacles/pipe");
         }
 
         public void Collision(ISprite collider, int xoffset, int yoffset)

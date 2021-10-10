@@ -14,7 +14,7 @@ public class MarioContext
 
 	public MarioContext()
 	{
-		ActionState = new IdleStateLeft();
+		ActionState = new IdleStateRight();
 		PowerupState = new StandardMarioState();
 	}
 	public MarioActionState GetActionState()
