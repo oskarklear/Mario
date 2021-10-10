@@ -10,6 +10,7 @@ namespace Mario.Movement
         public MoveLeftCommand(SuperMario receiver) : base(receiver)
         {
         }
+
         public override void Execute()
         {
             receiver.MoveLeftCommand();
@@ -21,6 +22,7 @@ namespace Mario.Movement
         public MoveRightCommand(SuperMario receiver) : base(receiver)
         {
         }
+
         public override void Execute()
         {
             receiver.MoveRightCommand();
@@ -32,6 +34,7 @@ namespace Mario.Movement
         public JumpCommand(SuperMario receiver) : base(receiver)
         {
         }
+
         public override void Execute()
         {
             receiver.JumpCommand();
@@ -43,9 +46,22 @@ namespace Mario.Movement
         public CrouchCommand(SuperMario receiver) : base(receiver)
         {
         }
+
         public override void Execute()
         {
             receiver.CrouchCommand();
+        }
+    }
+
+    class IdleCommand : MarioCommand
+    {
+        public IdleCommand(SuperMario receiver) : base(receiver)
+        {
+        }
+
+        public override void Execute()
+        {
+            receiver.IdleCommand();
         }
     }
 }

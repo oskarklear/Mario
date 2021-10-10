@@ -4,9 +4,13 @@ using Mario.Sprites.Items.Items;
 using Mario.Sprites.Enemies;
 using Mario.Sprites.Mario;
 using Mario.States;
+using Mario.Map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
+using System.Linq;
+using System;
 
 namespace Mario
 {
@@ -27,20 +31,22 @@ namespace Mario
         MarioContext context;
         Pipe pipe;
         IController kb;
-        IController gp;
+        IController gp1;
+        IController gp2;
+        IController gb3;
+        IController gp4;
         BlockContext questionBlock;
         BlockContext hiddenBlock;
         BlockContext brickBlock;
         Vector2 QuestionBlockLocation;
         Vector2 HiddenBlockLocation;
         Vector2 BrickBlockLocation;
+        string [][] mapArray;
+        Level map;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 800;  
-            graphics.PreferredBackBufferHeight = 600;   
-            graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
@@ -52,60 +58,42 @@ namespace Mario
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 608;
+            graphics.ApplyChanges();
+            map = new Level();
+            map.Theatre = this;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            Tiles.Content = Content;
+            mapArray = File.ReadLines("map.csv").Select(x => x.Split(',')).ToArray();
+            map.GenerateMap(mapArray, 16);
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL")) { animated = false };
             mario.LoadContent(this.Content);
-            questionBlock = new BlockContext(this, QuestionBlockLocation);
-            questionBlock.SetState(new QuestionBlockState());
-            hiddenBlock = new BlockContext(this, HiddenBlockLocation);
-            hiddenBlock.SetState(new HiddenBlockState());
-            brickBlock = new BlockContext(this, BrickBlockLocation);
-            brickBlock.SetState(new BrickBlockState());
-            kb = new KeyboardInput(mario, questionBlock,hiddenBlock,brickBlock) { GameObj = this };
-            gp = new GamepadInput(mario) { GameObj = this };
-            fireFlower = new FireFlower();
-            goomba = new Goomba();
-            koopa = new Koopa();
-            floorBlock = new FloorBlock();
-            coin = new Coin();
-            star = new Star();
-            pipe = new Pipe();
-            redMushroom = new RedMushroom();
-            greenMushroom = new GreenMushroom();
-            fireFlower.LoadContent(this.Content);
-            coin.LoadContent(this.Content);
-            star.LoadContent(this.Content);
-            redMushroom.LoadContent(this.Content);
-            greenMushroom.LoadContent(this.Content);
-            goomba.LoadContent(this.Content);
-            koopa.LoadContent(this.Content);
-            pipe.LoadContent(this.Content);
-            floorBlock.LoadContent(this.Content);
+            kb = new KeyboardInput(mario, questionBlock, hiddenBlock, brickBlock) { GameObj = this };
+            gp1 = new GamepadInput(mario) { GameObj = this };
+            //gp2 = new GamepadInput(mario)
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            gp.UpdateInput();
+            gp1.UpdateInput();
             kb.UpdateInput();
             mario.Update();
-            fireFlower.Update();
-            coin.Update();
-            star.Update();
+            foreach(ISprite sprite in map.CollisionTiles)
+            {
+                mario.Collision(sprite.DestinationRectangle, 800, 608);
+            }
+            map.Update();
             base.Update(gameTime);
-            questionBlock.Update();
-            hiddenBlock.Update();
-            brickBlock.Update();
-            goomba.Update();
-            koopa.Update();
-            floorBlock.Update();
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         protected override void Draw(GameTime gameTime)
@@ -113,21 +101,9 @@ namespace Mario
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -350), Color.White);
+            spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -250), Color.White);
             mario.Draw(spriteBatch);
-            
-            fireFlower.Draw(spriteBatch);
-            coin.Draw(spriteBatch);
-            star.Draw(spriteBatch);
-            goomba.Draw(spriteBatch);
-            koopa.Draw(spriteBatch);
-            redMushroom.Draw(spriteBatch);
-            greenMushroom.Draw(spriteBatch);
-            questionBlock.Draw(spriteBatch);
-            hiddenBlock.Draw(spriteBatch);
-            brickBlock.Draw(spriteBatch);
-            pipe.Draw(spriteBatch);
-            floorBlock.Draw(spriteBatch);
+            map.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

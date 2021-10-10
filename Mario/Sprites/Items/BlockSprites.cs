@@ -27,11 +27,16 @@ namespace Mario.Sprites
         protected int moveDistance;
         protected int moveRange;
         public bool moving;
+        public bool animated;
         protected int currentFrame;
         protected int totalFrames;
 
         protected Rectangle sourceRectangle;
         protected Rectangle destinationRectangle;
+        public Rectangle DestinationRectangle
+        {
+            get { return destinationRectangle;}
+        }
         protected BlockContext Context;
         protected int timeSinceLastFrame;
         protected int millisecondsPerFrame;
@@ -39,8 +44,8 @@ namespace Mario.Sprites
         {
             
             
-            row = currentFrame / Columns;
-            column = currentFrame % Columns;
+             row = currentFrame / Columns;
+             column = currentFrame % Columns;
 
              sourceRectangle = new Rectangle(width * column, height * row, width, height);
              destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, width, height);
@@ -110,6 +115,29 @@ namespace Mario.Sprites
 
 
         }        
+    }
+    public class GroundBlock : BlockSprite
+    {
+        public GroundBlock(Game1 theatre, Vector2 location, BlockContext context)
+        {
+
+            Texture = theatre.Content.Load<Texture2D>("obstacles/GroundBlock");
+
+            Location = location;
+            moveDistance = 0;
+            moveRange = 0;
+            Rows = 1;
+            Columns = 1;
+            currentFrame = 0;
+            totalFrames = 1;
+            width = Texture.Width;
+            height = Texture.Height;
+            Context = context;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
+
+
+        }
     }
 
     public class QuestionBlockSprite : BlockSprite

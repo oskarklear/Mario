@@ -18,6 +18,7 @@ namespace Mario.States
 		BrokenBlockSprite rubble3;
 		BrokenBlockSprite rubble4;
 		Boolean rubbleActive;
+		public Rectangle DestinationRectangle { get; set; }
 
 		public BlockContext(Game1 theatre,Vector2 location)
 		{

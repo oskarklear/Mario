@@ -10,7 +10,7 @@ namespace Mario.Movement
         MarioContext BlockMarioContext;
         public BumpCommand(BlockContext receiver, MarioContext mario) : base(receiver)
         {
-            System.Diagnostics.Debug.WriteLine(receiver.ToString());
+            //System.Diagnostics.Debug.WriteLine(receiver.ToString());
             BlockMarioContext = mario;
         }
         public override void Execute()
