@@ -13,6 +13,7 @@ namespace Mario
     class KeyboardInput : IController
     {
         private KeyboardState previousKeyboardState;
+        private ActivateIdle ActivateIdle { get; set; }
         public Game1 GameObj { get; set; }
         public ICommand MoveLeftCommand { get; set; }
         public ICommand MoveRightCommand { get; set; }
@@ -37,6 +38,7 @@ namespace Mario
             JumpCommand = new JumpCommand(mario);
             CrouchCommand = new CrouchCommand(mario);
             IdleCommand = new IdleCommand(mario);
+            ActivateIdle = new ActivateIdle(mario);
             context = mario.context;
             QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
             HiddenBumpCommand = new BumpCommand(hiddenBlockContext, context);
@@ -50,6 +52,7 @@ namespace Mario
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
             Keys[] keysPressed = currentKeyboardState.GetPressedKeys();
+
             foreach (Keys key in keysPressed)
             {
                 Input input = new Input();
@@ -66,24 +69,7 @@ namespace Mario
 
         public void UpdateInput()
         {
-            //// this is janky as f I know
-            //if (Keyboard.GetState().IsKeyDown(Keys.A))
-            //{
-            //    MoveLeftCommand.Execute();
-            //}
-            //if (Keyboard.GetState().IsKeyDown(Keys.D))
-            //{
-            //    MoveRightCommand.Execute();
-            //}
-            
-            // if no movement input -- need to add more than just A and D
-            if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A) 
-                && !Keyboard.GetState().IsKeyDown(Keys.W) && !Keyboard.GetState().IsKeyDown(Keys.S)
-                && !Keyboard.GetState().IsKeyDown(Keys.Right) && !Keyboard.GetState().IsKeyDown(Keys.Left)
-                && !Keyboard.GetState().IsKeyDown(Keys.Up) && !Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                IdleCommand.Execute();
-            } 
+            ActivateIdle.ActivateIdleCommand();
 
             List<Input> inputs = GetInput();
 
@@ -221,7 +207,6 @@ namespace Mario
                         context.TakeDamage();
                         break;
                 }
-
             }
         }
     }

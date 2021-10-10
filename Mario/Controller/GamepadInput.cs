@@ -12,7 +12,7 @@ namespace Mario
     class GamepadInput : IController
     {
         private GamePadState previousGamePadState;
-
+        private ActivateIdle ActivateIdle { get; set; }
         public Game1 GameObj { get; set; }
         public ICommand MoveLeftCommand { get; set; }
         public ICommand MoveRightCommand { get; set; }
@@ -30,6 +30,7 @@ namespace Mario
             JumpCommand = new JumpCommand(mario);
             CrouchCommand = new CrouchCommand(mario);
             IdleCommand = new IdleCommand(mario);
+            ActivateIdle = new ActivateIdle(mario);
             context = mario.context;
         }
 
@@ -37,34 +38,21 @@ namespace Mario
         {
             List<Input> inputs = new List<Input>();
             
-            //GamePadState emptyInput = new GamePadState(); //(Vector2.Zero, Vector2.Zero, 0, 0);
-
-            // Get the current GamePad state.
             GamePadState currentGamePadState = GamePad.GetState(PlayerIndex.One);
 
-            //if (currentGamePadState.IsConnected) // Process input only if connected.
-            //{
-                //if (currentGamePadState != emptyInput) // Button Pressed
-                //{
-/*                    Buttons[] buttonsPressed = new Buttons[4];
-                    for (int i = 0; i < buttonsPressed.Length; i++)
+                Buttons[] buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
+                    
+                foreach (Buttons button in buttonList)
+                {
+                    if (currentGamePadState.IsButtonDown(button))
                     {
-                        if (GamePad.GetState(PlayerIndex.One).Buttons.)
-                    }*/
-                    Buttons[] buttonList = (Buttons[])Enum.GetValues(typeof(Buttons));
-                    //Buttons[] buttonList = new Buttons[] { Buttons.DPadDown, Buttons.DPadUp, Buttons.DPadLeft, Buttons.DPadRight };
-                    foreach (Buttons button in buttonList)
-                    {
-                        if (currentGamePadState.IsButtonDown(button)/*GamePad.GetState(PlayerIndex.One).Buttons.button == ButtonState.Pressed*/ /*&& !previousGamePadState1.IsButtonDown(button)*/)
-                        {
-                            Input input = new Input();
-                            input.Controller = Input.ControllerType.Gamepad;
-                            input.Key = (int)button;
-                            inputs.Add(input);
-                        }
+                        Input input = new Input();
+                        input.Controller = Input.ControllerType.Gamepad;
+                        input.Key = (int)button;
+                        inputs.Add(input);
                     }
-                //}
-            //}
+                }
+
             previousGamePadState = currentGamePadState;
 
             return inputs;
@@ -72,10 +60,12 @@ namespace Mario
 
         public void UpdateInput()
         {
-            if (!GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) && !GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft))
+            /*if (!GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) && !GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft))
             {
                 IdleCommand.Execute();
-            }
+            }*/
+
+            ActivateIdle.ActivateIdleCommand();
 
             List<Input> inputs = GetInput();
             foreach (Input input in inputs)
