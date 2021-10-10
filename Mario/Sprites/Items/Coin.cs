@@ -17,6 +17,7 @@ namespace Mario.Sprites.Items
         Texture2D texture;
         Vector2 position;
         public Rectangle DestinationRectangle { get; set; }
+        bool obtained;
         public Coin(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -25,6 +26,7 @@ namespace Mario.Sprites.Items
             Columns = 4;
             position = location;
             texture = theatre.Content.Load<Texture2D>("items/coins");
+            obtained = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -34,7 +36,10 @@ namespace Mario.Sprites.Items
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+            if (!obtained)
+                DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+            else
+                DestinationRectangle = new Rectangle(-1, -1, 0, 0);
             spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
         }
 
@@ -51,8 +56,20 @@ namespace Mario.Sprites.Items
         }
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
-            if (collider is SuperMario)
-                //Columns = 0;
+            if (DestinationRectangle.TouchTopOf(collider.DestinationRectangle) || DestinationRectangle.TouchRightOf(collider.DestinationRectangle)
+                || DestinationRectangle.TouchLeftOf(collider.DestinationRectangle) || DestinationRectangle.TouchBottomOf(collider.DestinationRectangle))
+            {
+                //System.Diagnostics.Debug.WriteLine("collision");
+                if (collider is SuperMario)
+                {
+                    //System.Diagnostics.Debug.WriteLine("collision with mario");
+                    obtained = true;
+                    System.Diagnostics.Debug.WriteLine("coin hit");
+                    //System.Diagnostics.Debug.WriteLine(this.ToString());
+                    //System.Diagnostics.Debug.WriteLine(sprite.ToString());
+                    //System.Diagnostics.Debug.WriteLine(mario.ToString());
+                }
+            }
+            }
         }
-    }
 }
