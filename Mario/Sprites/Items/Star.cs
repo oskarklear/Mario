@@ -18,13 +18,14 @@ namespace Mario.Sprites.Items
         Texture2D texture;
         Vector2 position;
         public Rectangle DestinationRectangle { get; set; }
-        public Star()
+        public Star(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 3;
             currentFrame = 0;
             Columns = 3;
-            position = new Vector2(200, 200);
+            position = location;
+            texture = theatre.Content.Load<Texture2D>("items/stars");
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -53,6 +54,11 @@ namespace Mario.Sprites.Items
         {
             Content = content;
             texture = Content.Load<Texture2D>("items/stars");
+        }
+
+        public void Collision(ISprite collider, int xoffset, int yoffset)
+        {
+            //TODO
         }
     }
 }
