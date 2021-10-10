@@ -49,9 +49,6 @@ namespace Mario.States
         }
         public override void Exit()
         {
-            kinematics.IdleXDecelerate(marioContext);
-            kinematics.AccelerateUp(marioContext);
-            marioContext.jumpingState.Enter(this);
         }
         public override void PressNothing(MarioContext context)
         {
