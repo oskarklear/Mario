@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.States;
 
 namespace Mario.Map
 {
@@ -49,13 +50,15 @@ namespace Mario.Map
                     {
                         switch (number)
                         {
-                            case 1:  //Ground Block
-                                collisionObjs.Add(new GroundBlock(theatre, new Vector2(i * size, j * size), null));
+                            case 1:
+                                BlockContext groundBlock = new BlockContext(theatre, new Vector2(i * size, j * size));
+                                groundBlock.SetState(new GroundBlockState());
+                                collisionObjs.Add(groundBlock);
                                 break;
-                            case 2:  //Brick Block
-                                BlockContext block = new BlockContext(theatre, new Vector2(i * size, j * size));
-                                block.SetState(new BrickBlockState());
-                                collisionObjs.Add(block);
+                            case 2:
+                                BlockContext brickBlock = new BlockContext(theatre, new Vector2(i * size, j * size));
+                                brickBlock.SetState(new BrickBlockState());
+                                collisionObjs.Add(brickBlock);
                                 break;
                             case 3:  //Question Block
                                 BlockContext qblock = new BlockContext(theatre, new Vector2(i * size, j * size));

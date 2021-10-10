@@ -15,6 +15,7 @@ namespace Mario.Sprites.Items
         int Columns;
         Texture2D texture;
         Vector2 position;
+        ContentManager Content;
         public Rectangle DestinationRectangle { get; set; }
         public Coin(Game1 theatre, Vector2 location)
         {
@@ -47,6 +48,16 @@ namespace Mario.Sprites.Items
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
+        }
+        public void LoadContent(ContentManager content)
+        {
+            Content = content;
+            texture = Content.Load<Texture2D>("items/coins");
+        }
+
+        public void Collision(ISprite collider, int xoffset, int yoffset)
+        {
+            //TODO
         }
     }
 }

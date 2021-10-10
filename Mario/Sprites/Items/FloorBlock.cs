@@ -32,5 +32,15 @@ namespace Mario.Sprites.Items
             Content = content;
             texture = Content.Load<Texture2D>("obstacles/GroundBlock");
         }
+
+        public void Collision(ICollider collider, int xOffset, int yOffset)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Collision(ISprite collider, int xoffset, int yoffset)
+        {
+            //TODO
+        }
     }
 }

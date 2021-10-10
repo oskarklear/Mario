@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using System.IO;
 using System.Linq;
 using System;
+using System.Collections.Generic;
 
 namespace Mario
 {
@@ -43,6 +44,7 @@ namespace Mario
         Vector2 BrickBlockLocation;
         string [][] mapArray;
         Level map;
+        
 
         public Game1()
         {
@@ -54,6 +56,7 @@ namespace Mario
             QuestionBlockLocation = new Vector2(100, 250);
             HiddenBlockLocation = new Vector2(150, 250);
             BrickBlockLocation = new Vector2(200, 250);
+            
         }
 
         protected override void Initialize()
@@ -66,6 +69,7 @@ namespace Mario
             mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL")) { animated = false };
             mario.LoadContent(this.Content);
             base.Initialize();
+            
         }
 
         protected override void LoadContent()
@@ -78,7 +82,9 @@ namespace Mario
             
             kb = new KeyboardInput(mario) { GameObj = this };
             gp1 = new GamepadInput(mario) { GameObj = this };
+            
             //gp2 = new GamepadInput(mario)
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -90,8 +96,15 @@ namespace Mario
             mario.Update();
             foreach(ISprite sprite in map.CollisionObjs)
             {
-                mario.Collision(sprite, 800, 608);
+                
+
+                    
+                    mario.Collision(sprite, 800, 608);
+                    sprite.Collision(mario, 800, 608);
+                    
+                
             }
+            //collisionDetector.Update(DynamicObjects);
             map.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());

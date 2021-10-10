@@ -13,6 +13,7 @@ namespace Mario.Sprites.Items
         Game1 Theatre;
         Texture2D texture;
         Vector2 position;
+        ContentManager Content;
         public Rectangle DestinationRectangle { get; set; }
         public RedMushroom(Game1 theatre, Vector2 location)
         {
@@ -28,6 +29,16 @@ namespace Mario.Sprites.Items
         public void Update()
         {
 
+        }
+        public void LoadContent(ContentManager content)
+        {
+            Content = content;
+            texture = Content.Load<Texture2D>("items/red_mushroom");
+        }
+
+        public void Collision(ISprite collider, int xoffset, int yoffset)
+        {
+            //TODO
         }
     }
 }

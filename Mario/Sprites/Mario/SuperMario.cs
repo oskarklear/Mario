@@ -287,6 +287,7 @@ namespace Mario.Sprites.Mario
             position.Y -= context.Velocity.Y;
 
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
+            DestinationRectangle = hitbox;
             //// if mario idling, then deccelerate
             //if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
             //{
@@ -358,32 +359,36 @@ namespace Mario.Sprites.Mario
             
         }
 
-        public void Collision(ISprite sprite, int xOffset, int yOffset)
+        public void Collision(ISprite collider, int xOffset, int yOffset)
         {
-            if (hitbox.TouchTopOf(sprite.DestinationRectangle))
+            if (hitbox.TouchTopOf(collider.DestinationRectangle))
             {
-                hitbox.Y = sprite.DestinationRectangle.Y - hitbox.Height - 1;
+                hitbox.Y = collider.DestinationRectangle.Y - hitbox.Height - 1;
                 position.Y = hitbox.Y;
                 context.Velocity.Y = 0f;
+                System.Diagnostics.Debug.WriteLine("mario hit the top of something");
             }
-            if (hitbox.TouchLeftOf(sprite.DestinationRectangle))
+            if (hitbox.TouchLeftOf(collider.DestinationRectangle))
             {
-                hitbox.X = sprite.DestinationRectangle.X - hitbox.Width - 4;
+                hitbox.X = collider.DestinationRectangle.X - hitbox.Width - 4;
                 position.X = hitbox.X;
+                System.Diagnostics.Debug.WriteLine("mario hit the left of something");
             }
-            if (hitbox.TouchRightOf(sprite.DestinationRectangle))
+            if (hitbox.TouchRightOf(collider.DestinationRectangle))
             {
-                hitbox.X = sprite.DestinationRectangle.X + hitbox.Width + 4;
+                hitbox.X = collider.DestinationRectangle.X + hitbox.Width + 4;
                 position.X = hitbox.X;
+                System.Diagnostics.Debug.WriteLine("mario hit the right of something");
             }
-            if (hitbox.TouchBottomOf(sprite.DestinationRectangle))
+            if (hitbox.TouchBottomOf(collider.DestinationRectangle))
             {
-                hitbox.Y = sprite.DestinationRectangle.Y + hitbox.Height + 1;
+                hitbox.Y = collider.DestinationRectangle.Y + hitbox.Height + 1;
                 position.Y = hitbox.Y;
                 //if (sprite is BlockContext)
                     //sprite.
 
                 //context.Velocity.Y = 0f;
+                System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
             }
 
             if (position.X < 0)
