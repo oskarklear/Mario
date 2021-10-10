@@ -34,8 +34,8 @@ namespace Mario.Sprites.Items
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+            DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+            spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
         }
 
         public void Update()
@@ -52,7 +52,7 @@ namespace Mario.Sprites.Items
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
             if (collider is SuperMario)
-                Columns = 0;
+                //Columns = 0;
         }
     }
 }

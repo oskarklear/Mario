@@ -96,41 +96,41 @@ namespace Mario.Sprites.Mario
                 {
                     case "IdleState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/smallIdleMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/smallIdleMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "CrouchingState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/smallCrouchingMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/smallCrouchingMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/smallCrouchingMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/smallCrouchingMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "JumpingState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/smallJumpingMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/smallJumpingMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/smallJumpingMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/smallJumpingMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "FallingState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/smallFallingMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/smallFallingMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/smallFallingMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/smallFallingMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "RunningState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/smallRunningMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/smallRunningMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/smallRunningMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/smallRunningMarioR");
                         Columns = 2;
                         animated = true;
                         break;
@@ -143,41 +143,41 @@ namespace Mario.Sprites.Mario
                 {
                     case "IdleState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/bigIdleMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/bigIdleMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/bigIdleMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/bigIdleMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "CrouchingState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/bigCrouchingMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/bigCrouchingMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/bigCrouchingMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/bigCrouchingMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "JumpingState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/bigJumpingMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/bigJumpingMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/bigJumpingMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/bigJumpingMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "FallingState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/bigFallingMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/bigFallingMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/bigFallingMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/bigFallingMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "RunningState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/bigRunningMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/bigRunningMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/bigRunningMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/bigRunningMarioR");
                         Columns = 3;
                         animated = true;
                         break;
@@ -190,41 +190,41 @@ namespace Mario.Sprites.Mario
                 {
                     case "IdleState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/fireIdleMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/fireIdleMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/fireIdleMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/fireIdleMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "CrouchingState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/fireCrouchingMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/fireCrouchingMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/fireCrouchingMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/fireCrouchingMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "JumpingState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/fireJumpingMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/fireJumpingMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/fireJumpingMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/fireJumpingMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "FallingState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/fireFallingMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/fireFallingMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/fireFallingMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/fireFallingMarioR");
                         Columns = 1;
                         animated = false;
                         break;
                     case "RunningState":
                         if (context.facingLeft)
-                            texture = Content.Load<Texture2D>("mario/fireRunningMarioL");
+                            texture = Theatre.Content.Load<Texture2D>("mario/fireRunningMarioL");
                         else
-                            texture = Content.Load<Texture2D>("mario/fireRunningMarioR");
+                            texture = Theatre.Content.Load<Texture2D>("mario/fireRunningMarioR");
                         Columns = 3;
                         animated = true;
                         break;
