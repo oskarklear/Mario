@@ -92,6 +92,11 @@ namespace Mario.Sprites
                 currentFrame = 0;
             timeSinceLastFrame++;
         }
+
+        public void Collision(ISprite collider, int xoffset, int yoffset)
+        {
+            
+        }
     }
     public class BrickBlockSprite : BlockSprite
     {
@@ -116,9 +121,9 @@ namespace Mario.Sprites
 
         }        
     }
-    public class GroundBlock : BlockSprite
+    public class GroundBlockSprite : BlockSprite
     {
-        public GroundBlock(Game1 theatre, Vector2 location, BlockContext context)
+        public GroundBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
             Texture = theatre.Content.Load<Texture2D>("obstacles/GroundBlock");

@@ -3,6 +3,8 @@ using Mario.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Mario;
+using System.Collections.Generic;
+using Mario.Sprites.Mario;
 
 namespace Mario.States
 {
@@ -13,10 +15,8 @@ namespace Mario.States
 		BlockSprite sprite;
 		Vector2 Location;
 		Game1 Theatre;
-		BrokenBlockSprite rubble1;
-		BrokenBlockSprite rubble2;
-		BrokenBlockSprite rubble3;
-		BrokenBlockSprite rubble4;
+		List<BrokenBlockSprite> rubbleList;
+		
 		Boolean rubbleActive;
 		public Rectangle DestinationRectangle { get; set; }
 
@@ -35,11 +35,9 @@ namespace Mario.States
 			rubbleLocation3.X += 5;
 			Vector2 rubbleLocation4 = sprite.GetLocation();
 			rubbleLocation4.X += 10;
-			rubble1 = new BrokenBlockSprite(Theatre, rubbleLocation1, this);
-			rubble2 = new BrokenBlockSprite(Theatre, rubbleLocation2, this);
-			rubble3 = new BrokenBlockSprite(Theatre, rubbleLocation3, this);
-			rubble4 = new BrokenBlockSprite(Theatre, rubbleLocation4, this);
+			rubbleList = new List<BrokenBlockSprite>();
 			rubbleActive = false;
+			DestinationRectangle = new Rectangle((int)Location.X, (int)Location.Y,10,10);
 			
 			
 
@@ -67,6 +65,9 @@ namespace Mario.States
 				case "HiddenBlock":
 					sprite = new HiddenBlockSprite(Theatre, Location, this);
 					break;
+				case "GroundBlock":
+					sprite = new GroundBlockSprite(Theatre, Location, this);
+					break;
 			}
 		}
 		public BlockState GetState()
@@ -84,10 +85,10 @@ namespace Mario.States
             if(!rubbleActive){
 				sprite.Update();
 			}
-			rubble1.Update();
-			rubble2.Update();
-			rubble3.Update();
-			rubble4.Update();
+			foreach(BrokenBlockSprite rubble in rubbleList)
+            {
+				rubble.Update();
+            }
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
@@ -96,23 +97,58 @@ namespace Mario.States
 			{
 				sprite.Draw(spriteBatch);
 			}
-			rubble1.Draw(spriteBatch);
-			rubble2.Draw(spriteBatch);
-			rubble3.Draw(spriteBatch);
-			rubble4.Draw(spriteBatch);
+			foreach(BrokenBlockSprite rubble in rubbleList)
+            {
+				rubble.Draw(spriteBatch);
+            }
 
 		}
 		public void ToggleRubble()
 		{
-			rubbleActive = true;
-			rubble1.ToggleRubble();
-			rubble2.ToggleRubble();
-			rubble3.ToggleRubble();
-			rubble4.ToggleRubble();
-			System.Diagnostics.Debug.WriteLine("rubble");
+			if (!rubbleActive)
+			{
+				rubbleActive = true;
+				Vector2 rubbleLocation1 = sprite.GetLocation();
+				rubbleLocation1.X -= 10;
+				Vector2 rubbleLocation2 = sprite.GetLocation();
+				rubbleLocation2.X -= 5;
+				Vector2 rubbleLocation3 = sprite.GetLocation();
+				rubbleLocation3.X += 5;
+				Vector2 rubbleLocation4 = sprite.GetLocation();
+				rubbleLocation4.X += 10;
+				rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation1, this));
+				rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation2, this));
+				rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation3, this));
+				rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation4, this));
+				foreach (BrokenBlockSprite rubble in rubbleList)
+				{
+					rubble.ToggleRubble();
+				}
+				System.Diagnostics.Debug.WriteLine("rubble");
+			}
 
 		}
-	}
+
+        public void Collision(ISprite collider, int xOffset, int yOffset)
+        {
+			
+			if (DestinationRectangle.TouchTopOf(collider.DestinationRectangle))
+            {
+				//System.Diagnostics.Debug.WriteLine("collision");
+				if (collider is SuperMario)
+                {
+					//System.Diagnostics.Debug.WriteLine("collision with mario");
+					SuperMario mario=collider as SuperMario;
+					System.Diagnostics.Debug.WriteLine("collision with mario");
+					//System.Diagnostics.Debug.WriteLine(this.ToString());
+					System.Diagnostics.Debug.WriteLine(sprite.ToString());
+					System.Diagnostics.Debug.WriteLine(mario.ToString());
+					state.Bump(this, mario.context, sprite);
+				}					
+				
+            }
+        }
+    }
 	public abstract class BlockState
 	{
 		public abstract void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite);
@@ -125,8 +161,10 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
+			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new UsedBlockState());
 			this.Movement(sprite);
+			
 
 		}
 		public override string ToString()
@@ -138,6 +176,7 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
+			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new BrickBlockState());
 		}
 		public override string ToString()
@@ -151,10 +190,10 @@ namespace Mario.States
 		void Destroy(BlockContext context)
 		{
 			context.ToggleRubble();
-			
 		}
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
+			System.Diagnostics.Debug.WriteLine("Bump");
 			this.Movement(sprite);
 			if (Mario.GetPowerUpState().ToString().Equals("SuperMario") || Mario.GetPowerUpState().ToString().Equals("FireMario"))
 			{
@@ -170,11 +209,23 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
+			System.Diagnostics.Debug.WriteLine("Bump");
 			//does nothing
 		}
 		public override string ToString()
 		{
 			return "UsedBlock";
+		}
+	}
+	class GroundBlockState : BlockState
+	{
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
+		{
+			//does nothing
+		}
+		public override string ToString()
+		{
+			return "GroundBlock";
 		}
 	}
 }
