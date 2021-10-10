@@ -381,6 +381,7 @@ namespace Mario.Sprites.Mario
                 hitbox.Y = collider.DestinationRectangle.Y + hitbox.Height + 1;
                 position.Y = hitbox.Y;
                 //context.Velocity.Y = 0f;
+                //System.Diagnostics.Debug.WriteLine("collision");
             }
 
             if (position.X < 0)

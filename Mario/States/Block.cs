@@ -35,8 +35,9 @@ namespace Mario.States
 			rubbleLocation3.X += 5;
 			Vector2 rubbleLocation4 = sprite.GetLocation();
 			rubbleLocation4.X += 10;
-			
+			rubbleList = new List<BrokenBlockSprite>();
 			rubbleActive = false;
+			DestinationRectangle = new Rectangle((int)Location.X, (int)Location.Y,10,10);
 			
 			
 
@@ -63,6 +64,9 @@ namespace Mario.States
 					break;
 				case "HiddenBlock":
 					sprite = new HiddenBlockSprite(Theatre, Location, this);
+					break;
+				case "GroundBlock":
+					sprite = new GroundBlockSprite(Theatre, Location, this);
 					break;
 			}
 		}
@@ -120,11 +124,14 @@ namespace Mario.States
 
         public void Collision(ICollider collider, int xOffset, int yOffset)
         {
-            if (DestinationRectangle.TouchTopOf(collider.DestinationRectangle))
+            if (DestinationRectangle.TouchBottomOf(collider.DestinationRectangle))
             {
-				if(collider is SuperMario)
+				//System.Diagnostics.Debug.WriteLine("collision");
+				if (collider is SuperMario)
                 {
+					//System.Diagnostics.Debug.WriteLine("collision with mario");
 					SuperMario mario=collider as SuperMario;
+					System.Diagnostics.Debug.WriteLine("collision with mario");
 					state.Bump(this, mario.context, sprite);
 				}					
 				
@@ -143,8 +150,10 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
+			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new UsedBlockState());
 			this.Movement(sprite);
+			
 
 		}
 		public override string ToString()
@@ -156,6 +165,7 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
+			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new BrickBlockState());
 		}
 		public override string ToString()
@@ -173,6 +183,7 @@ namespace Mario.States
 		}
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
+			System.Diagnostics.Debug.WriteLine("Bump");
 			this.Movement(sprite);
 			if (Mario.GetPowerUpState().ToString().Equals("SuperMario") || Mario.GetPowerUpState().ToString().Equals("FireMario"))
 			{
@@ -188,11 +199,23 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
+			System.Diagnostics.Debug.WriteLine("Bump");
 			//does nothing
 		}
 		public override string ToString()
 		{
 			return "UsedBlock";
+		}
+	}
+	class GroundBlockState : BlockState
+	{
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
+		{
+			//does nothing
+		}
+		public override string ToString()
+		{
+			return "GroundBlock";
 		}
 	}
 }

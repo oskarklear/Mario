@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.States;
 
 namespace Mario.Map
 {
@@ -43,13 +44,19 @@ namespace Mario.Map
                         switch (number)
                         {
                             case 1:
-                                collisionTiles.Add(new GroundBlock(theatre, new Vector2(i * size, j * size), null));
+                                BlockContext groundBlock = new BlockContext(theatre, new Vector2(i * size, j * size));
+                                groundBlock.SetState(new GroundBlockState());
+                                collisionTiles.Add(groundBlock);
                                 break;
                             case 2:
-                                collisionTiles.Add(new BrickBlockSprite(theatre, new Vector2(i * size, j * size), null));
+                                BlockContext brickBlock = new BlockContext(theatre, new Vector2(i * size, j * size));
+                                brickBlock.SetState(new BrickBlockState());
+                                collisionTiles.Add(brickBlock);
                                 break;
                             case 3:
-                                collisionTiles.Add(new QuestionBlockSprite(theatre, new Vector2(i * size, j * size), null));
+                                BlockContext questionBlock = new BlockContext(theatre, new Vector2(i * size, j * size));
+                                questionBlock.SetState(new QuestionBlockState());
+                                collisionTiles.Add(questionBlock);
                                 break;
                             case 30:
                                 collisionTiles.Add(new Goomba(theatre, new Vector2(i * GOOMBAH, j * GOOMBAW - size + 1)));

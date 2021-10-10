@@ -8,7 +8,7 @@ using System.Text;
 namespace Mario.Sprites.Items
 {
     
-    class FloorBlock : ISprite
+    class FloorBlock : ICollider
     {
         ContentManager Content;
         Texture2D texture;
@@ -31,6 +31,11 @@ namespace Mario.Sprites.Items
         {
             Content = content;
             texture = Content.Load<Texture2D>("obstacles/GroundBlock");
+        }
+
+        public void Collision(ICollider collider, int xOffset, int yOffset)
+        {
+            throw new NotImplementedException();
         }
     }
 }
