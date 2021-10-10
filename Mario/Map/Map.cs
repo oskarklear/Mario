@@ -49,43 +49,43 @@ namespace Mario.Map
                     {
                         switch (number)
                         {
-                            case 1:
+                            case 1:  //Ground Block
                                 collisionObjs.Add(new GroundBlock(theatre, new Vector2(i * size, j * size), null));
                                 break;
-                            case 2:
+                            case 2:  //Brick Block
                                 BlockContext block = new BlockContext(theatre, new Vector2(i * size, j * size));
                                 block.SetState(new BrickBlockState());
                                 collisionObjs.Add(block);
                                 break;
-                            case 3:
+                            case 3:  //Question Block
                                 BlockContext qblock = new BlockContext(theatre, new Vector2(i * size, j * size));
                                 qblock.SetState(new QuestionBlockState());
                                 collisionObjs.Add(qblock);
                                 break;
-                            case 4:
+                            case 4:  //Hidden Block
                                 BlockContext hblock = new BlockContext(theatre, new Vector2(i * size, j * size));
                                 hblock.SetState(new HiddenBlockState());
                                 collisionObjs.Add(hblock);
                                 break;
-                            case 10:
+                            case 10:  //Coin
                                 collisionObjs.Add(new Coin(theatre, new Vector2(i * COINW, j * COINH)));
                                 break;
-                            case 11:
+                            case 11:  //Green Mushroom
                                 collisionObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM)));
                                 break;
-                            case 12:
+                            case 12:  //Red Mushroom
                                 collisionObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM)));
                                 break;
-                            case 13:
+                            case 13:  //Fire Flower
                                 collisionObjs.Add(new FireFlower(theatre, new Vector2(i * FLOWER, j * FLOWER)));
                                 break;
-                            case 14:
+                            case 14:  //Star
                                 collisionObjs.Add(new Star(theatre, new Vector2(i * size, j * size)));
                                 break;
-                            case 30:
+                            case 30:  //Goomba
                                 collisionObjs.Add(new Goomba(theatre, new Vector2(i * GOOMBAW, j * GOOMBAH - size + 1)));
                                 break;
-                            case 31:
+                            case 31:  //Koopa
                                 collisionObjs.Add(new Koopa(theatre, new Vector2(i * KOOPAW, j * KOOPAH - size)));
                                 break;
                         }
