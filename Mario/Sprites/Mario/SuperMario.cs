@@ -18,6 +18,7 @@ namespace Mario.Sprites.Mario
         private int timeSinceLastFrame;
         private int millisecondsPerFrame;
         Texture2D texture;
+        ContentManager Content;
         Game1 Theatre;
         Vector2 position;
         Dictionary<string, Texture2D> sprites;

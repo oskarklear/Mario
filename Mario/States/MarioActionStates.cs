@@ -53,8 +53,8 @@ namespace Mario.States
         public override void PressNothing(MarioContext context)
         {
             //Does nothing, since we're already pressing nothing
-            kinematics.IdleXDecelerate(context);
-            kinematics.IdleYDecelerate(context);
+            //kinematics.IdleXDecelerate(context);
+            //kinematics.IdleYDecelerate(context);
         }
         public override void StandingTransition()
         {
@@ -69,7 +69,7 @@ namespace Mario.States
                 marioContext.crouchingState.Enter(this);
                 System.Diagnostics.Debug.WriteLine("Crouch");
                 kinematics.AccelerateDown(marioContext);
-                kinematics.IdleXDecelerate(marioContext);
+                //kinematics.IdleXDecelerate(marioContext);
 
             }
         }
@@ -78,26 +78,12 @@ namespace Mario.States
             //Does nothing - for now
         }
 
-        /*public override void PressRight(MarioContext context)
-        {
-            //marioContext.SetActionState(new WalkingStateLeft());
-            //Does nothing
-            kinematics.AccelerateRight(context);
-            context.SetActionState(new IdleStateRight());
-        }*/
         public override void RunningTransition()
         {
             System.Diagnostics.Debug.WriteLine("RunningTransition");
             marioContext.runningState.Enter(this);
         }
 
-        /*public override void PressLeft(MarioContext context)
-        {
-            System.Diagnostics.Debug.WriteLine("RunningTransition");
-            marioContext.runningState.Enter(this);
-            System.Diagnostics.Debug.WriteLine(marioContext.GetActionState().ToString());
-            kinematics.AccelerateLeft(context);
-        }*/
         public override void JumpingTransition()
         {
             System.Diagnostics.Debug.WriteLine("JumpingTransition");
@@ -279,20 +265,11 @@ namespace Mario.States
             //Does nothing - for now
         }
 
-        /*public override void PressRight(MarioContext context)
-        {
-            context.SetActionState(new JumpingStateRight());
-        }*/
-
         public override void WalkingTransition()
         {
             //Does nothing - for now
         }
 
-        /*public override void PressLeft(MarioContext context)
-        {
-            kinematics.AccelerateLeft(context);
-        }*/
         public override void RunningTransition()
         {
             //Does nothing - at least, for now we imply that you cannot get into running from jumping
