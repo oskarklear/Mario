@@ -384,6 +384,9 @@ namespace Mario.Sprites.Mario
             {
                 hitbox.Y = collider.DestinationRectangle.Y + hitbox.Height + 1;
                 position.Y = hitbox.Y;
+                //if (sprite is BlockContext)
+                    //sprite.
+
                 //context.Velocity.Y = 0f;
                 System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
             }

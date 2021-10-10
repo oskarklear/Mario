@@ -10,13 +10,13 @@ namespace Mario.Sprites.Items
     
     class GreenMushroom : ISprite
     {
-        ContentManager Content;
         Texture2D texture;
         Vector2 position;
         public Rectangle DestinationRectangle { get; set; }
-        public GreenMushroom()
+        public GreenMushroom(Game1 theatre, Vector2 location)
         {
-            position = new Vector2(300, 200);
+            texture = theatre.Content.Load<Texture2D>("items/green_mushroom");
+            position = location;
         }
         public void Draw(SpriteBatch spriteBatch)
         {

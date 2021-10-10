@@ -30,7 +30,7 @@ namespace Mario
         private BlockContext hiddenBlockContext;
         private BlockContext brickBlockContext;
         //public MovementCommand Fireball { get; set; }
-        public KeyboardInput(SuperMario mario, BlockContext questionBlock, BlockContext hiddenBlock, BlockContext brickBlock)
+        public KeyboardInput(SuperMario mario)
         {
             MoveLeftCommand = new MoveLeftCommand(mario);
             MoveRightCommand = new MoveRightCommand(mario);
@@ -38,9 +38,6 @@ namespace Mario
             CrouchCommand = new CrouchCommand(mario);
             IdleCommand = new IdleCommand(mario);
             context = mario.context;
-            questionBlockContext = questionBlock;
-            hiddenBlockContext = hiddenBlock;
-            brickBlockContext = brickBlock;
             QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
             HiddenBumpCommand = new BumpCommand(hiddenBlockContext, context);
             BrickBumpCommand = new BumpCommand(brickBlockContext, context);

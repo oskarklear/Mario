@@ -1,5 +1,8 @@
 ﻿using Mario.Sprites;
 using Mario.Sprites.Enemies;
+using Mario.Sprites.Items;
+using Mario.Sprites.Items.Items;
+using Mario.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,10 +14,10 @@ namespace Mario.Map
 {
     class Level
     {
-        private List<ISprite> collisionTiles = new List<ISprite>();
-        public List<ISprite> CollisionTiles
+        private List<ISprite> collisionObjs = new List<ISprite>();
+        public List<ISprite> CollisionObjs
         {
-            get { return collisionTiles; }
+            get { return collisionObjs; }
         }
         private Game1 theatre;
         public Game1 Theatre
@@ -26,6 +29,10 @@ namespace Mario.Map
         private const int KOOPAW = 16;
         private const int GOOMBAH = 16;
         private const int GOOMBAW = 16;
+        private const int MUSHROOM = 18;
+        private const int FLOWER = 16;
+        private const int COINH = 16;
+        private const int COINW = 12;
         public Level()
         {
 
@@ -54,15 +61,35 @@ namespace Mario.Map
                                 collisionTiles.Add(brickBlock);
                                 break;
                             case 3:
-                                BlockContext questionBlock = new BlockContext(theatre, new Vector2(i * size, j * size));
-                                questionBlock.SetState(new QuestionBlockState());
-                                collisionTiles.Add(questionBlock);
+                                BlockContext qblock = new BlockContext(theatre, new Vector2(i * size, j * size));
+                                qblock.SetState(new QuestionBlockState());
+                                collisionObjs.Add(qblock);
+                                break;
+                            case 4:
+                                BlockContext hblock = new BlockContext(theatre, new Vector2(i * size, j * size));
+                                hblock.SetState(new HiddenBlockState());
+                                collisionObjs.Add(hblock);
+                                break;
+                            case 10:
+                                collisionObjs.Add(new Coin(theatre, new Vector2(i * COINW, j * COINH)));
+                                break;
+                            case 11:
+                                collisionObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM)));
+                                break;
+                            case 12:
+                                collisionObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM)));
+                                break;
+                            case 13:
+                                collisionObjs.Add(new FireFlower(theatre, new Vector2(i * FLOWER, j * FLOWER)));
+                                break;
+                            case 14:
+                                collisionObjs.Add(new Star(theatre, new Vector2(i * size, j * size)));
                                 break;
                             case 30:
-                                collisionTiles.Add(new Goomba(theatre, new Vector2(i * GOOMBAH, j * GOOMBAW - size + 1)));
+                                collisionObjs.Add(new Goomba(theatre, new Vector2(i * GOOMBAW, j * GOOMBAH - size + 1)));
                                 break;
                             case 31:
-                                collisionTiles.Add(new Koopa(theatre, new Vector2(i * KOOPAH, j * KOOPAW - size)));
+                                collisionObjs.Add(new Koopa(theatre, new Vector2(i * KOOPAW, j * KOOPAH - size)));
                                 break;
                         }
                     }
@@ -74,13 +101,13 @@ namespace Mario.Map
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (ISprite tile in collisionTiles)
-                tile.Draw(spriteBatch);
+            foreach (ISprite obj in collisionObjs)
+                obj.Draw(spriteBatch);
         }
         public void Update()
         {
-            foreach (ISprite tile in collisionTiles)
-                tile.Update();
+            foreach (ISprite obj in collisionObjs)
+                obj.Update();
         }
     }
 }

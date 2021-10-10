@@ -17,13 +17,14 @@ namespace Mario.Sprites.Items.Items
         Texture2D texture;
         Vector2 position;
         public Rectangle DestinationRectangle { get; set; }
-        public FireFlower() 
+        public FireFlower(Game1 theatre, Vector2 location) 
         {
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 15;
             currentFrame = 0;
             Columns = 2;
-            position = new Vector2(100, 200);
+            position = location;
+            texture = theatre.Content.Load<Texture2D>("items/fire_flower");
         }
         public void Draw(SpriteBatch spriteBatch)
         {
