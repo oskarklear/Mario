@@ -20,8 +20,15 @@ public class MarioContext
 
 	public MarioContext()
 	{
-		ActionState = new IdleStateLeft();
 		PowerupState = new StandardMarioState();
+		ActionState = new IdleState(this);
+		facingLeft = true;
+
+		idleState = new IdleState(this);
+		runningState = new RunningState(this);
+		jumpingState = new JumpingState(this);
+		fallingState = new FallingState(this);
+		crouchingState = new CrouchingState(this);
 	}
 	public MarioActionState GetActionState()
     {
