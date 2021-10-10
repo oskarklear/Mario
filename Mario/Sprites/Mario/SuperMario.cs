@@ -358,28 +358,31 @@ namespace Mario.Sprites.Mario
             
         }
 
-        public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
+        public void Collision(ISprite sprite, int xOffset, int yOffset)
         {
-            if (hitbox.TouchTopOf(newRectangle))
+            if (hitbox.TouchTopOf(sprite.DestinationRectangle))
             {
-                hitbox.Y = newRectangle.Y - hitbox.Height - 1;
+                hitbox.Y = sprite.DestinationRectangle.Y - hitbox.Height - 1;
                 position.Y = hitbox.Y;
                 context.Velocity.Y = 0f;
             }
-            if (hitbox.TouchLeftOf(newRectangle))
+            if (hitbox.TouchLeftOf(sprite.DestinationRectangle))
             {
-                hitbox.X = newRectangle.X - hitbox.Width - 4;
+                hitbox.X = sprite.DestinationRectangle.X - hitbox.Width - 4;
                 position.X = hitbox.X;
             }
-            if (hitbox.TouchRightOf(newRectangle))
+            if (hitbox.TouchRightOf(sprite.DestinationRectangle))
             {
-                hitbox.X = newRectangle.X + hitbox.Width + 4;
+                hitbox.X = sprite.DestinationRectangle.X + hitbox.Width + 4;
                 position.X = hitbox.X;
             }
-            if (hitbox.TouchBottomOf(newRectangle))
+            if (hitbox.TouchBottomOf(sprite.DestinationRectangle))
             {
-                hitbox.Y = newRectangle.Y + hitbox.Height + 1;
+                hitbox.Y = sprite.DestinationRectangle.Y + hitbox.Height + 1;
                 position.Y = hitbox.Y;
+                //if (sprite is BlockContext)
+                    //sprite.
+
                 //context.Velocity.Y = 0f;
             }
 

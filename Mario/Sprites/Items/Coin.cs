@@ -13,17 +13,17 @@ namespace Mario.Sprites.Items
         int millisecondsPerFrame;
         int currentFrame;
         int Columns;
-        ContentManager Content;
         Texture2D texture;
         Vector2 position;
         public Rectangle DestinationRectangle { get; set; }
-        public Coin()
+        public Coin(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 5;
             currentFrame = 0;
             Columns = 4;
-            position = new Vector2(150, 200);
+            position = location;
+            texture = theatre.Content.Load<Texture2D>("items/coins");
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -47,11 +47,6 @@ namespace Mario.Sprites.Items
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
-        }
-        public void LoadContent(ContentManager content)
-        {
-            Content = content;
-            texture = Content.Load<Texture2D>("items/coins");
         }
     }
 }

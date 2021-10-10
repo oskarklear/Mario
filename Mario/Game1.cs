@@ -63,6 +63,8 @@ namespace Mario
             graphics.ApplyChanges();
             map = new Level();
             map.Theatre = this;
+            mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL")) { animated = false };
+            mario.LoadContent(this.Content);
             base.Initialize();
         }
 
@@ -73,9 +75,8 @@ namespace Mario
             map.GenerateMap(mapArray, 16);
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            mario = new SuperMario(context, Content.Load<Texture2D>("mario/smallIdleMarioL")) { animated = false };
-            mario.LoadContent(this.Content);
-            kb = new KeyboardInput(mario, questionBlock, hiddenBlock, brickBlock) { GameObj = this };
+            
+            kb = new KeyboardInput(mario) { GameObj = this };
             gp1 = new GamepadInput(mario) { GameObj = this };
             //gp2 = new GamepadInput(mario)
         }
@@ -87,9 +88,9 @@ namespace Mario
             gp1.UpdateInput();
             kb.UpdateInput();
             mario.Update();
-            foreach(ISprite sprite in map.CollisionTiles)
+            foreach(ISprite sprite in map.CollisionObjs)
             {
-                mario.Collision(sprite.DestinationRectangle, 800, 608);
+                mario.Collision(sprite, 800, 608);
             }
             map.Update();
             base.Update(gameTime);

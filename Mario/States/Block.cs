@@ -151,7 +151,6 @@ namespace Mario.States
 		void Destroy(BlockContext context)
 		{
 			context.ToggleRubble();
-			
 		}
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
 		{
