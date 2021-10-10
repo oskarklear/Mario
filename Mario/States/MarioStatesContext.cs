@@ -6,16 +6,29 @@ using Microsoft.Xna.Framework;
 
 public class MarioContext
 {
+	public MarioActionState idleState;
+	public MarioActionState runningState;
+	public MarioActionState jumpingState;
+	public MarioActionState fallingState;
+	public MarioActionState crouchingState;
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
 	public Vector2 Velocity;
 	public bool jumped;
+	public bool facingLeft;
 	//public bool isFalling;
 
 	public MarioContext()
 	{
-		ActionState = new IdleStateRight();
 		PowerupState = new StandardMarioState();
+		ActionState = new IdleState(this);
+		facingLeft = true;
+
+		idleState = new IdleState(this);
+		runningState = new RunningState(this);
+		jumpingState = new JumpingState(this);
+		fallingState = new FallingState(this);
+		crouchingState = new CrouchingState(this);
 	}
 	public MarioActionState GetActionState()
     {
@@ -37,19 +50,19 @@ public class MarioContext
 
 	public void PressUp()
     {
-		ActionState.PressUp(this);
+		ActionState.JumpingTransition();
     }
 	public void PressDown()
     {
-		ActionState.PressDown(this);
+		ActionState.FallingTransition();
     }
 	public void PressRight()
 	{
-		ActionState.PressRight(this);
+		ActionState.FaceRightTransition();
 	}
 	public void PressLeft()
     {
-		ActionState.PressLeft(this);
+		ActionState.FaceLeftTransition();
     }
 	public void TakeDamage()
     {
