@@ -6,7 +6,7 @@ using System.Text;
 namespace Mario.Movement
 {
     
-    class Kinematics
+    public class Kinematics
     {
         private string prevKinematics;
 
