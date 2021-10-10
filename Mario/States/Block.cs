@@ -3,20 +3,20 @@ using Mario.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Mario;
+using System.Collections.Generic;
+using Mario.Sprites.Mario;
 
 namespace Mario.States
 {
-	public class BlockContext : ISprite
+	public class BlockContext : ICollider
 	{
 		BlockState state;
 		BlockState oldState;
 		BlockSprite sprite;
 		Vector2 Location;
 		Game1 Theatre;
-		BrokenBlockSprite rubble1;
-		BrokenBlockSprite rubble2;
-		BrokenBlockSprite rubble3;
-		BrokenBlockSprite rubble4;
+		List<BrokenBlockSprite> rubbleList;
+		
 		Boolean rubbleActive;
 		public Rectangle DestinationRectangle { get; set; }
 
@@ -35,10 +35,7 @@ namespace Mario.States
 			rubbleLocation3.X += 5;
 			Vector2 rubbleLocation4 = sprite.GetLocation();
 			rubbleLocation4.X += 10;
-			rubble1 = new BrokenBlockSprite(Theatre, rubbleLocation1, this);
-			rubble2 = new BrokenBlockSprite(Theatre, rubbleLocation2, this);
-			rubble3 = new BrokenBlockSprite(Theatre, rubbleLocation3, this);
-			rubble4 = new BrokenBlockSprite(Theatre, rubbleLocation4, this);
+			
 			rubbleActive = false;
 			
 			
@@ -84,10 +81,10 @@ namespace Mario.States
             if(!rubbleActive){
 				sprite.Update();
 			}
-			rubble1.Update();
-			rubble2.Update();
-			rubble3.Update();
-			rubble4.Update();
+			foreach(BrokenBlockSprite rubble in rubbleList)
+            {
+				rubble.Update();
+            }
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
@@ -96,23 +93,44 @@ namespace Mario.States
 			{
 				sprite.Draw(spriteBatch);
 			}
-			rubble1.Draw(spriteBatch);
-			rubble2.Draw(spriteBatch);
-			rubble3.Draw(spriteBatch);
-			rubble4.Draw(spriteBatch);
+			foreach(BrokenBlockSprite rubble in rubbleList)
+            {
+				rubble.Draw(spriteBatch);
+            }
 
 		}
 		public void ToggleRubble()
 		{
 			rubbleActive = true;
-			rubble1.ToggleRubble();
-			rubble2.ToggleRubble();
-			rubble3.ToggleRubble();
-			rubble4.ToggleRubble();
+			Vector2 rubbleLocation1 = sprite.GetLocation();
+			rubbleLocation1.X -= 10;
+			Vector2 rubbleLocation2 = sprite.GetLocation();
+			rubbleLocation2.X -= 5;
+			Vector2 rubbleLocation3 = sprite.GetLocation();
+			rubbleLocation3.X += 5;
+			Vector2 rubbleLocation4 = sprite.GetLocation();
+			rubbleLocation4.X += 10;
+			rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation1, this));
+			rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation2, this));
+			rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation3, this));
+			rubbleList.Add(new BrokenBlockSprite(Theatre, rubbleLocation4, this));
 			System.Diagnostics.Debug.WriteLine("rubble");
 
 		}
-	}
+
+        public void Collision(ICollider collider, int xOffset, int yOffset)
+        {
+            if (DestinationRectangle.TouchTopOf(collider.DestinationRectangle))
+            {
+				if(collider is SuperMario)
+                {
+					SuperMario mario=collider as SuperMario;
+					state.Bump(this, mario.context, sprite);
+				}					
+				
+            }
+        }
+    }
 	public abstract class BlockState
 	{
 		public abstract void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite);

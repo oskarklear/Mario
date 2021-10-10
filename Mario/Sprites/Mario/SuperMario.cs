@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Mario.Sprites.Mario
 {
-    public class SuperMario : ISprite
+    public class SuperMario : ICollider
     {
         public MarioContext context { get; set; }
         public bool animated { get; set; }
@@ -358,27 +358,27 @@ namespace Mario.Sprites.Mario
             
         }
 
-        public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
+        public void Collision(ICollider collider, int xOffset, int yOffset)
         {
-            if (hitbox.TouchTopOf(newRectangle))
+            if (hitbox.TouchTopOf(collider.DestinationRectangle))
             {
-                hitbox.Y = newRectangle.Y - hitbox.Height - 1;
+                hitbox.Y = collider.DestinationRectangle.Y - hitbox.Height - 1;
                 position.Y = hitbox.Y;
                 context.Velocity.Y = 0f;
             }
-            if (hitbox.TouchLeftOf(newRectangle))
+            if (hitbox.TouchLeftOf(collider.DestinationRectangle))
             {
-                hitbox.X = newRectangle.X - hitbox.Width - 4;
+                hitbox.X = collider.DestinationRectangle.X - hitbox.Width - 4;
                 position.X = hitbox.X;
             }
-            if (hitbox.TouchRightOf(newRectangle))
+            if (hitbox.TouchRightOf(collider.DestinationRectangle))
             {
-                hitbox.X = newRectangle.X + hitbox.Width + 4;
+                hitbox.X = collider.DestinationRectangle.X + hitbox.Width + 4;
                 position.X = hitbox.X;
             }
-            if (hitbox.TouchBottomOf(newRectangle))
+            if (hitbox.TouchBottomOf(collider.DestinationRectangle))
             {
-                hitbox.Y = newRectangle.Y + hitbox.Height + 1;
+                hitbox.Y = collider.DestinationRectangle.Y + hitbox.Height + 1;
                 position.Y = hitbox.Y;
                 //context.Velocity.Y = 0f;
             }

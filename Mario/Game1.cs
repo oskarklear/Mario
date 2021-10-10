@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using System.IO;
 using System.Linq;
 using System;
+using System.Collections.Generic;
 
 namespace Mario
 {
@@ -43,6 +44,8 @@ namespace Mario
         Vector2 BrickBlockLocation;
         string [][] mapArray;
         Level map;
+        Collision collisionDetector;
+        List<ICollider> DynamicObjects;
 
         public Game1()
         {
@@ -54,6 +57,7 @@ namespace Mario
             QuestionBlockLocation = new Vector2(100, 250);
             HiddenBlockLocation = new Vector2(150, 250);
             BrickBlockLocation = new Vector2(200, 250);
+            
         }
 
         protected override void Initialize()
@@ -63,7 +67,12 @@ namespace Mario
             graphics.ApplyChanges();
             map = new Level();
             map.Theatre = this;
+            
+            //collisionDetector = new Collision(map.CollisionTiles, graphics.GraphicsDevice);
+            
             base.Initialize();
+            DynamicObjects = new List<ICollider>();
+            DynamicObjects.Add(mario);
         }
 
         protected override void LoadContent()
@@ -77,7 +86,9 @@ namespace Mario
             mario.LoadContent(this.Content);
             kb = new KeyboardInput(mario, questionBlock, hiddenBlock, brickBlock) { GameObj = this };
             gp1 = new GamepadInput(mario) { GameObj = this };
+            collisionDetector = new Collision(map.CollisionTiles, graphics.GraphicsDevice);
             //gp2 = new GamepadInput(mario)
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -87,10 +98,11 @@ namespace Mario
             gp1.UpdateInput();
             kb.UpdateInput();
             mario.Update();
-            foreach(ISprite sprite in map.CollisionTiles)
-            {
-                mario.Collision(sprite.DestinationRectangle, 800, 608);
-            }
+            //foreach(ISprite sprite in map.CollisionTiles)
+            //{
+               // mario.Collision(sprite.DestinationRectangle, 800, 608);
+            //}
+            collisionDetector.Update(DynamicObjects);
             map.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
