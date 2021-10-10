@@ -50,19 +50,19 @@ public class MarioContext
 
 	public void PressUp()
     {
-		ActionState.PressUp(this);
+		ActionState.JumpingTransition();
     }
 	public void PressDown()
     {
-		ActionState.PressDown(this);
+		ActionState.FallingTransition();
     }
 	public void PressRight()
 	{
-		ActionState.PressRight(this);
+		ActionState.FaceRightTransition();
 	}
 	public void PressLeft()
     {
-		ActionState.PressLeft(this);
+		ActionState.FaceLeftTransition();
     }
 	public void TakeDamage()
     {

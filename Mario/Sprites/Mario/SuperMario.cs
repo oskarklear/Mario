@@ -43,7 +43,7 @@ namespace Mario.Sprites.Mario
 
         public void MoveLeftCommand()
         {
-            context.GetActionState().PressLeft(context);
+            context.GetActionState().FaceLeftTransition();
             int marioTopLeftSpeed = -3;
             if (context.Velocity.X > marioTopLeftSpeed) 
             {
@@ -57,7 +57,7 @@ namespace Mario.Sprites.Mario
 
         public void MoveRightCommand()
         {
-            context.GetActionState().PressRight(context);
+            context.GetActionState().FaceRightTransition();
 
             System.Diagnostics.Debug.WriteLine("Right");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -65,7 +65,7 @@ namespace Mario.Sprites.Mario
 
         public void JumpCommand()
         {
-            context.GetActionState().PressUp(context);
+            context.GetActionState().JumpingTransition();
 
             System.Diagnostics.Debug.WriteLine("Up");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -73,7 +73,7 @@ namespace Mario.Sprites.Mario
 
         public void CrouchCommand()
         {
-            context.GetActionState().PressDown(context);
+            context.GetActionState().FallingTransition();
             
             System.Diagnostics.Debug.WriteLine("Down");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
