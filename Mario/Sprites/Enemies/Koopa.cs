@@ -13,19 +13,17 @@ namespace Mario.Sprites.Enemies
         int millisecondsPerFrame;
         int currentFrame;
         int Columns;
-        Game1 Theatre;
+        ContentManager Content;
         Texture2D texture;
         Vector2 position;
         public Rectangle DestinationRectangle { get; set; }
-        public Koopa(Game1 theatre, Vector2 location)
+        public Koopa()
         {
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 15;
             currentFrame = 0;
             Columns = 2;
-            position = location;
-            Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_leftWalking");
+            position = new Vector2(200, 150);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -49,6 +47,11 @@ namespace Mario.Sprites.Enemies
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
+        }
+        public void LoadContent(ContentManager content)
+        {
+            Content = content;
+            texture = Content.Load<Texture2D>("enemies/koopa/koopa_green_leftWalking");
         }
     }
 }

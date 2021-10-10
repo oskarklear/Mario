@@ -13,19 +13,17 @@ namespace Mario.Sprites.Enemies
         int millisecondsPerFrame;
         int currentFrame;
         int Columns;
+        ContentManager Content;
         Texture2D texture;
         Vector2 position;
-        Game1 Theatre;
         public Rectangle DestinationRectangle { get; set; }
-        public Goomba(Game1 theatre, Vector2 location)
+        public Goomba()
         {
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 15;
             currentFrame = 0;
             Columns = 2;
-            position = location;
-            Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
+            position = new Vector2(150, 150);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -49,6 +47,11 @@ namespace Mario.Sprites.Enemies
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
+        }
+        public void LoadContent(ContentManager content)
+        {
+            Content = content;
+            texture = Content.Load<Texture2D>("enemies/goomba/goombaLeft");
         }
     }
 }

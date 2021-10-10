@@ -283,8 +283,7 @@ namespace Mario.Sprites.Mario
             }
 
             //set mario's new pos
-            position.X += context.Velocity.X;
-            position.Y -= context.Velocity.Y;
+            position += context.Velocity;
 
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             //// if mario idling, then deccelerate
@@ -362,25 +361,20 @@ namespace Mario.Sprites.Mario
         {
             if (hitbox.TouchTopOf(newRectangle))
             {
-                hitbox.Y = newRectangle.Y - hitbox.Height - 1;
-                position.Y = hitbox.Y;
+                hitbox.Y = newRectangle.Y - hitbox.Height;
                 context.Velocity.Y = 0f;
             }
             if (hitbox.TouchLeftOf(newRectangle))
             {
-                hitbox.X = newRectangle.X - hitbox.Width - 4;
-                position.X = hitbox.X;
+                position.X = newRectangle.X - hitbox.Width - 2;
             }
             if (hitbox.TouchRightOf(newRectangle))
             {
-                hitbox.X = newRectangle.X + hitbox.Width + 4;
-                position.X = hitbox.X;
+                position.X = newRectangle.X - hitbox.Width + 2;
             }
             if (hitbox.TouchBottomOf(newRectangle))
             {
-                hitbox.Y = newRectangle.Y + hitbox.Height + 1;
-                position.Y = hitbox.Y;
-                //context.Velocity.Y = 0f;
+                context.Velocity.Y = 1f;
             }
 
             if (position.X < 0)
