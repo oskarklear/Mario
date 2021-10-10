@@ -10,6 +10,7 @@ public class MarioContext
 	MarioPowerupState PowerupState;
 	public Vector2 Velocity;
 	public bool jumped;
+	public bool facingLeft;
 	//public bool isFalling;
 
 	public MarioContext()
