@@ -186,7 +186,7 @@ namespace Mario.States
         }
         public override void CrouchingTransition()
         {
-            //kinematics.AccelerateDown(context);
+            kinematics.AccelerateDown(marioContext);
         }
 
         public override void WalkingTransition()
@@ -300,6 +300,7 @@ namespace Mario.States
         public override void JumpingTransition()
         {
             //Does nothing
+            kinematics.AccelerateUp(marioContext);
         }
 
         public override void FallingTransition()
@@ -502,11 +503,15 @@ namespace Mario.States
         {
             if (!marioContext.facingLeft)
                 marioContext.idleState.Enter(this);
+            else
+                kinematics.AccelerateLeft(marioContext);
         }
         public override void FaceRightTransition()
         {
             if (marioContext.facingLeft)
                 marioContext.idleState.Enter(this);
+            else
+                kinematics.AccelerateRight(marioContext);
         }
 
         public override void CrouchingDiscontinueTransition()
