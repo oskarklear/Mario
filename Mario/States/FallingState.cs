@@ -61,10 +61,8 @@ namespace Mario.States
 
         public override void FaceLeftTransition()
         {
-            System.Diagnostics.Debug.WriteLine("FaceLeft");
             if (marioContext.facingLeft)
             {
-                System.Diagnostics.Debug.WriteLine("Facingleft, go to running");
                 this.RunningTransition();
             }
             else
@@ -73,12 +71,10 @@ namespace Mario.States
         }
         public override void FaceRightTransition()
         {
-            System.Diagnostics.Debug.WriteLine("FaceRight");
             if (marioContext.facingLeft)
                 marioContext.facingLeft = false;
             else
             {
-                System.Diagnostics.Debug.WriteLine("Facing right, go to running");
                 this.RunningTransition();
             }
         }

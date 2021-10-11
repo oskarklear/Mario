@@ -18,10 +18,6 @@ namespace Mario.States
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
-            if (!marioContext.facingLeft)
-                kinematics.AccelerateRight(marioContext);
-            else
-                kinematics.AccelerateLeft(marioContext);
         }
 
         public override void Exit()
@@ -68,6 +64,7 @@ namespace Mario.States
                 marioContext.idleState.Enter(this);
             else
                 kinematics.AccelerateLeft(marioContext);
+            kinematics.IdleYDecelerate(marioContext);
         }
         public override void FaceRightTransition()
         {
@@ -75,6 +72,7 @@ namespace Mario.States
                 marioContext.idleState.Enter(this);
             else
                 kinematics.AccelerateRight(marioContext);
+            kinematics.IdleYDecelerate(marioContext);
         }
 
         public override void CrouchingDiscontinueTransition()

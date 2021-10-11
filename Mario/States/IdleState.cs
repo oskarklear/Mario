@@ -40,7 +40,6 @@ namespace Mario.States
                 //if (marioContext.GetPowerUpState().ToString() != "StandardMario")
 
                 marioContext.crouchingState.Enter(this);
-                System.Diagnostics.Debug.WriteLine("Crouch");
                 kinematics.AccelerateDown(marioContext);
                 kinematics.IdleXDecelerate(marioContext);
 
@@ -53,27 +52,22 @@ namespace Mario.States
 
         public override void RunningTransition()
         {
-            System.Diagnostics.Debug.WriteLine("RunningTransition");
             marioContext.runningState.Enter(this);
         }
 
         public override void JumpingTransition()
         {
-            System.Diagnostics.Debug.WriteLine("JumpingTransition");
             marioContext.jumpingState.Enter(this);
         }
         public override void FallingTransition()
         {
-            System.Diagnostics.Debug.WriteLine("Falling");
             this.CrouchingTransition();
         }
 
         public override void FaceLeftTransition()
         {
-            System.Diagnostics.Debug.WriteLine("FaceLeft");
             if (marioContext.facingLeft)
             {
-                System.Diagnostics.Debug.WriteLine("Facingleft, go to running");
                 this.RunningTransition();
             }
             else
@@ -81,12 +75,10 @@ namespace Mario.States
         }
         public override void FaceRightTransition()
         {
-            System.Diagnostics.Debug.WriteLine("FaceRight");
             if (marioContext.facingLeft)
                 marioContext.facingLeft = false;
             else
             {
-                System.Diagnostics.Debug.WriteLine("Facing right, go to running");
                 this.RunningTransition();
             }
         }

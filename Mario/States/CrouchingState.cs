@@ -56,19 +56,19 @@ namespace Mario.States
 
         public override void FaceLeftTransition()
         {
-            System.Diagnostics.Debug.WriteLine("FaceLeft");
             if (!marioContext.facingLeft)
                 marioContext.facingLeft = true;
             else
                 kinematics.AccelerateLeft(marioContext);
+            marioContext.runningState.Enter(this);
         }
         public override void FaceRightTransition()
         {
-            System.Diagnostics.Debug.WriteLine("FaceRight");
             if (marioContext.facingLeft)
                 marioContext.facingLeft = false;
             else
                 kinematics.AccelerateRight(marioContext);
+            marioContext.runningState.Enter(this);
 
         }
 

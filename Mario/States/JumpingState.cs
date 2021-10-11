@@ -24,7 +24,6 @@ namespace Mario.States
         public override void Exit()
         {
             PreviousActionState.Enter(this);
-            //kinematics.AccelerateUp(context);
         }
         public override void PressNothing(MarioContext context)
         {
@@ -50,9 +49,7 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
-            //Does nothing
             kinematics.AccelerateUp(marioContext);
-            
         }
 
         public override void FallingTransition()
@@ -67,6 +64,7 @@ namespace Mario.States
                 marioContext.facingLeft = true;
             else
                 kinematics.AccelerateLeft(marioContext);
+            marioContext.runningState.Enter(this);
         }
 
         public override void FaceRightTransition()
@@ -75,6 +73,7 @@ namespace Mario.States
                 marioContext.facingLeft = false;
             else
                 kinematics.AccelerateRight(marioContext);
+            marioContext.runningState.Enter(this);
         }
 
         public override void CrouchingDiscontinueTransition()
