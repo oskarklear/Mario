@@ -125,6 +125,7 @@ namespace Mario.States
 					rubble.ToggleRubble();
 				}
 				System.Diagnostics.Debug.WriteLine("rubble");
+				DestinationRectangle = new Rectangle(-1, -1, 1, 1);
 			}
 
 		}
