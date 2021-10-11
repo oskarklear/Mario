@@ -77,7 +77,8 @@ namespace Mario
 
                     
                     map.Mario.Collision(sprite, 800, 608);
-                    sprite.Collision(map.Mario, 800, 608);
+                    if (sprite is BlockContext)
+                        sprite.Collision(map.Mario, 800, 608);
                     
                 
             }

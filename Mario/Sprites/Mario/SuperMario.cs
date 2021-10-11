@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.Sprites.Enemies;
 using Mario.Sprites.Items;
 using Mario.Sprites.Items.Items;
 using Mario.States;
@@ -24,7 +25,11 @@ namespace Mario.Sprites.Mario
         Vector2 position;
         Dictionary<string, Texture2D> sprites;
         Rectangle hitbox;
-        public Rectangle DestinationRectangle { get; set; }
+        public Rectangle DestinationRectangle 
+        {
+            get { return hitbox; }
+            set { hitbox = value; }
+        }
         public SuperMario(Game1 theatre, Vector2 location, MarioContext context)
         {
             this.context = context;
@@ -44,11 +49,11 @@ namespace Mario.Sprites.Mario
         public void MoveLeftCommand()
         {
             context.GetActionState().FaceLeftTransition();
-            int marioTopLeftSpeed = -3;
-            if (context.Velocity.X > marioTopLeftSpeed) 
-            {
-                context.Velocity.X -= (float)0.15;
-            }
+            //int marioTopLeftSpeed = -3;
+            //if (context.Velocity.X > marioTopLeftSpeed) 
+            //{
+             //   context.Velocity.X -= (float)0.15;
+            //}
             
 
             System.Diagnostics.Debug.WriteLine("Left");
@@ -255,9 +260,10 @@ namespace Mario.Sprites.Mario
             //set mario's new pos
             position.X += context.Velocity.X;
             position.Y -= context.Velocity.Y;
-
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
-            DestinationRectangle = hitbox;
+            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
+                hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
+            else
+                hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 28);
             //// if mario idling, then deccelerate
             //if (context.GetActionState().ToString().Equals("IdleStateRight") || context.GetActionState().ToString().Equals("IdleStateLeft"))
             //{
@@ -331,62 +337,88 @@ namespace Mario.Sprites.Mario
 
         public void Collision(ISprite collider, int xOffset, int yOffset)
         {
-            if (hitbox.TouchTopOf(collider.DestinationRectangle))
+            if (collider is BlockContext)
             {
-                hitbox.Y = collider.DestinationRectangle.Y - hitbox.Height - 1;
-                position.Y = hitbox.Y;
-                context.Velocity.Y = 0f;
-                System.Diagnostics.Debug.WriteLine("mario hit the top of something");
-                if (collider is FireFlower)
-                    context.SetPowerUpState(new FireMarioState());
-                else if (collider is RedMushroom)
-                    if (context.GetPowerUpState().ToString().Equals("StandardState"))
-                        context.SetPowerUpState(new SuperMarioState());
-            }
-            if (hitbox.TouchLeftOf(collider.DestinationRectangle))
-            {
-                hitbox.X = collider.DestinationRectangle.X - hitbox.Width - 4;
-                position.X = hitbox.X;
-                System.Diagnostics.Debug.WriteLine("mario hit the left of something");
-                if (collider is FireFlower)
-                    context.SetPowerUpState(new FireMarioState());
-                else if (collider is RedMushroom)
-                    if (context.GetPowerUpState().ToString().Equals("StandardState"))
-                        context.SetPowerUpState(new SuperMarioState());
-            }
-            if (hitbox.TouchRightOf(collider.DestinationRectangle))
-            {
-                hitbox.X = collider.DestinationRectangle.X + hitbox.Width + 4;
-                position.X = hitbox.X;
-                System.Diagnostics.Debug.WriteLine("mario hit the right of something");
-                if (collider is FireFlower)
-                    context.SetPowerUpState(new FireMarioState());
-                else if (collider is RedMushroom)
-                    if (context.GetPowerUpState().ToString().Equals("StandardState"))
-                        context.SetPowerUpState(new SuperMarioState());
-            }
-            if (hitbox.TouchBottomOf(collider.DestinationRectangle))
-            {
-                hitbox.Y = collider.DestinationRectangle.Y + hitbox.Height + 1;
-                position.Y = hitbox.Y;
-                if (collider is FireFlower)
-                    context.SetPowerUpState(new FireMarioState());
-                else if (collider is RedMushroom)
-                    if (context.GetPowerUpState().ToString().Equals("StandardState"))
-                        context.SetPowerUpState(new SuperMarioState());
+                if (hitbox.TouchTopOf(collider.DestinationRectangle))
+                {
+                    hitbox.Y = collider.DestinationRectangle.Y - hitbox.Height - 1;
+                    position.Y = hitbox.Y;
+                    context.Velocity.Y = 0f;
+                    System.Diagnostics.Debug.WriteLine("mario hit the top of something");
 
-                //context.Velocity.Y = 0f;
-                System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
-            }
+                }
+                if (hitbox.TouchLeftOf(collider.DestinationRectangle))
+                {
+                    hitbox.X = collider.DestinationRectangle.X - hitbox.Width - 4;
+                    position.X = hitbox.X;
+                    System.Diagnostics.Debug.WriteLine("mario hit the left of something");
 
+                }
+                if (hitbox.TouchRightOf(collider.DestinationRectangle))
+                {
+                    hitbox.X = collider.DestinationRectangle.X + hitbox.Width + 4;
+                    position.X = hitbox.X;
+                    System.Diagnostics.Debug.WriteLine("mario hit the right of something");
+
+                }
+                if (hitbox.TouchBottomOf(collider.DestinationRectangle))
+                {
+                    hitbox.Y = collider.DestinationRectangle.Y + hitbox.Height + 1;
+                    position.Y = hitbox.Y;
+
+
+                    //context.Velocity.Y = 0f;
+                    System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                }
+            }
+            else if (collider is Goomba || collider is Koopa)
+            {
+                if (hitbox.TouchTopOf(collider.DestinationRectangle))
+                {
+                    System.Diagnostics.Debug.WriteLine("mario hit the top of something");
+
+                }
+                if (hitbox.TouchLeftOf(collider.DestinationRectangle))
+                {
+                    System.Diagnostics.Debug.WriteLine("mario hit the left of something");
+
+                }
+                if (hitbox.TouchRightOf(collider.DestinationRectangle))
+                {
+                    System.Diagnostics.Debug.WriteLine("mario hit the right of something");
+
+                }
+                if (hitbox.TouchBottomOf(collider.DestinationRectangle))
+                {
+                    
+                    System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                }
+            }
+            else
+            {
+                if (hitbox.TouchTopOf(collider.DestinationRectangle) || hitbox.TouchRightOf(collider.DestinationRectangle)
+                    || hitbox.TouchLeftOf(collider.DestinationRectangle) || hitbox.TouchBottomOf(collider.DestinationRectangle))
+                {
+                    if (collider is FireFlower)
+                    {
+                        collider.Collision(null, 0, 0);
+                        context.GetFireFlower();
+                    }
+                    if (collider is RedMushroom)
+                    {
+                        collider.Collision(null, 0, 0);
+                        context.GetMushroom();
+                    }
+                }
+            }
             if (position.X < 0)
                 position.X = 0;
 
             if (position.X > xOffset - hitbox.Width)
                 position.X = xOffset - hitbox.Width;
 
-            //if (position.Y < 0)
-                //context.Velocity.Y = 1f;
+            if (position.Y < 0)
+                position.Y = 0;
 
             if (position.Y > yOffset - hitbox.Height)
                 position.Y = yOffset - hitbox.Height;
