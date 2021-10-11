@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Mario.Sprites.Mario;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,32 +14,39 @@ namespace Mario.Sprites.Items
         Game1 Theatre;
         Texture2D texture;
         Vector2 position;
-        ContentManager Content;
+        bool obtained;
         public Rectangle DestinationRectangle { get; set; }
         public RedMushroom(Game1 theatre, Vector2 location)
         {
             position = location;
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("items/red_mushroom");
+            obtained = false;
+            DestinationRectangle = new Rectangle((int)location.X, (int)location.Y, 18, 18);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, Color.White);
+            if (!obtained)
+                spriteBatch.Draw(texture, position, Color.White);
         }
 
         public void Update()
         {
 
         }
-        public void LoadContent(ContentManager content)
-        {
-            Content = content;
-            texture = Content.Load<Texture2D>("items/red_mushroom");
-        }
 
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
-            //TODO
+            if (DestinationRectangle.TouchTopOf(collider.DestinationRectangle) || DestinationRectangle.TouchRightOf(collider.DestinationRectangle)
+                || DestinationRectangle.TouchLeftOf(collider.DestinationRectangle) || DestinationRectangle.TouchBottomOf(collider.DestinationRectangle))
+            {
+                //System.Diagnostics.Debug.WriteLine("collision");
+                if (collider is SuperMario)
+                {
+                    obtained = true;
+                    DestinationRectangle = new Rectangle(-1, -1, 0, 0);
+                }
+            }
         }
     }
 }

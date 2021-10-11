@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.Sprites.Items;
+using Mario.Sprites.Items.Items;
 using Mario.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -335,24 +337,43 @@ namespace Mario.Sprites.Mario
                 position.Y = hitbox.Y;
                 context.Velocity.Y = 0f;
                 System.Diagnostics.Debug.WriteLine("mario hit the top of something");
+                if (collider is FireFlower)
+                    context.SetPowerUpState(new FireMarioState());
+                else if (collider is RedMushroom)
+                    if (context.GetPowerUpState().ToString().Equals("StandardState"))
+                        context.SetPowerUpState(new SuperMarioState());
             }
             if (hitbox.TouchLeftOf(collider.DestinationRectangle))
             {
                 hitbox.X = collider.DestinationRectangle.X - hitbox.Width - 4;
                 position.X = hitbox.X;
                 System.Diagnostics.Debug.WriteLine("mario hit the left of something");
+                if (collider is FireFlower)
+                    context.SetPowerUpState(new FireMarioState());
+                else if (collider is RedMushroom)
+                    if (context.GetPowerUpState().ToString().Equals("StandardState"))
+                        context.SetPowerUpState(new SuperMarioState());
             }
             if (hitbox.TouchRightOf(collider.DestinationRectangle))
             {
                 hitbox.X = collider.DestinationRectangle.X + hitbox.Width + 4;
                 position.X = hitbox.X;
                 System.Diagnostics.Debug.WriteLine("mario hit the right of something");
+                if (collider is FireFlower)
+                    context.SetPowerUpState(new FireMarioState());
+                else if (collider is RedMushroom)
+                    if (context.GetPowerUpState().ToString().Equals("StandardState"))
+                        context.SetPowerUpState(new SuperMarioState());
             }
             if (hitbox.TouchBottomOf(collider.DestinationRectangle))
             {
                 hitbox.Y = collider.DestinationRectangle.Y + hitbox.Height + 1;
                 position.Y = hitbox.Y;
-                
+                if (collider is FireFlower)
+                    context.SetPowerUpState(new FireMarioState());
+                else if (collider is RedMushroom)
+                    if (context.GetPowerUpState().ToString().Equals("StandardState"))
+                        context.SetPowerUpState(new SuperMarioState());
 
                 //context.Velocity.Y = 0f;
                 System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");

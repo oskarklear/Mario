@@ -62,14 +62,9 @@ namespace Mario.Sprites.Items
                 //System.Diagnostics.Debug.WriteLine("collision");
                 if (collider is SuperMario)
                 {
-                    //System.Diagnostics.Debug.WriteLine("collision with mario");
                     obtained = true;
-                    System.Diagnostics.Debug.WriteLine("coin hit");
-                    //System.Diagnostics.Debug.WriteLine(this.ToString());
-                    //System.Diagnostics.Debug.WriteLine(sprite.ToString());
-                    //System.Diagnostics.Debug.WriteLine(mario.ToString());
                 }
             }
-            }
-        }
+         }
+     }
 }

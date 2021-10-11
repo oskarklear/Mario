@@ -17,6 +17,7 @@ namespace Mario.Sprites.Items
         {
             position = location;
             texture = theatre.Content.Load<Texture2D>("obstacles/pipe");
+            DestinationRectangle = new Rectangle((int)location.X, (int)location.Y, 32, 33);
         }
         public void Draw(SpriteBatch spriteBatch)
         {

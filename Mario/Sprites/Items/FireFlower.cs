@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Mario.Sprites.Mario;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,8 +17,9 @@ namespace Mario.Sprites.Items.Items
         ContentManager Content;
         Texture2D texture;
         Vector2 position;
+        bool obtained;
         public Rectangle DestinationRectangle { get; set; }
-        public FireFlower(Game1 theatre, Vector2 location) 
+        public FireFlower(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 15;
@@ -25,6 +27,7 @@ namespace Mario.Sprites.Items.Items
             Columns = 2;
             position = location;
             texture = theatre.Content.Load<Texture2D>("items/fire_flower");
+            obtained = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -34,8 +37,11 @@ namespace Mario.Sprites.Items.Items
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+            if (!obtained)
+                DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+            else
+                DestinationRectangle = new Rectangle(-1, -1, 0, 0);
+            spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
         }
 
         public void Update()
@@ -57,7 +63,16 @@ namespace Mario.Sprites.Items.Items
 
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
-            //TODO
+            if (DestinationRectangle.TouchTopOf(collider.DestinationRectangle) || DestinationRectangle.TouchRightOf(collider.DestinationRectangle)
+                || DestinationRectangle.TouchLeftOf(collider.DestinationRectangle) || DestinationRectangle.TouchBottomOf(collider.DestinationRectangle))
+            {
+                //System.Diagnostics.Debug.WriteLine("collision");
+                if (collider is SuperMario)
+                {
+                    obtained = true;
+                }
+            }
         }
     }
 }
+
