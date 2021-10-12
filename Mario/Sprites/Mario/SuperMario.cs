@@ -409,7 +409,7 @@ namespace Mario.Sprites.Mario
                     if (!(collider is Pipe))
                         hitbox.X = collider.Hitbox.X + hitbox.Width + 20;
                     else
-                        hitbox.X = collider.Hitbox.X + hitbox.Width + 6;
+                        hitbox.X = collider.Hitbox.X + (hitbox.Width + 4);
                     position.X = hitbox.X;
                     System.Diagnostics.Debug.WriteLine("mario hit the right of something");
                     if (collider is Goomba || collider is Koopa)
