@@ -53,40 +53,45 @@ namespace Mario.Sprites.Mario
 
         public void MoveLeftCommand()
         {
-            context.GetActionState().FaceLeftTransition();
-            //int marioTopLeftSpeed = -3;
-            //if (context.Velocity.X > marioTopLeftSpeed) 
-            //{
-             //   context.Velocity.X -= (float)0.15;
-            //}
-            
-
-            //System.Diagnostics.Debug.WriteLine("Left");
-            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            if (!(context.GetPowerUpState() is DeadMarioState))
+            {
+                context.GetActionState().FaceLeftTransition();
+                //System.Diagnostics.Debug.WriteLine("Left");
+                System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            }           
         }
 
         public void MoveRightCommand()
         {
-            context.GetActionState().FaceRightTransition();
+            if (!(context.GetPowerUpState() is DeadMarioState))
+            {
+                context.GetActionState().FaceRightTransition();
 
-            //System.Diagnostics.Debug.WriteLine("Right");
-            //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+                //System.Diagnostics.Debug.WriteLine("Right");
+                //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            }
         }
 
         public void JumpCommand()
         {
-            context.GetActionState().JumpingTransition();
+            if (!(context.GetPowerUpState() is DeadMarioState))
+            {
+                context.GetActionState().JumpingTransition();
 
-            //System.Diagnostics.Debug.WriteLine("Up");
-            //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+                //System.Diagnostics.Debug.WriteLine("Up");
+                //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            }
         }
 
         public void CrouchCommand()
         {
-            context.GetActionState().FallingTransition();
-            
-            //System.Diagnostics.Debug.WriteLine("Down");
-            //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            if (!(context.GetPowerUpState() is DeadMarioState))
+            {
+                context.GetActionState().FallingTransition();
+
+                //System.Diagnostics.Debug.WriteLine("Down");
+                //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            }
         }
         public void CrouchingDiscontinueCommand()
         {
