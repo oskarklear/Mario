@@ -14,10 +14,16 @@ namespace Mario.Sprites.Items
         int millisecondsPerFrame;
         int currentFrame;
         int Columns;
+        bool obtained;
         ContentManager Content;
         Texture2D texture;
         Vector2 position;
-        public Rectangle DestinationRectangle { get; set; }
+        Rectangle hitbox;
+        public Rectangle DestinationRectangle
+        {
+            get { return hitbox; }
+            set { hitbox = value; }
+        }
         public Star(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -26,6 +32,8 @@ namespace Mario.Sprites.Items
             Columns = 3;
             position = location;
             texture = theatre.Content.Load<Texture2D>("items/stars");
+            obtained = false;
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -35,8 +43,11 @@ namespace Mario.Sprites.Items
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-            spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+            if (!obtained)
+            {
+                DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
+            }
         }
 
         public void Update()
@@ -50,15 +61,10 @@ namespace Mario.Sprites.Items
                 currentFrame = 0;
             timeSinceLastFrame++;
         }
-        public void LoadContent(ContentManager content)
-        {
-            Content = content;
-            texture = Content.Load<Texture2D>("items/stars");
-        }
-
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
-            //TODO
+            obtained = true;
+            hitbox = new Rectangle(-1, -1, 0, 0);
         }
     }
 }

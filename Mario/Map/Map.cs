@@ -101,10 +101,10 @@ namespace Mario.Map
                                 collisionObjs.Add(new Star(theatre, new Vector2(i * size, j * size)));
                                 break;
                             case 30:  //Goomba
-                                collisionObjs.Add(new Goomba(theatre, new Vector2(i * GOOMBAW, j * GOOMBAH - size + 1)));
+                                collisionObjs.Add(new Goomba(theatre, new Vector2(i * GOOMBAW, j * GOOMBAH - size + 2)));
                                 break;
                             case 31:  //Koopa
-                                collisionObjs.Add(new Koopa(theatre, new Vector2(i * KOOPAW, j * KOOPAH - size)));
+                                collisionObjs.Add(new Koopa(theatre, new Vector2(i * KOOPAW, j * (KOOPAH - 11) + 19)));
                                 break;
                             case 41: //Mario
                                 mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext()) { animated = false };

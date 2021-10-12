@@ -337,7 +337,8 @@ namespace Mario.Sprites.Mario
 
         public void Collision(ISprite collider, int xOffset, int yOffset)
         {
-            if (collider is BlockContext)
+            //Blocks
+            if (collider is BlockContext || collider is Pipe)
             {
                 if (hitbox.TouchTopOf(collider.DestinationRectangle))
                 {
@@ -371,6 +372,7 @@ namespace Mario.Sprites.Mario
                     System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                 }
             }
+            //Enemies
             else if (collider is Goomba || collider is Koopa)
             {
                 if (hitbox.TouchTopOf(collider.DestinationRectangle))
@@ -394,6 +396,7 @@ namespace Mario.Sprites.Mario
                     System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                 }
             }
+            //Pickups
             else
             {
                 if (hitbox.TouchTopOf(collider.DestinationRectangle) || hitbox.TouchRightOf(collider.DestinationRectangle)
@@ -401,13 +404,25 @@ namespace Mario.Sprites.Mario
                 {
                     if (collider is FireFlower)
                     {
-                        collider.Collision(null, 0, 0);
+                        collider.Collision(null, -1, -1);
                         context.GetFireFlower();
                     }
                     if (collider is RedMushroom)
                     {
-                        collider.Collision(null, 0, 0);
+                        collider.Collision(null, -1, -1);
                         context.GetMushroom();
+                    }
+                    if (collider is Coin)
+                    {
+                        collider.Collision(null, -1, -1);
+                    }
+                    if (collider is GreenMushroom)
+                    {
+                        collider.Collision(null, -1, -1);
+                    }
+                    if (collider is Star)
+                    {
+                        collider.Collision(null, -1, -1);
                     }
                 }
             }

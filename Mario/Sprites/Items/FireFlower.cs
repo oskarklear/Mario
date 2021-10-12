@@ -14,7 +14,6 @@ namespace Mario.Sprites.Items.Items
         int millisecondsPerFrame;
         int currentFrame;
         int Columns;
-        ContentManager Content;
         Texture2D texture;
         Vector2 position;
         bool obtained;
@@ -38,10 +37,10 @@ namespace Mario.Sprites.Items.Items
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
             if (!obtained)
+            {
                 DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-            else
-                DestinationRectangle = new Rectangle(-1, -1, 0, 0);
-            spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
+                spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
+            }
         }
 
         public void Update()
@@ -54,11 +53,6 @@ namespace Mario.Sprites.Items.Items
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
-        }
-        public void LoadContent(ContentManager content)
-        {
-            Content = content;
-            texture = Content.Load<Texture2D>("items/fire_flower");
         }
 
         public void Collision(ISprite collider, int xoffset, int yoffset)
