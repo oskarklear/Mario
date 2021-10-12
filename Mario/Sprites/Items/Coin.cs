@@ -17,11 +17,13 @@ namespace Mario.Sprites.Items
         Texture2D texture;
         Vector2 position;
         Rectangle hitbox;
+
         public Rectangle Hitbox
         {
             get { return hitbox; }
             set { hitbox = value; }
         }
+
         private bool showHitbox;
         public bool ShowHitbox
         {

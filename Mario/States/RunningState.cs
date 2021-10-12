@@ -24,16 +24,17 @@ namespace Mario.States
         {
             PreviousActionState.Enter(this);
         }
+
         public override void PressNothing(MarioContext context)
         {
             marioContext.idleState.Enter(this);
-
         }
+
         public override void StandingTransition()
         {
             marioContext.idleState.Enter(this);
-            //kinematics.AccelerateUp(context);
         }
+
         public override void CrouchingTransition()
         {
             marioContext.crouchingState.Enter(this);
@@ -58,6 +59,7 @@ namespace Mario.States
         {
             CrouchingTransition();
         }
+
         public override void FaceLeftTransition()
         {
             if (!marioContext.facingLeft)
@@ -66,23 +68,25 @@ namespace Mario.States
                 kinematics.AccelerateLeft(marioContext);
             kinematics.IdleYDecelerate(marioContext);
         }
+
         public override void FaceRightTransition()
         {
             if (marioContext.facingLeft)
                 marioContext.idleState.Enter(this);
             else
                 kinematics.AccelerateRight(marioContext);
-            //kinematics.IdleYDecelerate(marioContext);
         }
 
         public override void CrouchingDiscontinueTransition()
         {
             //Does nothing
         }
+
         public override void FaceLeftDiscontinueTransition()
         {
             kinematics.XDecelerateToRight(marioContext);
         }
+
         public override void FaceRightDiscontinueTransition()
         {
             kinematics.XDecelerateToLeft(marioContext);

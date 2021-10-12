@@ -28,14 +28,12 @@ namespace Mario
         string [][] mapArray;
         Level map;
         
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
-            
         }
 
         protected override void Initialize()
@@ -46,7 +44,6 @@ namespace Mario
             map = new Level();
             map.Theatre = this;
             base.Initialize();
-            
         }
 
         protected override void LoadContent()
@@ -59,18 +56,17 @@ namespace Mario
             
             kb = new KeyboardInput(map.Mario) { GameObj = this };
             gp1 = new GamepadInput(map.Mario) { GameObj = this };
-            
-            //gp2 = new GamepadInput(mario)
-
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
             gp1.UpdateInput();
             kb.UpdateInput();
             map.Mario.Update();
+
             foreach(ISprite sprite in map.CollisionObjs)
             {
                 map.Mario.Collision(sprite, 800, 608);
@@ -81,10 +77,8 @@ namespace Mario
                     sprite.ShowHitbox = true;
                 else
                     sprite.ShowHitbox = false;
-                    
-                
             }
-            //collisionDetector.Update(DynamicObjects);
+
             map.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());
@@ -93,7 +87,6 @@ namespace Mario
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             spriteBatch.Begin();
             spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -250), Color.White);
             map.Mario.Draw(spriteBatch);
@@ -101,6 +94,7 @@ namespace Mario
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
         public void ExitCommand()
         {
             Exit();
