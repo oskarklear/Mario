@@ -20,6 +20,7 @@ namespace Mario.Sprites.Mario
         private int currentFrame;
         private int timeSinceLastFrame;
         private int millisecondsPerFrame;
+        bool colliding;
         Texture2D texture;
         Game1 Theatre;
         Vector2 position;
@@ -46,6 +47,7 @@ namespace Mario.Sprites.Mario
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
+            colliding = false;
         }
 
 
@@ -399,7 +401,10 @@ namespace Mario.Sprites.Mario
                 }
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
-                    hitbox.X = collider.Hitbox.X + hitbox.Width + 4;
+                    if (!(collider is Pipe))
+                        hitbox.X = collider.Hitbox.X + hitbox.Width + 20;
+                    else
+                        hitbox.X = collider.Hitbox.X + hitbox.Width + 6;
                     position.X = hitbox.X;
                     System.Diagnostics.Debug.WriteLine("mario hit the right of something");
                     if (collider is Goomba || collider is Koopa)
