@@ -16,7 +16,13 @@ namespace Mario.Sprites.Enemies
         Texture2D texture;
         Vector2 position;
         Game1 Theatre;
-        public Rectangle DestinationRectangle { get; set; }
+        bool dead;
+        Rectangle hitbox;
+        public Rectangle DestinationRectangle
+        {
+            get { return hitbox; }
+            set { hitbox = value; }
+        }
         public Goomba(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -26,6 +32,8 @@ namespace Mario.Sprites.Enemies
             position = location;
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
+            dead = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -35,8 +43,11 @@ namespace Mario.Sprites.Enemies
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-            spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
+            if (!dead)
+            {
+                DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
+            }
         }
 
         public void Update()
@@ -53,8 +64,8 @@ namespace Mario.Sprites.Enemies
 
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
-            //TODO
-            
+            dead = true;
+            hitbox = new Rectangle(-1, -1, 0, 0);
         }
     }
 }

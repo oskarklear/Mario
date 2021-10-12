@@ -399,22 +399,22 @@ namespace Mario.Sprites.Mario
             {
                 if (hitbox.TouchTopOf(collider.DestinationRectangle))
                 {
+                    collider.Collision(null, -1, -1);
                     System.Diagnostics.Debug.WriteLine("mario hit the top of something");
-
                 }
                 if (hitbox.TouchLeftOf(collider.DestinationRectangle))
                 {
+                    context.TakeDamage();
                     System.Diagnostics.Debug.WriteLine("mario hit the left of something");
-
                 }
                 if (hitbox.TouchRightOf(collider.DestinationRectangle))
                 {
+                    context.TakeDamage();
                     System.Diagnostics.Debug.WriteLine("mario hit the right of something");
-
                 }
                 if (hitbox.TouchBottomOf(collider.DestinationRectangle))
                 {
-                    
+                    context.TakeDamage();
                     System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                 }
             }

@@ -12,7 +12,12 @@ namespace Mario.Sprites.Items
     {
         Texture2D texture;
         Vector2 position;
-        public Rectangle DestinationRectangle { get; set; }
+        Rectangle hitbox;
+        public Rectangle DestinationRectangle
+        {
+            get { return hitbox; }
+            set { hitbox = value; }
+        }
         public Pipe(Game1 theatre, Vector2 location)
         {
             position = location;
