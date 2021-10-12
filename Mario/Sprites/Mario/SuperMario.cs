@@ -290,6 +290,11 @@ namespace Mario.Sprites.Mario
             //set mario's new pos
             position.X += context.Velocity.X;
             position.Y -= context.Velocity.Y;
+            if (Math.Abs(context.Velocity.X) > 0 || Math.Abs(context.Velocity.Y) > 0)
+            {
+                context.isTouchingLeft = false;
+                context.isTouchingRight = false;
+            }
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             else
@@ -401,6 +406,7 @@ namespace Mario.Sprites.Mario
                     System.Diagnostics.Debug.WriteLine("mario hit the left of something");
                     if (collider is Goomba || collider is Koopa)
                         context.TakeDamage();
+                    context.isTouchingLeft = true;
                 }
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
@@ -409,6 +415,7 @@ namespace Mario.Sprites.Mario
                     System.Diagnostics.Debug.WriteLine("mario hit the right of something");
                     if (collider is Goomba || collider is Koopa)
                         context.TakeDamage();
+                    context.isTouchingRight = true;
                 }
                 if (hitbox.TouchBottomOf(collider.Hitbox))
                 {

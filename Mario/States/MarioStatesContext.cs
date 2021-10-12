@@ -16,6 +16,8 @@ public class MarioContext
 	public Vector2 Velocity;
 	public bool jumped;
 	public bool facingLeft;
+	public bool isTouchingLeft { get; set;}
+	public bool isTouchingRight { get; set; }
 	bool showHitbox;
 	public bool ShowHitbox
 	{
