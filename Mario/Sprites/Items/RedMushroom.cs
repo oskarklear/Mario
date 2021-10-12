@@ -32,21 +32,14 @@ namespace Mario.Sprites.Items
 
         public void Update()
         {
-
+            if (obtained)
+                DestinationRectangle = new Rectangle(-1, -1, 0, 0);
         }
 
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
-            if (DestinationRectangle.TouchTopOf(collider.DestinationRectangle) || DestinationRectangle.TouchRightOf(collider.DestinationRectangle)
-                || DestinationRectangle.TouchLeftOf(collider.DestinationRectangle) || DestinationRectangle.TouchBottomOf(collider.DestinationRectangle))
-            {
-                //System.Diagnostics.Debug.WriteLine("collision");
-                if (collider is SuperMario)
-                {
-                    obtained = true;
-                    DestinationRectangle = new Rectangle(-1, -1, 0, 0);
-                }
-            }
+            obtained = true;
+            DestinationRectangle = new Rectangle(-1, -1, 0, 0);
         }
     }
 }
