@@ -28,8 +28,8 @@ namespace Mario.States
         public abstract void FaceRightTransition();
         public abstract void CrouchingDiscontinueTransition();
         //public abstract void WalkingDiscontinueTransition();
-        //public abstract void FaceLeftDiscontinueTransition();
-        //public abstract void FaceRightDiscontinueTransition();
+        public abstract void FaceLeftDiscontinueTransition();
+        public abstract void FaceRightDiscontinueTransition();
         public abstract void RunningDiscontinueTransition();
         public abstract void JumpingDiscontinueTransition();
     }

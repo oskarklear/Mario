@@ -84,6 +84,14 @@ namespace Mario.States
             //Does nothing
         }
 
+        public override void FaceLeftDiscontinueTransition()
+        {
+            //kinematics.XDecelerateRight(marioContext);
+        }
+        public override void FaceRightDiscontinueTransition()
+        {
+            //kinematics.XDecelerateLeft(marioContext);
+        }
         public override void RunningDiscontinueTransition()
         {
             //Does nothing

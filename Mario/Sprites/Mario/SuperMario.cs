@@ -83,6 +83,28 @@ namespace Mario.Sprites.Mario
             //System.Diagnostics.Debug.WriteLine("Down");
             //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
+        public void CrouchingDiscontinueCommand()
+        {
+            context.GetActionState().CrouchingDiscontinueTransition();
+        }
+        public void JumpingDiscontinueCommand()
+        {
+            context.GetActionState().JumpingDiscontinueTransition();
+        }
+        public void FaceLeftDiscontinueCommand()
+        {
+            context.GetActionState().FaceLeftDiscontinueTransition();
+
+            //System.Diagnostics.Debug.WriteLine("Down");
+            //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+        }
+        public void FaceRightDiscontinueCommand()
+        {
+            context.GetActionState().FaceRightDiscontinueTransition();
+
+            //System.Diagnostics.Debug.WriteLine("Down");
+            //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+        }
 
         public void IdleCommand()
         {
@@ -94,8 +116,8 @@ namespace Mario.Sprites.Mario
 
         public void Update()
         {
-            //System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
-            //System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
+            System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
+            System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
 
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {

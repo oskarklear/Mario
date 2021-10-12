@@ -63,7 +63,6 @@ namespace Mario.States
                 marioContext.facingLeft = true;
             else
                 kinematics.AccelerateLeft(marioContext);
-            marioContext.runningState.Enter(this);
         }
 
         public override void FaceRightTransition()
@@ -72,7 +71,6 @@ namespace Mario.States
                 marioContext.facingLeft = false;
             else
                 kinematics.AccelerateRight(marioContext);
-            marioContext.runningState.Enter(this);
         }
 
         public override void CrouchingDiscontinueTransition()
@@ -80,6 +78,14 @@ namespace Mario.States
             //Does nothing
         }
 
+        public override void FaceLeftDiscontinueTransition()
+        {
+            kinematics.XDecelerateToRight(marioContext);
+        }
+        public override void FaceRightDiscontinueTransition()
+        {
+            kinematics.XDecelerateToLeft(marioContext);
+        }
         public override void RunningDiscontinueTransition()
         {
             //Does nothing
@@ -87,6 +93,7 @@ namespace Mario.States
 
         public override void JumpingDiscontinueTransition()
         {
+            kinematics.YDecelerateToDown(marioContext);
             Exit();
         }
         public override string ToString()

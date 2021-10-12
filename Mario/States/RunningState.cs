@@ -72,12 +72,20 @@ namespace Mario.States
                 marioContext.idleState.Enter(this);
             else
                 kinematics.AccelerateRight(marioContext);
-            kinematics.IdleYDecelerate(marioContext);
+            //kinematics.IdleYDecelerate(marioContext);
         }
 
         public override void CrouchingDiscontinueTransition()
         {
             //Does nothing
+        }
+        public override void FaceLeftDiscontinueTransition()
+        {
+            kinematics.XDecelerateToRight(marioContext);
+        }
+        public override void FaceRightDiscontinueTransition()
+        {
+            kinematics.XDecelerateToLeft(marioContext);
         }
 
         public override void RunningDiscontinueTransition()
