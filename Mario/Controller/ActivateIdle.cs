@@ -25,6 +25,7 @@ namespace Mario.Controller
             CrouchingDiscontinueCommand = new CrouchingDiscontinueCommand(mario);
             JumpingDiscontinueCommand = new JumpingDiscontinueCommand(mario);
         }
+
         public void ActivateIdleCommand()
         {
             if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.A)
@@ -52,12 +53,14 @@ namespace Mario.Controller
                 FaceLeftDiscontinueCommand.Execute();
                 System.Diagnostics.Debug.WriteLine("FaceLeftDiscontinue");
             }
+
             if (!Keyboard.GetState().IsKeyDown(Keys.S) && !Keyboard.GetState().IsKeyDown(Keys.Down)
                 && !GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown))
             {
                CrouchingDiscontinueCommand.Execute();
                 System.Diagnostics.Debug.WriteLine("CrouchingDiscontinue");
             }
+
             if (!Keyboard.GetState().IsKeyDown(Keys.W) && !Keyboard.GetState().IsKeyDown(Keys.Up)
                 && !GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A))
             {
