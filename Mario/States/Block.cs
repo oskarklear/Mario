@@ -167,13 +167,8 @@ namespace Mario.States
 					System.Diagnostics.Debug.WriteLine(mario.ToString());
 					state.Bump(this, mario.context, sprite);
 				}					
-				
             }
         }
-		public void ToggleHitbox()
-		{
-			showHitbox = !showHitbox;
-		}
 	}
 	public abstract class BlockState
 	{

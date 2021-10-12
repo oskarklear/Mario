@@ -380,59 +380,39 @@ namespace Mario.Sprites.Mario
             //Blocks
             if (collider is BlockContext || collider is Pipe)
             {
-                if (hitbox.TouchTopOf(collider.Hitbox))
+                if (hitbox.TouchTopOf(collider.Hitbox) && !(collider is HiddenBlockState))
                 {
                     hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                     position.Y = hitbox.Y;
                     context.Velocity.Y = 0f;
                     System.Diagnostics.Debug.WriteLine("mario hit the top of something");
-
+                    if (collider is Goomba || collider is Koopa)
+                        collider.Collision(null, -1, -1);
                 }
-                if (hitbox.TouchLeftOf(collider.Hitbox))
+                if (hitbox.TouchLeftOf(collider.Hitbox) && !(collider is HiddenBlockState))
                 {
                     hitbox.X = collider.Hitbox.X - hitbox.Width - 4;
                     position.X = hitbox.X;
                     System.Diagnostics.Debug.WriteLine("mario hit the left of something");
-
+                    if (collider is Goomba || collider is Koopa)
+                        context.TakeDamage();
                 }
-                if (hitbox.TouchRightOf(collider.Hitbox))
+                if (hitbox.TouchRightOf(collider.Hitbox) && !(collider is HiddenBlockState))
                 {
                     hitbox.X = collider.Hitbox.X + hitbox.Width + 4;
                     position.X = hitbox.X;
                     System.Diagnostics.Debug.WriteLine("mario hit the right of something");
-
+                    if (collider is Goomba || collider is Koopa)
+                        context.TakeDamage();
                 }
                 if (hitbox.TouchBottomOf(collider.Hitbox))
                 {
                     hitbox.Y = collider.Hitbox.Y + hitbox.Height + 1;
                     position.Y = hitbox.Y;
-
+                    if (collider is Goomba || collider is Koopa)
+                        context.TakeDamage();
 
                     //context.Velocity.Y = 0f;
-                    System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
-                }
-            }
-            //Enemies
-            else if (collider is Goomba || collider is Koopa)
-            {
-                if (hitbox.TouchTopOf(collider.Hitbox))
-                {
-                    collider.Collision(null, -1, -1);
-                    System.Diagnostics.Debug.WriteLine("mario hit the top of something");
-                }
-                if (hitbox.TouchLeftOf(collider.Hitbox))
-                {
-                    context.TakeDamage();
-                    System.Diagnostics.Debug.WriteLine("mario hit the left of something");
-                }
-                if (hitbox.TouchRightOf(collider.Hitbox))
-                {
-                    context.TakeDamage();
-                    System.Diagnostics.Debug.WriteLine("mario hit the right of something");
-                }
-                if (hitbox.TouchBottomOf(collider.Hitbox))
-                {
-                    context.TakeDamage();
                     System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                 }
             }

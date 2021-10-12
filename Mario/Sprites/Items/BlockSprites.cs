@@ -115,7 +115,7 @@ namespace Mario.Sprites
 
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
-            
+
         }
         public void ToggleHitbox()
         {
