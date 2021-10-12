@@ -51,7 +51,7 @@ namespace Mario.Sprites.Mario
             }
             
 
-            System.Diagnostics.Debug.WriteLine("Left");
+            //System.Diagnostics.Debug.WriteLine("Left");
             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
@@ -59,38 +59,38 @@ namespace Mario.Sprites.Mario
         {
             context.GetActionState().FaceRightTransition();
 
-            System.Diagnostics.Debug.WriteLine("Right");
-            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            //System.Diagnostics.Debug.WriteLine("Right");
+            //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         public void JumpCommand()
         {
             context.GetActionState().JumpingTransition();
 
-            System.Diagnostics.Debug.WriteLine("Up");
-            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            //System.Diagnostics.Debug.WriteLine("Up");
+            //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         public void CrouchCommand()
         {
             context.GetActionState().FallingTransition();
             
-            System.Diagnostics.Debug.WriteLine("Down");
-            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            //System.Diagnostics.Debug.WriteLine("Down");
+            //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         public void IdleCommand()
         {
             context.GetActionState().PressNothing(context);
 
-            System.Diagnostics.Debug.WriteLine("Nothing");
-            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+            //System.Diagnostics.Debug.WriteLine("Nothing");
+            //System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
         }
 
         public void Update()
         {
-            System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
-            System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
+            //System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
+            //System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
 
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {

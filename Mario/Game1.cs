@@ -84,7 +84,6 @@ namespace Mario
             //collisionDetector.Update(DynamicObjects);
             map.Update();
             base.Update(gameTime);
-            System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());
         }
 
         protected override void Draw(GameTime gameTime)

@@ -54,7 +54,6 @@ namespace Mario.States
 
         public override void FallingTransition()
         {
-            //PreviousActionState.Enter(this)
             marioContext.idleState.Enter(this);
         }    
 
