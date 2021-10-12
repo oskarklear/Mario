@@ -378,9 +378,9 @@ namespace Mario.Sprites.Mario
         public void Collision(ISprite collider, int xOffset, int yOffset)
         {
             //Blocks
-            if (collider is BlockContext || collider is Pipe)
+            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa)
             {
-                if (hitbox.TouchTopOf(collider.Hitbox) && !(collider is HiddenBlockState))
+                if (hitbox.TouchTopOf(collider.Hitbox))
                 {
                     hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                     position.Y = hitbox.Y;
@@ -389,7 +389,7 @@ namespace Mario.Sprites.Mario
                     if (collider is Goomba || collider is Koopa)
                         collider.Collision(null, -1, -1);
                 }
-                if (hitbox.TouchLeftOf(collider.Hitbox) && !(collider is HiddenBlockState))
+                if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
                     hitbox.X = collider.Hitbox.X - hitbox.Width - 4;
                     position.X = hitbox.X;
@@ -397,7 +397,7 @@ namespace Mario.Sprites.Mario
                     if (collider is Goomba || collider is Koopa)
                         context.TakeDamage();
                 }
-                if (hitbox.TouchRightOf(collider.Hitbox) && !(collider is HiddenBlockState))
+                if (hitbox.TouchRightOf(collider.Hitbox))
                 {
                     hitbox.X = collider.Hitbox.X + hitbox.Width + 4;
                     position.X = hitbox.X;
