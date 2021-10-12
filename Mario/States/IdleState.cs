@@ -88,6 +88,14 @@ namespace Mario.States
             //Does nothing
         }
 
+        public override void FaceLeftDiscontinueTransition()
+        {
+            //Does nothing
+        }
+        public override void FaceRightDiscontinueTransition()
+        {
+            //Does nothing
+        }
         public override void RunningDiscontinueTransition()
         {
             //Does nothing
