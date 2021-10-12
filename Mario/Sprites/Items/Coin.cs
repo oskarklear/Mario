@@ -17,12 +17,19 @@ namespace Mario.Sprites.Items
         Texture2D texture;
         Vector2 position;
         Rectangle hitbox;
-        public Rectangle DestinationRectangle
+        public Rectangle Hitbox
         {
             get { return hitbox; }
             set { hitbox = value; }
         }
+        private bool showHitbox;
+        public bool ShowHitbox
+        {
+            get { return showHitbox; }
+            set { showHitbox = value; }
+        }
         bool obtained;
+
         public Coin(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -33,6 +40,7 @@ namespace Mario.Sprites.Items
             texture = theatre.Content.Load<Texture2D>("items/coins");
             obtained = false;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 12, 16);
+            showHitbox = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -46,7 +54,24 @@ namespace Mario.Sprites.Items
             {
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
                 spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+                if (showHitbox)
+                {
+                    Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
+                    Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
+                    Color[] dataW = new Color[hitbox.Width];
+                    for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Green;
+                    Color[] dataH = new Color[hitbox.Height];
+                    for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Green;
+                    hitboxTextureW.SetData(dataW);
+                    hitboxTextureH.SetData(dataH);
+                    spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                    spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
+                    spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                    spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
+                }
             }
+            
+
         }
 
         public void Update()
@@ -64,5 +89,9 @@ namespace Mario.Sprites.Items
         {
             obtained = true;
         }
-     }
+        public void ToggleHitbox()
+        {
+            showHitbox = !showHitbox;
+        }
+    }
 }

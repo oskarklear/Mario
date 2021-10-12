@@ -23,9 +23,13 @@ namespace Mario.Sprites.Mario
         Texture2D texture;
         Game1 Theatre;
         Vector2 position;
-        Dictionary<string, Texture2D> sprites;
+        public bool ShowHitbox
+        {
+            get { return context.ShowHitbox; }
+            set { context.ShowHitbox = value; }
+        }
         Rectangle hitbox;
-        public Rectangle DestinationRectangle 
+        public Rectangle Hitbox 
         {
             get { return hitbox; }
             set { hitbox = value; }
@@ -33,7 +37,6 @@ namespace Mario.Sprites.Mario
         public SuperMario(Game1 theatre, Vector2 location, MarioContext context)
         {
             this.context = context;
-            sprites = new Dictionary<string, Texture2D>();
             Rows = 1;
             Columns = 1;
             currentFrame = 0;
@@ -353,40 +356,55 @@ namespace Mario.Sprites.Mario
             {
                 spriteBatch.Draw(texture, position, Color.White);
             }
+            if (ShowHitbox)
+            {
+                Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
+                Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
+                Color[] dataW = new Color[hitbox.Width];
+                for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Yellow;
+                Color[] dataH = new Color[hitbox.Height];
+                for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Yellow;
+                hitboxTextureW.SetData(dataW);
+                hitboxTextureH.SetData(dataH);
+                spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
+                spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
+            }
+        
 
-            
-        }
+    }
 
         public void Collision(ISprite collider, int xOffset, int yOffset)
         {
             //Blocks
             if (collider is BlockContext || collider is Pipe)
             {
-                if (hitbox.TouchTopOf(collider.DestinationRectangle))
+                if (hitbox.TouchTopOf(collider.Hitbox))
                 {
-                    hitbox.Y = collider.DestinationRectangle.Y - hitbox.Height - 1;
+                    hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                     position.Y = hitbox.Y;
                     context.Velocity.Y = 0f;
                     System.Diagnostics.Debug.WriteLine("mario hit the top of something");
 
                 }
-                if (hitbox.TouchLeftOf(collider.DestinationRectangle))
+                if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
-                    hitbox.X = collider.DestinationRectangle.X - hitbox.Width - 4;
+                    hitbox.X = collider.Hitbox.X - hitbox.Width - 4;
                     position.X = hitbox.X;
                     System.Diagnostics.Debug.WriteLine("mario hit the left of something");
 
                 }
-                if (hitbox.TouchRightOf(collider.DestinationRectangle))
+                if (hitbox.TouchRightOf(collider.Hitbox))
                 {
-                    hitbox.X = collider.DestinationRectangle.X + hitbox.Width + 4;
+                    hitbox.X = collider.Hitbox.X + hitbox.Width + 4;
                     position.X = hitbox.X;
                     System.Diagnostics.Debug.WriteLine("mario hit the right of something");
 
                 }
-                if (hitbox.TouchBottomOf(collider.DestinationRectangle))
+                if (hitbox.TouchBottomOf(collider.Hitbox))
                 {
-                    hitbox.Y = collider.DestinationRectangle.Y + hitbox.Height + 1;
+                    hitbox.Y = collider.Hitbox.Y + hitbox.Height + 1;
                     position.Y = hitbox.Y;
 
 
@@ -397,22 +415,22 @@ namespace Mario.Sprites.Mario
             //Enemies
             else if (collider is Goomba || collider is Koopa)
             {
-                if (hitbox.TouchTopOf(collider.DestinationRectangle))
+                if (hitbox.TouchTopOf(collider.Hitbox))
                 {
                     collider.Collision(null, -1, -1);
                     System.Diagnostics.Debug.WriteLine("mario hit the top of something");
                 }
-                if (hitbox.TouchLeftOf(collider.DestinationRectangle))
+                if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
                     context.TakeDamage();
                     System.Diagnostics.Debug.WriteLine("mario hit the left of something");
                 }
-                if (hitbox.TouchRightOf(collider.DestinationRectangle))
+                if (hitbox.TouchRightOf(collider.Hitbox))
                 {
                     context.TakeDamage();
                     System.Diagnostics.Debug.WriteLine("mario hit the right of something");
                 }
-                if (hitbox.TouchBottomOf(collider.DestinationRectangle))
+                if (hitbox.TouchBottomOf(collider.Hitbox))
                 {
                     context.TakeDamage();
                     System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
@@ -421,8 +439,8 @@ namespace Mario.Sprites.Mario
             //Pickups
             else
             {
-                if (hitbox.TouchTopOf(collider.DestinationRectangle) || hitbox.TouchRightOf(collider.DestinationRectangle)
-                    || hitbox.TouchLeftOf(collider.DestinationRectangle) || hitbox.TouchBottomOf(collider.DestinationRectangle))
+                if (hitbox.TouchTopOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox)
+                    || hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchBottomOf(collider.Hitbox))
                 {
                     if (collider is FireFlower)
                     {

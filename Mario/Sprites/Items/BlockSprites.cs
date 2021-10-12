@@ -32,9 +32,15 @@ namespace Mario.Sprites
 
         protected Rectangle sourceRectangle;
         protected Rectangle destinationRectangle;
-        public Rectangle DestinationRectangle
+        public Rectangle Hitbox
         {
             get { return destinationRectangle;}
+        }
+        private bool showHitbox;
+        public bool ShowHitbox
+        {
+            get { return showHitbox; }
+            set { showHitbox = value; }
         }
         protected BlockContext Context;
         protected int timeSinceLastFrame;
@@ -51,7 +57,22 @@ namespace Mario.Sprites
 
             
             spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
-            
+            if (showHitbox)
+            {
+                Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, Hitbox.Width, 1);
+                Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, Hitbox.Height);
+                Color[] dataW = new Color[Hitbox.Width];
+                for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Blue;
+                Color[] dataH = new Color[Hitbox.Height];
+                for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Blue;
+                hitboxTextureW.SetData(dataW);
+                hitboxTextureH.SetData(dataH);
+                spriteBatch.Draw(hitboxTextureW, new Vector2((int)Hitbox.X, (int)Hitbox.Y), Color.White);
+                spriteBatch.Draw(hitboxTextureW, new Vector2((int)Hitbox.X, (int)Hitbox.Y + (int)Hitbox.Height), Color.White);
+                spriteBatch.Draw(hitboxTextureH, new Vector2((int)Hitbox.X, (int)Hitbox.Y), Color.White);
+                spriteBatch.Draw(hitboxTextureH, new Vector2((int)Hitbox.X + (int)Hitbox.Width, (int)Hitbox.Y), Color.White);
+            }
+
         }
 
         public void setMovement(int range)
@@ -96,6 +117,10 @@ namespace Mario.Sprites
         {
             
         }
+        public void ToggleHitbox()
+        {
+            showHitbox = !showHitbox;
+        }
     }
     public class BrickBlockSprite : BlockSprite
     {
@@ -116,7 +141,7 @@ namespace Mario.Sprites
             Context = context;
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 10;
-
+            ShowHitbox = false;
 
         }        
     }
@@ -139,7 +164,7 @@ namespace Mario.Sprites
             Context = context;
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 10;
-
+            ShowHitbox = false;
 
         }
     }
@@ -150,7 +175,7 @@ namespace Mario.Sprites
         {
 
             Texture = theatre.Content.Load<Texture2D>("obstacles/Item Block");
-
+            ShowHitbox = false;
             Location = location;
             moveDistance = 0;
             moveRange = 0;
@@ -171,7 +196,7 @@ namespace Mario.Sprites
         {
 
             Texture = theatre.Content.Load<Texture2D>("obstacles/Used Item Block");
-
+            ShowHitbox = false;
             Location = location;
             moveDistance = 0;
             moveRange = 0;
@@ -192,7 +217,7 @@ namespace Mario.Sprites
         {
 
             Texture = theatre.Content.Load<Texture2D>("obstacles/Item Block");
-
+            ShowHitbox = false;
             Location = location;
             moveDistance = 0;
             moveRange = 0;
@@ -220,7 +245,7 @@ namespace Mario.Sprites
         {
 
             Texture = theatre.Content.Load<Texture2D>("obstacles/Block Debris");
-
+            ShowHitbox = false;
             Location = location;
             moveDistance = 0;
             moveRange = 0;

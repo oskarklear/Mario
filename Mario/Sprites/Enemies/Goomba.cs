@@ -17,8 +17,14 @@ namespace Mario.Sprites.Enemies
         Vector2 position;
         Game1 Theatre;
         bool dead;
+        private bool showHitbox;
+        public bool ShowHitbox
+        {
+            get { return showHitbox; }
+            set { showHitbox = value; }
+        }
         Rectangle hitbox;
-        public Rectangle DestinationRectangle
+        public Rectangle Hitbox
         {
             get { return hitbox; }
             set { hitbox = value; }
@@ -34,6 +40,7 @@ namespace Mario.Sprites.Enemies
             texture = Theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
             hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
             dead = false;
+            showHitbox = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -45,8 +52,23 @@ namespace Mario.Sprites.Enemies
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
             if (!dead)
             {
-                DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
+                Hitbox = new Rectangle((int)position.X, (int)position.Y, width, height);
+                spriteBatch.Draw(texture, Hitbox, sourceRectangle, Color.White);
+                if (showHitbox)
+                {
+                    Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
+                    Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
+                    Color[] dataW = new Color[hitbox.Width];
+                    for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Red;
+                    Color[] dataH = new Color[hitbox.Height];
+                    for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Red;
+                    hitboxTextureW.SetData(dataW);
+                    hitboxTextureH.SetData(dataH);
+                    spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                    spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
+                    spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                    spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
+                }
             }
         }
 
@@ -66,6 +88,10 @@ namespace Mario.Sprites.Enemies
         {
             dead = true;
             hitbox = new Rectangle(-1, -1, 0, 0);
+        }
+        public void ToggleHitbox()
+        {
+            showHitbox = !showHitbox;
         }
     }
 }

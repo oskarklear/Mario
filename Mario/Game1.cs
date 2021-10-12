@@ -73,12 +73,13 @@ namespace Mario
             map.Mario.Update();
             foreach(ISprite sprite in map.CollisionObjs)
             {
-                
-
-                    
-                    map.Mario.Collision(sprite, 800, 608);
-                    if (sprite is BlockContext)
-                        sprite.Collision(map.Mario, 800, 608);
+                map.Mario.Collision(sprite, 800, 608);
+                if (sprite is BlockContext)
+                    sprite.Collision(map.Mario, 800, 608);
+                if (map.Mario.context.ShowHitbox)
+                    sprite.ShowHitbox = true;
+                else
+                    sprite.ShowHitbox = false;
                     
                 
             }

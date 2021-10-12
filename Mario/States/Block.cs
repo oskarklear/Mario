@@ -14,11 +14,17 @@ namespace Mario.States
 		BlockState oldState;
 		BlockSprite sprite;
 		Vector2 Location;
+		private bool showHitbox;
+		public bool ShowHitbox
+		{
+			get { return showHitbox; }
+			set { showHitbox = value; }
+		}
 		Game1 Theatre;
 		List<BrokenBlockSprite> rubbleList;
 		
 		Boolean rubbleActive;
-		public Rectangle DestinationRectangle { get; set; }
+		public Rectangle Hitbox { get; set; }
 
 		public BlockContext(Game1 theatre,Vector2 location)
 		{
@@ -37,8 +43,8 @@ namespace Mario.States
 			rubbleLocation4.X += 10;
 			rubbleList = new List<BrokenBlockSprite>();
 			rubbleActive = false;
-			DestinationRectangle = new Rectangle((int)Location.X, (int)Location.Y,10,10);
-			
+			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,16,16);
+			showHitbox = false;
 			
 
 		}
@@ -96,6 +102,21 @@ namespace Mario.States
 			if (!rubbleActive)
 			{
 				sprite.Draw(spriteBatch);
+				if (showHitbox)
+				{
+					Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, Hitbox.Width, 1);
+					Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, Hitbox.Height);
+					Color[] dataW = new Color[Hitbox.Width];
+					for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Blue;
+					Color[] dataH = new Color[Hitbox.Height];
+					for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Blue;
+					hitboxTextureW.SetData(dataW);
+					hitboxTextureH.SetData(dataH);
+					spriteBatch.Draw(hitboxTextureW, new Vector2((int)Hitbox.X, (int)Hitbox.Y), Color.White);
+					spriteBatch.Draw(hitboxTextureW, new Vector2((int)Hitbox.X, (int)Hitbox.Y + (int)Hitbox.Height), Color.White);
+					spriteBatch.Draw(hitboxTextureH, new Vector2((int)Hitbox.X, (int)Hitbox.Y), Color.White);
+					spriteBatch.Draw(hitboxTextureH, new Vector2((int)Hitbox.X + (int)Hitbox.Width, (int)Hitbox.Y), Color.White);
+				}
 			}
 			foreach(BrokenBlockSprite rubble in rubbleList)
             {
@@ -125,7 +146,7 @@ namespace Mario.States
 					rubble.ToggleRubble();
 				}
 				System.Diagnostics.Debug.WriteLine("rubble");
-				DestinationRectangle = new Rectangle(-1, -1, 1, 1);
+				Hitbox = new Rectangle(-1, -1, 1, 1);
 			}
 
 		}
@@ -133,7 +154,7 @@ namespace Mario.States
         public void Collision(ISprite collider, int xOffset, int yOffset)
         {
 			
-			if (DestinationRectangle.TouchTopOf(collider.DestinationRectangle))
+			if (Hitbox.TouchTopOf(collider.Hitbox))
             {
 				//System.Diagnostics.Debug.WriteLine("collision");
 				if (collider is SuperMario)
@@ -149,7 +170,11 @@ namespace Mario.States
 				
             }
         }
-    }
+		public void ToggleHitbox()
+		{
+			showHitbox = !showHitbox;
+		}
+	}
 	public abstract class BlockState
 	{
 		public abstract void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite);
@@ -165,7 +190,6 @@ namespace Mario.States
 			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new UsedBlockState());
 			this.Movement(sprite);
-			
 
 		}
 		public override string ToString()

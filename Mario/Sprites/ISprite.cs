@@ -17,11 +17,13 @@ namespace Mario.Sprites
     
     public interface ISprite
     {
-        public Rectangle DestinationRectangle { get;}
+        public Rectangle Hitbox { get;}
+        public bool ShowHitbox { get; set; }
         public void Update();
 
         public void Draw(SpriteBatch spriteBatch);
 
         public void Collision(ISprite collider, int xoffset, int yoffset);
+
     }
 }

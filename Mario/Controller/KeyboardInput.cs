@@ -206,6 +206,11 @@ namespace Mario
                     case (int)Keys.O:
                         context.TakeDamage();
                         break;
+
+                    //Show Hitboxes
+                    case (int)Keys.C:
+                        context.ToggleHitbox();
+                        break;
                 }
             }
         }

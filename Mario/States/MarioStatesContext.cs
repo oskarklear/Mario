@@ -16,6 +16,12 @@ public class MarioContext
 	public Vector2 Velocity;
 	public bool jumped;
 	public bool facingLeft;
+	bool showHitbox;
+	public bool ShowHitbox
+	{
+		get { return showHitbox; }
+		set { showHitbox = value; }
+	}
 	//public bool isFalling;
 
 	public MarioContext()
@@ -29,6 +35,7 @@ public class MarioContext
 		jumpingState = new JumpingState(this);
 		fallingState = new FallingState(this);
 		crouchingState = new CrouchingState(this);
+		showHitbox = false;
 	}
 	public MarioActionState GetActionState()
     {
@@ -76,5 +83,9 @@ public class MarioContext
 	public void GetFireFlower()
     {
 		PowerupState.GetFireFlower(this);
+    }
+	public void ToggleHitbox()
+    {
+		showHitbox = !showHitbox;
     }
 }

@@ -193,6 +193,18 @@
 /processorParam:TextureFormat=Color
 /build:enemies/koopa/koopa_shell_red_moving.png
 
+#begin greenPixel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:greenPixel.png
+
 #begin items/coins.png
 /importer:TextureImporter
 /processor:TextureProcessor

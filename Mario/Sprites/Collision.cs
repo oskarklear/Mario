@@ -38,8 +38,8 @@ namespace Mario.Sprites
                 if (sprite is ICollider)
                 {
                     ICollider collider = sprite as ICollider;
-                    int x = collider.DestinationRectangle.X;
-                    int y = collider.DestinationRectangle.Y;
+                    int x = collider.Hitbox.X;
+                    int y = collider.Hitbox.Y;
                     //This probably doesn't work right. If something's wrong, its this
                     System.Diagnostics.Debug.WriteLine("item added to x bin:", x / graphics.Viewport.Width * 10);
                     System.Diagnostics.Debug.WriteLine(x / graphics.Viewport.Width * 10);
@@ -55,8 +55,8 @@ namespace Mario.Sprites
             foreach (ICollider dynamic in dynamics)
             {
                 //System.Diagnostics.Debug.WriteLine(dynamic.GetType());
-                int x = dynamic.DestinationRectangle.X;
-                int y = dynamic.DestinationRectangle.Y;
+                int x = dynamic.Hitbox.X;
+                int y = dynamic.Hitbox.Y;
                 foreach(ICollider target in CollisionGrid[x / Graphics.Viewport.Width * 10, y / Graphics.Viewport.Height * 10])
                 {
                     target.Collision(dynamic, 800, 608);
