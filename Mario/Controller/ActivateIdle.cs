@@ -57,7 +57,7 @@ namespace Mario.Controller
             if (!Keyboard.GetState().IsKeyDown(Keys.S) && !Keyboard.GetState().IsKeyDown(Keys.Down)
                 && !GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown))
             {
-               CrouchingDiscontinueCommand.Execute();
+                CrouchingDiscontinueCommand.Execute();
                 System.Diagnostics.Debug.WriteLine("CrouchingDiscontinue");
             }
 
