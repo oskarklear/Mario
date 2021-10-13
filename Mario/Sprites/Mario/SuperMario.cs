@@ -284,20 +284,41 @@ namespace Mario.Sprites.Mario
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (animated)
+            if (!colliding)
             {
-                int width = texture.Width / Columns;
-                int height = texture.Height / Rows;
-                int row = currentFrame / Columns;
-                int column = currentFrame % Columns;
+                if (animated)
+                {
+                    int width = texture.Width / Columns;
+                    int height = texture.Height / Rows;
+                    int row = currentFrame / Columns;
+                    int column = currentFrame % Columns;
 
-                Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-                Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+                    Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+                    Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                    spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(texture, position, Color.White);
+                }
             }
             else
             {
-                spriteBatch.Draw(texture, position, Color.White);
+                if (animated)
+                {
+                    int width = texture.Width / Columns;
+                    int height = texture.Height / Rows;
+                    int row = currentFrame / Columns;
+                    int column = currentFrame % Columns;
+
+                    Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+                    Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                    spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.IndianRed);
+                }
+                else
+                {
+                    spriteBatch.Draw(texture, position, Color.IndianRed);
+                }
             }
             if (ShowHitbox)
             {
@@ -318,6 +339,7 @@ namespace Mario.Sprites.Mario
 
         public void Collision(ISprite collider, int xOffset, int yOffset)
         {
+            colliding = false;
             //Blocks
             if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa)
             {
@@ -327,6 +349,7 @@ namespace Mario.Sprites.Mario
                     position.Y = hitbox.Y;
                     context.Velocity.Y = 0f;
                     System.Diagnostics.Debug.WriteLine("mario hit the top of something");
+                    colliding = true;
                     if (collider is Goomba || collider is Koopa)
                         collider.Collision(null, -1, -1);
                 }
@@ -335,6 +358,7 @@ namespace Mario.Sprites.Mario
                     hitbox.X = collider.Hitbox.X - hitbox.Width - 4;
                     position.X = hitbox.X;
                     System.Diagnostics.Debug.WriteLine("mario hit the left of something");
+                    colliding = true;
                     if (collider is Goomba || collider is Koopa)
                         context.TakeDamage();
                 }
@@ -345,17 +369,18 @@ namespace Mario.Sprites.Mario
                     else
                         hitbox.X = collider.Hitbox.X + (hitbox.Width + 4);
                     position.X = hitbox.X;
+                    colliding = true;
                     System.Diagnostics.Debug.WriteLine("mario hit the right of something");
                     if (collider is Goomba || collider is Koopa)
                         context.TakeDamage();
                 }
                 if (hitbox.TouchBottomOf(collider.Hitbox))
                 {
-                    hitbox.Y = collider.Hitbox.Y + hitbox.Height + 1;
+                    hitbox.Y = collider.Hitbox.Y + hitbox.Height;
                     position.Y = hitbox.Y;
                     if (collider is Goomba || collider is Koopa)
                         context.TakeDamage();
-
+                    colliding = true;
                     //context.Velocity.Y = 0f;
                     System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                 }
@@ -370,23 +395,28 @@ namespace Mario.Sprites.Mario
                     {
                         collider.Collision(null, -1, -1);
                         context.GetFireFlower();
+                        colliding = true;
                     }
                     if (collider is RedMushroom)
                     {
                         collider.Collision(null, -1, -1);
                         context.GetMushroom();
+                        colliding = true;
                     }
                     if (collider is Coin)
                     {
                         collider.Collision(null, -1, -1);
+                        colliding = true;
                     }
                     if (collider is GreenMushroom)
                     {
                         collider.Collision(null, -1, -1);
+                        colliding = true;
                     }
                     if (collider is Star)
                     {
                         collider.Collision(null, -1, -1);
+                        colliding = true;
                     }
                 }
             }
