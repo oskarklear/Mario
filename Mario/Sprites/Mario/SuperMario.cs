@@ -332,52 +332,69 @@ namespace Mario.Sprites.Mario
 
         public void Collision(ISprite collider, int xOffset, int yOffset)
         {
-            colliding = false;
             //Blocks
             if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa)
             {
-                if (hitbox.TouchTopOf(collider.Hitbox))
+                if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))
                 {
-                    hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
-                    position.Y = hitbox.Y;
-                    context.Velocity.Y = 0f;
-                    System.Diagnostics.Debug.WriteLine("mario hit the top of something");
-                    colliding = true;
-                    if (collider is Goomba || collider is Koopa)
-                        collider.Collision(null, -1, -1);
+                    //System.Diagnostics.Debug.WriteLine("Checking for hiddenblock collision");
+                    if (hitbox.TouchBottomOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y - hitbox.Height;
+                        position.Y = hitbox.Y;
+                        if (collider is Goomba || collider is Koopa)
+                            context.TakeDamage();
+                        colliding = true;
+                        //context.Velocity.Y = 0f;
+                        System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                    }
+
                 }
-                if (hitbox.TouchLeftOf(collider.Hitbox))
+                else
                 {
-                    hitbox.X = collider.Hitbox.X - hitbox.Width - 4;
-                    position.X = hitbox.X;
-                    System.Diagnostics.Debug.WriteLine("mario hit the left of something");
-                    colliding = true;
-                    if (collider is Goomba || collider is Koopa)
-                        context.TakeDamage();
-                    context.isTouchingLeft = true;
-                }
-                if (hitbox.TouchRightOf(collider.Hitbox))
-                {
-                    if (!(collider is Pipe))
-                        hitbox.X = collider.Hitbox.X + hitbox.Width + 20;
-                    else
-                        hitbox.X = collider.Hitbox.X + (hitbox.Width + 4);
-                    position.X = hitbox.X;
-                    colliding = true;
-                    System.Diagnostics.Debug.WriteLine("mario hit the right of something");
-                    if (collider is Goomba || collider is Koopa)
-                        context.TakeDamage();
-                    context.isTouchingRight = true;
-                }
-                if (hitbox.TouchBottomOf(collider.Hitbox))
-                {
-                    hitbox.Y = collider.Hitbox.Y + hitbox.Height;
-                    position.Y = hitbox.Y;
-                    if (collider is Goomba || collider is Koopa)
-                        context.TakeDamage();
-                    colliding = true;
-                    //context.Velocity.Y = 0f;
-                    System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                    if (hitbox.TouchTopOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
+                        position.Y = hitbox.Y;
+                        context.Velocity.Y = 0f;
+                        System.Diagnostics.Debug.WriteLine("mario hit the top of something");
+                        colliding = true;
+                        if (collider is Goomba || collider is Koopa)
+                            collider.Collision(null, -1, -1);
+                    }
+                    if (hitbox.TouchLeftOf(collider.Hitbox))
+                    {
+                        hitbox.X = collider.Hitbox.X - hitbox.Width - 4;
+                        position.X = hitbox.X;
+                        System.Diagnostics.Debug.WriteLine("mario hit the left of something");
+                        colliding = true;
+                        if (collider is Goomba || collider is Koopa)
+                            context.TakeDamage();
+                        context.isTouchingLeft = true;
+                    }
+                    if (hitbox.TouchRightOf(collider.Hitbox))
+                    {
+                        if (!(collider is Pipe))
+                            hitbox.X = collider.Hitbox.X + hitbox.Width + 20;
+                        else
+                            hitbox.X = collider.Hitbox.X + (hitbox.Width + 4);
+                        position.X = hitbox.X;
+                        colliding = true;
+                        System.Diagnostics.Debug.WriteLine("mario hit the right of something");
+                        if (collider is Goomba || collider is Koopa)
+                            context.TakeDamage();
+                        context.isTouchingRight = true;
+                    }
+                    if (hitbox.TouchBottomOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y + hitbox.Height;
+                        position.Y = hitbox.Y;
+                        if (collider is Goomba || collider is Koopa)
+                            context.TakeDamage();
+                        colliding = true;
+                        //context.Velocity.Y = 0f;
+                        System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                    }
                 }
             }
             //Pickups
@@ -392,28 +409,30 @@ namespace Mario.Sprites.Mario
                         context.GetFireFlower();
                         colliding = true;
                     }
-                    if (collider is RedMushroom)
+                    else if (collider is RedMushroom)
                     {
                         collider.Collision(null, -1, -1);
                         context.GetMushroom();
                         colliding = true;
                     }
-                    if (collider is Coin)
+                    else if (collider is Coin)
                     {
                         collider.Collision(null, -1, -1);
                         colliding = true;
                     }
-                    if (collider is GreenMushroom)
+                    else if (collider is GreenMushroom)
                     {
                         collider.Collision(null, -1, -1);
                         colliding = true;
                     }
-                    if (collider is Star)
+                    else if (collider is Star)
                     {
                         collider.Collision(null, -1, -1);
                         colliding = true;
                     }
                 }
+                else
+                    colliding = false;
             }
 
             if (position.X < 0)

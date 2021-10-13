@@ -100,10 +100,7 @@ namespace Mario.Sprites.Items.Items
             //   }
             // }
         }
-        public void ToggleHitbox()
-        {
-            showHitbox = !showHitbox;
-        }
+       
     }
 }
 

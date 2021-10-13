@@ -117,10 +117,7 @@ namespace Mario.Sprites
         {
 
         }
-        public void ToggleHitbox()
-        {
-            showHitbox = !showHitbox;
-        }
+        
     }
     public class BrickBlockSprite : BlockSprite
     {

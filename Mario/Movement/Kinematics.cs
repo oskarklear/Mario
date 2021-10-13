@@ -8,7 +8,6 @@ namespace Mario.Movement
     
     public class Kinematics
     {
-        private string prevKinematics;
 
         public Kinematics()
         {

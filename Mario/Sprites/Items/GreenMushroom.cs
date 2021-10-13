@@ -66,9 +66,6 @@ namespace Mario.Sprites.Items
             obtained = true;
             hitbox = new Rectangle(-1, -1, 0, 0);
         }
-        public void ToggleHitbox()
-        {
-            showHitbox = !showHitbox;
-        }
+       
     }
 }

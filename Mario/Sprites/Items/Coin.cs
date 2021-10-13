@@ -91,9 +91,6 @@ namespace Mario.Sprites.Items
         {
             obtained = true;
         }
-        public void ToggleHitbox()
-        {
-            showHitbox = !showHitbox;
-        }
+        
     }
 }
