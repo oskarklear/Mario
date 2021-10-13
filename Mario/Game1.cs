@@ -69,6 +69,8 @@ namespace Mario
 
             foreach(ISprite sprite in map.CollisionObjs)
             {
+                //if (sprite is BlockContext)
+                    //sprite.Collision(map.Mario, 800, 608);
                 map.Mario.Collision(sprite, 800, 608);
 
                 if (sprite is BlockContext)
