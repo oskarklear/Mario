@@ -338,7 +338,6 @@ namespace Mario.Sprites.Mario
             {
                 if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))
                 {
-                    //System.Diagnostics.Debug.WriteLine("Checking for hiddenblock collision");
                     if (hitbox.TouchBottomOf(collider.Hitbox))
                     {
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height;
@@ -346,7 +345,6 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba || collider is Koopa)
                             context.TakeDamage();
                         colliding = true;
-                        //context.Velocity.Y = 0f;
                         System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                     }
 
@@ -393,7 +391,6 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba || collider is Koopa)
                             context.TakeDamage();
                         colliding = true;
-                        //context.Velocity.Y = 0f;
                         System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                     }
                 }

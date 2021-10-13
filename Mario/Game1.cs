@@ -47,7 +47,6 @@ namespace Mario
 
         protected override void LoadContent()
         {
-            Tiles.Content = Content;
             mapArray = File.ReadLines("map.csv").Select(x => x.Split(',')).ToArray();
             map.GenerateMap(mapArray);
 
