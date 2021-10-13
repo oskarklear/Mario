@@ -91,6 +91,8 @@ namespace Mario
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -250), Color.White);
+            foreach (ISprite obj in map.bgObjects)
+                obj.Draw(spriteBatch);
             map.Mario.Draw(spriteBatch);
             map.Draw(spriteBatch);
             spriteBatch.End();
