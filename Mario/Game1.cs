@@ -17,14 +17,13 @@ namespace Mario
 {
     public class Game1 : Game
     {
+        private const int MAPH = 608;
+        private const int MAPW = 800;
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         public bool IsMenuVisible;
         IController kb;
         IController gp1;
-        IController gp2;
-        IController gb3;
-        IController gp4;
         string [][] mapArray;
         Level map;
         
@@ -38,8 +37,8 @@ namespace Mario
 
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 608;
+            graphics.PreferredBackBufferWidth = MAPW;
+            graphics.PreferredBackBufferHeight = MAPH;
             graphics.ApplyChanges();
             map = new Level();
             map.Theatre = this;
@@ -50,7 +49,7 @@ namespace Mario
         {
             Tiles.Content = Content;
             mapArray = File.ReadLines("map.csv").Select(x => x.Split(',')).ToArray();
-            map.GenerateMap(mapArray, 16);
+            map.GenerateMap(mapArray);
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
@@ -69,12 +68,10 @@ namespace Mario
 
             foreach(ISprite sprite in map.CollisionObjs)
             {
-                //if (sprite is BlockContext)
-                    //sprite.Collision(map.Mario, 800, 608);
-                map.Mario.Collision(sprite, 800, 608);
+                map.Mario.Collision(sprite, MAPW, MAPH);
 
                 if (sprite is BlockContext)
-                    sprite.Collision(map.Mario, 800, 608);
+                    sprite.Collision(map.Mario, MAPW, MAPH);
                 if (map.Mario.context.ShowHitbox)
                     sprite.ShowHitbox = true;
                 else
