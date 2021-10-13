@@ -1,0 +1,17 @@
+Dan Jones -- Code review
+
+Author of Code:  
+Date: 10/12/2021
+Sprint: 2
+File name: CollisionHelper.cs
+Author: Bennett Palmer
+
+Quality: 
+
+ - Sloppy, seemingly out of order code
+ - Collision code seems to be copy pasted in each objects 
+ - Magic numbers
+ 
+ - I would adjust the collision code to make it more extensible and modular to reduce reused code
+
+Mins taken: ~20 minutes

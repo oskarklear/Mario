@@ -17,13 +17,14 @@ namespace Mario
 {
     public class Game1 : Game
     {
-        private const int MAPH = 608;
-        private const int MAPW = 800;
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         public bool IsMenuVisible;
         IController kb;
         IController gp1;
+        IController gp2;
+        IController gb3;
+        IController gp4;
         string [][] mapArray;
         Level map;
         
@@ -37,8 +38,8 @@ namespace Mario
 
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = MAPW;
-            graphics.PreferredBackBufferHeight = MAPH;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 608;
             graphics.ApplyChanges();
             map = new Level();
             map.Theatre = this;
@@ -47,13 +48,14 @@ namespace Mario
 
         protected override void LoadContent()
         {
+            Tiles.Content = Content;
             mapArray = File.ReadLines("map.csv").Select(x => x.Split(',')).ToArray();
-            map.GenerateMap(mapArray);
+            map.GenerateMap(mapArray, 16);
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             kb = new KeyboardInput(map.Mario) { GameObj = this };
-            gp1 = new GamepadInput(map.Mario) { GameObj = this };
+             gp1 = new GamepadInput(map.Mario) { GameObj = this };
         }
 
         protected override void Update(GameTime gameTime)
@@ -67,10 +69,12 @@ namespace Mario
 
             foreach(ISprite sprite in map.CollisionObjs)
             {
-                map.Mario.Collision(sprite, MAPW, MAPH);
+                //if (sprite is BlockContext)
+                    //sprite.Collision(map.Mario, 800, 608);
+                map.Mario.Collision(sprite, 800, 608);
 
                 if (sprite is BlockContext)
-                    sprite.Collision(map.Mario, MAPW, MAPH);
+                    sprite.Collision(map.Mario, 800, 608);
                 if (map.Mario.context.ShowHitbox)
                     sprite.ShowHitbox = true;
                 else
@@ -87,8 +91,6 @@ namespace Mario
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -250), Color.White);
-            foreach (ISprite obj in map.bgObjects)
-                obj.Draw(spriteBatch);
             map.Mario.Draw(spriteBatch);
             map.Draw(spriteBatch);
             spriteBatch.End();
