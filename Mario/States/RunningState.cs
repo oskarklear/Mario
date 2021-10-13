@@ -64,7 +64,7 @@ namespace Mario.States
         {
             if (marioContext.isTouchingRight)
             {
-                Exit();
+                marioContext.idleState.Enter(this);
             }
             else
             {
@@ -79,7 +79,7 @@ namespace Mario.States
         {
             if (marioContext.isTouchingLeft)
             {
-                Exit();
+                marioContext.idleState.Enter(this);
             }
             else
             {

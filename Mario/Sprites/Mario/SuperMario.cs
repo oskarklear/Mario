@@ -65,23 +65,29 @@ namespace Mario.Sprites.Mario
 
         public void MoveRightCommand()
         {
-            context.GetActionState().FaceRightTransition();
-
+            if (!(context.GetPowerUpState() is DeadMarioState))
+            {
+                context.GetActionState().FaceRightTransition();
+            }
 
         }
 
         public void JumpCommand()
         {
-            context.GetActionState().JumpingTransition();
+            if (!(context.GetPowerUpState() is DeadMarioState))
+            {
+                context.GetActionState().JumpingTransition();
+            }
 
 
         }
 
         public void CrouchCommand()
-        {
-            context.GetActionState().FallingTransition();
-            
-
+        {          
+            if (!(context.GetPowerUpState() is DeadMarioState))
+            {
+                context.GetActionState().FallingTransition();
+            }
         }
         public void CrouchingDiscontinueCommand()
         {
