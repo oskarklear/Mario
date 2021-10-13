@@ -65,6 +65,7 @@ namespace Mario.States
             if (marioContext.isTouchingRight)
             {
                 marioContext.idleState.Enter(this);
+                marioContext.Velocity.X = 0;
             }
             else
             {

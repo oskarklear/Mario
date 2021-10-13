@@ -72,12 +72,15 @@ namespace Mario.States
 
         public override void FaceLeftTransition()
         {
-            if (marioContext.facingLeft)
+            if (!marioContext.isTouchingRight)
             {
-                this.RunningTransition();
+                if (marioContext.facingLeft)
+                {
+                    this.RunningTransition();
+                }
+                else
+                    marioContext.facingLeft = true;
             }
-            else
-                marioContext.facingLeft = true;
         }
 
         public override void FaceRightTransition()
