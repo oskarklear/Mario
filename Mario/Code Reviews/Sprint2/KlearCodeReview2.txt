@@ -1,0 +1,11 @@
+Oskar Klear
+10/12/2021
+Sprint 2
+ActivateIdle.cs
+Matt
+- Overall very cluttered, and a separate class seems unnecessary.
+- Could be reworked to all occur within KeyboardInput, rather than having a separate class. 
+- Could be reworked to reduce the number of if blocks, maybe a switch block?
+
+15 Minutes
+- I would rework the code to effectively eliminate the class, and migrate the logic into KeyboardInput. A way to send an idle/discontinue command could be done there.

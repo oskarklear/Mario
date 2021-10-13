@@ -10,27 +10,56 @@ namespace Mario.Sprites.Items
 
     class Pipe : ISprite
     {
-        ContentManager Content;
         Texture2D texture;
         Vector2 position;
-        public Rectangle DestinationRectangle { get; set; }
-        public Pipe()
+        bool showHitbox;
+        public bool ShowHitbox
         {
-            position = new Vector2(400, 200);
+            get { return showHitbox; }
+            set { showHitbox = value; }
+        }
+        Rectangle hitbox;
+        public Rectangle Hitbox
+        {
+            get { return hitbox; }
+            set { hitbox = value; }
+        }
+        public Pipe(Game1 theatre, Vector2 location)
+        {
+            position = location;
+            texture = theatre.Content.Load<Texture2D>("obstacles/pipe");
+            Hitbox = new Rectangle((int)location.X, (int)location.Y, 32, 33);
+            showHitbox = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, Color.White);
+            if (showHitbox)
+            {
+                Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
+                Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
+                Color[] dataW = new Color[hitbox.Width];
+                for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Blue;
+                Color[] dataH = new Color[hitbox.Height];
+                for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Blue;
+                hitboxTextureW.SetData(dataW);
+                hitboxTextureH.SetData(dataH);
+                spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
+                spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
+            }
         }
 
         public void Update()
         {
 
         }
-        public void LoadContent(ContentManager content)
+
+        public void Collision(ISprite collider, int xoffset, int yoffset)
         {
-            Content = content;
-            texture = Content.Load<Texture2D>("obstacles/pipe");
+            //TODO
         }
+        
     }
 }

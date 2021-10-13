@@ -8,7 +8,6 @@ namespace Mario.Movement
     
     public class Kinematics
     {
-        private string prevKinematics;
 
         public Kinematics()
         {
@@ -91,5 +90,44 @@ namespace Mario.Movement
                 context.Velocity.Y = 0;
             }
         }
+
+        public void XDecelerateToLeft(MarioContext context)
+        {
+            if (context.Velocity.X != 0)
+            {
+                if (context.Velocity.X > 0)
+                    context.Velocity.X = 0;
+            }
+
+        }
+
+        public void XDecelerateToRight(MarioContext context)
+        {
+            if (context.Velocity.X != 0)
+            {
+                if (context.Velocity.X < 0)
+                    context.Velocity.X = 0;
+            }
+
+        }
+        public void YDecelerateToUp(MarioContext context)
+        {
+            if (context.Velocity.Y != 0)
+            {
+                if (context.Velocity.Y < 0)
+                    context.Velocity.Y = 0;
+            }
+
+        }
+        public void YDecelerateToDown(MarioContext context)
+        {
+            if (context.Velocity.Y != 0)
+            {
+                if (context.Velocity.Y > 0)
+                    context.Velocity.Y = 0;
+            }
+
+        }
+
     }
 }
