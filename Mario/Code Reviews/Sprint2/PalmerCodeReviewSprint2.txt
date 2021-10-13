@@ -1,0 +1,11 @@
+Author:Bennett Palmer
+Date: 10/12/2021
+Sprint Number:2
+.cs file being reviewed: CollisionHelper.cs
+Author of .cs file being reviewed: Oskar
+Specific comments on code quality:The code isn't well commented, and isn't self explanatory as to why it does
+what it does. If there are problems in it, it would be pretty difficult to figure out what is wrong. The methods
+in the file are useful in their purpose, and make the collision detection system much simpler as a result.
+Number of minutes to complete the review: 10 minutes
+Hypothetical change: If we were to add more different objects that are involved in collision, this file would
+be helpful in making adding those objects easier to do.

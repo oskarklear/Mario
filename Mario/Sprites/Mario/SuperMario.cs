@@ -295,42 +295,24 @@ namespace Mario.Sprites.Mario
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (colliding)
+            if (animated)
             {
-                if (animated)
-                {
-                    int width = texture.Width / Columns;
-                    int height = texture.Height / Rows;
-                    int row = currentFrame / Columns;
-                    int column = currentFrame % Columns;
+                int width = texture.Width / Columns;
+                int height = texture.Height / Rows;
+                int row = currentFrame / Columns;
+                int column = currentFrame % Columns;
 
-                    Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-                    Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                    spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.Red);
-                }
-                else
-                {
-                    spriteBatch.Draw(texture, position, Color.Red);
-                }
+                Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+                Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                if (!colliding) spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+                else spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.IndianRed);
             }
             else
             {
-                if (animated)
-                {
-                    int width = texture.Width / Columns;
-                    int height = texture.Height / Rows;
-                    int row = currentFrame / Columns;
-                    int column = currentFrame % Columns;
-
-                    Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-                    Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                    spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
-                }
-                else
-                {
-                    spriteBatch.Draw(texture, position, Color.White);
-                }
+                if (!colliding) spriteBatch.Draw(texture, position, Color.White);
+                else spriteBatch.Draw(texture, position, Color.IndianRed);
             }
+
             if (ShowHitbox)
             {
                 Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
