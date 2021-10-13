@@ -14,25 +14,29 @@ namespace Mario.States
             System.Diagnostics.Debug.WriteLine(PowerUpState.ToString());
             kinematics = new Kinematics();
         }
+
         public override void Enter(IMarioActionState previousActionState)
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
-
         }
+
         public override void Exit()
         {
         }
+
         public override void PressNothing(MarioContext context)
         {
             //Does nothing, since we're already pressing nothing
             kinematics.IdleXDecelerate(context);
             kinematics.IdleYDecelerate(context);
         }
+
         public override void StandingTransition()
         {
             //Does nothing
         }
+
         public override void CrouchingTransition()
         {
             if (marioContext.GetPowerUpState().ToString() != "DeadMario")
@@ -45,6 +49,7 @@ namespace Mario.States
 
             }
         }
+
         public override void WalkingTransition()
         {
             //Does nothing - for now
@@ -59,6 +64,7 @@ namespace Mario.States
         {
             marioContext.jumpingState.Enter(this);
         }
+
         public override void FallingTransition()
         {
             this.CrouchingTransition();
@@ -73,6 +79,7 @@ namespace Mario.States
             else
                 marioContext.facingLeft = true;
         }
+
         public override void FaceRightTransition()
         {
             if (!marioContext.isTouchingLeft)
@@ -95,10 +102,12 @@ namespace Mario.States
         {
             //Does nothing
         }
+
         public override void FaceRightDiscontinueTransition()
         {
             //Does nothing
         }
+
         public override void RunningDiscontinueTransition()
         {
             //Does nothing
@@ -108,7 +117,6 @@ namespace Mario.States
         {
             //Does nothing
         }
-
 
         public override string ToString()
         {
