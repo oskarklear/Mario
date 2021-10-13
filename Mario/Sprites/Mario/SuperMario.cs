@@ -58,8 +58,6 @@ namespace Mario.Sprites.Mario
             if (!(context.GetPowerUpState() is DeadMarioState))
             {
                 context.GetActionState().FaceLeftTransition();
-                //System.Diagnostics.Debug.WriteLine("Left");
-                System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
             }           
         }
 
@@ -304,11 +302,14 @@ namespace Mario.Sprites.Mario
 
                 Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
                 if (!colliding) spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
                 else spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.IndianRed);
+
             }
             else
             {
+                System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
                 if (!colliding) spriteBatch.Draw(texture, position, Color.White);
                 else spriteBatch.Draw(texture, position, Color.IndianRed);
             }

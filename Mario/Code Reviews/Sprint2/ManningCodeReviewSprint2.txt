@@ -1,0 +1,21 @@
+﻿Reviewer: Matthew Manning
+
+Date: 10/12/2021
+
+Sprint 2
+
+File: SuperMario.cs
+
+File Author: Oskar Klear
+
+Comments:
+
+-In the Collision method, there seems to be some arbitrary numbers, such as on lines 358, 368, 379, and 381.
+
+-There could be some line spaces added between some of the if statements to make it cleaner.
+
+Minute taken: 15 minutes
+
+Hypothetically there could be a way to not use some arbitrary numbers. The current implementation could support
+this change by defining the numbers before they are used, or find some kind of way to avoid using them all together.
+
