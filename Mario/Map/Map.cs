@@ -16,7 +16,7 @@ namespace Mario.Map
     class Level
     {
         private List<ISprite> collisionObjs = new List<ISprite>();
-        private List<ISprite> bgObjects = new List<ISprite>();
+        public List<ISprite> bgObjects = new List<ISprite>();
         public List<ISprite> CollisionObjs
         {
             get { return collisionObjs; }
@@ -107,20 +107,19 @@ namespace Mario.Map
                             case 31:  //Koopa
                                 collisionObjs.Add(new Koopa(theatre, new Vector2(i * KOOPAW, j * (KOOPAH - 11) + 19)));
                                 break;
+                            case 51:
+                                bgObjects.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));
+                                break;
+                            case 52:
+                                bgObjects.Add(new Bush(Theatre, new Vector2(i * 13, (j * 5) + 350)));
+                                break;
                             case 41: //Mario
                                 mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext()) { animated = false };
                                 //collisionObjs.Add(mario);
                                 break;
-                            case 51:
-                                bgObjects.Add(new Cloud(Theatre, new Vector2(i * 5, j * 5)));
-                                break;
-                            case 52:
-                                bgObjects.Add(new Bush(Theatre, new Vector2(i * 5, j * 5)));
-                                break;
+                            
                         }
                     }
-                        //collisionTiles.Add(new CollisionTiles(number, new Rectangle(i * size, j * size, size, size)));
-
                 }
             }
         }
@@ -129,14 +128,11 @@ namespace Mario.Map
         {
             foreach (ISprite obj in collisionObjs)
                 obj.Draw(spriteBatch);
-            foreach (ISprite obj in bgObjects)
-                obj.Draw(spriteBatch);
+            
         }
         public void Update()
         {
             foreach (ISprite obj in collisionObjs)
-                obj.Update();
-            foreach (ISprite obj in bgObjects)
                 obj.Update();
         }
     }

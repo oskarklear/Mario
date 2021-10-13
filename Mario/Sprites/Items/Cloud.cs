@@ -30,7 +30,7 @@ namespace Mario.Sprites.Items
         {
             position = location;
             Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("items/red_mushroom");
+            texture = Theatre.Content.Load<Texture2D>("BackgroundEntities/cloudBoi");
 
         }
         public void Draw(SpriteBatch spriteBatch)
