@@ -1,10 +1,11 @@
 Oskar Klear
 10/12/2021
 Sprint 2
-Block.cs
-Bennett Palmer
-- Naming conventions differ from what is used across the entire project
-- Does not have functionality for changing block texture in the air - it changes upon being bumped immediately. Should be reworked to fix.
-- Bump within UsedBlockState is irrelevant and takes up space.
-20 Minutes
-- I also would rework the code to change t
+ActivateIdle.cs
+Matt
+- Overall very cluttered, and a separate class seems unnecessary.
+- Could be reworked to all occur within KeyboardInput, rather than having a separate class. 
+- Could be reworked to reduce the number of if blocks, maybe a switch block?
+
+15 Minutes
+- I would rework the code to effectively eliminate the class, and migrate the logic into KeyboardInput. A way to send an idle/discontinue command could be done there.
