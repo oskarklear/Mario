@@ -156,13 +156,13 @@ namespace Mario.States
 			
 			if (Hitbox.TouchTopOf(collider.Hitbox))
             {
-				//System.Diagnostics.Debug.WriteLine("collision");
+				
 				if (collider is SuperMario)
                 {
-					//System.Diagnostics.Debug.WriteLine("collision with mario");
+					
 					SuperMario mario=collider as SuperMario;
 					System.Diagnostics.Debug.WriteLine("collision with mario");
-					//System.Diagnostics.Debug.WriteLine(this.ToString());
+					
 					System.Diagnostics.Debug.WriteLine(sprite.ToString());
 					System.Diagnostics.Debug.WriteLine(mario.ToString());
 					state.Bump(this, mario.context, sprite);
