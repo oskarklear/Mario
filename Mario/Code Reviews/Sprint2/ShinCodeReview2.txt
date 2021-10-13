@@ -5,8 +5,6 @@ Name of .cs file being reviewed: Kinematics.cs
 Author of the .cs file being reviewed: Dan Jones
 Comments:
 - Methods are potentially doubled. Using a boolean for "facing" could halve the number of methods, consider changing in the future to simplify the code.
+- Maybe make the velocity variables parameters to allow for more reusablility.
 - IdleX and IdleY decelerate have a conditional that may not be necessary, look at it next time and see if we really need it
-- Overall, not too messy and functionally sound. 
-
-Time taken to complete review: 15 minutes
-Hypothetical change: Maybe make the velocity constants parameters to increase future usability. 
+- 
