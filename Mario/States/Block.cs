@@ -6,6 +6,7 @@ using Mario;
 using System.Collections.Generic;
 using Mario.Sprites.Mario;
 using Mario.Sprites.Items;
+using Mario.Entities;
 
 namespace Mario.States
 {
@@ -23,7 +24,7 @@ namespace Mario.States
 		}
 		Game1 Theatre;
 		List<BrokenBlockSprite> rubbleList;
-		
+		DynamicEntities entities;
 		Boolean rubbleActive;
 		public Rectangle Hitbox { get; set; }
 
@@ -83,7 +84,7 @@ namespace Mario.States
 		}
 		public void Bump(MarioContext Mario)
 		{
-			state.Bump(this, Mario, sprite);
+			state.Bump(this, Mario, sprite, entities);
 			System.Diagnostics.Debug.WriteLine("Bump");
 		}
 
@@ -166,14 +167,14 @@ namespace Mario.States
 					
 					System.Diagnostics.Debug.WriteLine(sprite.ToString());
 					System.Diagnostics.Debug.WriteLine(mario.ToString());
-					state.Bump(this, mario.context, sprite);
+					state.Bump(this, mario.context, sprite, entities);
 				}					
             }
         }
 	}
 	public abstract class BlockState
 	{
-		public abstract void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/);
+		public abstract void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities);
 		protected void Movement(BlockSprite sprite)
 		{
 			sprite.setMovement(10);
@@ -181,13 +182,17 @@ namespace Mario.States
 	}
 	class RedMushroomQuestionBlockState : BlockState
 	{
-		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/)
+		DynamicEntities dynEntities = new DynamicEntities();
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new UsedBlockState());
 			Vector2 mushroomLocation = sprite.GetLocation();
-			mushroomLocation.Y += 16;
+			mushroomLocation.Y -= 50;
 			RedMushroom mushroom = new RedMushroom(context.GetGame(), mushroomLocation);
+			dynEntities.entityObjs.Add(mushroom);
+			//foreach (DynamicEntities entity in dynEntities.entityObjs)
+				
 			//mushroom.Draw(spriteBatch);
 			this.Movement(sprite);
 
@@ -199,7 +204,7 @@ namespace Mario.States
 	}
 	class HiddenBlockState : BlockState
 	{
-		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/)
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new BrickBlockState());
@@ -216,7 +221,7 @@ namespace Mario.States
 		{
 			context.ToggleRubble();
 		}
-		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/)
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
 			this.Movement(sprite);
@@ -232,7 +237,7 @@ namespace Mario.States
 	}
 	class UsedBlockState : BlockState
 	{
-		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/)
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
 			//does nothing
@@ -244,7 +249,7 @@ namespace Mario.States
 	}
 	class GroundBlockState : BlockState
 	{
-		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/)
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities)
 		{
 			//does nothing
 		}
