@@ -79,7 +79,7 @@ namespace Mario
 
             map.Update();
             base.Update(gameTime);
-            System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());
+            //System.Diagnostics.Debug.WriteLine("ActionState: " + map.Mario.context.GetActionState().ToString());
         }
 
         protected override void Draw(GameTime gameTime)

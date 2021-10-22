@@ -11,7 +11,6 @@ namespace Mario.States
         {
             marioContext = context;
             PowerUpState = context.GetPowerUpState();
-            System.Diagnostics.Debug.WriteLine(PowerUpState.ToString());
             kinematics = new Kinematics();
         }
 
@@ -67,7 +66,7 @@ namespace Mario.States
 
         public override void FallingTransition()
         {
-            this.CrouchingTransition();
+            marioContext.fallingState.Enter(this);
         }
 
         public override void FaceLeftTransition()

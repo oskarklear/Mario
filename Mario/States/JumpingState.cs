@@ -27,7 +27,7 @@ namespace Mario.States
         }
         public override void PressNothing(MarioContext context)
         {
-            marioContext.idleState.Enter(this);
+            marioContext.fallingState.Enter(this);
         }
         public override void StandingTransition()
         {
@@ -84,6 +84,7 @@ namespace Mario.States
         }
         public override void FaceRightDiscontinueTransition()
         {
+            System.Diagnostics.Debug.WriteLine("DISCONTINUE RIGHT");
             kinematics.XDecelerateToLeft(marioContext);
         }
         public override void RunningDiscontinueTransition()

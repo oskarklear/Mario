@@ -18,6 +18,7 @@ namespace Mario.States
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
+            kinematics.AccelerateDown(marioContext);
         }
 
         public override void Exit()
@@ -26,7 +27,10 @@ namespace Mario.States
         }
         public override void PressNothing(MarioContext context)
         {
-            marioContext.idleState.Enter(this);
+            if (context.isTouchingTop)
+                this.StandingTransition();
+            else
+                this.FallingTransition();
         }
 
         public override void StandingTransition()
@@ -56,7 +60,7 @@ namespace Mario.States
 
         public override void FallingTransition()
         {
-            //Does nothing
+            kinematics.AccelerateDown(marioContext);
         }
 
         public override void FaceLeftTransition()

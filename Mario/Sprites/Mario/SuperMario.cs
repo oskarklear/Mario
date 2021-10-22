@@ -8,6 +8,7 @@ using Mario.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Mario.Movement;
 
 namespace Mario.Sprites.Mario
 {
@@ -25,6 +26,7 @@ namespace Mario.Sprites.Mario
         Game1 Theatre;
         Vector2 position;
         Rectangle hitbox;
+        public Kinematics kinematics;
 
         public bool ShowHitbox
         {
@@ -51,6 +53,7 @@ namespace Mario.Sprites.Mario
             texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             colliding = false;
+            kinematics = new Kinematics();
         }
 
         public void MoveLeftCommand()
@@ -84,7 +87,7 @@ namespace Mario.Sprites.Mario
         {          
             if (!(context.GetPowerUpState() is DeadMarioState))
             {
-                context.GetActionState().FallingTransition();
+                context.GetActionState().CrouchingTransition();
             }
         }
         public void CrouchingDiscontinueCommand()
@@ -114,8 +117,9 @@ namespace Mario.Sprites.Mario
 
         public void Update()
         {
-            System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
-            System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
+            //System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
+            //System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
 
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
@@ -285,6 +289,16 @@ namespace Mario.Sprites.Mario
                 context.isTouchingLeft = false;
                 context.isTouchingRight = false;
             }
+            //Set Mario gravity
+            if (!(context.isTouchingTop))
+            {
+                context.GetActionState().FallingTransition();
+                System.Diagnostics.Debug.WriteLine("GRAVITY");
+            }
+            if (Math.Abs(context.Velocity.Y) > 0)
+            {
+                context.isTouchingTop = false;
+            }
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             else
@@ -360,6 +374,7 @@ namespace Mario.Sprites.Mario
                         colliding = true;
                         if (collider is Goomba || collider is Koopa)
                             collider.Collision(null, -1, -1);
+                        context.isTouchingTop = true;
                     }
                     if (hitbox.TouchLeftOf(collider.Hitbox))
                     {
