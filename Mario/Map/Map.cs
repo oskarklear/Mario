@@ -70,7 +70,7 @@ namespace Mario.Map
                                 break;
                             case 3:  //Question Block
                                 BlockContext qblock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
-                                qblock.SetState(new QuestionBlockState());
+                                qblock.SetState(new RedMushroomQuestionBlockState());
                                 collisionObjs.Add(qblock);
                                 break;
                             case 4:  //Hidden Block
@@ -132,8 +132,17 @@ namespace Mario.Map
         }
         public void Update()
         {
+            //SuperMario marioTemp;
             foreach (ISprite obj in collisionObjs)
+            {
+                //if (obj is SuperMario) marioTemp = (SuperMario)obj;
+                //if (obj is RedMushroom)
+                //{
+                //    ((RedMushroom)obj).position.X.CompareTo(marioTemp.position.X);
+                //}
                 obj.Update();
+            }
+                
         }
     }
 }

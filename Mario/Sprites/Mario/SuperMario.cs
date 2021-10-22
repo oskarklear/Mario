@@ -23,7 +23,7 @@ namespace Mario.Sprites.Mario
         bool colliding;
         Texture2D texture;
         Game1 Theatre;
-        Vector2 position;
+        public Vector2 position;
         Rectangle hitbox;
 
         public bool ShowHitbox

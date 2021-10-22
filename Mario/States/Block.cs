@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Mario;
 using System.Collections.Generic;
 using Mario.Sprites.Mario;
+using Mario.Sprites.Items;
 
 namespace Mario.States
 {
@@ -33,14 +34,14 @@ namespace Mario.States
 			oldState = state;
 			Location = location;
 			sprite = new BrickBlockSprite(Theatre, Location, this);
-			Vector2 rubbleLocation1 = sprite.GetLocation();
+/*			Vector2 rubbleLocation1 = sprite.GetLocation();
 			rubbleLocation1.X -= 10;
 			Vector2 rubbleLocation2 = sprite.GetLocation();
 			rubbleLocation2.X -= 5;
 			Vector2 rubbleLocation3 = sprite.GetLocation();
 			rubbleLocation3.X += 5;
 			Vector2 rubbleLocation4 = sprite.GetLocation();
-			rubbleLocation4.X += 10;
+			rubbleLocation4.X += 10;*/
 			rubbleList = new List<BrokenBlockSprite>();
 			rubbleActive = false;
 			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,16,16);
@@ -172,18 +173,22 @@ namespace Mario.States
 	}
 	public abstract class BlockState
 	{
-		public abstract void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite);
+		public abstract void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/);
 		protected void Movement(BlockSprite sprite)
 		{
 			sprite.setMovement(10);
 		}
 	}
-	class QuestionBlockState : BlockState
+	class RedMushroomQuestionBlockState : BlockState
 	{
-		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new UsedBlockState());
+			Vector2 mushroomLocation = sprite.GetLocation();
+			mushroomLocation.Y += 16;
+			RedMushroom mushroom = new RedMushroom(context.GetGame(), mushroomLocation);
+			//mushroom.Draw(spriteBatch);
 			this.Movement(sprite);
 
 		}
@@ -194,7 +199,7 @@ namespace Mario.States
 	}
 	class HiddenBlockState : BlockState
 	{
-		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new BrickBlockState());
@@ -211,7 +216,7 @@ namespace Mario.States
 		{
 			context.ToggleRubble();
 		}
-		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
 			this.Movement(sprite);
@@ -227,7 +232,7 @@ namespace Mario.States
 	}
 	class UsedBlockState : BlockState
 	{
-		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
 			//does nothing
@@ -239,7 +244,7 @@ namespace Mario.States
 	}
 	class GroundBlockState : BlockState
 	{
-		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite)
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite/*, SpriteBatch spriteBatch*/)
 		{
 			//does nothing
 		}

@@ -14,8 +14,11 @@ namespace Mario.Sprites.Items
         Game1 Theatre;
         Texture2D texture;
         //Texture2D hitboxTexture;
-        Vector2 position;
+        public Vector2 position;
+        Vector2 velocity;
         bool obtained;
+        SuperMario mario;
+        MarioContext context;
         Rectangle hitbox;
         public Rectangle Hitbox 
         {
@@ -37,6 +40,7 @@ namespace Mario.Sprites.Items
             obtained = false;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 18, 18);
             showHitbox = false;
+            //mario = new SuperMario(theatre, mario.position, context);
             
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -67,6 +71,21 @@ namespace Mario.Sprites.Items
         {
             if (obtained)
                 hitbox = new Rectangle(-1, -1, 0, 0);
+            //if (mario.position.X < position.X)
+            //{
+                position.X -= 1;
+                hitbox.X -= 1;
+            //}
+            //else
+            //{
+            //    position.X += 1;
+            //    hitbox.X += 1;
+            //}
+        }
+
+        private void MoveLeft(Vector2 velocity, Vector2 position)
+        {
+
         }
 
         public void Collision(ISprite collider, int xoffset, int yoffset)
