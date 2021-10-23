@@ -26,6 +26,9 @@ namespace Mario
         IController gp1;
         string [][] mapArray;
         Level map;
+        public Camera camera;
+        
+        
         
         public Game1()
         {
@@ -43,10 +46,12 @@ namespace Mario
             map = new Level();
             map.Theatre = this;
             base.Initialize();
+            camera.Limits = new Rectangle(0, 0, 1000, 608);
         }
 
         protected override void LoadContent()
         {
+            camera = new Camera(graphics.GraphicsDevice.Viewport);
             mapArray = File.ReadLines("map.csv").Select(x => x.Split(',')).ToArray();
             map.GenerateMap(mapArray);
 
@@ -80,18 +85,16 @@ namespace Mario
             map.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());
+            camera.LookAt(map.Mario.position);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(.2f)));
             spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -250), Color.White);
-            foreach (ISprite obj in map.bgObjects)
-                obj.Draw(spriteBatch);
-            map.Mario.Draw(spriteBatch);
-            map.Draw(spriteBatch);
             spriteBatch.End();
+            map.Draw(spriteBatch);
             base.Draw(gameTime);
         }
 

@@ -49,30 +49,6 @@
 /processorParam:TextureFormat=Color
 /build:bg.png
 
-#begin bigRunningMarioL.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:bigRunningMarioL.png
-
-#begin bigRunningMarioR.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:bigRunningMarioR.png
-
 #begin enemies/goomba/goombaLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -241,30 +217,6 @@
 /processorParam:TextureFormat=Color
 /build:enemies/koopa/koopa_shell_red_moving.png
 
-#begin fireRunningMarioL.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:fireRunningMarioL.png
-
-#begin fireRunningMarioR.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:fireRunningMarioR.png
-
 #begin greenPixel.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -349,6 +301,18 @@
 /processorParam:TextureFormat=Color
 /build:mario/bigCrouchingMarioL.png
 
+#begin mario/bigCrouchingMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/bigCrouchingMarioL.png
+
 #begin mario/bigCrouchingMarioR.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -360,6 +324,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/bigCrouchingMarioR.png
+
+#begin mario/bigCrouchingMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/bigCrouchingMarioR.png
+
+#begin mario/bigFallingMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/bigFallingMarioL.png
 
 #begin mario/bigFallingMarioL.png
 /importer:TextureImporter
@@ -385,6 +373,18 @@
 /processorParam:TextureFormat=Color
 /build:mario/bigFallingMarioR.png
 
+#begin mario/bigFallingMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/bigFallingMarioR.png
+
 #begin mario/bigIdleMarioL.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -396,6 +396,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/bigIdleMarioL.png
+
+#begin mario/bigIdleMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/bigIdleMarioL.png
+
+#begin mario/bigIdleMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/bigIdleMarioR.png
 
 #begin mario/bigIdleMarioR.png
 /importer:TextureImporter
@@ -421,6 +445,18 @@
 /processorParam:TextureFormat=Color
 /build:mario/bigJumpingMarioL.png
 
+#begin mario/bigJumpingMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/bigJumpingMarioL.png
+
 #begin mario/bigJumpingMarioR.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -432,6 +468,54 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/bigJumpingMarioR.png
+
+#begin mario/bigJumpingMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/bigJumpingMarioR.png
+
+#begin mario/bigRunningMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/bigRunningMarioL.png
+
+#begin mario/bigRunningMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/bigRunningMarioR.png
+
+#begin mario/deadMario.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/deadMario.png
 
 #begin mario/deadMario.png
 /importer:TextureImporter
@@ -457,6 +541,18 @@
 /processorParam:TextureFormat=Color
 /build:mario/fireCrouchingMarioL.png
 
+#begin mario/fireCrouchingMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/fireCrouchingMarioL.png
+
 #begin mario/fireCrouchingMarioR.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -468,6 +564,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/fireCrouchingMarioR.png
+
+#begin mario/fireCrouchingMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/fireCrouchingMarioR.png
+
+#begin mario/fireFallingMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/fireFallingMarioL.png
 
 #begin mario/fireFallingMarioL.png
 /importer:TextureImporter
@@ -493,6 +613,18 @@
 /processorParam:TextureFormat=Color
 /build:mario/fireFallingMarioR.png
 
+#begin mario/fireFallingMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/fireFallingMarioR.png
+
 #begin mario/fireIdleMarioL.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -504,6 +636,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/fireIdleMarioL.png
+
+#begin mario/fireIdleMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/fireIdleMarioL.png
+
+#begin mario/fireIdleMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/fireIdleMarioR.png
 
 #begin mario/fireIdleMarioR.png
 /importer:TextureImporter
@@ -529,6 +685,18 @@
 /processorParam:TextureFormat=Color
 /build:mario/fireJumpingMarioL.png
 
+#begin mario/fireJumpingMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/fireJumpingMarioL.png
+
 #begin mario/fireJumpingMarioR.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -540,6 +708,54 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/fireJumpingMarioR.png
+
+#begin mario/fireJumpingMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/fireJumpingMarioR.png
+
+#begin mario/fireRunningMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/fireRunningMarioL.png
+
+#begin mario/fireRunningMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/fireRunningMarioR.png
+
+#begin mario/marioSheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/marioSheet.png
 
 #begin mario/marioSheet.png
 /importer:TextureImporter
@@ -565,6 +781,18 @@
 /processorParam:TextureFormat=Color
 /build:mario/smallCrouchingMarioL.png
 
+#begin mario/smallCrouchingMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/smallCrouchingMarioL.png
+
 #begin mario/smallCrouchingMarioR.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -576,6 +804,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/smallCrouchingMarioR.png
+
+#begin mario/smallCrouchingMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/smallCrouchingMarioR.png
+
+#begin mario/smallFallingMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/smallFallingMarioL.png
 
 #begin mario/smallFallingMarioL.png
 /importer:TextureImporter
@@ -601,6 +853,18 @@
 /processorParam:TextureFormat=Color
 /build:mario/smallFallingMarioR.png
 
+#begin mario/smallFallingMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/smallFallingMarioR.png
+
 #begin mario/smallIdleMarioL.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -612,6 +876,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/smallIdleMarioL.png
+
+#begin mario/smallIdleMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/smallIdleMarioL.png
+
+#begin mario/smallIdleMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/smallIdleMarioR.png
 
 #begin mario/smallIdleMarioR.png
 /importer:TextureImporter
@@ -637,6 +925,18 @@
 /processorParam:TextureFormat=Color
 /build:mario/smallJumpingMarioL.png
 
+#begin mario/smallJumpingMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/smallJumpingMarioL.png
+
 #begin mario/smallJumpingMarioR.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -648,6 +948,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/smallJumpingMarioR.png
+
+#begin mario/smallJumpingMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/smallJumpingMarioR.png
+
+#begin mario/smallRunningMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/smallRunningMarioL.png
+
+#begin mario/smallRunningMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/smallRunningMarioR.png
 
 #begin obstacles/Block Debris.png
 /importer:TextureImporter
@@ -720,28 +1056,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:obstacles/Used Item Block.png
-
-#begin smallRunningMarioL.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:smallRunningMarioL.png
-
-#begin smallRunningMarioR.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:smallRunningMarioR.png
 

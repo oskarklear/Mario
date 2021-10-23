@@ -32,6 +32,10 @@ namespace Mario.Map
         {
             get { return mario; }
         }
+        Layer bgLayerMid;
+        Layer bgLayerNear;
+        Layer bgLayerFar;
+        
         private const int KOOPAH = 26;
         private const int KOOPAW = 16;
         private const int GOOMBAH = 16;
@@ -48,6 +52,12 @@ namespace Mario.Map
 
         public void GenerateMap(string[][] map)
         {
+            bgLayerNear = new Layer(Theatre.camera);
+            bgLayerNear.Parallax=new Vector2(.8f);
+            bgLayerMid = new Layer(Theatre.camera);
+            bgLayerMid.Parallax = new Vector2(.5f);
+            bgLayerFar = new Layer(Theatre.camera);
+            bgLayerFar.Parallax = new Vector2(.2f);
             for (int i = 0; i < 50; i++)
             {
                 for (int j = 0; j < 38; j++)
@@ -107,11 +117,11 @@ namespace Mario.Map
                             case 31:  //Koopa
                                 collisionObjs.Add(new Koopa(theatre, new Vector2(i * KOOPAW, j * (KOOPAH - 11) + 19)));
                                 break;
-                            case 51:
-                                bgObjects.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));
+                            case 51: //Cloud
+                                bgLayerMid.Sprites.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));
                                 break;
-                            case 52:
-                                bgObjects.Add(new Bush(Theatre, new Vector2(i * 13, (j * 5) + 350)));
+                            case 52: //Bush
+                                bgLayerNear.Sprites.Add(new Bush(Theatre, new Vector2(i * 13, (j * 5) + 350)));
                                 break;
                             case 41: //Mario
                                 mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext()) { animated = false };
@@ -126,8 +136,15 @@ namespace Mario.Map
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Theatre.camera.GetViewMatrix(Vector2.One));
+            mario.Draw(spriteBatch);
+            
             foreach (ISprite obj in collisionObjs)
                 obj.Draw(spriteBatch);
+            spriteBatch.End();
+            bgLayerNear.Draw(spriteBatch);
+            bgLayerMid.Draw(spriteBatch);
+            bgLayerFar.Draw(spriteBatch);
             
         }
         public void Update()
