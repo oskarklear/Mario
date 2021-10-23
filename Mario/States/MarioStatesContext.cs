@@ -19,6 +19,7 @@ public class MarioContext
 	public bool isTouchingLeft { get; set; }
 	public bool isTouchingRight { get; set; }
 	public bool isTouchingTop { get; set; }
+	public bool isTouchingBottom { get; set; }
 	public bool isFalling { get; set; }
 	public float height;
 	bool showHitbox;

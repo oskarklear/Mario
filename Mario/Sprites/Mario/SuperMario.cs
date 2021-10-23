@@ -307,6 +307,7 @@ namespace Mario.Sprites.Mario
 
             //Reset collision
             context.isTouchingTop = false;
+            context.isTouchingBottom = false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -411,6 +412,7 @@ namespace Mario.Sprites.Mario
                             context.TakeDamage();
                         colliding = true;
                         System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                        context.isTouchingBottom = true;
                     }
                 }
             }
