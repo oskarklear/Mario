@@ -27,7 +27,7 @@ namespace Mario.States
 
         public override void PressNothing(MarioContext context)
         {
-            marioContext.idleState.Enter(this);
+            StandingTransition();
         }
 
         public override void StandingTransition()
@@ -37,7 +37,8 @@ namespace Mario.States
 
         public override void CrouchingTransition()
         {
-            marioContext.crouchingState.Enter(this);
+            if (marioContext.isTouchingTop)
+                marioContext.crouchingState.Enter(this);
         }
 
         public override void WalkingTransition()
@@ -73,7 +74,6 @@ namespace Mario.States
                     marioContext.idleState.Enter(this);
                 else
                     kinematics.AccelerateLeft(marioContext);
-                kinematics.IdleYDecelerate(marioContext);
             }        
         }
         public override void FaceRightTransition()
@@ -88,7 +88,6 @@ namespace Mario.States
                     marioContext.idleState.Enter(this);
                 else
                     kinematics.AccelerateRight(marioContext);
-                //kinematics.IdleYDecelerate(marioContext);
             }
         }
 

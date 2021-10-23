@@ -18,7 +18,6 @@ namespace Mario.States
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
-            kinematics.AccelerateDown(marioContext);
         }
         public override void Exit()
         {
@@ -51,22 +50,18 @@ namespace Mario.States
         }
         public override void FallingTransition()
         {
-            kinematics.AccelerateDown(marioContext);
+            kinematics.IdleXDecelerate(marioContext);
         }
 
         public override void FaceLeftTransition()
         {
             if (!marioContext.facingLeft)
                 marioContext.facingLeft = true;
-            else
-                kinematics.AccelerateLeft(marioContext);
         }
         public override void FaceRightTransition()
         {
             if (marioContext.facingLeft)
                 marioContext.facingLeft = false;
-            else
-                kinematics.AccelerateRight(marioContext);
 
         }
 

@@ -29,7 +29,12 @@ namespace Mario.States
         {
             //Does nothing, since we're already pressing nothing
             kinematics.IdleXDecelerate(context);
-            kinematics.IdleYDecelerate(context);
+            if (!marioContext.isTouchingTop)
+            {
+                marioContext.fallingState.Enter(this);
+            }
+            else
+                kinematics.IdleYDecelerate(context);
         }
 
         public override void StandingTransition()
@@ -44,7 +49,6 @@ namespace Mario.States
                 //if (marioContext.GetPowerUpState().ToString() != "StandardMario")
 
                 marioContext.crouchingState.Enter(this);
-                kinematics.AccelerateDown(marioContext);
                 kinematics.IdleXDecelerate(marioContext);
 
             }
