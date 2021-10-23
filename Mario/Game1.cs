@@ -20,6 +20,10 @@ namespace Mario
         private const int MAPH = 272;
         private const int MAPW = 800;
         private GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager Graphics
+        {
+            get { return graphics; }
+        }
         private SpriteBatch spriteBatch;
         public bool IsMenuVisible;
         IController kb;
@@ -42,20 +46,19 @@ namespace Mario
             graphics.PreferredBackBufferWidth = MAPW;
             graphics.PreferredBackBufferHeight = MAPH;
             graphics.ApplyChanges();
-            map = new Level();
-            map.Theatre = this;
+            map = new Level(this);
             base.Initialize();
-            camera.Limits = new Rectangle(0, 0, 3584, 272);
+            //camera.Limits = new Rectangle(0, 0, 3584, 272);
         }
 
         protected override void LoadContent()
         {
-            camera = new Camera(graphics.GraphicsDevice.Viewport);
+            //camera = new Camera(graphics.GraphicsDevice.Viewport);
             map.GenerateMap();
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            kb = new KeyboardInput(map.Mario) { GameObj = this };
+            kb = new KeyboardInput(map) { GameObj = this };
             gp1 = new GamepadInput(map.Mario) { GameObj = this };
         }
 
@@ -83,13 +86,13 @@ namespace Mario
             map.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());
-            camera.LookAt(map.Mario.position);
+            //camera.LookAt(map.Mario.position);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(.2f)));
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(.2f)));
             spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -250), Color.White);
             spriteBatch.End();
             map.Draw(spriteBatch);

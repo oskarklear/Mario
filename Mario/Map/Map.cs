@@ -37,7 +37,8 @@ namespace Mario.Map
         Layer bgLayerMid;
         Layer bgLayerNear;
         Layer bgLayerFar;
-        
+        bool reset;
+        public Camera camera;
         private const int KOOPAH = 26;
         private const int KOOPAW = 16;
         private const int GOOMBAH = 16;
@@ -48,9 +49,13 @@ namespace Mario.Map
         private const int COINW = 12;
         private const int BLOCK = 16;
         string[][] map;
-        public Level()
+        public Level(Game1 theatre)
         {
+            this.theatre = theatre;
             map = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
+            reset = false;
+            camera = new Camera(theatre.Graphics.GraphicsDevice.Viewport);
+            camera.Limits = new Rectangle(0, 0, 3584, 272);
         }
 
         public void GenerateMap()
@@ -127,7 +132,8 @@ namespace Mario.Map
                                 bgLayerNear.Sprites.Add(new Bush(Theatre, new Vector2(i * 13, (j * 5) + 350)));
                                 break;
                             case 41: //Mario
-                                mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext()) { animated = false };
+                                if (!reset)
+                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext()) { animated = false };
                                 //collisionObjs.Add(mario);
                                 break;
                             
@@ -139,7 +145,7 @@ namespace Mario.Map
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Theatre.camera.GetViewMatrix(Vector2.One));
+            spriteBatch.Begin();
             mario.Draw(spriteBatch);
             
             foreach (ISprite obj in collisionObjs)
@@ -154,6 +160,17 @@ namespace Mario.Map
         {
             foreach (ISprite obj in collisionObjs)
                 obj.Update();
+            camera.LookAt(mario.position);
+        }
+
+        public void Reset()
+        {
+            collisionObjs.Clear();
+            bgObjects.Clear();
+            reset = true;
+            GenerateMap();
+            mario.position = new Vector2(100, 256);
+            mario.context.SetPowerUpState(new StandardMarioState());
         }
     }
 }
