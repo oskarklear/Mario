@@ -442,8 +442,9 @@ namespace Mario.Sprites.Mario
             if (position.Y < 0)
                 position.Y = 0;
 
-            if (position.Y > yOffset - hitbox.Height)
+            if (position.Y > yOffset-hitbox.Height)
             {
+                System.Diagnostics.Debug.WriteLine("Dead");
                 context.DieInPit();
                 position.Y = yOffset - hitbox.Height;
             }
