@@ -169,7 +169,7 @@ namespace Mario.Map
             bgObjects.Clear();
             reset = true;
             GenerateMap();
-            mario.position = new Vector2(100, 256);
+            mario.position = new Vector2(100, 230);
             mario.context.SetPowerUpState(new StandardMarioState());
         }
     }
