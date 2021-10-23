@@ -289,6 +289,9 @@ namespace Mario.Sprites.Mario
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             else
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 28);
+
+            //Reset collision
+            context.isTouchingTop = false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -360,6 +363,7 @@ namespace Mario.Sprites.Mario
                         colliding = true;
                         if (collider is Goomba || collider is Koopa)
                             collider.Collision(null, -1, -1);
+                        context.isTouchingTop = true;
                     }
                     if (hitbox.TouchLeftOf(collider.Hitbox))
                     {
