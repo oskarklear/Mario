@@ -292,6 +292,13 @@ namespace Mario.Sprites.Mario
             if (!context.isTouchingTop)
             {
                 kinematics.AccelerateDown(context);
+                if (context.Velocity.Y > 0)
+                    context.isFalling = true;
+            }
+            else
+            {
+                context.height = 0;
+                context.isFalling = false;
             }
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);

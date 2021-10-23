@@ -52,7 +52,11 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
-            kinematics.AccelerateUp(marioContext);
+            System.Diagnostics.Debug.WriteLine("HEIGHT: " + marioContext.height);
+            if (marioContext.height > 2)
+                FallingTransition();
+            else
+                kinematics.AccelerateUp(marioContext);
         }
 
         public override void FallingTransition()

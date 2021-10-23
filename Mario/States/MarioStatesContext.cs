@@ -16,9 +16,11 @@ public class MarioContext
 	public Vector2 Velocity;
 	public bool jumped;
 	public bool facingLeft;
-	public bool isTouchingLeft { get; set;}
+	public bool isTouchingLeft { get; set; }
 	public bool isTouchingRight { get; set; }
 	public bool isTouchingTop { get; set; }
+	public bool isFalling { get; set; }
+	public float height;
 	bool showHitbox;
 	public bool ShowHitbox
 	{
@@ -38,6 +40,7 @@ public class MarioContext
 		jumpingState = new JumpingState(this);
 		fallingState = new FallingState(this);
 		crouchingState = new CrouchingState(this);
+		height = 0;
 		showHitbox = false;
 	}
 	public MarioActionState GetActionState()
@@ -51,7 +54,6 @@ public class MarioContext
 	public void SetActionState(MarioActionState NewActionState)
     {
 		ActionState = NewActionState;
-		//if (GetActionState().ToString().Equals(""));
     }
 	public void SetPowerUpState(MarioPowerupState NewPowerUpState)
     {
