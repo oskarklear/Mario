@@ -158,7 +158,7 @@ namespace Mario.Sprites.Mario
                             texture = Theatre.Content.Load<Texture2D>("mario/smallRunningMarioL");
                         else
                             texture = Theatre.Content.Load<Texture2D>("mario/smallRunningMarioR");
-                        Columns = 2;
+                        Columns = 3;
                         animated = true;
                         break;
                 }
