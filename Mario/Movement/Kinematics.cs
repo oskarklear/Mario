@@ -36,7 +36,7 @@ namespace Mario.Movement
             int marioTopUpSpeed = 2;
             if (context.Velocity.Y < marioTopUpSpeed)
             {
-                context.Velocity.Y += (float)0.1;
+                context.Velocity.Y += (float)0.2;
             }
         }
 

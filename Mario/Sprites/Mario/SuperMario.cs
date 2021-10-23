@@ -5,6 +5,7 @@ using Mario.Sprites.Enemies;
 using Mario.Sprites.Items;
 using Mario.Sprites.Items.Items;
 using Mario.States;
+using Mario.Movement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,7 +26,7 @@ namespace Mario.Sprites.Mario
         Game1 Theatre;
         Vector2 position;
         Rectangle hitbox;
-
+        public Kinematics kinematics;
         public bool ShowHitbox
         {
             get { return context.ShowHitbox; }
@@ -51,6 +52,7 @@ namespace Mario.Sprites.Mario
             texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             colliding = false;
+            kinematics = new Kinematics;
         }
 
         public void MoveLeftCommand()
@@ -280,10 +282,16 @@ namespace Mario.Sprites.Mario
             //set mario's new pos
             position.X += context.Velocity.X;
             position.Y -= context.Velocity.Y;
+            //If mario moves to the right or left, he cannot be touching anything
             if (Math.Abs(context.Velocity.X) > 0 || Math.Abs(context.Velocity.Y) > 0)
             {
                 context.isTouchingLeft = false;
                 context.isTouchingRight = false;
+            }
+            //If mario is not touching ground, GRAVITY
+            if (!context.isTouchingTop)
+            {
+                kinematics.AccelerateDown(context);
             }
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
