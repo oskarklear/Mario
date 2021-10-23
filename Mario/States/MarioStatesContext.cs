@@ -90,4 +90,10 @@ public class MarioContext
     {
 		showHitbox = !showHitbox;
     }
+
+	public void DieInPit()
+    {
+		PowerupState.DieInPit(this);
+
+    }
 }

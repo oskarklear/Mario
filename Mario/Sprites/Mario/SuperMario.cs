@@ -443,7 +443,10 @@ namespace Mario.Sprites.Mario
                 position.Y = 0;
 
             if (position.Y > yOffset - hitbox.Height)
+            {
+                context.DieInPit();
                 position.Y = yOffset - hitbox.Height;
+            }
         }
     }
 }
