@@ -1,7 +1,7 @@
 ﻿using Mario.Sprites;
 using Mario.Sprites.Enemies;
 using Mario.Sprites.Items;
-using Mario.Sprites.Items.Items;
+using Mario.Sprites.Items;
 using Mario.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,7 +18,7 @@ namespace Mario.Map
     {
         private List<ISprite> collisionObjs = new List<ISprite>();
         public List<ISprite> bgObjects = new List<ISprite>();
-        public DynamicEntities entities = new DynamicEntities();
+        //public DynamicEntities entities = new DynamicEntities();
 
         public List<ISprite> CollisionObjs
         {
@@ -35,6 +35,14 @@ namespace Mario.Map
         {
             get { return mario; }
         }
+/*        bool direction;
+        bool Direction
+        {
+            get
+            {
+                if (Mario.position.X)
+            }
+        }*/
         private const int KOOPAH = 26;
         private const int KOOPAW = 16;
         private const int GOOMBAH = 16;
@@ -71,10 +79,10 @@ namespace Mario.Map
                                 brickBlock.SetState(new BrickBlockState());
                                 collisionObjs.Add(brickBlock);
                                 break;
-                            case 3:  //Question Block
-                                BlockContext qblock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
-                                qblock.SetState(new RedMushroomQuestionBlockState());
-                                collisionObjs.Add(qblock);
+                            case 3:  //Red Mushroom Question Block
+                                BlockContext redMushroomQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                redMushroomQuestionBlock.SetState(new RedMushroomQuestionBlockState());
+                                collisionObjs.Add(redMushroomQuestionBlock);
                                 break;
                             case 4:  //Hidden Block
                                 BlockContext hblock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
@@ -89,14 +97,29 @@ namespace Mario.Map
                             case 6: //Pipe
                                 collisionObjs.Add(new Pipe(theatre, new Vector2(i * 15, j * 15 + 20)));
                                 break;
+                            case 7: //Green Mushroom Question Block
+                                BlockContext greenMushroomQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                greenMushroomQuestionBlock.SetState(new GreenMushroomQuestionBlockState());
+                                collisionObjs.Add(greenMushroomQuestionBlock);
+                                break;
+                            case 8: //Fire Flower Question Block
+                                BlockContext fireFlowerQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                fireFlowerQuestionBlock.SetState(new FireFlowerQuestionBlockState());
+                                collisionObjs.Add(fireFlowerQuestionBlock);
+                                break;
+                            case 9: //Coin Question Block
+                                BlockContext coinQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                coinQuestionBlock.SetState(new CoinQuestionBlockState());
+                                collisionObjs.Add(coinQuestionBlock);
+                                break;
                             case 10:  //Coin
                                 collisionObjs.Add(new Coin(theatre, new Vector2(i * COINW, j * COINH)));
                                 break;
                             case 11:  //Green Mushroom
-                                collisionObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM)));
+                                collisionObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
                                 break;
                             case 12:  //Red Mushroom
-                                collisionObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM)));
+                                collisionObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
                                 break;
                             case 13:  //Fire Flower
                                 collisionObjs.Add(new FireFlower(theatre, new Vector2(i * FLOWER, j * FLOWER)));
@@ -131,7 +154,7 @@ namespace Mario.Map
         {
             foreach (ISprite obj in collisionObjs)
                 obj.Draw(spriteBatch);
-            entities.Draw(spriteBatch);
+            //entities.Draw(spriteBatch);
             
         }
         public void Update()

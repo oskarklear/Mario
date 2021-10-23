@@ -5,7 +5,7 @@ using Mario.States;
 
 namespace Mario.Movement
 {
-    class BumpCommand : BlockCommand
+/*    class BumpCommand : BlockCommand
     {
         MarioContext BlockMarioContext;
         Game1 theatre;
@@ -19,6 +19,6 @@ namespace Mario.Movement
         {
             receiver.Bump(BlockMarioContext, theatre);
         }
-    }
+    }*/
 
 }

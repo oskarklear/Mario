@@ -11,21 +11,27 @@ namespace Mario.Sprites.Items
     
     class RedMushroom : ISprite
     {
-        Game1 Theatre;
+        //Game1 Theatre;
         Texture2D texture;
         //Texture2D hitboxTexture;
         public Vector2 position;
-        Vector2 velocity;
+        int endPosition;
+        //Vector2 velocity;
         bool obtained;
-        SuperMario mario;
-        MarioContext context;
-        Boolean isActive;
+        SuperMario superMario;
+        bool direction;
+        //MarioContext context;
+        //Boolean isActive;
         Rectangle hitbox;
         public Rectangle Hitbox 
         {
             get { return hitbox; }
         
         }
+/*        public bool Obtained
+        {
+            get { return obtained; }
+        }*/
         private bool showHitbox;
         public bool ShowHitbox
         {
@@ -33,15 +39,18 @@ namespace Mario.Sprites.Items
             set { showHitbox = value; }
         }
 
-        public RedMushroom(Game1 theatre, Vector2 location)
+        public RedMushroom(Game1 theatre, Vector2 location, SuperMario mario)
         {
             position = location;
-            Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("items/red_mushroom");
+            endPosition = (int)position.Y - 15;
+            //Theatre = theatre;
+            texture = theatre.Content.Load<Texture2D>("items/red_mushroom");
             obtained = false;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 18, 18);
             showHitbox = false;
-            isActive = false;
+            superMario = mario;
+            direction = mario.position.X > position.X ? true : false;
+            //isActive = false;
             //mario = new SuperMario(theatre, mario.position, context);
             
         }
@@ -52,11 +61,6 @@ namespace Mario.Sprites.Items
                 if (!obtained)
                 {
                     spriteBatch.Draw(texture, position, Color.White);
-
-
-
-
-
 
                     if (showHitbox)
                     {
@@ -79,18 +83,27 @@ namespace Mario.Sprites.Items
 
         public void Update()
         {
-            if (obtained)
-                hitbox = new Rectangle(-1, -1, 0, 0);
+            //if (obtained)
+             //   hitbox = new Rectangle(-1, -1, 0, 0);
             //if (mario.position.X < position.X)
             //{
+            //System.Diagnostics.Debug.WriteLine("Y-position: " + position.Y);
+            //System.Diagnostics.Debug.WriteLine("EndPosition: " + endPosition);
+            if (position.Y > endPosition)
+            {
+                position.Y -= 1;
+                hitbox.Y -= 1;
+            }
+            else if (direction)
+            {
+                position.X += 1;
+                hitbox.X += 1;
+            } 
+            else
+            {
                 position.X -= 1;
                 hitbox.X -= 1;
-            //}
-            //else
-            //{
-            //    position.X += 1;
-            //    hitbox.X += 1;
-            //}
+            }
         }
 
         private void MoveLeft(Vector2 velocity, Vector2 position)

@@ -16,6 +16,10 @@ namespace Mario.Sprites.Items
         int Columns;
         Texture2D texture;
         Vector2 position;
+        int topPosition;
+        bool topPositionReached;
+        int disappearPosition;
+        bool coinActive;
         Rectangle hitbox;
 
         public Rectangle Hitbox
@@ -39,8 +43,12 @@ namespace Mario.Sprites.Items
             currentFrame = 0;
             Columns = 4;
             position = location;
+            topPosition = (int)position.Y - 40;
+            disappearPosition = (int)position.Y - 30;
+            topPositionReached = false;
             texture = theatre.Content.Load<Texture2D>("items/coins");
             obtained = false;
+            coinActive = true;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 12, 16);
             showHitbox = false;
         }
@@ -52,7 +60,7 @@ namespace Mario.Sprites.Items
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            if (!obtained)
+            if (!obtained && coinActive)
             {
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
                 spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
@@ -86,11 +94,29 @@ namespace Mario.Sprites.Items
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
+
+            if (position.Y > topPosition && !topPositionReached)
+            {
+                position.Y -= 1;
+            }
+            else if (position.Y == topPosition)
+            {
+                topPositionReached = !topPositionReached;
+                position.Y += 1;
+            }
+            else if (position.Y < disappearPosition && topPositionReached)
+            {
+                position.Y += 1;
+            }
+            else if (position.Y == disappearPosition && topPositionReached)
+            {
+                coinActive = false;
+            }
         }
+
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
             obtained = true;
         }
-        
     }
 }

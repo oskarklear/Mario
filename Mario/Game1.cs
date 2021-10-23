@@ -1,6 +1,6 @@
 ﻿using Mario.Sprites;
 using Mario.Sprites.Items;
-using Mario.Sprites.Items.Items;
+using Mario.Sprites.Items;
 using Mario.Sprites.Enemies;
 using Mario.Sprites.Mario;
 using Mario.States;
@@ -27,7 +27,7 @@ namespace Mario
         IController gp1;
         string [][] mapArray;
         Level map;
-        //public DynamicEntities entities;
+        public DynamicEntities entities;
         
         public Game1()
         {
@@ -35,7 +35,7 @@ namespace Mario
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
-            //entities = new DynamicEntities();
+            entities = new DynamicEntities();
         }
 
         protected override void Initialize()
@@ -80,7 +80,19 @@ namespace Mario
                     sprite.ShowHitbox = false;
             }
 
+            foreach(ISprite sprite in entities.entityObjs)
+            {
+                map.Mario.Collision(sprite, MAPW, MAPH);
+                if (sprite is BlockContext)
+                    sprite.Collision(map.Mario, MAPW, MAPH);
+                if (map.Mario.context.ShowHitbox)
+                    sprite.ShowHitbox = true;
+                else
+                    sprite.ShowHitbox = false;
+            }
+
             map.Update();
+            entities.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());
             //System.Diagnostics.Debug.WriteLine("LIST SIZE: " + entities.entityObjs.Count);
@@ -95,7 +107,7 @@ namespace Mario
                 obj.Draw(spriteBatch);
             map.Mario.Draw(spriteBatch);
             map.Draw(spriteBatch);
-            //entities.Draw(spriteBatch);
+            entities.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

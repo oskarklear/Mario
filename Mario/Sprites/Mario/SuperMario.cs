@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Mario.Sprites.Enemies;
 using Mario.Sprites.Items;
-using Mario.Sprites.Items.Items;
+using Mario.Sprites.Items;
 using Mario.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -114,8 +114,8 @@ namespace Mario.Sprites.Mario
 
         public void Update()
         {
-            System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
-            System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
+            //System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
+            //System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
 
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
@@ -302,14 +302,14 @@ namespace Mario.Sprites.Mario
 
                 Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
+                //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
                 if (!colliding) spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
                 else spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.IndianRed);
 
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
+                //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
                 if (!colliding) spriteBatch.Draw(texture, position, Color.White);
                 else spriteBatch.Draw(texture, position, Color.IndianRed);
             }
@@ -345,7 +345,7 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba || collider is Koopa)
                             context.TakeDamage();
                         colliding = true;
-                        System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                        //System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                     }
 
                 }
@@ -356,7 +356,7 @@ namespace Mario.Sprites.Mario
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                         position.Y = hitbox.Y;
                         context.Velocity.Y = 0f;
-                        System.Diagnostics.Debug.WriteLine("mario hit the top of something");
+                        //System.Diagnostics.Debug.WriteLine("mario hit the top of something");
                         colliding = true;
                         if (collider is Goomba || collider is Koopa)
                             collider.Collision(null, -1, -1);
@@ -365,7 +365,7 @@ namespace Mario.Sprites.Mario
                     {
                         hitbox.X = collider.Hitbox.X - hitbox.Width - 4;
                         position.X = hitbox.X;
-                        System.Diagnostics.Debug.WriteLine("mario hit the left of something");
+                        //System.Diagnostics.Debug.WriteLine("mario hit the left of something");
                         colliding = true;
                         if (collider is Goomba || collider is Koopa)
                             context.TakeDamage();
@@ -379,7 +379,7 @@ namespace Mario.Sprites.Mario
                             hitbox.X = collider.Hitbox.X + (hitbox.Width + 4);
                         position.X = hitbox.X;
                         colliding = true;
-                        System.Diagnostics.Debug.WriteLine("mario hit the right of something");
+                        //System.Diagnostics.Debug.WriteLine("mario hit the right of something");
                         if (collider is Goomba || collider is Koopa)
                             context.TakeDamage();
                         context.isTouchingRight = true;
@@ -391,7 +391,7 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba || collider is Koopa)
                             context.TakeDamage();
                         colliding = true;
-                        System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                        //System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                     }
                 }
             }

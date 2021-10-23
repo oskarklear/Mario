@@ -17,7 +17,7 @@ namespace Mario.Sprites
     
     public interface ISprite
     {
-        public Rectangle Hitbox { get;}
+        public Rectangle Hitbox { get; }
         public bool ShowHitbox { get; set; }
         public void Update();
 

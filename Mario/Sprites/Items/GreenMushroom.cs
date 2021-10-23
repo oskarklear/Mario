@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Mario.Sprites.Mario;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,7 +13,10 @@ namespace Mario.Sprites.Items
     {
         Texture2D texture;
         Vector2 position;
+        int endPosition;
         bool obtained;
+        SuperMario superMario;
+        bool direction;
         private bool showHitbox;
         public bool ShowHitbox
         {
@@ -25,13 +29,16 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
-        public GreenMushroom(Game1 theatre, Vector2 location)
+        public GreenMushroom(Game1 theatre, Vector2 location, SuperMario mario)
         {
-            texture = theatre.Content.Load<Texture2D>("items/green_mushroom");
             position = location;
+            endPosition = (int)position.Y - 15;
+            texture = theatre.Content.Load<Texture2D>("items/green_mushroom");
             obtained = false;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
             showHitbox = false;
+            superMario = mario;
+            direction = mario.position.X < position.X ? true : false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -59,8 +66,23 @@ namespace Mario.Sprites.Items
 
         public void Update()
         {
-
+            if (position.Y > endPosition)
+            {
+                position.Y -= 1;
+                hitbox.Y -= 1;
+            }
+            else if (direction)
+            {
+                position.X += 1;
+                hitbox.X += 1;
+            }
+            else
+            {
+                position.X -= 1;
+                hitbox.X -= 1;
+            }
         }
+
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
             obtained = true;
