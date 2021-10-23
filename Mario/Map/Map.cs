@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Text;
 using Mario.States;
 using Mario.Sprites.Mario;
+using System.IO;
+using System.Linq;
 
 namespace Mario.Map
 {
@@ -41,16 +43,17 @@ namespace Mario.Map
         private const int COINH = 16;
         private const int COINW = 12;
         private const int BLOCK = 16;
+        string[][] map;
         public Level()
         {
-
+            map = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
         }
 
-        public void GenerateMap(string[][] map)
+        public void GenerateMap()
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 224; i++)
             {
-                for (int j = 0; j < 38; j++)
+                for (int j = 0; j < 17; j++)
                 {
                     int number = Int32.Parse(map[j][i]);
 
@@ -58,17 +61,17 @@ namespace Mario.Map
                     {
                         switch (number)
                         {
-                            case 1: //Ground Block
+                            case 10: //Ground Block
                                 BlockContext groundBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 groundBlock.SetState(new GroundBlockState());
                                 collisionObjs.Add(groundBlock);
                                 break;
-                            case 2: //Brick Block
+                            case 11: //Brick Block
                                 BlockContext brickBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 brickBlock.SetState(new BrickBlockState());
                                 collisionObjs.Add(brickBlock);
                                 break;
-                            case 3:  //Question Block
+                            case 12:  //Question Block
                                 BlockContext qblock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 qblock.SetState(new QuestionBlockState());
                                 collisionObjs.Add(qblock);
@@ -84,15 +87,15 @@ namespace Mario.Map
                                 collisionObjs.Add(ublock);
                                 break;
                             case 6: //Pipe
-                                collisionObjs.Add(new Pipe(theatre, new Vector2(i * 15, j * 15 + 20)));
+                                collisionObjs.Add(new Pipe(theatre, new Vector2(i * 15 + 32, j * 15)));
                                 break;
-                            case 10:  //Coin
+                            case 118:  //Coin
                                 collisionObjs.Add(new Coin(theatre, new Vector2(i * COINW, j * COINH)));
                                 break;
-                            case 11:  //Green Mushroom
+                            case 1188:  //Green Mushroom
                                 collisionObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM)));
                                 break;
-                            case 12:  //Red Mushroom
+                            case 128:  //Red Mushroom
                                 collisionObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM)));
                                 break;
                             case 13:  //Fire Flower

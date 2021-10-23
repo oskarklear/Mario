@@ -47,8 +47,7 @@ namespace Mario
 
         protected override void LoadContent()
         {
-            mapArray = File.ReadLines("map.csv").Select(x => x.Split(',')).ToArray();
-            map.GenerateMap(mapArray);
+            map.GenerateMap();
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
