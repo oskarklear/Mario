@@ -27,7 +27,7 @@ namespace Mario
         IController gp1;
         string [][] mapArray;
         Level map;
-        DynamicEntities entities;
+        //public DynamicEntities entities;
         
         public Game1()
         {
@@ -35,7 +35,7 @@ namespace Mario
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
-            entities = new DynamicEntities();
+            //entities = new DynamicEntities();
         }
 
         protected override void Initialize()
@@ -83,7 +83,7 @@ namespace Mario
             map.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());
-            System.Diagnostics.Debug.WriteLine("LIST SIZE: " + entities.entityObjs.Count);
+            //System.Diagnostics.Debug.WriteLine("LIST SIZE: " + entities.entityObjs.Count);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -95,7 +95,7 @@ namespace Mario
                 obj.Draw(spriteBatch);
             map.Mario.Draw(spriteBatch);
             map.Draw(spriteBatch);
-            entities.Draw(spriteBatch);
+            //entities.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

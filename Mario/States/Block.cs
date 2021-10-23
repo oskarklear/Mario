@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Mario.Sprites.Mario;
 using Mario.Sprites.Items;
 using Mario.Entities;
+using Mario.Map;
 
 namespace Mario.States
 {
@@ -23,6 +24,7 @@ namespace Mario.States
 			set { showHitbox = value; }
 		}
 		Game1 Theatre;
+		Level level;
 		List<BrokenBlockSprite> rubbleList;
 		DynamicEntities entities;
 		Boolean rubbleActive;
@@ -47,6 +49,7 @@ namespace Mario.States
 			rubbleActive = false;
 			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,16,16);
 			showHitbox = false;
+			//entities = theatre.entities;
 			
 
 		}
@@ -82,8 +85,9 @@ namespace Mario.States
 		{
 			return state;
 		}
-		public void Bump(MarioContext Mario)
+		public void Bump(MarioContext Mario, Game1 theatre)
 		{
+			entities = theatre.entities;
 			state.Bump(this, Mario, sprite, entities);
 			System.Diagnostics.Debug.WriteLine("Bump");
 		}
@@ -182,7 +186,7 @@ namespace Mario.States
 	}
 	class RedMushroomQuestionBlockState : BlockState
 	{
-		DynamicEntities dynEntities = new DynamicEntities();
+		//DynamicEntities dynEntities = new DynamicEntities();
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
@@ -190,7 +194,7 @@ namespace Mario.States
 			Vector2 mushroomLocation = sprite.GetLocation();
 			mushroomLocation.Y -= 50;
 			RedMushroom mushroom = new RedMushroom(context.GetGame(), mushroomLocation);
-			dynEntities.entityObjs.Add(mushroom);
+			dynamicEntities.entityObjs.Add(mushroom);
 			//foreach (DynamicEntities entity in dynEntities.entityObjs)
 				
 			//mushroom.Draw(spriteBatch);

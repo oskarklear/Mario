@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Text;
 using Mario.States;
 using Mario.Sprites.Mario;
+using Mario.Entities;
 
 namespace Mario.Map
 {
@@ -17,6 +18,8 @@ namespace Mario.Map
     {
         private List<ISprite> collisionObjs = new List<ISprite>();
         public List<ISprite> bgObjects = new List<ISprite>();
+        public DynamicEntities entities = new DynamicEntities();
+
         public List<ISprite> CollisionObjs
         {
             get { return collisionObjs; }
@@ -128,6 +131,7 @@ namespace Mario.Map
         {
             foreach (ISprite obj in collisionObjs)
                 obj.Draw(spriteBatch);
+            entities.Draw(spriteBatch);
             
         }
         public void Update()
