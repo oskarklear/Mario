@@ -52,7 +52,7 @@ namespace Mario.Sprites.Mario
             texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             colliding = false;
-            kinematics = new Kinematics;
+            kinematics = new Kinematics();
         }
 
         public void MoveLeftCommand()

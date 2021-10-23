@@ -55,16 +55,16 @@ namespace Mario.Movement
             {
                 if (context.Velocity.X < 0)
                 {
-                    context.Velocity.X += (float)0.3;
+                    context.Velocity.X += (float)0.1;
                 }
                 else
                 {
-                    context.Velocity.X -= (float)0.3;
+                    context.Velocity.X -= (float)0.1;
                 }
             }
 
             // if there's leftover speed from shitty code, zero it
-            if (Math.Abs(context.Velocity.Y) < 0.16)
+            if (Math.Abs(context.Velocity.X) < 0.16)
             {
                 context.Velocity.X = 0;
             }
