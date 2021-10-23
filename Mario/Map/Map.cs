@@ -60,11 +60,11 @@ namespace Mario.Map
 
         public void GenerateMap()
         {
-            bgLayerNear = new Layer(Theatre.camera);
+            bgLayerNear = new Layer(camera);
             bgLayerNear.Parallax=new Vector2(.8f);
-            bgLayerMid = new Layer(Theatre.camera);
+            bgLayerMid = new Layer(camera);
             bgLayerMid.Parallax = new Vector2(.5f);
-            bgLayerFar = new Layer(Theatre.camera);
+            bgLayerFar = new Layer(camera);
             bgLayerFar.Parallax = new Vector2(.2f);
             for (int i = 0; i < 224; i++)
             {
@@ -145,7 +145,7 @@ namespace Mario.Map
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(1f)));
             mario.Draw(spriteBatch);
             
             foreach (ISprite obj in collisionObjs)
