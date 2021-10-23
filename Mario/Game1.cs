@@ -73,7 +73,7 @@ namespace Mario
 
             foreach(ISprite sprite in map.CollisionObjs)
             {
-                map.Mario.Collision(sprite, 3904, 300);
+                map.Mario.Collision(sprite, 3904, MAPH);
 
                 if (sprite is BlockContext)
                     sprite.Collision(map.Mario, MAPW, MAPH);
