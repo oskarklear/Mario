@@ -17,14 +17,13 @@ namespace Mario
 {
     public class Game1 : Game
     {
-        private const int MAPH = 608;
+        private const int MAPH = 272;
         private const int MAPW = 800;
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         public bool IsMenuVisible;
         IController kb;
         IController gp1;
-        string [][] mapArray;
         Level map;
         public Camera camera;
         
@@ -46,7 +45,7 @@ namespace Mario
             map = new Level();
             map.Theatre = this;
             base.Initialize();
-            camera.Limits = new Rectangle(0, 0, 1000, 608);
+            camera.Limits = new Rectangle(0, 0, 3584, 272);
         }
 
         protected override void LoadContent()
@@ -71,7 +70,7 @@ namespace Mario
 
             foreach(ISprite sprite in map.CollisionObjs)
             {
-                map.Mario.Collision(sprite, MAPW, MAPH);
+                map.Mario.Collision(sprite, 3904, 300);
 
                 if (sprite is BlockContext)
                     sprite.Collision(map.Mario, MAPW, MAPH);
