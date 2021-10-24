@@ -113,7 +113,7 @@ namespace Mario.Map
                                 collisionObjs.Add(coinQuestionBlock);
                                 break;
                             case 10:  //Coin
-                                collisionObjs.Add(new Coin(theatre, new Vector2(i * COINW, j * COINH)));
+                                collisionObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
                                 break;
                             case 11:  //Green Mushroom
                                 collisionObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
@@ -143,7 +143,16 @@ namespace Mario.Map
                                 mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext()) { animated = false };
                                 //collisionObjs.Add(mario);
                                 break;
-                            
+                            case 15: //One Coin Brick Block
+                                BlockContext oneCoinBrickBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                oneCoinBrickBlock.SetState(new OneCoinBrickBlockState());
+                                collisionObjs.Add(oneCoinBrickBlock);
+                                break;
+                            case 16: //Ten Coin Brick Block
+                                BlockContext tenCoinBrickBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                tenCoinBrickBlock.SetState(new TenCoinBrickBlockState());
+                                collisionObjs.Add(tenCoinBrickBlock);
+                                break;
                         }
                     }
                 }

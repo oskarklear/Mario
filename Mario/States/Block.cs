@@ -254,7 +254,7 @@ namespace Mario.States
 
 			Vector2 coinLocation = sprite.GetLocation();
 			coinLocation.Y -= 3;
-			dynamicEntities.entityObjs.Add(new Coin(context.GetGame(), coinLocation));
+			dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
 
 			this.Movement(sprite);
 		}
@@ -270,6 +270,7 @@ namespace Mario.States
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new BrickBlockState());
+
 		}
 		public override string ToString()
 		{
@@ -279,6 +280,7 @@ namespace Mario.States
 
 	class BrickBlockState : BlockState
 	{
+
 		void Destroy(BlockContext context)
 		{
 			context.ToggleRubble();
@@ -297,6 +299,54 @@ namespace Mario.States
 			return "BrickBlock";
 		}
 	}
+
+	class OneCoinBrickBlockState : BlockState
+	{
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
+		{
+			System.Diagnostics.Debug.WriteLine("Bump");
+			this.Movement(sprite);
+			context.SetState(new UsedBlockState());
+
+			Vector2 coinLocation = sprite.GetLocation();
+			coinLocation.Y -= 3;
+			dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
+
+			this.Movement(sprite);
+		}
+		public override string ToString()
+		{
+			return "BrickBlock";
+		}
+	}
+
+	class TenCoinBrickBlockState : BlockState
+	{
+		int coins = 0;
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
+		{
+			System.Diagnostics.Debug.WriteLine("Bump");
+
+			if (coins <= 10)
+			{
+				Vector2 coinLocation = sprite.GetLocation();
+				coinLocation.Y -= 3;
+				dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
+				coins++;
+			}
+            else
+            {
+				context.SetState(new UsedBlockState());
+			}
+
+			this.Movement(sprite);
+		}
+		public override string ToString()
+		{
+			return "BrickBlock";
+		}
+	}
+
 	class UsedBlockState : BlockState
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)

@@ -413,7 +413,7 @@ namespace Mario.Sprites.Mario
                         context.GetMushroom();
                         colliding = true;
                     }
-                    else if (collider is Coin)
+                    else if (collider is MapCoin)
                     {
                         collider.Collision(null, -1, -1);
                         colliding = true;
