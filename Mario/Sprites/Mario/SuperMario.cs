@@ -8,11 +8,14 @@ using Mario.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Mario.Entities;
+using Mario.Sprites.Projectiles;
 
 namespace Mario.Sprites.Mario
 {
     public class SuperMario : ISprite
     {
+        DynamicEntities entities;
         public MarioContext context { get; set; }
         public bool animated { get; set; }
         public int Rows { get; set; }
@@ -51,6 +54,7 @@ namespace Mario.Sprites.Mario
             texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             colliding = false;
+            entities = theatre.entities;
         }
 
         public void MoveLeftCommand()
@@ -107,10 +111,21 @@ namespace Mario.Sprites.Mario
             context.GetActionState().FaceRightDiscontinueTransition();
         }
 
+        public void FireCommand()
+        {
+            System.Console.WriteLine("BIG ASS");
+            if (context.GetPowerUpState() is FireMarioState)
+            {
+                entities.entityObjs.Add(new Fireball(Theatre, position, this));
+            }
+            
+        }
+
         public void IdleCommand()
         {
             context.GetActionState().PressNothing(context);
         }
+
 
         public void Update()
         {

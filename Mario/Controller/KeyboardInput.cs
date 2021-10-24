@@ -20,6 +20,7 @@ namespace Mario
         public ICommand IdleCommand { get; set; }
         public ICommand JumpCommand { get; set; }
         public ICommand CrouchCommand { get; set; }
+        public ICommand FireCommand { get; set; }
         public ICommand ExitCommand { get; set; }
         public ICommand QuestionBumpCommand { get; set; }
         public ICommand HiddenBumpCommand { get; set; }
@@ -39,6 +40,7 @@ namespace Mario
             CrouchCommand = new CrouchCommand(mario);
             IdleCommand = new IdleCommand(mario);
             ActivateIdle = new ActivateIdle(mario);
+            FireCommand = new FireCommand(mario);
             context = mario.context;
             //QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
             //HiddenBumpCommand = new BumpCommand(hiddenBlockContext, context);
@@ -154,7 +156,7 @@ namespace Mario
                         }
                         else
                         {
-                            // FireballCommand.Execute();
+                            FireCommand.Execute();
                         }
                         break;
 

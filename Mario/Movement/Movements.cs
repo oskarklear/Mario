@@ -108,4 +108,16 @@ namespace Mario.Movement
             receiver.FaceRightDiscontinueCommand();
         }
     }
+
+    class FireCommand : MarioCommand
+    {
+        public FireCommand(SuperMario receiver) : base(receiver)
+        {
+        }
+
+        public override void Execute()
+        {
+            receiver.FireCommand();
+        }
+    }
 }
