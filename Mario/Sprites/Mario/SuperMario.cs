@@ -116,7 +116,7 @@ namespace Mario.Sprites.Mario
 
         public void Update()
         {
-            //System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
+            System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
             //System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
 
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
