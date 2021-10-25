@@ -113,10 +113,9 @@ namespace Mario.Sprites.Mario
 
         public void FireCommand()
         {
-            System.Console.WriteLine("BIG ASS");
             if (context.GetPowerUpState() is FireMarioState)
             {
-                entities.entityObjs.Add(new Fireball(Theatre, position, this));
+                entities.entityObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
             }
             
         }
