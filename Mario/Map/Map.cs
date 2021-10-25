@@ -125,7 +125,7 @@ namespace Mario.Map
                                 collisionObjs.Add(new FireFlower(theatre, new Vector2(i * FLOWER, j * FLOWER)));
                                 break;
                             case 14:  //Star
-                                collisionObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK)));
+                                collisionObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK), Mario));
                                 break;
                             case 30:  //Goomba
                                 collisionObjs.Add(new Goomba(theatre, new Vector2(i * GOOMBAW, j * GOOMBAH - BLOCK + 2)));

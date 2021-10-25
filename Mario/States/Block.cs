@@ -245,6 +245,25 @@ namespace Mario.States
 		}
 	}
 
+	class StarQuestionBlockState : BlockState
+	{
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
+		{
+			System.Diagnostics.Debug.WriteLine("Bump");
+			context.SetState(new UsedBlockState());
+
+			Vector2 starLocation = sprite.GetLocation();
+			starLocation.Y -= 3;
+			dynamicEntities.entityObjs.Add(new Star(context.GetGame(), starLocation, superMario));
+
+			this.Movement(sprite);
+		}
+		public override string ToString()
+		{
+			return "QuestionBlock";
+		}
+	}
+
 	class CoinQuestionBlockState : BlockState
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)

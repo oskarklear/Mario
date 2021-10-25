@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Mario.Sprites.Mario;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -15,6 +16,9 @@ namespace Mario.Sprites.Items
         int currentFrame;
         int Columns;
         bool obtained;
+        SuperMario superMario;
+        bool verticalDirection;
+        bool horizontalDirection;
         ContentManager Content;
         Texture2D texture;
         Vector2 position;
@@ -30,7 +34,7 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
-        public Star(Game1 theatre, Vector2 location)
+        public Star(Game1 theatre, Vector2 location, SuperMario mario)
         {
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 3;
@@ -41,6 +45,8 @@ namespace Mario.Sprites.Items
             obtained = false;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
             showHitbox = false;
+            superMario = mario;
+            horizontalDirection = mario.position.X < position.X ? true : false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -83,6 +89,8 @@ namespace Mario.Sprites.Items
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
+
+            //if ()
         }
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {

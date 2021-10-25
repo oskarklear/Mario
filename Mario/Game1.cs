@@ -89,6 +89,11 @@ namespace Mario
                     sprite.ShowHitbox = true;
                 else
                     sprite.ShowHitbox = false;
+                foreach(ISprite extra in map.CollisionObjs)
+                {
+                    sprite.Collision(extra, MAPW, MAPH);
+                    extra.Collision(sprite, MAPW, MAPH);
+                }
             }
 
             map.Update();

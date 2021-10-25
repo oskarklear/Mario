@@ -17,6 +17,7 @@ namespace Mario.Sprites.Items
         bool obtained;
         SuperMario superMario;
         bool direction;
+        bool useGravity;
         private bool showHitbox;
         public bool ShowHitbox
         {
@@ -32,13 +33,14 @@ namespace Mario.Sprites.Items
         public GreenMushroom(Game1 theatre, Vector2 location, SuperMario mario)
         {
             position = location;
-            endPosition = (int)position.Y - 15;
+            endPosition = (int)position.Y - 13;
             texture = theatre.Content.Load<Texture2D>("items/green_mushroom");
             obtained = false;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
             showHitbox = false;
             superMario = mario;
             direction = mario.position.X < position.X ? true : false;
+            useGravity = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -66,6 +68,9 @@ namespace Mario.Sprites.Items
 
         public void Update()
         {
+            System.Diagnostics.Debug.WriteLine("useGravity: " + useGravity);
+            System.Diagnostics.Debug.WriteLine("Y-position: " + position.Y);
+            System.Diagnostics.Debug.WriteLine("X-position: " + position.X);
             if (position.Y > endPosition)
             {
                 position.Y -= 1;
@@ -81,12 +86,30 @@ namespace Mario.Sprites.Items
                 position.X -= 1;
                 hitbox.X -= 1;
             }
+
+            if (useGravity)
+            {
+                position.Y += 2;
+                hitbox.Y += 2;
+            }
         }
 
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
             obtained = true;
-            hitbox = new Rectangle(-1, -1, 0, 0);
+            if (collider is SuperMario)
+            {
+                hitbox = new Rectangle(-1, -1, 0, 0);
+            }
+            else if (!Hitbox.TouchTopOf(collider.Hitbox))
+            {
+                useGravity = true;
+            }
+            else
+            {
+                useGravity = false;
+            }
+            
         }
        
     }
