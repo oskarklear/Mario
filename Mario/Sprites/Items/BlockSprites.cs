@@ -113,7 +113,7 @@ namespace Mario.Sprites
             timeSinceLastFrame++;
         }
 
-        public void Collision(ISprite collider, int xoffset, int yoffset)
+        public void Collision(ISprite collider)
         {
 
         }

@@ -19,6 +19,7 @@ namespace Mario.Map
     {
         private List<ISprite> collisionObjs = new List<ISprite>();
         public List<ISprite> bgObjects = new List<ISprite>();
+        public List<ISprite> [] collisionZones = new List<ISprite> [14];
         public List<ISprite> CollisionObjs
         {
             get { return collisionObjs; }
@@ -56,6 +57,10 @@ namespace Mario.Map
             reset = false;
             camera = new Camera(theatre.Graphics.GraphicsDevice.Viewport);
             camera.Limits = new Rectangle(0, 0, 3584, 272);
+            for (int i = 0; i < collisionZones.Length; i++)
+            {
+                collisionZones[i] = new List<ISprite>();
+            }
         }
 
         public void GenerateMap()
@@ -79,27 +84,32 @@ namespace Mario.Map
                             case 10: //Ground Block
                                 BlockContext groundBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 groundBlock.SetState(new GroundBlockState());
-                                collisionObjs.Add(groundBlock);
+                                collisionZones[(i * BLOCK) / 256].Add(groundBlock);
                                 break;
                             case 11: //Brick Block
                                 BlockContext brickBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 brickBlock.SetState(new BrickBlockState());
-                                collisionObjs.Add(brickBlock);
+                                collisionZones[(i * BLOCK) / 256].Add(brickBlock);
                                 break;
                             case 12:  //Question Block
                                 BlockContext qblock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 qblock.SetState(new QuestionBlockState());
-                                collisionObjs.Add(qblock);
+                                collisionZones[(i * BLOCK) / 256].Add(qblock);
+                                break;
+                            case 13:
+                                BlockContext mQBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                mQBlock.SetState(new QuestionBlockState());
+                                collisionZones[(i * BLOCK) / 256].Add(mQBlock);
                                 break;
                             case 4:  //Hidden Block
                                 BlockContext hblock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 hblock.SetState(new HiddenBlockState());
-                                collisionObjs.Add(hblock);
+                                collisionZones[(i * BLOCK) / 256].Add(hblock);
                                 break;
                             case 5:  //Used Block
                                 BlockContext ublock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 ublock.SetState(new UsedBlockState());
-                                collisionObjs.Add(ublock);
+                                collisionZones[(i * BLOCK) / 256].Add(ublock);
                                 break;
                             case 6: //Pipe
                                 collisionObjs.Add(new Pipe(theatre, new Vector2(i * 15 + 32, j * 15)));
@@ -113,10 +123,10 @@ namespace Mario.Map
                             case 128:  //Red Mushroom
                                 collisionObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM)));
                                 break;
-                            case 13:  //Fire Flower
+                            case 133:  //Fire Flower
                                 collisionObjs.Add(new FireFlower(theatre, new Vector2(i * FLOWER, j * FLOWER)));
                                 break;
-                            case 14:  //Star
+                            case 144:  //Star
                                 collisionObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK)));
                                 break;
                             case 30:  //Goomba
@@ -136,6 +146,12 @@ namespace Mario.Map
                                     mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext()) { animated = false };
                                 //collisionObjs.Add(mario);
                                 break;
+                            case 99:
+                                GoalGate gg = new GoalGate(theatre, new Vector2(i * BLOCK, j * BLOCK - 99));
+                                GoalGateMovingPart mp = new GoalGateMovingPart(theatre, new Vector2(i * BLOCK + 10, j * BLOCK));
+                                bgObjects.Add(gg);
+                                collisionZones[13].Add(mp);
+                                break;
                             
                         }
                     }
@@ -146,10 +162,14 @@ namespace Mario.Map
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(1f)));
-            mario.Draw(spriteBatch);
-            
-            foreach (ISprite obj in collisionObjs)
+            foreach (ISprite obj in bgObjects)
                 obj.Draw(spriteBatch);
+            mario.Draw(spriteBatch);
+            for (int i = 0; i < collisionZones.Length; i++)
+            {
+                foreach (ISprite obj in collisionZones[i])
+                    obj.Draw(spriteBatch);
+            }
             spriteBatch.End();
             bgLayerNear.Draw(spriteBatch);
             bgLayerMid.Draw(spriteBatch);
@@ -158,8 +178,54 @@ namespace Mario.Map
         }
         public void Update()
         {
-            foreach (ISprite obj in collisionObjs)
-                obj.Update();
+            mario.Update();
+            //Zone behind Mario
+            if (mario.position.X > 256)
+            {
+                foreach (ISprite sprite in collisionZones[((int)(mario.position.X / 256)) - 1])
+                {
+                    mario.Collision(sprite);
+
+                    if (sprite is BlockContext)
+                        sprite.Collision(mario);
+                    if (mario.context.ShowHitbox)
+                        sprite.ShowHitbox = true;
+                    else
+                        sprite.ShowHitbox = false;
+                }
+            }
+            //Zone Mario is in
+            foreach (ISprite sprite in collisionZones[(int)(mario.position.X / 256)])
+            {
+                mario.Collision(sprite);
+
+                if (sprite is BlockContext)
+                    sprite.Collision(mario);
+                if (mario.context.ShowHitbox)
+                    sprite.ShowHitbox = true;
+                else
+                    sprite.ShowHitbox = false;
+            }
+            //Zone ahead of Mario
+            if (mario.position.X < 3328)
+            {
+                foreach (ISprite sprite in collisionZones[((int)(mario.position.X / 256)) + 1])
+                {
+                    mario.Collision(sprite);
+
+                    if (sprite is BlockContext)
+                        sprite.Collision(mario);
+                    if (mario.context.ShowHitbox)
+                        sprite.ShowHitbox = true;
+                    else
+                        sprite.ShowHitbox = false;
+                }
+            }
+            for (int i = 0; i < collisionZones.Length; i++)
+            {
+                foreach (ISprite obj in collisionZones[i])
+                    obj.Update();
+            }
             camera.LookAt(mario.position);
         }
 

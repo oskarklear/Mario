@@ -69,20 +69,6 @@ namespace Mario
 
             gp1.UpdateInput();
             kb.UpdateInput();
-            map.Mario.Update();
-
-            foreach(ISprite sprite in map.CollisionObjs)
-            {
-                map.Mario.Collision(sprite, 3904, MAPH);
-
-                if (sprite is BlockContext)
-                    sprite.Collision(map.Mario, MAPW, MAPH);
-                if (map.Mario.context.ShowHitbox)
-                    sprite.ShowHitbox = true;
-                else
-                    sprite.ShowHitbox = false;
-            }
-
             map.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());

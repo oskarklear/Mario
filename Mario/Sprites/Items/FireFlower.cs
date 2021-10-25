@@ -84,7 +84,7 @@ namespace Mario.Sprites.Items.Items
             timeSinceLastFrame++;
         }
 
-        public void Collision(ISprite collider, int xoffset, int yoffset)
+        public void Collision(ISprite collider)
         {
             obtained = true;
             hitbox = new Rectangle(-1, -1, 0, 0);
