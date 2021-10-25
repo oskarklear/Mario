@@ -17,7 +17,6 @@ namespace Mario.States
         public override abstract string ToString();
         public abstract void Enter(IMarioActionState previousActionState);
         public abstract void Exit();
-        public abstract void PressNothing(MarioContext context);
         public abstract void StandingTransition();
         public abstract void CrouchingTransition();
         public abstract void WalkingTransition();

@@ -25,11 +25,6 @@ namespace Mario.States
             PreviousActionState.Enter(this);
         }
 
-        public override void PressNothing(MarioContext context)
-        {
-            StandingTransition();
-        }
-
         public override void StandingTransition()
         {
             marioContext.idleState.Enter(this);
@@ -99,11 +94,19 @@ namespace Mario.States
         public override void FaceLeftDiscontinueTransition()
         {
             kinematics.XDecelerateToRight(marioContext);
+            if (marioContext.Velocity.X > -0.16 && marioContext.Velocity.X < 0)
+            {
+                RunningDiscontinueTransition();
+            }
         }
 
         public override void FaceRightDiscontinueTransition()
         {
             kinematics.XDecelerateToLeft(marioContext);
+            if (marioContext.Velocity.X < 0.16 && marioContext.Velocity.X > 0)
+            {
+                RunningDiscontinueTransition();
+            }
         }
 
         public override void RunningDiscontinueTransition()

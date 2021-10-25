@@ -21,7 +21,7 @@ public class MarioContext
 	public bool isTouchingTop { get; set; }
 	public bool isTouchingBottom { get; set; }
 	public bool isFalling { get; set; }
-	public float height;
+	public float jumpHeight;
 	bool showHitbox;
 	public bool ShowHitbox
 	{
@@ -41,7 +41,7 @@ public class MarioContext
 		jumpingState = new JumpingState(this);
 		fallingState = new FallingState(this);
 		crouchingState = new CrouchingState(this);
-		height = 0;
+		jumpHeight = 0;
 		showHitbox = false;
 	}
 	public MarioActionState GetActionState()

@@ -23,10 +23,6 @@ namespace Mario.States
         {
             PreviousActionState.Enter(this);
         }
-        public override void PressNothing(MarioContext context)
-        {
-            marioContext.idleState.Enter(this);
-        }
         public override void StandingTransition()
         {
             marioContext.idleState.Enter(this);

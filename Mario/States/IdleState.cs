@@ -25,18 +25,6 @@ namespace Mario.States
         {
         }
 
-        public override void PressNothing(MarioContext context)
-        {
-            //Does nothing, since we're already pressing nothing
-            kinematics.IdleXDecelerate(context);
-            if (!marioContext.isTouchingTop)
-            {
-                marioContext.fallingState.Enter(this);
-            }
-            else
-                kinematics.IdleYDecelerate(context);
-        }
-
         public override void StandingTransition()
         {
             //Does nothing
@@ -107,12 +95,12 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
-            //Does nothing
+            kinematics.IdleXDecelerate(marioContext);
         }
 
         public override void FaceRightDiscontinueTransition()
         {
-            //Does nothing
+            kinematics.IdleXDecelerate(marioContext);
         }
 
         public override void RunningDiscontinueTransition()
@@ -122,7 +110,8 @@ namespace Mario.States
 
         public override void JumpingDiscontinueTransition()
         {
-            //Does nothing
+            if (!marioContext.isTouchingTop)
+                marioContext.fallingState.Enter(this);
         }
 
         public override string ToString()
