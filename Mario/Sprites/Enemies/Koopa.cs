@@ -42,7 +42,7 @@ namespace Mario.Sprites.Enemies
             position = location;
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_leftWalking");
-            hitbox = new Rectangle((int)location.X, (int)location.Y, 5, 5);
+            hitbox = new Rectangle((int)location.X + 13, (int)location.Y + 15, 12, 12);
             dead = false;
             showHitbox = false;
         }
@@ -56,8 +56,8 @@ namespace Mario.Sprites.Enemies
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
             if (!dead)
             {
-                Hitbox = new Rectangle((int)position.X, (int)position.Y, width, height);
-                spriteBatch.Draw(texture, Hitbox, sourceRectangle, Color.White);
+                Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
                 if (showHitbox)
                 {
                     Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
