@@ -31,7 +31,6 @@ namespace Mario.Sprites
             position = location;
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("GoalGate");
-
         }
         public void Draw(SpriteBatch spriteBatch)
         {

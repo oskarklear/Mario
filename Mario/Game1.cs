@@ -29,9 +29,9 @@ namespace Mario
         public bool IsMenuVisible;
         IController kb;
         IController gp1;
-        Level map;
+        public Level map;
         public Camera camera;
-        public DynamicEntities entities;
+        //public DynamicEntities entities;
 
 
 
@@ -41,7 +41,7 @@ namespace Mario
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
-            entities = new DynamicEntities();
+            //entities = new DynamicEntities();
         }
 
         protected override void Initialize()
@@ -74,7 +74,7 @@ namespace Mario
             kb.UpdateInput();
             map.Mario.Update();
 
-            foreach(ISprite sprite in map.CollisionObjs)
+/*            foreach(ISprite sprite in map.CollisionObjs)
             {
                 map.Mario.Collision(sprite);
 
@@ -84,9 +84,9 @@ namespace Mario
                     sprite.ShowHitbox = true;
                 else
                     sprite.ShowHitbox = false;
-            }
+            }*/
 
-            foreach(ISprite sprite in entities.entityObjs)
+/*            foreach(ISprite sprite in entities.entityObjs)
             {
                 map.Mario.Collision(sprite);
                 if (sprite is BlockContext)
@@ -95,15 +95,15 @@ namespace Mario
                     sprite.ShowHitbox = true;
                 else
                     sprite.ShowHitbox = false;
-                /*foreach(ISprite extra in map.CollisionObjs)
+                *//*foreach(ISprite extra in map.CollisionObjs)
                 {
                     sprite.Collision(extra, MAPW, MAPH);
                     extra.Collision(sprite, MAPW, MAPH);
-                }*/
-            }
+                }*//*
+            }*/
 
             map.Update();
-            entities.Update();
+            //entities.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());
             //camera.LookAt(map.Mario.position);
@@ -118,8 +118,8 @@ namespace Mario
             spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -250), Color.White);
             spriteBatch.End();
             map.Draw(spriteBatch);
-            entities.Draw(spriteBatch);
-            spriteBatch.End();
+            //entities.Draw(spriteBatch);
+            //spriteBatch.End();
             base.Draw(gameTime);
         }
 

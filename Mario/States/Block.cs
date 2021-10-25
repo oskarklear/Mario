@@ -51,7 +51,7 @@ namespace Mario.States
 			rubbleActive = false;
 			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,16,16);
 			showHitbox = false;
-			entities = theatre.entities;
+			entities = theatre.map.entities;
 			
 
 		}
@@ -89,7 +89,7 @@ namespace Mario.States
 		}
 		public void Bump(MarioContext Mario, Game1 theatre, SuperMario superMario)
 		{
-			entities = theatre.entities;
+			entities = theatre.map.entities;
 			state.Bump(this, Mario, sprite, entities, superMario);
 			System.Diagnostics.Debug.WriteLine("Bump");
 		}
