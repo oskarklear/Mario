@@ -101,14 +101,14 @@ namespace Mario.Sprites.Items
             {
                 hitbox = new Rectangle(-1, -1, 0, 0);
             }
-            else if (!Hitbox.TouchTopOf(collider.Hitbox))
+/*            else if (!Hitbox.TouchTopOf(collider.Hitbox))
             {
                 useGravity = true;
             }
             else
             {
                 useGravity = false;
-            }
+            }*/
             
         }
        

@@ -19,6 +19,8 @@ namespace Mario.Sprites.Items
         SuperMario superMario;
         bool verticalDirection;
         bool horizontalDirection;
+        int count;
+        int maxUpwardDistance;
         ContentManager Content;
         Texture2D texture;
         Vector2 position;
@@ -47,6 +49,8 @@ namespace Mario.Sprites.Items
             showHitbox = false;
             superMario = mario;
             horizontalDirection = mario.position.X < position.X ? true : false;
+            verticalDirection = true;
+            maxUpwardDistance = 15;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -81,6 +85,7 @@ namespace Mario.Sprites.Items
 
         public void Update()
         {
+            System.Diagnostics.Debug.WriteLine("VERTICALDIRECTION: " + verticalDirection);
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
                 currentFrame++;
@@ -90,12 +95,53 @@ namespace Mario.Sprites.Items
                 currentFrame = 0;
             timeSinceLastFrame++;
 
-            //if ()
+/*            if (horizontalDirection)
+            {
+                position.X += 1;
+                hitbox.X += 1;
+            }
+            else
+            {
+                position.X -= 1;
+                hitbox.X -= 1;
+            }
+
+            if (verticalDirection)
+            {
+                position.Y -= 1;
+                hitbox.Y -= 1;
+            }
+            else
+            {
+                position.Y += 1;
+                hitbox.Y += 1;
+            }
+
+            count += 1;
+            if (count > maxUpwardDistance && verticalDirection)
+            {
+                verticalDirection = !verticalDirection;
+                count = 0;
+            }*/
         }
         public void Collision(ISprite collider, int xoffset, int yoffset)
         {
-            obtained = true;
-            hitbox = new Rectangle(-1, -1, 0, 0);
+            //if (collider is SuperMario)
+            //{
+                obtained = true;
+                hitbox = new Rectangle(-1, -1, 0, 0);
+            //}
+            
+/*            if (hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchTopOf(collider.Hitbox))
+            {
+                verticalDirection = !verticalDirection;
+            }
+
+            if (hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
+            {
+                horizontalDirection = !horizontalDirection;
+            }*/
+
         }
         
     }
