@@ -66,17 +66,33 @@ namespace Mario.States
         public override void FaceLeftTransition()
         {
             if (!marioContext.facingLeft)
+            {
                 marioContext.facingLeft = true;
+            }
             else
-                kinematics.AccelerateLeft(marioContext);
+            {
+                if (marioContext.isTouchingRight)
+                    marioContext.Velocity.X = 0;
+                else
+                    kinematics.AccelerateLeft(marioContext);
+
+            }
         }
 
         public override void FaceRightTransition()
         {
             if (marioContext.facingLeft)
+            {
                 marioContext.facingLeft = false;
+            }
             else
-                kinematics.AccelerateRight(marioContext);
+            {
+                if (marioContext.isTouchingLeft)
+                    marioContext.Velocity.X = 0;
+                else
+                    kinematics.AccelerateRight(marioContext);
+
+            }
         }
 
         public override void CrouchingDiscontinueTransition()
