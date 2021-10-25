@@ -9,7 +9,6 @@ namespace Mario.States
 
         void Enter(IMarioActionState previousActionState);
         void Exit();
-        void PressNothing(MarioContext context);
         void StandingTransition();
         void CrouchingTransition();
         void WalkingTransition();
@@ -19,8 +18,8 @@ namespace Mario.States
         void FaceLeftTransition();
         void FaceRightTransition();
         void CrouchingDiscontinueTransition();
-        //void FaceLeftDiscontinueTransition();
-        //void FaceRightDiscontinueTransition();
+        void FaceLeftDiscontinueTransition();
+        void FaceRightDiscontinueTransition();
         //void WalkingDiscontinueTransition();
         void RunningDiscontinueTransition();
         void JumpingDiscontinueTransition();

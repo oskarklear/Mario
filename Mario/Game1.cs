@@ -76,10 +76,10 @@ namespace Mario
 
 /*            foreach(ISprite sprite in map.CollisionObjs)
             {
-                map.Mario.Collision(sprite, MAPW, MAPH);
+                map.Mario.Collision(sprite);
 
                 if (sprite is BlockContext)
-                    sprite.Collision(map.Mario, MAPW, MAPH);
+                    sprite.Collision(map.Mario);
                 if (map.Mario.context.ShowHitbox)
                     sprite.ShowHitbox = true;
                 else
@@ -88,9 +88,9 @@ namespace Mario
 
 /*            foreach(ISprite sprite in entities.entityObjs)
             {
-                map.Mario.Collision(sprite, MAPW, MAPH);
+                map.Mario.Collision(sprite);
                 if (sprite is BlockContext)
-                    sprite.Collision(map.Mario, MAPW, MAPH);
+                    sprite.Collision(map.Mario);
                 if (map.Mario.context.ShowHitbox)
                     sprite.ShowHitbox = true;
                 else

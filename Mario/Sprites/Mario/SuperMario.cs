@@ -111,7 +111,7 @@ namespace Mario.Sprites.Mario
 
         public void IdleCommand()
         {
-            context.GetActionState().PressNothing(context);
+            //context.GetActionState().PressNothing(context);
         }
 
         public void Update()
@@ -291,13 +291,25 @@ namespace Mario.Sprites.Mario
             //If mario is not touching ground, GRAVITY
             if (!context.isTouchingTop)
             {
-                kinematics.AccelerateDown(context);
-                if (context.Velocity.Y > 0)
+                //kinematics.AccelerateDown(context);
+                if (context.GetActionState() is FallingState)
+                {
+                    kinematics.AccelerateDown(context);
+                }
+                else
+                {
+                    if (context.isFalling)
+                        context.GetActionState().FallingTransition();
+                }                
+                if (context.Velocity.Y < 0)
+                {
+                    System.Diagnostics.Debug.WriteLine("WHY ARE U FALLING");
                     context.isFalling = true;
+                }
             }
             else
             {
-                context.height = 0;
+                context.jumpHeight = 0;
                 context.isFalling = false;
             }
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
@@ -411,7 +423,7 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba || collider is Koopa)
                             context.TakeDamage();
                         colliding = true;
-                        System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                        //System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                         context.isTouchingBottom = true;
                     }
                 }

@@ -18,7 +18,7 @@ namespace Mario.Movement
             int marioTopLeftSpeed = -3;
             if (context.Velocity.X > marioTopLeftSpeed)
             {
-                context.Velocity.X -= (float)0.15;
+                context.Velocity.X -= (float)0.1;
             }
         }
 
@@ -27,7 +27,7 @@ namespace Mario.Movement
             int marioTopRightSpeed = 3;
             if (context.Velocity.X < marioTopRightSpeed)
             {
-                context.Velocity.X += (float)0.15;
+                context.Velocity.X += (float)0.1;
             }
         }
 
@@ -36,9 +36,9 @@ namespace Mario.Movement
             int marioTopUpSpeed = 2;
             if (context.Velocity.Y < marioTopUpSpeed)
             {
-                context.Velocity.Y += (float)0.2;              
+                context.Velocity.Y += (float)0.5;              
             }
-            context.height += (float)0.2;
+            context.jumpHeight += (float)0.5;
         }
 
         public void AccelerateDown(MarioContext context)
@@ -46,9 +46,9 @@ namespace Mario.Movement
             int marioTopDownSpeed = -2;
             if (context.Velocity.Y > marioTopDownSpeed)
             {
-                context.Velocity.Y -= (float)0.1;              
+                context.Velocity.Y -= (float)0.3;              
             }
-            context.height -= (float)0.1;
+            context.jumpHeight -= (float)0.3;
         }
 
         public void IdleXDecelerate(MarioContext context)
@@ -98,7 +98,7 @@ namespace Mario.Movement
             if (context.Velocity.X != 0)
             {
                 if (context.Velocity.X > 0)
-                    context.Velocity.X -= (float)0.01;
+                    context.Velocity.X -= (float)0.05;
             }
         }
 
@@ -107,7 +107,7 @@ namespace Mario.Movement
             if (context.Velocity.X != 0)
             {
                 if (context.Velocity.X < 0)
-                    context.Velocity.X += (float)0.01;
+                    context.Velocity.X += (float)0.05;
             }
         }
         public void YDecelerateToUp(MarioContext context)

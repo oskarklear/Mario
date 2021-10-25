@@ -37,7 +37,7 @@ namespace Mario.Controller
                 && !GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A)
                 && !GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown))
             {
-                IdleCommand.Execute();
+                //IdleCommand.Execute();
             }
 
             if (!Keyboard.GetState().IsKeyDown(Keys.D) && !Keyboard.GetState().IsKeyDown(Keys.Right)

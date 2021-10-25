@@ -16,20 +16,17 @@ namespace Mario.States
 
         public override void Enter(IMarioActionState previousActionState)
         {
+            if (previousActionState is JumpingState)
+
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
+            marioContext.isFalling = true;
+            kinematics.AccelerateDown(marioContext);
         }
 
         public override void Exit()
         {
             PreviousActionState.Enter(this);
-        }
-        public override void PressNothing(MarioContext context)
-        {
-            if (marioContext.isTouchingTop)
-            {
-                StandingTransition();
-            }          
         }
 
         public override void StandingTransition()
@@ -84,16 +81,17 @@ namespace Mario.States
 
         public override void CrouchingDiscontinueTransition()
         {
-            //Does nothing
+            if (marioContext.isTouchingTop)
+                StandingTransition();
         }
 
         public override void FaceLeftDiscontinueTransition()
         {
-            //kinematics.XDecelerateRight(marioContext);
+            kinematics.XDecelerateToRight(marioContext);
         }
         public override void FaceRightDiscontinueTransition()
         {
-            //kinematics.XDecelerateLeft(marioContext);
+            kinematics.XDecelerateToLeft(marioContext);
         }
         public override void RunningDiscontinueTransition()
         {
@@ -102,7 +100,8 @@ namespace Mario.States
 
         public override void JumpingDiscontinueTransition()
         {
-            //Does nothing
+            if (marioContext.isTouchingTop)
+                StandingTransition();
         }
 
         public override string ToString()
