@@ -322,9 +322,10 @@ namespace Mario.Sprites.Mario
             }
             else
             {
-                context.jumpHeight = 0;
+                if (context.isFalling)
+                    context.jumpHeight = 0;
                 context.isFalling = false;
-            }
+            }   
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             else
