@@ -93,7 +93,7 @@ namespace Mario
                 foreach(ISprite sierraMist in map.CollisionObjs)
                 {
                     sprite.Collision(sierraMist, MAPW, MAPH);
-                    sierraMist.Collision(sprite, MAPW, MAPH);
+                    //sierraMist.Collision(sprite, MAPW, MAPH);
                 }
             }
 

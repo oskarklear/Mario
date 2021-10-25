@@ -20,7 +20,7 @@ namespace Mario.Sprites.Projectiles
         {
             get { return hitbox; }
         }
-        //false == down, true == up
+
         bool direction;
         bool deleted;
 
