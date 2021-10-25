@@ -56,6 +56,7 @@ namespace Mario.Sprites.Mario
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             kinematics = new Kinematics();
             delay = 100;
+            entities = theatre.map.entities;
         }
 
         public void MoveLeftCommand()
@@ -116,7 +117,7 @@ namespace Mario.Sprites.Mario
         {
             if (context.GetPowerUpState() is FireMarioState)
             {
-                //entities.entityObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
+                entities.fireBallObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
             }
             
         }

@@ -10,6 +10,7 @@ namespace Mario.Entities
     public class DynamicEntities
     {
         public List<ISprite> entityObjs = new List<ISprite>();
+        public List<ISprite> fireBallObjs = new List<ISprite>();
 
 
         public void Draw(SpriteBatch spriteBatch)
