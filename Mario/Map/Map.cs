@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace Mario.Map
 {
-    class Level
+    public class Level
     {
         private List<ISprite> collisionObjs = new List<ISprite>();
         public List<ISprite> bgObjects = new List<ISprite>();
@@ -36,6 +36,7 @@ namespace Mario.Map
         {
             get { return mario; }
         }
+        public DynamicEntities entities;
         Layer bgLayerMid;
         Layer bgLayerNear;
         Layer bgLayerFar;
@@ -142,10 +143,10 @@ namespace Mario.Map
                             case 118:  //Coin
                                 collisionObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
                                 break;
-                            case 11:  //Green Mushroom
+                            case 111:  //Green Mushroom
                                 collisionObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
                                 break;
-                            case 12:  //Red Mushroom
+                            case 112:  //Red Mushroom
                                 collisionObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
                                 break;
                             case 133:  //Fire Flower
@@ -199,7 +200,8 @@ namespace Mario.Map
             bgLayerNear.Draw(spriteBatch);
             bgLayerMid.Draw(spriteBatch);
             bgLayerFar.Draw(spriteBatch);
-            
+            entities.Draw(spriteBatch);
+
         }
         public void Update()
         {
@@ -252,6 +254,24 @@ namespace Mario.Map
                     obj.Update();
             }
             camera.LookAt(mario.position);
+
+            foreach (ISprite sprite in entities.entityObjs)
+            {
+                mario.Collision(sprite);
+                if (sprite is BlockContext)
+                    sprite.Collision(mario);
+                if (mario.context.ShowHitbox)
+                    sprite.ShowHitbox = true;
+                else
+                    sprite.ShowHitbox = false;
+                /*foreach(ISprite extra in map.CollisionObjs)
+                {
+                    sprite.Collision(extra, MAPW, MAPH);
+                    extra.Collision(sprite, MAPW, MAPH);
+                }*/
+            }
+
+            entities.Update();
         }
 
         public void Reset()
