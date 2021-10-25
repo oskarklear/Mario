@@ -54,7 +54,8 @@ namespace Mario.States
 
         public override void JumpingTransition()
         {
-            marioContext.jumpingState.Enter(this);
+            if (!marioContext.jumped)
+                marioContext.jumpingState.Enter(this);
         }
 
         public override void FallingTransition()
@@ -112,6 +113,7 @@ namespace Mario.States
         {
             if (!marioContext.isTouchingTop)
                 marioContext.fallingState.Enter(this);
+            marioContext.jumped = false;
         }
 
         public override string ToString()

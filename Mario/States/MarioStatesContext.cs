@@ -14,13 +14,13 @@ public class MarioContext
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
 	public Vector2 Velocity;
-	public bool jumped;
 	public bool facingLeft;
 	public bool isTouchingLeft { get; set; }
 	public bool isTouchingRight { get; set; }
 	public bool isTouchingTop { get; set; }
 	public bool isTouchingBottom { get; set; }
 	public bool isFalling { get; set; }
+	public bool jumped { get; set; }
 	public float jumpHeight;
 	bool showHitbox;
 	public bool ShowHitbox

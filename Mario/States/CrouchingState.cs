@@ -42,7 +42,13 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
-            this.StandingTransition();
+            /*if (!(marioContext.jumpHeight > 5 || marioContext.isTouchingBottom))
+            {
+                System.Diagnostics.Debug.WriteLine(marioContext.jumpHeight);
+                kinematics.AccelerateUp(marioContext);
+            }
+            else
+                kinematics.AccelerateDown(marioContext);*/
         }
         public override void FallingTransition()
         {
