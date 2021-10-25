@@ -48,7 +48,7 @@ namespace Mario.States
         public override void JumpingTransition()
         {
             System.Diagnostics.Debug.WriteLine("HEIGHT: " + marioContext.jumpHeight);
-            if (marioContext.jumpHeight > 20 || marioContext.isTouchingBottom)
+            if (marioContext.jumpHeight > 10 || marioContext.isTouchingBottom)
             {
                 System.Diagnostics.Debug.WriteLine("WHY");
                 FallingTransition();
@@ -106,7 +106,7 @@ namespace Mario.States
                 marioContext.idleState.Enter(this);
             else
             {
-                if (marioContext.jumpHeight < 14 && !marioContext.isFalling)
+                if (marioContext.jumpHeight < 8 && !marioContext.isFalling)
                 {
                     System.Diagnostics.Debug.WriteLine("TEMP");
                     JumpingTransition();
