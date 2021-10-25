@@ -106,7 +106,7 @@ namespace Mario.States
             kinematics.XDecelerateToRight(marioContext);
             if (marioContext.Velocity.X > -0.16 && marioContext.Velocity.X < 0)
             {
-                RunningDiscontinueTransition();
+                StandingTransition();
             }
         }
 
@@ -115,7 +115,7 @@ namespace Mario.States
             kinematics.XDecelerateToLeft(marioContext);
             if (marioContext.Velocity.X < 0.16 && marioContext.Velocity.X > 0)
             {
-                RunningDiscontinueTransition();
+                StandingTransition();
             }
         }
 

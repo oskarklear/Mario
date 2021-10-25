@@ -70,7 +70,10 @@ namespace Mario.States
         public override void CrouchingDiscontinueTransition()
         {
             kinematics.YDecelerateToUp(marioContext);
-            Exit();
+            if (marioContext.Velocity.X > 0)
+                Exit();
+            else
+                StandingTransition();
         }
 
         public override void FaceLeftDiscontinueTransition()

@@ -50,36 +50,49 @@ namespace Mario.States
             System.Diagnostics.Debug.WriteLine("HEIGHT: " + marioContext.jumpHeight);
             if (marioContext.jumpHeight > 10 || marioContext.isTouchingBottom)
             {
-                System.Diagnostics.Debug.WriteLine("WHY");
                 FallingTransition();
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("Accelerateup");
                 kinematics.AccelerateUp(marioContext); 
             }
         }
 
         public override void FallingTransition()
         {
-            System.Diagnostics.Debug.WriteLine("FallingTransition");
             marioContext.fallingState.Enter(this);
         }    
 
         public override void FaceLeftTransition()
         {
             if (!marioContext.facingLeft)
+            {
                 marioContext.facingLeft = true;
+            }
             else
-                kinematics.AccelerateLeft(marioContext);
+            {
+                if (marioContext.isTouchingRight)
+                    marioContext.Velocity.X = 0;
+                else
+                    kinematics.AccelerateLeft(marioContext);
+
+            }
         }
 
         public override void FaceRightTransition()
         {
             if (marioContext.facingLeft)
+            {
                 marioContext.facingLeft = false;
+            }
             else
-                kinematics.AccelerateRight(marioContext);
+            {
+                if (marioContext.isTouchingLeft)
+                    marioContext.Velocity.X = 0;
+                else
+                    kinematics.AccelerateRight(marioContext);
+
+            }
         }
 
         public override void CrouchingDiscontinueTransition()
@@ -108,12 +121,10 @@ namespace Mario.States
             {
                 if (marioContext.jumpHeight < 8 && !marioContext.isFalling)
                 {
-                    System.Diagnostics.Debug.WriteLine("TEMP");
                     JumpingTransition();
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("HELLO: " + marioContext.isFalling);
                     FallingTransition();
                 }
             }
