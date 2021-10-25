@@ -21,6 +21,7 @@ namespace Mario
         public ICommand IdleCommand { get; set; }
         public ICommand JumpCommand { get; set; }
         public ICommand CrouchCommand { get; set; }
+        public ICommand FireCommand { get; set; }
         public ICommand ExitCommand { get; set; }
         public ICommand QuestionBumpCommand { get; set; }
         public ICommand HiddenBumpCommand { get; set; }
@@ -156,7 +157,7 @@ namespace Mario
                         }
                         else
                         {
-                            // FireballCommand.Execute();
+                            FireCommand.Execute();
                         }
                         break;
 

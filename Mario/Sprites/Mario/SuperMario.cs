@@ -9,11 +9,14 @@ using Mario.Movement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Mario.Entities;
+using Mario.Sprites.Projectiles;
 
 namespace Mario.Sprites.Mario
 {
     public class SuperMario : ISprite
     {
+        DynamicEntities entities;
         public MarioContext context { get; set; }
         public bool animated { get; set; }
         public int Rows { get; set; }
@@ -109,10 +112,20 @@ namespace Mario.Sprites.Mario
             context.GetActionState().FaceRightDiscontinueTransition();
         }
 
+        public void FireCommand()
+        {
+            if (context.GetPowerUpState() is FireMarioState)
+            {
+                entities.entityObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
+            }
+            
+        }
+
         public void IdleCommand()
         {
             //context.GetActionState().PressNothing(context);
         }
+
 
         public void Update()
         {
