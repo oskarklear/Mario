@@ -41,6 +41,7 @@ namespace Mario
             CrouchCommand = new CrouchCommand(map.Mario);
             IdleCommand = new IdleCommand(map.Mario);
             ActivateIdle = new ActivateIdle(map.Mario);
+            FireCommand = new FireCommand(map.Mario);
             context = map.Mario.context;
             //QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
             //HiddenBumpCommand = new BumpCommand(hiddenBlockContext, context);

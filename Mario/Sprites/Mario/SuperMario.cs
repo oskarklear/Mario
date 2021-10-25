@@ -116,7 +116,7 @@ namespace Mario.Sprites.Mario
         {
             if (context.GetPowerUpState() is FireMarioState)
             {
-                entities.entityObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
+                //entities.entityObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
             }
             
         }
