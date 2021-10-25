@@ -14,6 +14,10 @@ namespace Mario.Sprites
         Game1 Theatre;
         Texture2D texture;
         Vector2 position;
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         Rectangle hitbox;
         public Rectangle Hitbox
         {
@@ -52,6 +56,10 @@ namespace Mario.Sprites
         Game1 Theatre;
         Texture2D texture;
         Vector2 position;
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         Rectangle hitbox;
         public Rectangle Hitbox
         {

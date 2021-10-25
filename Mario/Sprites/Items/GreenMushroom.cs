@@ -18,6 +18,10 @@ namespace Mario.Sprites.Items
         SuperMario superMario;
         bool direction;
         bool useGravity;
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         private bool showHitbox;
         public bool ShowHitbox
         {
@@ -71,6 +75,7 @@ namespace Mario.Sprites.Items
             System.Diagnostics.Debug.WriteLine("useGravity: " + useGravity);
             System.Diagnostics.Debug.WriteLine("Y-position: " + position.Y);
             System.Diagnostics.Debug.WriteLine("X-position: " + position.X);
+
             if (position.Y > endPosition)
             {
                 position.Y -= 1;
@@ -101,7 +106,7 @@ namespace Mario.Sprites.Items
             {
                 hitbox = new Rectangle(-1, -1, 0, 0);
             }
-/*            else if (!Hitbox.TouchTopOf(collider.Hitbox))
+            /*else if (!Hitbox.TouchTopOf(collider.Hitbox))
             {
                 useGravity = true;
             }

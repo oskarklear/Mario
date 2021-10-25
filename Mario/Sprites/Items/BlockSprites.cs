@@ -29,12 +29,16 @@ namespace Mario.Sprites
         public bool animated;
         protected int currentFrame;
         protected int totalFrames;
-
+        Vector2 position;
         protected Rectangle sourceRectangle;
         protected Rectangle destinationRectangle;
         public Rectangle Hitbox
         {
             get { return destinationRectangle;}
+        }
+        public Vector2 Position
+        {
+            get { return position; }
         }
         private bool showHitbox;
         public bool ShowHitbox

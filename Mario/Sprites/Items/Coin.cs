@@ -38,6 +38,10 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
+        public Vector2 Position
+        {
+            get { return position; }
+        }
 
         private bool showHitbox;
         public bool ShowHitbox
@@ -137,7 +141,10 @@ namespace Mario.Sprites.Items
         int Columns;
         Texture2D texture;
         Vector2 position;
-        
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         Rectangle hitbox;
 
         public Rectangle Hitbox

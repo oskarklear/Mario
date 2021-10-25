@@ -17,6 +17,10 @@ namespace Mario.Sprites.Enemies
         Vector2 position;
         Game1 Theatre;
         bool dead;
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         private bool showHitbox;
         public bool ShowHitbox
         {

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.States;
 
 namespace Mario.Sprites.Items
 {
@@ -14,12 +15,14 @@ namespace Mario.Sprites.Items
         //Game1 Theatre;
         Texture2D texture;
         //Texture2D hitboxTexture;
-        public Vector2 position;
+        Vector2 position;
         int endPosition;
-        //Vector2 velocity;
+        Vector2 velocity;
         bool obtained;
         SuperMario superMario;
         bool direction;
+        bool spawning;
+        //int velocity;
         //MarioContext context;
         //Boolean isActive;
         Rectangle hitbox;
@@ -28,6 +31,11 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
         
         }
+        public Vector2 Position
+        {
+            get { return position; }
+        }
+
 /*        public bool Obtained
         {
             get { return obtained; }
@@ -50,6 +58,9 @@ namespace Mario.Sprites.Items
             showHitbox = false;
             superMario = mario;
             direction = mario.position.X > position.X ? true : false;
+            velocity.Y = 1f;
+            velocity.X = 1f;
+            spawning = true;
             //isActive = false;
             //mario = new SuperMario(theatre, mario.position, context);
             
@@ -83,38 +94,85 @@ namespace Mario.Sprites.Items
 
         public void Update()
         {
+            position.Y += velocity.Y;
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+            //hitbox.Y += velocity.Y;
             //if (obtained)
-             //   hitbox = new Rectangle(-1, -1, 0, 0);
+            //   hitbox = new Rectangle(-1, -1, 0, 0);
             //if (mario.position.X < position.X)
             //{
             //System.Diagnostics.Debug.WriteLine("Y-position: " + position.Y);
             //System.Diagnostics.Debug.WriteLine("EndPosition: " + endPosition);
-            if (position.Y > endPosition)
+            System.Diagnostics.Debug.WriteLine("X-VELOCITY: " + velocity.X);
+            System.Diagnostics.Debug.WriteLine("Y-VELOCITY: " + velocity.Y);
+            if (position.Y > endPosition && spawning) 
             {
-                position.Y -= 1;
-                hitbox.Y -= 1;
+                position.Y -= 2;
+                hitbox.Y -= 2;
             }
-            else if (direction)
+            else if (position.Y == endPosition && spawning)
             {
-                position.X += 1;
-                hitbox.X += 1;
+                spawning = false;
+            }
+            
+            else if (direction /*&& !spawning*/)
+            {
+                position.X += velocity.X;
             } 
-            else
+            else if (!direction /*&& !spawning*/)
             {
-                position.X -= 1;
-                hitbox.X -= 1;
+                position.X -= velocity.X;
             }
-        }
-
-        private void MoveLeft(Vector2 velocity, Vector2 position)
-        {
-
         }
 
         public void Collision(ISprite collider)
         {
-            obtained = true;
-            hitbox = new Rectangle(-1, -1, 0, 0);
+            if (!spawning)
+            {
+                //velocity.X = 1f;
+                if (collider is SuperMario)
+                {
+                    obtained = true;
+                    hitbox = new Rectangle(-1, -1, 0, 0);
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
+
+                if (collider is BlockContext)
+                {
+                    if (hitbox.TouchTopOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
+                        position.Y = hitbox.Y;
+                        
+                    }
+                    else
+                    {
+                        //velocity.X = 0f;
+                    }
+
+                    if (hitbox.TouchRightOf(collider.Hitbox))
+                    {
+                        hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
+                        position.X = hitbox.X;
+                        direction = !direction;
+                    }
+
+                    if (hitbox.TouchLeftOf(collider.Hitbox))
+                    {
+                        hitbox.X = collider.Hitbox.X - hitbox.Width;
+                        position.X = hitbox.X;
+                        direction = !direction;
+                    }
+
+                    if (hitbox.TouchBottomOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y + hitbox.Height;
+                        position.Y = hitbox.Y;
+                    }
+                }
+            }
+            
         }
         
     }

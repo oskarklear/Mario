@@ -21,9 +21,15 @@ namespace Mario.Sprites.Items
         bool horizontalDirection;
         int count;
         int maxUpwardDistance;
+        Vector2 comingFromBlockPosition;
+        bool fullyOutOfBlock;
         ContentManager Content;
         Texture2D texture;
         Vector2 position;
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         private bool showHitbox;
         public bool ShowHitbox
         {
@@ -51,6 +57,8 @@ namespace Mario.Sprites.Items
             horizontalDirection = mario.position.X < position.X ? true : false;
             verticalDirection = true;
             maxUpwardDistance = 15;
+            comingFromBlockPosition.Y = (int)position.Y - 13;
+            fullyOutOfBlock = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -95,34 +103,44 @@ namespace Mario.Sprites.Items
                 currentFrame = 0;
             timeSinceLastFrame++;
 
-/*            if (horizontalDirection)
+            if (position.Y > comingFromBlockPosition.Y && !fullyOutOfBlock)
+            {
+                position.Y -= 1;
+                hitbox.Y -= 1;
+            }
+            else if (position.Y == comingFromBlockPosition.Y)
+            {
+                fullyOutOfBlock = true;
+            }
+
+            if (horizontalDirection && fullyOutOfBlock)
             {
                 position.X += 1;
                 hitbox.X += 1;
             }
-            else
+            else if (!horizontalDirection && fullyOutOfBlock)
             {
                 position.X -= 1;
                 hitbox.X -= 1;
             }
 
-            if (verticalDirection)
+            if (verticalDirection && fullyOutOfBlock)
             {
                 position.Y -= 1;
                 hitbox.Y -= 1;
             }
-            else
+            else if (!verticalDirection && fullyOutOfBlock)
             {
                 position.Y += 1;
                 hitbox.Y += 1;
             }
 
             count += 1;
-            if (count > maxUpwardDistance && verticalDirection)
+            if (count > maxUpwardDistance && !verticalDirection)
             {
                 verticalDirection = !verticalDirection;
                 count = 0;
-            }*/
+            }
         }
         public void Collision(ISprite collider)
         {

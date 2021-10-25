@@ -19,6 +19,7 @@ namespace Mario.Sprites
     {
         public Rectangle Hitbox { get; }
         public bool ShowHitbox { get; set; }
+        public Vector2 Position { get; }
         public void Update();
 
         public void Draw(SpriteBatch spriteBatch);

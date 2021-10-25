@@ -24,7 +24,10 @@ namespace Mario.Sprites.Projectiles
         bool upDown;
         bool leftRight;
         bool deleted;
-
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         private bool showHitbox;
         public bool ShowHitbox
         {
