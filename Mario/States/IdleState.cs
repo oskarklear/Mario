@@ -19,6 +19,8 @@ namespace Mario.States
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
+            if (marioContext.Velocity.Y == 0)
+                marioContext.jumpHeight = 0;
         }
 
         public override void Exit()
