@@ -294,7 +294,7 @@ namespace Mario.Map
                     if (block is BlockContext)
                     {
                         sprite.Collision(block);
-                        block.Collision(sprite);
+                        //block.Collision(sprite);
                         if (mario.context.ShowHitbox)
                             sprite.ShowHitbox = true;
                         else sprite.ShowHitbox = false;
