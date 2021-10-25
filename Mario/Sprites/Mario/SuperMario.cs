@@ -328,7 +328,12 @@ namespace Mario.Sprites.Mario
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             else
-                hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 28);
+            {
+                if (context.GetActionState().ToString().Equals("CrouchingState"))
+                    hitbox = new Rectangle((int)position.X, (int)position.Y + 12, 15, 15);
+                else
+                    hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 28);
+            }
 
             //Reset collision
             context.isTouchingTop = false;
@@ -345,7 +350,7 @@ namespace Mario.Sprites.Mario
                 int column = currentFrame % Columns;
 
                 Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-                Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                Rectangle destinationRectangle = new Rectangle((int)position.X - 7, (int)position.Y, width, height);
                 //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
                 if (!colliding) spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
                 else spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.IndianRed);
