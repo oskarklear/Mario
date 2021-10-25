@@ -1,10 +1,11 @@
 ﻿using Mario.Sprites;
 using Mario.Sprites.Items;
-using Mario.Sprites.Items.Items;
+using Mario.Sprites.Items;
 using Mario.Sprites.Enemies;
 using Mario.Sprites.Mario;
 using Mario.States;
 using Mario.Map;
+using Mario.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -30,15 +31,17 @@ namespace Mario
         IController gp1;
         Level map;
         public Camera camera;
-        
-        
-        
+        public DynamicEntities entities;
+
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
+            entities = new DynamicEntities();
         }
 
         protected override void Initialize()
@@ -73,7 +76,7 @@ namespace Mario
 
             foreach(ISprite sprite in map.CollisionObjs)
             {
-                map.Mario.Collision(sprite, 3904, MAPH);
+                map.Mario.Collision(sprite, MAPW, MAPH);
 
                 if (sprite is BlockContext)
                     sprite.Collision(map.Mario, MAPW, MAPH);
@@ -83,10 +86,29 @@ namespace Mario
                     sprite.ShowHitbox = false;
             }
 
+            foreach(ISprite sprite in entities.entityObjs)
+            {
+                map.Mario.Collision(sprite, MAPW, MAPH);
+                if (sprite is BlockContext)
+                    sprite.Collision(map.Mario, MAPW, MAPH);
+                if (map.Mario.context.ShowHitbox)
+                    sprite.ShowHitbox = true;
+                else
+                    sprite.ShowHitbox = false;
+                /*foreach(ISprite extra in map.CollisionObjs)
+                {
+                    sprite.Collision(extra, MAPW, MAPH);
+                    extra.Collision(sprite, MAPW, MAPH);
+                }*/
+            }
+
             map.Update();
+            entities.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());
             //camera.LookAt(map.Mario.position);
+            //System.Diagnostics.Debug.WriteLine("LIST SIZE: " + entities.entityObjs.Count);
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -96,6 +118,8 @@ namespace Mario
             spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -250), Color.White);
             spriteBatch.End();
             map.Draw(spriteBatch);
+            entities.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
 

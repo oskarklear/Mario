@@ -113,7 +113,7 @@ namespace Mario.Sprites
             timeSinceLastFrame++;
         }
 
-        public void Collision(ISprite collider, int xoffset, int yoffset)
+        public void Collision(ISprite collider)
         {
 
         }
@@ -168,6 +168,7 @@ namespace Mario.Sprites
 
     public class QuestionBlockSprite : BlockSprite
     {
+        Boolean redMushroomActive;
         public QuestionBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
 
@@ -185,6 +186,18 @@ namespace Mario.Sprites
             Context = context;
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 10;
+            redMushroomActive = false;
+
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (redMushroomActive)
+            {
+
+            }
+
+            base.Draw(spriteBatch);
         }
     }
     public class UsedBlockSprite : BlockSprite

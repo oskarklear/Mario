@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Mario.Sprites.Enemies;
 using Mario.Sprites.Items;
-using Mario.Sprites.Items.Items;
+using Mario.Sprites.Items;
 using Mario.States;
 using Mario.Movement;
 using Microsoft.Xna.Framework;
@@ -362,9 +362,9 @@ namespace Mario.Sprites.Mario
             }
         }
 
-        public void Collision(ISprite collider, int xOffset, int yOffset)
+        public void Collision(ISprite collider)
         {
-            //Blocks
+            
             if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa)
             {
                 if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))
@@ -390,12 +390,12 @@ namespace Mario.Sprites.Mario
                         //System.Diagnostics.Debug.WriteLine("mario hit the top of something");
                         colliding = true;
                         if (collider is Goomba || collider is Koopa)
-                            collider.Collision(null, -1, -1);
+                            collider.Collision(null);
                         context.isTouchingTop = true;
                     }
                     if (hitbox.TouchLeftOf(collider.Hitbox))
                     {
-                        hitbox.X = collider.Hitbox.X - hitbox.Width - 4;
+                        hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
                         //System.Diagnostics.Debug.WriteLine("mario hit the left of something");
                         colliding = true;
@@ -406,7 +406,7 @@ namespace Mario.Sprites.Mario
                     if (hitbox.TouchRightOf(collider.Hitbox))
                     {
                         if (!(collider is Pipe))
-                            hitbox.X = collider.Hitbox.X + hitbox.Width + 20;
+                            hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
                         else
                             hitbox.X = collider.Hitbox.X + (hitbox.Width + 4);
                         position.X = hitbox.X;
@@ -436,29 +436,29 @@ namespace Mario.Sprites.Mario
                 {
                     if (collider is FireFlower)
                     {
-                        collider.Collision(null, -1, -1);
+                        collider.Collision(null);
                         context.GetFireFlower();
                         colliding = true;
                     }
                     else if (collider is RedMushroom)
                     {
-                        collider.Collision(null, -1, -1);
+                        collider.Collision(null);
                         context.GetMushroom();
                         colliding = true;
                     }
-                    else if (collider is Coin)
+                    else if (collider is MapCoin)
                     {
-                        collider.Collision(null, -1, -1);
+                        collider.Collision(null);
                         colliding = true;
                     }
                     else if (collider is GreenMushroom)
                     {
-                        collider.Collision(null, -1, -1);
+                        collider.Collision(null);
                         colliding = true;
                     }
                     else if (collider is Star)
                     {
-                        collider.Collision(null, -1, -1);
+                        collider.Collision(null);
                         colliding = true;
                     }
                 }
@@ -469,17 +469,17 @@ namespace Mario.Sprites.Mario
             if (position.X < 0)
                 position.X = 0;
 
-            if (position.X > xOffset - hitbox.Width)
-                position.X = xOffset - hitbox.Width;
+            if (position.X > 3584 - hitbox.Width)
+                position.X = 3584 - hitbox.Width;
 
             if (position.Y < 0)
                 position.Y = 0;
 
-            if (position.Y > yOffset-hitbox.Height)
+            if (position.Y > 272 - hitbox.Height)
             {
                 System.Diagnostics.Debug.WriteLine("Dead");
                 context.DieInPit();
-                position.Y = yOffset - hitbox.Height;
+                position.Y = 272 - hitbox.Height;
             }
         }
     }

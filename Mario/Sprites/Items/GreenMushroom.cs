@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Mario.Sprites.Mario;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,7 +13,11 @@ namespace Mario.Sprites.Items
     {
         Texture2D texture;
         Vector2 position;
+        int endPosition;
         bool obtained;
+        SuperMario superMario;
+        bool direction;
+        bool useGravity;
         private bool showHitbox;
         public bool ShowHitbox
         {
@@ -25,13 +30,17 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
-        public GreenMushroom(Game1 theatre, Vector2 location)
+        public GreenMushroom(Game1 theatre, Vector2 location, SuperMario mario)
         {
-            texture = theatre.Content.Load<Texture2D>("items/green_mushroom");
             position = location;
+            endPosition = (int)position.Y - 13;
+            texture = theatre.Content.Load<Texture2D>("items/green_mushroom");
             obtained = false;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
             showHitbox = false;
+            superMario = mario;
+            direction = mario.position.X < position.X ? true : false;
+            useGravity = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -59,12 +68,48 @@ namespace Mario.Sprites.Items
 
         public void Update()
         {
+            System.Diagnostics.Debug.WriteLine("useGravity: " + useGravity);
+            System.Diagnostics.Debug.WriteLine("Y-position: " + position.Y);
+            System.Diagnostics.Debug.WriteLine("X-position: " + position.X);
+            if (position.Y > endPosition)
+            {
+                position.Y -= 1;
+                hitbox.Y -= 1;
+            }
+            else if (direction)
+            {
+                position.X += 1;
+                hitbox.X += 1;
+            }
+            else
+            {
+                position.X -= 1;
+                hitbox.X -= 1;
+            }
 
+            if (useGravity)
+            {
+                position.Y += 2;
+                hitbox.Y += 2;
+            }
         }
-        public void Collision(ISprite collider, int xoffset, int yoffset)
+
+        public void Collision(ISprite collider)
         {
             obtained = true;
-            hitbox = new Rectangle(-1, -1, 0, 0);
+            if (collider is SuperMario)
+            {
+                hitbox = new Rectangle(-1, -1, 0, 0);
+            }
+/*            else if (!Hitbox.TouchTopOf(collider.Hitbox))
+            {
+                useGravity = true;
+            }
+            else
+            {
+                useGravity = false;
+            }*/
+            
         }
        
     }

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mario.Sprites.Items.Items
+namespace Mario.Sprites.Items
 {
     class FireFlower : ISprite
     {
@@ -16,6 +16,7 @@ namespace Mario.Sprites.Items.Items
         int Columns;
         Texture2D texture;
         Vector2 position;
+        int endPosition;
         bool obtained;
         private bool showHitbox;
         public bool ShowHitbox
@@ -36,6 +37,7 @@ namespace Mario.Sprites.Items.Items
             currentFrame = 0;
             Columns = 2;
             position = location;
+            endPosition = (int)position.Y - 15;
             texture = theatre.Content.Load<Texture2D>("items/fire_flower");
             obtained = false;
             showHitbox = false;
@@ -82,9 +84,15 @@ namespace Mario.Sprites.Items.Items
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
+
+            if (position.Y > endPosition)
+            {
+                position.Y -= 1;
+                hitbox.Y -= 1;
+            }
         }
 
-        public void Collision(ISprite collider, int xoffset, int yoffset)
+        public void Collision(ISprite collider)
         {
             obtained = true;
             hitbox = new Rectangle(-1, -1, 0, 0);

@@ -28,9 +28,9 @@ namespace Mario
 
         Level map;
         private MarioContext context;
-        private BlockContext questionBlockContext;
-        private BlockContext hiddenBlockContext;
-        private BlockContext brickBlockContext;
+        //private BlockContext questionBlockContext;
+        //private BlockContext hiddenBlockContext;
+        //private BlockContext brickBlockContext;
         //public MovementCommand Fireball { get; set; }
         public KeyboardInput(Level map)
         {
@@ -41,9 +41,9 @@ namespace Mario
             IdleCommand = new IdleCommand(map.Mario);
             ActivateIdle = new ActivateIdle(map.Mario);
             context = map.Mario.context;
-            QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
-            HiddenBumpCommand = new BumpCommand(hiddenBlockContext, context);
-            BrickBumpCommand = new BumpCommand(brickBlockContext, context);
+            //QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
+            //HiddenBumpCommand = new BumpCommand(hiddenBlockContext, context);
+            //BrickBumpCommand = new BumpCommand(brickBlockContext, context);
             this.map = map;
         }
         private List<Input> GetInput()
@@ -160,7 +160,7 @@ namespace Mario
                         }
                         break;
 
-                    case (int)Keys.OemQuestion:
+/*                    case (int)Keys.OemQuestion:
                         QuestionBumpCommand.Execute();
                         break;
 
@@ -170,7 +170,7 @@ namespace Mario
 
                     case (int)Keys.B:
                         BrickBumpCommand.Execute();
-                        break;
+                        break;*/
 
                     // Game Exit
                     case (int)Keys.Q:

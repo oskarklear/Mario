@@ -11,17 +11,27 @@ namespace Mario.Sprites.Items
     
     class RedMushroom : ISprite
     {
-        Game1 Theatre;
+        //Game1 Theatre;
         Texture2D texture;
         //Texture2D hitboxTexture;
-        Vector2 position;
+        public Vector2 position;
+        int endPosition;
+        //Vector2 velocity;
         bool obtained;
+        SuperMario superMario;
+        bool direction;
+        //MarioContext context;
+        //Boolean isActive;
         Rectangle hitbox;
         public Rectangle Hitbox 
         {
             get { return hitbox; }
         
         }
+/*        public bool Obtained
+        {
+            get { return obtained; }
+        }*/
         private bool showHitbox;
         public bool ShowHitbox
         {
@@ -29,47 +39,79 @@ namespace Mario.Sprites.Items
             set { showHitbox = value; }
         }
 
-        public RedMushroom(Game1 theatre, Vector2 location)
+        public RedMushroom(Game1 theatre, Vector2 location, SuperMario mario)
         {
             position = location;
-            Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("items/red_mushroom");
+            endPosition = (int)position.Y - 15;
+            //Theatre = theatre;
+            texture = theatre.Content.Load<Texture2D>("items/red_mushroom");
             obtained = false;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 18, 18);
             showHitbox = false;
+            superMario = mario;
+            direction = mario.position.X > position.X ? true : false;
+            //isActive = false;
+            //mario = new SuperMario(theatre, mario.position, context);
             
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (!obtained)
-            {
-                spriteBatch.Draw(texture, position, Color.White);
-                if (showHitbox)
+            //if (isActive)
+            //{
+                if (!obtained)
                 {
-                    Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
-                    Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
-                    Color[] dataW = new Color[hitbox.Width];
-                    for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Green;
-                    Color[] dataH = new Color[hitbox.Height];
-                    for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Green;
-                    hitboxTextureW.SetData(dataW);
-                    hitboxTextureH.SetData(dataH);
-                    spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                    spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
-                    spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                    spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
+                    spriteBatch.Draw(texture, position, Color.White);
+
+                    if (showHitbox)
+                    {
+                        Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
+                        Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
+                        Color[] dataW = new Color[hitbox.Width];
+                        for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Green;
+                        Color[] dataH = new Color[hitbox.Height];
+                        for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Green;
+                        hitboxTextureW.SetData(dataW);
+                        hitboxTextureH.SetData(dataH);
+                        spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                        spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
+                        spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                        spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
+                    }
                 }
-            }
-            
+            //}
         }
 
         public void Update()
         {
-            if (obtained)
-                hitbox = new Rectangle(-1, -1, 0, 0);
+            //if (obtained)
+             //   hitbox = new Rectangle(-1, -1, 0, 0);
+            //if (mario.position.X < position.X)
+            //{
+            //System.Diagnostics.Debug.WriteLine("Y-position: " + position.Y);
+            //System.Diagnostics.Debug.WriteLine("EndPosition: " + endPosition);
+            if (position.Y > endPosition)
+            {
+                position.Y -= 1;
+                hitbox.Y -= 1;
+            }
+            else if (direction)
+            {
+                position.X += 1;
+                hitbox.X += 1;
+            } 
+            else
+            {
+                position.X -= 1;
+                hitbox.X -= 1;
+            }
         }
 
-        public void Collision(ISprite collider, int xoffset, int yoffset)
+        private void MoveLeft(Vector2 velocity, Vector2 position)
+        {
+
+        }
+
+        public void Collision(ISprite collider)
         {
             obtained = true;
             hitbox = new Rectangle(-1, -1, 0, 0);
