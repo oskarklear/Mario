@@ -24,6 +24,10 @@ namespace Mario.Sprites.Items
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         Rectangle hitbox;
         public Rectangle Hitbox
         {

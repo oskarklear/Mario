@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Mario.Sprites.Enemies;
 using Mario.Sprites.Items;
-using Mario.Sprites.Items;
 using Mario.States;
 using Mario.Movement;
 using Microsoft.Xna.Framework;
@@ -28,6 +27,10 @@ namespace Mario.Sprites.Mario
         Texture2D texture;
         Game1 Theatre;
         public Vector2 position;
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         Rectangle hitbox;
         public Kinematics kinematics;
         public bool ShowHitbox
@@ -325,6 +328,7 @@ namespace Mario.Sprites.Mario
                     context.jumpHeight = 0;
                 context.isFalling = false;
             }   
+
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             else
@@ -479,7 +483,7 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is RedMushroom)
                     {
-                        collider.Collision(null);
+                        collider.Collision(this);
                         context.GetMushroom();
                     }
                     else if (collider is MapCoin)

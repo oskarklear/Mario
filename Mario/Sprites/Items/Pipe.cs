@@ -24,6 +24,10 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         public Pipe(Game1 theatre, Vector2 location)
         {
             position = location;

@@ -25,6 +25,10 @@ namespace Mario.Sprites.Items
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public Vector2 Position
+        {
+            get { return position; }
+        }
 
         public Bush(Game1 theatre, Vector2 location)
         {
