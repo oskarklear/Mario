@@ -17,7 +17,9 @@ namespace Mario.States
         public override void Enter(IMarioActionState previousActionState)
         {
             if (previousActionState is JumpingState)
-
+            {
+                marioContext.jumped = true;
+            }
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
             marioContext.isFalling = true;
@@ -88,10 +90,14 @@ namespace Mario.States
         public override void FaceLeftDiscontinueTransition()
         {
             kinematics.XDecelerateToRight(marioContext);
+            if (marioContext.isTouchingTop)
+                StandingTransition();
         }
         public override void FaceRightDiscontinueTransition()
         {
             kinematics.XDecelerateToLeft(marioContext);
+            if (marioContext.isTouchingTop)
+                StandingTransition();
         }
         public override void RunningDiscontinueTransition()
         {

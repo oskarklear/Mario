@@ -43,17 +43,21 @@ namespace Mario.States
 
         public override void RunningTransition()
         {
-            //Does nothing, we're already in running state
+            //Does nothing
         }
 
         public override void JumpingTransition()
         {
-            marioContext.jumpingState.Enter(this);
+            if (!marioContext.jumped)
+                marioContext.jumpingState.Enter(this);
         }
 
         public override void FallingTransition()
         {
-            CrouchingTransition();
+            if (marioContext.isTouchingTop)
+                CrouchingTransition();
+            else
+                marioContext.fallingState.Enter(this);
         }
 
         public override void FaceLeftTransition()
@@ -69,7 +73,10 @@ namespace Mario.States
                     marioContext.idleState.Enter(this);
                 else
                     kinematics.AccelerateLeft(marioContext);
-            }        
+            }
+
+            if (!marioContext.isTouchingTop)
+                FallingTransition();
         }
         public override void FaceRightTransition()
         {
@@ -84,6 +91,9 @@ namespace Mario.States
                 else
                     kinematics.AccelerateRight(marioContext);
             }
+
+            if (!marioContext.isTouchingTop)
+                FallingTransition();
         }
 
         public override void CrouchingDiscontinueTransition()
@@ -116,7 +126,7 @@ namespace Mario.States
 
         public override void JumpingDiscontinueTransition()
         {
-            //Does nothing
+            marioContext.jumped = false;
         }
         public override string ToString()
         {
