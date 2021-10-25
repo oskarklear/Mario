@@ -332,7 +332,7 @@ namespace Mario.Sprites.Mario
                 int column = currentFrame % Columns;
 
                 Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-                Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                Rectangle destinationRectangle = new Rectangle((int)position.X - 7, (int)position.Y, width, height);
                 //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
                 if (!colliding) spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
                 else spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.IndianRed);
