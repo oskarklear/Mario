@@ -438,7 +438,7 @@ namespace Mario.Sprites.Mario
                     if (hitbox.TouchRightOf(collider.Hitbox))
                     {
                         if (!(collider is Pipe))
-                            hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
+                            hitbox.X = collider.Hitbox.X + hitbox.Width + 5;
                         else
                             hitbox.X = collider.Hitbox.X + (hitbox.Width + 4);
                         position.X = hitbox.X;

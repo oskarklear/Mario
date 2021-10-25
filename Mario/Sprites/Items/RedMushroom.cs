@@ -160,7 +160,7 @@ namespace Mario.Sprites.Items
 
                     if (hitbox.TouchLeftOf(collider.Hitbox))
                     {
-                        hitbox.X = collider.Hitbox.X - hitbox.Width;
+                        hitbox.X = collider.Hitbox.X - hitbox.Width - 1;
                         position.X = hitbox.X;
                         direction = !direction;
                     }
