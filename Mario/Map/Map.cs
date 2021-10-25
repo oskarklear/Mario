@@ -25,6 +25,11 @@ namespace Mario.Map
         {
             get { return collisionObjs; }
         }
+        private List<RedMushroom> redMushroomObjs = new List<RedMushroom>();
+        private List<GreenMushroom> greenMushroomObjs = new List<GreenMushroom>();
+        private List<FireFlower> fireFlowerObjs = new List<FireFlower>();
+        int numOfRedMushrooms = 0;
+
         private Game1 theatre;
         public Game1 Theatre
         {
@@ -109,10 +114,11 @@ namespace Mario.Map
                                 fireFlowerQuestionBlock.SetState(new FireFlowerQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(fireFlowerQuestionBlock);
                                 break;
-
-
-
-
+                            case 15: //Star Question Block
+                                BlockContext starQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                starQuestionBlock.SetState(new StarQuestionBlockState());
+                                collisionZones[(i * BLOCK) / 256].Add(starQuestionBlock);
+                                break;
                             case 16: //Coin Question Block
                                 BlockContext coinQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 coinQuestionBlock.SetState(new CoinQuestionBlockState());
@@ -235,6 +241,12 @@ namespace Mario.Map
                 else
                     sprite.ShowHitbox = false;
             }
+
+            foreach (ISprite sprite in collisionZones[(int)(mario.position.X / 256)])
+            {
+
+            }
+
             //Zone ahead of Mario
             if (mario.position.X < 3328)
             {
@@ -260,8 +272,9 @@ namespace Mario.Map
             foreach (ISprite sprite in entities.entityObjs)
             {
                 mario.Collision(sprite);
-                if (sprite is BlockContext)
-                    sprite.Collision(mario);
+                //if (sprite is BlockContext)
+                    //sprite.Collision(mario);
+                
                 if (mario.context.ShowHitbox)
                     sprite.ShowHitbox = true;
                 else
@@ -272,6 +285,23 @@ namespace Mario.Map
                     extra.Collision(sprite, MAPW, MAPH);
                 }*/
             }
+
+            foreach (ISprite sprite in entities.entityObjs)
+            {
+                //sprite.Collision(mario);
+                foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
+                {
+                    if (block is BlockContext)
+                    {
+                        sprite.Collision(block);
+                        block.Collision(sprite);
+                        if (mario.context.ShowHitbox)
+                            sprite.ShowHitbox = true;
+                        else sprite.ShowHitbox = false;
+                    }
+                }
+            }
+
 
             entities.Update();
         }

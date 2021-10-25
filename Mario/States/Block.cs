@@ -17,11 +17,16 @@ namespace Mario.States
 		BlockState oldState;
 		BlockSprite sprite;
 		Vector2 Location;
+		Vector2 position;
 		private bool showHitbox;
 		public bool ShowHitbox
 		{
 			get { return showHitbox; }
 			set { showHitbox = value; }
+		}
+		public Vector2 Position
+		{
+			get { return position; }
 		}
 		Game1 Theatre;
 		//Level level;
@@ -174,7 +179,8 @@ namespace Mario.States
 					System.Diagnostics.Debug.WriteLine(sprite.ToString());
 					System.Diagnostics.Debug.WriteLine(mario.ToString());
 					state.Bump(this, mario.context, sprite, entities, mario);
-				}					
+				}
+				//if (collider is RedMushroom || collider is GreenMushroom || collider is )
             }
         }
 	}
