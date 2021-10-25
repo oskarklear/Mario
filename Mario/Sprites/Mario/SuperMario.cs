@@ -24,7 +24,7 @@ namespace Mario.Sprites.Mario
         private int currentFrame;
         private int timeSinceLastFrame;
         private int millisecondsPerFrame;
-        bool colliding;
+        int delay;
         Texture2D texture;
         Game1 Theatre;
         public Vector2 position;
@@ -54,8 +54,8 @@ namespace Mario.Sprites.Mario
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
-            colliding = false;
             kinematics = new Kinematics();
+            delay = 100;
         }
 
         public void MoveLeftCommand()
@@ -352,15 +352,12 @@ namespace Mario.Sprites.Mario
                 Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
                 Rectangle destinationRectangle = new Rectangle((int)position.X - 7, (int)position.Y, width, height);
                 //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
-                if (!colliding) spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
-                else spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.IndianRed);
-
+                spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
             }
             else
             {
                 //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
-                if (!colliding) spriteBatch.Draw(texture, position, Color.White);
-                else spriteBatch.Draw(texture, position, Color.IndianRed);
+                spriteBatch.Draw(texture, position, Color.White);
             }
 
             if (ShowHitbox)
@@ -391,9 +388,6 @@ namespace Mario.Sprites.Mario
                     {
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height;
                         position.Y = hitbox.Y;
-                        if (collider is Goomba || collider is Koopa)
-                            context.TakeDamage();
-                        colliding = true;
                         //System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                     }
 
@@ -406,9 +400,10 @@ namespace Mario.Sprites.Mario
                         position.Y = hitbox.Y;
                         context.Velocity.Y = 0f;
                         //System.Diagnostics.Debug.WriteLine("mario hit the top of something");
-                        colliding = true;
                         if (collider is Goomba || collider is Koopa)
-                            collider.Collision(null);
+                        {
+                            context.TakeDamage();
+                        }
                         context.isTouchingTop = true;
                     }
                     if (hitbox.TouchLeftOf(collider.Hitbox))
@@ -416,9 +411,10 @@ namespace Mario.Sprites.Mario
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
                         //System.Diagnostics.Debug.WriteLine("mario hit the left of something");
-                        colliding = true;
                         if (collider is Goomba || collider is Koopa)
+                        {
                             context.TakeDamage();
+                        }
                         context.isTouchingLeft = true;
                     }
                     if (hitbox.TouchRightOf(collider.Hitbox))
@@ -428,10 +424,11 @@ namespace Mario.Sprites.Mario
                         else
                             hitbox.X = collider.Hitbox.X + (hitbox.Width + 4);
                         position.X = hitbox.X;
-                        colliding = true;
                         //System.Diagnostics.Debug.WriteLine("mario hit the right of something");
                         if (collider is Goomba || collider is Koopa)
+                        {
                             context.TakeDamage();
+                        }
                         context.isTouchingRight = true;
                     }
                     if (hitbox.TouchBottomOf(collider.Hitbox))
@@ -439,8 +436,9 @@ namespace Mario.Sprites.Mario
                         hitbox.Y = collider.Hitbox.Y + hitbox.Height;
                         position.Y = hitbox.Y;
                         if (collider is Goomba || collider is Koopa)
+                        {
                             context.TakeDamage();
-                        colliding = true;
+                        }
                         //System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                         context.isTouchingBottom = true;
                     }
@@ -456,32 +454,25 @@ namespace Mario.Sprites.Mario
                     {
                         collider.Collision(null);
                         context.GetFireFlower();
-                        colliding = true;
                     }
                     else if (collider is RedMushroom)
                     {
                         collider.Collision(null);
                         context.GetMushroom();
-                        colliding = true;
                     }
                     else if (collider is MapCoin)
                     {
                         collider.Collision(null);
-                        colliding = true;
                     }
                     else if (collider is GreenMushroom)
                     {
                         collider.Collision(null);
-                        colliding = true;
                     }
                     else if (collider is Star)
                     {
                         collider.Collision(null);
-                        colliding = true;
                     }
                 }
-                else
-                    colliding = false;
             }
 
             if (position.X < 0)
