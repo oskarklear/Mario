@@ -328,7 +328,12 @@ namespace Mario.Sprites.Mario
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             else
-                hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 28);
+            {
+                if (context.GetActionState().ToString().Equals("CrouchingState"))
+                    hitbox = new Rectangle((int)position.X, (int)position.Y + 12, 15, 15);
+                else
+                    hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 28);
+            }
 
             //Reset collision
             context.isTouchingTop = false;
