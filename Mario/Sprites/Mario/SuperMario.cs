@@ -316,7 +316,6 @@ namespace Mario.Sprites.Mario
                 }                
                 if (context.Velocity.Y < 0)
                 {
-                    System.Diagnostics.Debug.WriteLine("WHY ARE U FALLING");
                     context.isFalling = true;
                 }
             }

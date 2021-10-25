@@ -50,19 +50,16 @@ namespace Mario.States
             System.Diagnostics.Debug.WriteLine("HEIGHT: " + marioContext.jumpHeight);
             if (marioContext.jumpHeight > 10 || marioContext.isTouchingBottom)
             {
-                System.Diagnostics.Debug.WriteLine("WHY");
                 FallingTransition();
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("Accelerateup");
                 kinematics.AccelerateUp(marioContext); 
             }
         }
 
         public override void FallingTransition()
         {
-            System.Diagnostics.Debug.WriteLine("FallingTransition");
             marioContext.fallingState.Enter(this);
         }    
 
@@ -108,12 +105,10 @@ namespace Mario.States
             {
                 if (marioContext.jumpHeight < 8 && !marioContext.isFalling)
                 {
-                    System.Diagnostics.Debug.WriteLine("TEMP");
                     JumpingTransition();
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("HELLO: " + marioContext.isFalling);
                     FallingTransition();
                 }
             }

@@ -25,8 +25,8 @@ namespace Mario.Entities
                 obj.Update();
                 if (obj is RedMushroom)
                 {
-                    System.Diagnostics.Debug.WriteLine(obj.ToString());
-                    System.Diagnostics.Debug.WriteLine("Hitbox: " + obj.Hitbox);
+                    //System.Diagnostics.Debug.WriteLine(obj.ToString());
+                    //System.Diagnostics.Debug.WriteLine("Hitbox: " + obj.Hitbox);
                     //System.Diagnostics.Debug.WriteLine("Obtained: " + (RedMushroom)obj.Obtained);
                 }
             }

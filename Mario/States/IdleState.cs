@@ -96,6 +96,7 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
+            System.Diagnostics.Debug.WriteLine("Facing left: " + marioContext.facingLeft);
             kinematics.IdleXDecelerate(marioContext);
         }
 
