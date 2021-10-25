@@ -119,7 +119,7 @@ namespace Mario
             spriteBatch.End();
             map.Draw(spriteBatch);
             //entities.Draw(spriteBatch);
-            spriteBatch.End();
+            //spriteBatch.End();
             base.Draw(gameTime);
         }
 

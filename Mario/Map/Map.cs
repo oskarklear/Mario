@@ -55,6 +55,7 @@ namespace Mario.Map
         public Level(Game1 theatre)
         {
             this.theatre = theatre;
+            entities = new DynamicEntities();
             map = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
             reset = false;
             camera = new Camera(theatre.Graphics.GraphicsDevice.Viewport);
@@ -196,11 +197,12 @@ namespace Mario.Map
                 foreach (ISprite obj in collisionZones[i])
                     obj.Draw(spriteBatch);
             }
+            entities.Draw(spriteBatch);
             spriteBatch.End();
             bgLayerNear.Draw(spriteBatch);
             bgLayerMid.Draw(spriteBatch);
             bgLayerFar.Draw(spriteBatch);
-            entities.Draw(spriteBatch);
+            
 
         }
         public void Update()
