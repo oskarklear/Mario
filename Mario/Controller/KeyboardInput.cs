@@ -7,6 +7,7 @@ using Mario.Sprites.Mario;
 using Mario.States;
 using Mario.Sprites;
 using System.Windows.Input;
+using Mario.Map;
 
 namespace Mario
 {
@@ -25,24 +26,25 @@ namespace Mario
         public ICommand HiddenBumpCommand { get; set; }
         public ICommand BrickBumpCommand { get; set; }
 
-
+        Level map;
         private MarioContext context;
         //private BlockContext questionBlockContext;
         //private BlockContext hiddenBlockContext;
         //private BlockContext brickBlockContext;
         //public MovementCommand Fireball { get; set; }
-        public KeyboardInput(SuperMario mario)
+        public KeyboardInput(Level map)
         {
-            MoveLeftCommand = new MoveLeftCommand(mario);
-            MoveRightCommand = new MoveRightCommand(mario);
-            JumpCommand = new JumpCommand(mario);
-            CrouchCommand = new CrouchCommand(mario);
-            IdleCommand = new IdleCommand(mario);
-            ActivateIdle = new ActivateIdle(mario);
-            context = mario.context;
+            MoveLeftCommand = new MoveLeftCommand(map.Mario);
+            MoveRightCommand = new MoveRightCommand(map.Mario);
+            JumpCommand = new JumpCommand(map.Mario);
+            CrouchCommand = new CrouchCommand(map.Mario);
+            IdleCommand = new IdleCommand(map.Mario);
+            ActivateIdle = new ActivateIdle(map.Mario);
+            context = map.Mario.context;
             //QuestionBumpCommand = new BumpCommand(questionBlockContext, context);
             //HiddenBumpCommand = new BumpCommand(hiddenBlockContext, context);
             //BrickBumpCommand = new BumpCommand(brickBlockContext, context);
+            this.map = map;
         }
         private List<Input> GetInput()
         {
@@ -210,6 +212,11 @@ namespace Mario
                     //Show Hitboxes
                     case (int)Keys.C:
                         context.ToggleHitbox();
+                        break;
+
+                    //Reset
+                    case (int)Keys.R:
+                        map.Reset();
                         break;
                 }
             }

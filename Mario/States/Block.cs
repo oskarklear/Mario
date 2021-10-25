@@ -159,7 +159,7 @@ namespace Mario.States
 
 		}
 
-        public void Collision(ISprite collider, int xOffset, int yOffset)
+        public void Collision(ISprite collider)
         {
 			
 			if (Hitbox.TouchTopOf(collider.Hitbox))

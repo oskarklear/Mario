@@ -5,6 +5,7 @@ using Mario.Sprites.Enemies;
 using Mario.Sprites.Items;
 using Mario.Sprites.Items;
 using Mario.States;
+using Mario.Movement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,7 +26,7 @@ namespace Mario.Sprites.Mario
         Game1 Theatre;
         public Vector2 position;
         Rectangle hitbox;
-
+        public Kinematics kinematics;
         public bool ShowHitbox
         {
             get { return context.ShowHitbox; }
@@ -51,6 +52,7 @@ namespace Mario.Sprites.Mario
             texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             colliding = false;
+            kinematics = new Kinematics();
         }
 
         public void MoveLeftCommand()
@@ -158,7 +160,7 @@ namespace Mario.Sprites.Mario
                             texture = Theatre.Content.Load<Texture2D>("mario/smallRunningMarioL");
                         else
                             texture = Theatre.Content.Load<Texture2D>("mario/smallRunningMarioR");
-                        Columns = 2;
+                        Columns = 3;
                         animated = true;
                         break;
                 }
@@ -280,15 +282,32 @@ namespace Mario.Sprites.Mario
             //set mario's new pos
             position.X += context.Velocity.X;
             position.Y -= context.Velocity.Y;
+            //If mario moves to the right or left, he cannot be touching anything
             if (Math.Abs(context.Velocity.X) > 0 || Math.Abs(context.Velocity.Y) > 0)
             {
                 context.isTouchingLeft = false;
                 context.isTouchingRight = false;
             }
+            //If mario is not touching ground, GRAVITY
+            if (!context.isTouchingTop)
+            {
+                kinematics.AccelerateDown(context);
+                if (context.Velocity.Y > 0)
+                    context.isFalling = true;
+            }
+            else
+            {
+                context.height = 0;
+                context.isFalling = false;
+            }
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             else
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 28);
+
+            //Reset collision
+            context.isTouchingTop = false;
+            context.isTouchingBottom = false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -331,9 +350,9 @@ namespace Mario.Sprites.Mario
             }
         }
 
-        public void Collision(ISprite collider, int xOffset, int yOffset)
+        public void Collision(ISprite collider)
         {
-            //Blocks
+            
             if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa)
             {
                 if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))
@@ -359,11 +378,12 @@ namespace Mario.Sprites.Mario
                         //System.Diagnostics.Debug.WriteLine("mario hit the top of something");
                         colliding = true;
                         if (collider is Goomba || collider is Koopa)
-                            collider.Collision(null, -1, -1);
+                            collider.Collision(null);
+                        context.isTouchingTop = true;
                     }
                     if (hitbox.TouchLeftOf(collider.Hitbox))
                     {
-                        hitbox.X = collider.Hitbox.X - hitbox.Width - 4;
+                        hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
                         //System.Diagnostics.Debug.WriteLine("mario hit the left of something");
                         colliding = true;
@@ -374,7 +394,7 @@ namespace Mario.Sprites.Mario
                     if (hitbox.TouchRightOf(collider.Hitbox))
                     {
                         if (!(collider is Pipe))
-                            hitbox.X = collider.Hitbox.X + hitbox.Width + 20;
+                            hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
                         else
                             hitbox.X = collider.Hitbox.X + (hitbox.Width + 4);
                         position.X = hitbox.X;
@@ -391,7 +411,8 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba || collider is Koopa)
                             context.TakeDamage();
                         colliding = true;
-                        //System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                        System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                        context.isTouchingBottom = true;
                     }
                 }
             }
@@ -403,29 +424,29 @@ namespace Mario.Sprites.Mario
                 {
                     if (collider is FireFlower)
                     {
-                        collider.Collision(null, -1, -1);
+                        collider.Collision(null);
                         context.GetFireFlower();
                         colliding = true;
                     }
                     else if (collider is RedMushroom)
                     {
-                        collider.Collision(null, -1, -1);
+                        collider.Collision(null);
                         context.GetMushroom();
                         colliding = true;
                     }
                     else if (collider is MapCoin)
                     {
-                        collider.Collision(null, -1, -1);
+                        collider.Collision(null);
                         colliding = true;
                     }
                     else if (collider is GreenMushroom)
                     {
-                        collider.Collision(null, -1, -1);
+                        collider.Collision(null);
                         colliding = true;
                     }
                     else if (collider is Star)
                     {
-                        collider.Collision(null, -1, -1);
+                        collider.Collision(null);
                         colliding = true;
                     }
                 }
@@ -436,14 +457,18 @@ namespace Mario.Sprites.Mario
             if (position.X < 0)
                 position.X = 0;
 
-            if (position.X > xOffset - hitbox.Width)
-                position.X = xOffset - hitbox.Width;
+            if (position.X > 3584 - hitbox.Width)
+                position.X = 3584 - hitbox.Width;
 
             if (position.Y < 0)
                 position.Y = 0;
 
-            if (position.Y > yOffset - hitbox.Height)
-                position.Y = yOffset - hitbox.Height;
+            if (position.Y > 272 - hitbox.Height)
+            {
+                System.Diagnostics.Debug.WriteLine("Dead");
+                context.DieInPit();
+                position.Y = 272 - hitbox.Height;
+            }
         }
     }
 }

@@ -18,17 +18,23 @@ namespace Mario
 {
     public class Game1 : Game
     {
-        private const int MAPH = 608;
+        private const int MAPH = 272;
         private const int MAPW = 800;
         private GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager Graphics
+        {
+            get { return graphics; }
+        }
         private SpriteBatch spriteBatch;
         public bool IsMenuVisible;
         IController kb;
         IController gp1;
-        string [][] mapArray;
         Level map;
+        public Camera camera;
         public DynamicEntities entities;
-        
+
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -43,19 +49,19 @@ namespace Mario
             graphics.PreferredBackBufferWidth = MAPW;
             graphics.PreferredBackBufferHeight = MAPH;
             graphics.ApplyChanges();
-            map = new Level();
-            map.Theatre = this;
+            map = new Level(this);
             base.Initialize();
+            //camera.Limits = new Rectangle(0, 0, 3584, 272);
         }
 
         protected override void LoadContent()
         {
-            mapArray = File.ReadLines("map.csv").Select(x => x.Split(',')).ToArray();
-            map.GenerateMap(mapArray);
+            //camera = new Camera(graphics.GraphicsDevice.Viewport);
+            map.GenerateMap();
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            kb = new KeyboardInput(map.Mario) { GameObj = this };
+            kb = new KeyboardInput(map) { GameObj = this };
             gp1 = new GamepadInput(map.Mario) { GameObj = this };
         }
 
@@ -100,17 +106,17 @@ namespace Mario
             entities.Update();
             base.Update(gameTime);
             System.Diagnostics.Debug.WriteLine(map.Mario.context.GetActionState().ToString());
+            //camera.LookAt(map.Mario.position);
             //System.Diagnostics.Debug.WriteLine("LIST SIZE: " + entities.entityObjs.Count);
+
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(.2f)));
             spriteBatch.Draw(Content.Load<Texture2D>("bg"), new Vector2(0, -250), Color.White);
-            foreach (ISprite obj in map.bgObjects)
-                obj.Draw(spriteBatch);
-            map.Mario.Draw(spriteBatch);
+            spriteBatch.End();
             map.Draw(spriteBatch);
             entities.Draw(spriteBatch);
             spriteBatch.End();

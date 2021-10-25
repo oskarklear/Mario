@@ -8,6 +8,8 @@ namespace Mario.States
 		public abstract void GetMushroom(MarioContext context);
 		public abstract void GetFireFlower(MarioContext context);
 
+        public abstract void DieInPit(MarioContext context);
+
 	}
 
     class StandardMarioState : MarioPowerupState
@@ -23,6 +25,10 @@ namespace Mario.States
         }
 
         public override void TakeDamage(MarioContext context)
+        {
+            context.SetPowerUpState(new DeadMarioState());
+        }
+        public override void DieInPit(MarioContext context)
         {
             context.SetPowerUpState(new DeadMarioState());
         }
@@ -47,6 +53,10 @@ namespace Mario.States
         {
             context.SetPowerUpState(new StandardMarioState());
         }
+        public override void DieInPit(MarioContext context)
+        {
+            context.SetPowerUpState(new DeadMarioState());
+        }
         public override string ToString()
         {
             return "SuperMario";
@@ -69,6 +79,10 @@ namespace Mario.States
         {
             context.SetPowerUpState(new SuperMarioState());
         }
+        public override void DieInPit(MarioContext context)
+        {
+            context.SetPowerUpState(new DeadMarioState());
+        }
         public override string ToString()
         {
             return "FireMario";
@@ -89,6 +103,10 @@ namespace Mario.States
         public override void TakeDamage(MarioContext context)
         {
             //does nothing
+        }
+        public override void DieInPit(MarioContext context)
+        {
+            context.SetPowerUpState(new DeadMarioState());
         }
         public override string ToString()
         {

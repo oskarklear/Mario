@@ -56,7 +56,7 @@ namespace Mario.Sprites.Items
 
         }
 
-        public void Collision(ISprite collider, int xoffset, int yoffset)
+        public void Collision(ISprite collider)
         {
             //TODO
         }

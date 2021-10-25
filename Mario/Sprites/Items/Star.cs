@@ -124,7 +124,7 @@ namespace Mario.Sprites.Items
                 count = 0;
             }*/
         }
-        public void Collision(ISprite collider, int xoffset, int yoffset)
+        public void Collision(ISprite collider)
         {
             //if (collider is SuperMario)
             //{
