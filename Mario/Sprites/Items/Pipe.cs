@@ -24,6 +24,10 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
+        public bool delete()
+        {
+            return false;
+        }
         public Vector2 Position
         {
             get { return position; }

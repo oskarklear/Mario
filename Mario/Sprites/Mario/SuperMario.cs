@@ -44,6 +44,10 @@ namespace Mario.Sprites.Mario
             get { return hitbox; }
             set { hitbox = value; }
         }
+        public bool delete()
+        {
+            return false;
+        }
 
         public SuperMario(Game1 theatre, Vector2 location, MarioContext context)
         {

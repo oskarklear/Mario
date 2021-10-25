@@ -33,6 +33,10 @@ namespace Mario.Sprites.Enemies
             get { return hitbox; }
             set { hitbox = value; }
         }
+        public bool delete()
+        {
+            return false;
+        }
         public Goomba(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;

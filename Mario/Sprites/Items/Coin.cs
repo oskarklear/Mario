@@ -67,6 +67,12 @@ namespace Mario.Sprites.Items
             hitbox = new Rectangle((int)position.X, (int)position.Y, 12, 16);
             showHitbox = false;
         }
+
+        public bool delete()
+        {
+            return false;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             int width = texture.Width / Columns;
@@ -172,6 +178,10 @@ namespace Mario.Sprites.Items
             obtained = false;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 12, 16);
             showHitbox = false;
+        }
+        public bool delete()
+        {
+            return false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {

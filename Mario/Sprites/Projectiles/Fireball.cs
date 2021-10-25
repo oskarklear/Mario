@@ -8,7 +8,7 @@ using Mario.Sprites.Mario;
 
 namespace Mario.Sprites.Projectiles
 {
-    class Fireball : ISprite
+    public class Fireball : ISprite
     {
         Texture2D texture;
         public Vector2 position;
@@ -62,6 +62,11 @@ namespace Mario.Sprites.Projectiles
                 deleted = true;
             }
 
+        }
+
+        public bool delete()
+        {
+            return true;
         }
 
         public void Update()

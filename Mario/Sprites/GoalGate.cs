@@ -30,6 +30,11 @@ namespace Mario.Sprites
             set { showHitbox = value; }
         }
 
+        public bool delete()
+        {
+            return false;
+        }
+
         public GoalGate(Game1 theatre, Vector2 location)
         {
             position = location;
@@ -79,6 +84,11 @@ namespace Mario.Sprites
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("GoalGateMovingPiece");
             up = true;
+        }
+
+        public bool delete()
+        {
+            return false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {

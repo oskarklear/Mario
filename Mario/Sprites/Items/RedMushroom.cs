@@ -46,6 +46,10 @@ namespace Mario.Sprites.Items
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool delete()
+        {
+            return false;
+        }
 
         public RedMushroom(Game1 theatre, Vector2 location, SuperMario mario)
         {

@@ -46,6 +46,10 @@ namespace Mario.Sprites.Items
             direction = mario.position.X < position.X ? true : false;
             useGravity = false;
         }
+        public bool delete()
+        {
+            return false;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!obtained)
