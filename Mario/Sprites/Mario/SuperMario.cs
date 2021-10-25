@@ -408,7 +408,10 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba || collider is Koopa)
                         {
                             if (delay <= 0)
+                            {
                                 context.TakeDamage();
+                                delay = 300;
+                            }
                         }
                         context.isTouchingTop = true;
                     }
@@ -420,7 +423,11 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba || collider is Koopa)
                         {
                             if (delay <= 0)
+                            {
                                 context.TakeDamage();
+                                delay = 300;
+                            }
+                            
                         }
                         context.isTouchingLeft = true;
                     }
@@ -435,7 +442,10 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba || collider is Koopa)
                         {
                             if (delay <= 0)
+                            {
                                 context.TakeDamage();
+                                delay = 300;
+                            }
                         }
                         context.isTouchingRight = true;
                     }
@@ -446,7 +456,10 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba || collider is Koopa)
                         {
                             if (delay <= 0)
+                            {
                                 context.TakeDamage();
+                                delay = 300;
+                            }
                         }
                         //System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                         context.isTouchingBottom = true;

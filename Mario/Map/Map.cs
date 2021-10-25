@@ -139,7 +139,7 @@ namespace Mario.Map
                                 collisionZones[(i * BLOCK) / 256].Add(ublock);
                                 break;
                             case 6: //Pipe
-                                collisionObjs.Add(new Pipe(theatre, new Vector2(i * 15 + 32, j * 15)));
+                                collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 15 + 32, j * 15)));
                                 break;
                             case 118:  //Coin
                                 collisionObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
@@ -157,10 +157,10 @@ namespace Mario.Map
                                 collisionObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK), Mario));
                                 break;
                             case 30:  //Goomba
-                                collisionObjs.Add(new Goomba(theatre, new Vector2(i * GOOMBAW, j * GOOMBAH - BLOCK + 2)));
+                                collisionZones[(i * GOOMBAW) / 256].Add(new Goomba(theatre, new Vector2(i * GOOMBAW, j * GOOMBAH - 100)));
                                 break;
                             case 31:  //Koopa
-                                collisionObjs.Add(new Koopa(theatre, new Vector2(i * KOOPAW, j * (KOOPAH - 11) + 19)));
+                                collisionZones[(i * KOOPAW) / 256].Add(new Koopa(theatre, new Vector2(i * KOOPAW, j * KOOPAH - 100)));
                                 break;
                             case 51: //Cloud
                                 bgLayerMid.Sprites.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));
