@@ -313,7 +313,9 @@ namespace Mario.Map
 
                     if (sprite.delete())
                     {
+                        entities.fireBallObjs.Remove(sprite);
                         sprite = null;
+                        break;
                     }
 
                 }

@@ -11,6 +11,7 @@ namespace Mario.Sprites.Projectiles
     public class Fireball : ISprite
     {
         Texture2D texture;
+        Vector2 initPos;
         public Vector2 position;
         Rectangle hitbox;
         SuperMario superMario;
@@ -37,6 +38,7 @@ namespace Mario.Sprites.Projectiles
         public Fireball(Game1 theatre, Vector2 location, SuperMario mario, bool xDirection)
         {
             position = location;
+            initPos = position;
             texture = theatre.Content.Load<Texture2D>("projectiles/fireball");
             hitbox = new Rectangle((int)location.X + 5, (int)location.Y + 5, 10, 10);
             showHitbox = false;
@@ -66,7 +68,8 @@ namespace Mario.Sprites.Projectiles
 
         public bool delete()
         {
-            return true;
+            if (deleted) return true;
+            else return false;
         }
 
         public void Update()
@@ -89,6 +92,8 @@ namespace Mario.Sprites.Projectiles
             {
                 position.Y -= 1;
             }
+
+            if ((Math.Abs(position.X - initPos.X) > 1000)) deleted = true;
 
             count += 2;
             if (count > maxUpwardLength && !upDown)
