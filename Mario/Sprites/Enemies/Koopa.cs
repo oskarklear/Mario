@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.States;
+using Mario.Sprites.Mario;
 
 namespace Mario.Sprites.Enemies
 {
@@ -15,6 +17,8 @@ namespace Mario.Sprites.Enemies
         int Columns;
         Texture2D texture;
         Vector2 position;
+        Vector2 velocity;
+        bool direction;
         Game1 Theatre;
         bool dead;
         public Vector2 Position
@@ -33,6 +37,11 @@ namespace Mario.Sprites.Enemies
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool delete()
+        {
+            return false;
+        }
+
         public Koopa(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -45,11 +54,11 @@ namespace Mario.Sprites.Enemies
             hitbox = new Rectangle((int)location.X + 13, (int)location.Y + 15, 12, 12);
             dead = false;
             showHitbox = false;
+            direction = false;
+            velocity.Y = 1f;
+            velocity.X = 1f;
         }
-        public bool delete()
-        {
-            return false;
-        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             int width = texture.Width / Columns;
@@ -58,6 +67,7 @@ namespace Mario.Sprites.Enemies
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+
             if (!dead)
             {
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
@@ -78,11 +88,16 @@ namespace Mario.Sprites.Enemies
                     spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
                 }
             }
-            
         }
 
         public void Update()
         {
+            position.Y += velocity.Y;
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+
+            System.Diagnostics.Debug.WriteLine("X-VELOCITY: " + velocity.X);
+            System.Diagnostics.Debug.WriteLine("Y-VELOCITY: " + velocity.Y);
+
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
                 currentFrame++;
@@ -91,6 +106,15 @@ namespace Mario.Sprites.Enemies
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
+
+            if (direction)
+            {
+                position.X += velocity.X;
+            }
+            else
+            {
+                position.X -= velocity.X;
+            }
         }
 
         public void Collision(ISprite collider)

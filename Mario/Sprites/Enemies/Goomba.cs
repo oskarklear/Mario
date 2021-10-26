@@ -41,6 +41,7 @@ namespace Mario.Sprites.Enemies
         {
             return false;
         }
+
         public Goomba(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -57,6 +58,7 @@ namespace Mario.Sprites.Enemies
             velocity.Y = 1f;
             velocity.X = 1f;
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             int width = texture.Width / Columns;
