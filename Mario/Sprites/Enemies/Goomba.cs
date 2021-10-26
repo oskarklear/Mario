@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Mario.States;
 using Mario.Sprites.Mario;
+using Mario.Sprites.Items;
 
 namespace Mario.Sprites.Enemies
 {
@@ -136,7 +137,7 @@ namespace Mario.Sprites.Enemies
                 velocity.Y = 0f;
             }
 
-            if (collider is BlockContext)
+            if (collider is BlockContext || collider is Pipe)
             {
                 if (hitbox.TouchTopOf(collider.Hitbox))
                 {
@@ -146,14 +147,16 @@ namespace Mario.Sprites.Enemies
 
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
-                    hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
+                    if (collider is Pipe) hitbox.X = collider.Hitbox.X + hitbox.Width + 10;
+                    else hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
                     position.X = hitbox.X;
                     direction = !direction;
                 }
 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
-                    hitbox.X = collider.Hitbox.X - hitbox.Width - 3;
+                    if (collider is Pipe) hitbox.X = collider.Hitbox.X - hitbox.Width - 10;
+                    else hitbox.X = collider.Hitbox.X - hitbox.Width - 2;
                     position.X = hitbox.X;
                     direction = !direction;
                 }

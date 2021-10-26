@@ -18,6 +18,16 @@ namespace Mario.Map
 {
     public class Level
     {
+        protected const int GROUNDBLOCK = 10;
+        protected const int BRICKBLOCK = 11;
+        protected const int RMQBLOCK = 12;
+        protected const int GMQBLOCK = 13;
+        protected const int FLOWERQBLOCK = 14;
+        protected const int STARQBLOCK = 15;
+        protected const int COINQBLOCK = 16;
+        protected const int ONECOINBRICKBLOCK = 17;
+        protected const int TENCOINBRICKBLOCK = 18;
+        protected const int PIPE = 6;
         private List<ISprite> collisionObjs = new List<ISprite>();
         public List<ISprite> bgObjects = new List<ISprite>();
         public List<ISprite> [] collisionZones = new List<ISprite> [14];
@@ -87,47 +97,47 @@ namespace Mario.Map
                     {
                         switch (number)
                         {
-                            case 10: //Ground Block
+                            case GROUNDBLOCK: //Ground Block
                                 BlockContext groundBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 groundBlock.SetState(new GroundBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(groundBlock);
                                 break;
-                            case 11: //Brick Block
+                            case BRICKBLOCK: //Brick Block
                                 BlockContext brickBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 brickBlock.SetState(new BrickBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(brickBlock);
                                 break;
-                            case 12:  //Red Mushroom Question Block
+                            case RMQBLOCK:  //Red Mushroom Question Block
                                 BlockContext redMushroomQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 redMushroomQuestionBlock.SetState(new RedMushroomQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(redMushroomQuestionBlock);
                                 break;
-                            case 13: //Green Mushroom Question Block
+                            case GMQBLOCK: //Green Mushroom Question Block
                                 BlockContext greenMushroomQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 greenMushroomQuestionBlock.SetState(new GreenMushroomQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(greenMushroomQuestionBlock);
                                 break;
-                            case 14: //Fire Flower Question Block
+                            case FLOWERQBLOCK: //Fire Flower Question Block
                                 BlockContext fireFlowerQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 fireFlowerQuestionBlock.SetState(new FireFlowerQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(fireFlowerQuestionBlock);
                                 break;
-                            case 15: //Star Question Block
+                            case STARQBLOCK: //Star Question Block
                                 BlockContext starQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 starQuestionBlock.SetState(new StarQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(starQuestionBlock);
                                 break;
-                            case 16: //Coin Question Block
+                            case COINQBLOCK: //Coin Question Block
                                 BlockContext coinQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 coinQuestionBlock.SetState(new CoinQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(coinQuestionBlock);
                                 break;
-                            case 17: //One Coin Brick Block
+                            case ONECOINBRICKBLOCK: //One Coin Brick Block
                                 BlockContext oneCoinBrickBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 oneCoinBrickBlock.SetState(new OneCoinBrickBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(oneCoinBrickBlock);
                                 break;
-                            case 18: //Ten Coin Brick Block
+                            case TENCOINBRICKBLOCK: //Ten Coin Brick Block
                                 BlockContext tenCoinBrickBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 tenCoinBrickBlock.SetState(new TenCoinBrickBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(tenCoinBrickBlock);
@@ -142,7 +152,7 @@ namespace Mario.Map
                                 ublock.SetState(new UsedBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(ublock);
                                 break;
-                            case 6: //Pipe
+                            case PIPE: //Pipe
                                 collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
                             case 118:  //Coin
@@ -282,7 +292,7 @@ namespace Mario.Map
             {
                 foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
                 {
-                    if (block is BlockContext)
+                    if (block is BlockContext || block is Pipe)
                     {
                         sprite.Collision(block);
                         if (mario.context.ShowHitbox)

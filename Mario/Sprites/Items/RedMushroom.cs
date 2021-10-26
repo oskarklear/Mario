@@ -119,7 +119,7 @@ namespace Mario.Sprites.Items
                     velocity.Y = 0f;
                 }
 
-                if (collider is BlockContext)
+                if (collider is BlockContext || collider is Pipe)
                 {
                     if (hitbox.TouchTopOf(collider.Hitbox))
                     {
@@ -129,14 +129,16 @@ namespace Mario.Sprites.Items
 
                     if (hitbox.TouchRightOf(collider.Hitbox))
                     {
-                        hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
+                        if (collider is Pipe) hitbox.X = collider.Hitbox.X + hitbox.Width + 10;
+                        else hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
                         position.X = hitbox.X;
                         direction = !direction;
                     }
 
                     if (hitbox.TouchLeftOf(collider.Hitbox))
                     {
-                        hitbox.X = collider.Hitbox.X - hitbox.Width - 1;
+                        if (collider is Pipe) hitbox.X = collider.Hitbox.X - hitbox.Width - 5;
+                        else hitbox.X = collider.Hitbox.X - hitbox.Width - 2;
                         position.X = hitbox.X;
                         direction = !direction;
                     }
