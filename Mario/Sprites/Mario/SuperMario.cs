@@ -15,6 +15,7 @@ namespace Mario.Sprites.Mario
 {
     public class SuperMario : ISprite
     {
+        int fireballCooldown;
         DynamicEntities entities;
         public MarioContext context { get; set; }
         public bool animated { get; set; }
@@ -44,6 +45,10 @@ namespace Mario.Sprites.Mario
             get { return hitbox; }
             set { hitbox = value; }
         }
+        public bool delete()
+        {
+            return false;
+        }
 
         public SuperMario(Game1 theatre, Vector2 location, MarioContext context)
         {
@@ -59,6 +64,7 @@ namespace Mario.Sprites.Mario
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             kinematics = new Kinematics();
             delay = 100;
+            entities = theatre.map.entities;
         }
 
         public void MoveLeftCommand()
@@ -117,9 +123,10 @@ namespace Mario.Sprites.Mario
 
         public void FireCommand()
         {
-            if (context.GetPowerUpState() is FireMarioState)
+            if (context.GetPowerUpState() is FireMarioState && entities.fireBallObjs.Count < 3 && fireballCooldown > 50)
             {
-                //entities.entityObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
+                entities.fireBallObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
+                fireballCooldown = 0;
             }
             
         }
@@ -134,7 +141,7 @@ namespace Mario.Sprites.Mario
         {
             System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
             //System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
-
+            fireballCooldown += 1;
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
                 switch (context.GetActionState().ToString())
@@ -492,7 +499,7 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is GreenMushroom)
                     {
-                        collider.Collision(null);
+                        collider.Collision(this);
                     }
                     else if (collider is Star)
                     {

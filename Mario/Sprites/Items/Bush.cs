@@ -30,6 +30,11 @@ namespace Mario.Sprites.Items
             get { return position; }
         }
 
+        public bool delete()
+        {
+            return false;
+        }
+
         public Bush(Game1 theatre, Vector2 location)
         {
             position = location;

@@ -30,6 +30,10 @@ namespace Mario.Sprites.Items
         {
             get { return position; }
         }
+        public bool delete()
+        {
+            return false;
+        }
         private bool showHitbox;
         public bool ShowHitbox
         {

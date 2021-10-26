@@ -30,6 +30,10 @@ namespace Mario.Sprites.Items
             get { return position; }
         }
 
+        public bool delete()
+        {
+            return false;
+        }
         public Cloud(Game1 theatre, Vector2 location)
         {
             position = location;

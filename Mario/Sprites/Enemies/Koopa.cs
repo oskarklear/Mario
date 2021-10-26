@@ -46,6 +46,10 @@ namespace Mario.Sprites.Enemies
             dead = false;
             showHitbox = false;
         }
+        public bool delete()
+        {
+            return false;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             int width = texture.Width / Columns;
