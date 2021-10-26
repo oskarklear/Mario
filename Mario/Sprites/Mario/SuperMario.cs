@@ -492,7 +492,7 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is GreenMushroom)
                     {
-                        collider.Collision(null);
+                        collider.Collision(this);
                     }
                     else if (collider is Star)
                     {

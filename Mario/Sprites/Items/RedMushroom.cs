@@ -12,9 +12,7 @@ namespace Mario.Sprites.Items
     
     class RedMushroom : ISprite
     {
-        //Game1 Theatre;
         Texture2D texture;
-        //Texture2D hitboxTexture;
         Vector2 position;
         int endPosition;
         Vector2 velocity;
@@ -22,9 +20,6 @@ namespace Mario.Sprites.Items
         SuperMario superMario;
         bool direction;
         bool spawning;
-        //int velocity;
-        //MarioContext context;
-        //Boolean isActive;
         Rectangle hitbox;
         public Rectangle Hitbox 
         {
@@ -35,11 +30,6 @@ namespace Mario.Sprites.Items
         {
             get { return position; }
         }
-
-/*        public bool Obtained
-        {
-            get { return obtained; }
-        }*/
         private bool showHitbox;
         public bool ShowHitbox
         {
@@ -50,8 +40,7 @@ namespace Mario.Sprites.Items
         public RedMushroom(Game1 theatre, Vector2 location, SuperMario mario)
         {
             position = location;
-            endPosition = (int)position.Y - 15;
-            //Theatre = theatre;
+            endPosition = (int)position.Y - 13;
             texture = theatre.Content.Load<Texture2D>("items/red_mushroom");
             obtained = false;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 18, 18);
@@ -61,50 +50,40 @@ namespace Mario.Sprites.Items
             velocity.Y = 1f;
             velocity.X = 1f;
             spawning = true;
-            //isActive = false;
-            //mario = new SuperMario(theatre, mario.position, context);
-            
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            //if (isActive)
-            //{
-                if (!obtained)
-                {
-                    spriteBatch.Draw(texture, position, Color.White);
+            if (!obtained)
+            {
+                spriteBatch.Draw(texture, position, Color.White);
 
-                    if (showHitbox)
-                    {
-                        Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
-                        Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
-                        Color[] dataW = new Color[hitbox.Width];
-                        for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Green;
-                        Color[] dataH = new Color[hitbox.Height];
-                        for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Green;
-                        hitboxTextureW.SetData(dataW);
-                        hitboxTextureH.SetData(dataH);
-                        spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                        spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
-                        spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                        spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
-                    }
+                if (showHitbox)
+                {
+                    Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
+                    Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
+                    Color[] dataW = new Color[hitbox.Width];
+                    for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Green;
+                    Color[] dataH = new Color[hitbox.Height];
+                    for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Green;
+                    hitboxTextureW.SetData(dataW);
+                    hitboxTextureH.SetData(dataH);
+                    spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                    spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
+                    spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                    spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
                 }
-            //}
+            }
         }
 
         public void Update()
         {
             position.Y += velocity.Y;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
-            //hitbox.Y += velocity.Y;
-            //if (obtained)
-            //   hitbox = new Rectangle(-1, -1, 0, 0);
-            //if (mario.position.X < position.X)
-            //{
-            //System.Diagnostics.Debug.WriteLine("Y-position: " + position.Y);
-            //System.Diagnostics.Debug.WriteLine("EndPosition: " + endPosition);
+
             System.Diagnostics.Debug.WriteLine("X-VELOCITY: " + velocity.X);
             System.Diagnostics.Debug.WriteLine("Y-VELOCITY: " + velocity.Y);
+
             if (position.Y > endPosition && spawning) 
             {
                 position.Y -= 2;
@@ -114,12 +93,11 @@ namespace Mario.Sprites.Items
             {
                 spawning = false;
             }
-            
-            else if (direction /*&& !spawning*/)
+            else if (direction)
             {
                 position.X += velocity.X;
             } 
-            else if (!direction /*&& !spawning*/)
+            else if (!direction)
             {
                 position.X -= velocity.X;
             }
@@ -129,7 +107,6 @@ namespace Mario.Sprites.Items
         {
             if (!spawning)
             {
-                //velocity.X = 1f;
                 if (collider is SuperMario)
                 {
                     obtained = true;
@@ -144,11 +121,6 @@ namespace Mario.Sprites.Items
                     {
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
                         position.Y = hitbox.Y;
-                        
-                    }
-                    else
-                    {
-                        //velocity.X = 0f;
                     }
 
                     if (hitbox.TouchRightOf(collider.Hitbox))
@@ -172,8 +144,6 @@ namespace Mario.Sprites.Items
                     }
                 }
             }
-            
         }
-        
     }
 }

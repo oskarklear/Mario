@@ -272,29 +272,20 @@ namespace Mario.Map
             foreach (ISprite sprite in entities.entityObjs)
             {
                 mario.Collision(sprite);
-                //if (sprite is BlockContext)
-                    //sprite.Collision(mario);
                 
                 if (mario.context.ShowHitbox)
                     sprite.ShowHitbox = true;
                 else
                     sprite.ShowHitbox = false;
-                /*foreach(ISprite extra in map.CollisionObjs)
-                {
-                    sprite.Collision(extra, MAPW, MAPH);
-                    extra.Collision(sprite, MAPW, MAPH);
-                }*/
             }
 
             foreach (ISprite sprite in entities.entityObjs)
             {
-                //sprite.Collision(mario);
                 foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
                 {
                     if (block is BlockContext)
                     {
                         sprite.Collision(block);
-                        //block.Collision(sprite);
                         if (mario.context.ShowHitbox)
                             sprite.ShowHitbox = true;
                         else sprite.ShowHitbox = false;
