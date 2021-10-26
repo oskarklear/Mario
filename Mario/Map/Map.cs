@@ -145,7 +145,7 @@ namespace Mario.Map
                                 collisionZones[(i * BLOCK) / 256].Add(ublock);
                                 break;
                             case 6: //Pipe
-                                collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 15 + 32, j * 15)));
+                                collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
                             case 118:  //Coin
                                 collisionObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));

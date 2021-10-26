@@ -17,7 +17,6 @@ namespace Mario.States
 		BlockState oldState;
 		BlockSprite sprite;
 		Vector2 Location;
-		Vector2 position;
 		private bool showHitbox;
 		public bool ShowHitbox
 		{
@@ -26,7 +25,7 @@ namespace Mario.States
 		}
 		public Vector2 Position
 		{
-			get { return position; }
+			get { return Location; }
 		}
 		Game1 Theatre;
 		//Level level;
@@ -54,7 +53,7 @@ namespace Mario.States
 			rubbleLocation4.X += 10;*/
 			rubbleList = new List<BrokenBlockSprite>();
 			rubbleActive = false;
-			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,16,16);
+			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,17,16);
 			showHitbox = false;
 			entities = theatre.map.entities;
 			
