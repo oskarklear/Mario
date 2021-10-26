@@ -48,7 +48,7 @@ namespace Mario.States
         public override void JumpingTransition()
         {
             System.Diagnostics.Debug.WriteLine("HEIGHT: " + marioContext.jumpHeight);
-            if (marioContext.jumpHeight > 1000 || marioContext.isTouchingBottom)
+            if (marioContext.jumpHeight > 12 || marioContext.isTouchingBottom)
             {
                 FallingTransition();
             }
