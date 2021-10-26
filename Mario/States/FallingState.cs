@@ -106,6 +106,7 @@ namespace Mario.States
 
         public override void JumpingDiscontinueTransition()
         {
+            System.Diagnostics.Debug.WriteLine("Velocity: " + marioContext.Velocity.Y);
             if (marioContext.isTouchingTop)
                 StandingTransition();
         }
