@@ -215,7 +215,6 @@ namespace Mario.Map
         }
         public void Update()
         {
-            mario.Update();
             //Zone behind Mario
             if (mario.position.X > 256)
             {

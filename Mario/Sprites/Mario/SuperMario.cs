@@ -395,7 +395,6 @@ namespace Mario.Sprites.Mario
 
         public void Collision(ISprite collider)
         {
-            
             if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa)
             {
                 if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))
@@ -404,7 +403,6 @@ namespace Mario.Sprites.Mario
                     {
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height;
                         position.Y = hitbox.Y;
-                        //System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                     }
 
                 }
@@ -415,7 +413,7 @@ namespace Mario.Sprites.Mario
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                         position.Y = hitbox.Y;
                         context.Velocity.Y = 0f;
-                        //System.Diagnostics.Debug.WriteLine("mario hit the top of something");
+                        System.Diagnostics.Debug.WriteLine("mario hit the top of something");
                         if (collider is Goomba || collider is Koopa)
                         {
                             if (delay <= 0)
@@ -472,8 +470,9 @@ namespace Mario.Sprites.Mario
                                 delay = 300;
                             }
                         }
-                        //System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
-                        context.isTouchingBottom = true;
+                        System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
+                        //context.isTouchingBottom = true;
+                        context.GetActionState().FallingTransition();
                     }
                 }
             }
