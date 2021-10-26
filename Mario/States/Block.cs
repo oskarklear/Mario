@@ -210,7 +210,6 @@ namespace Mario.States
 			Vector2 mushroomLocation = sprite.GetLocation();
 			mushroomLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new RedMushroom(context.GetGame(), mushroomLocation, superMario));
-
 			this.Movement(sprite);
 		}
 		public override string ToString()
