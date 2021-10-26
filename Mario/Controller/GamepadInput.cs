@@ -19,6 +19,7 @@ namespace Mario
         public ICommand IdleCommand { get; set; }
         public ICommand JumpCommand { get; set; }
         public ICommand CrouchCommand { get; set; }
+        public ICommand FireCommand { get; set; }
         public ICommand ExitCommand { get; set; }
 
         private MarioContext context;
@@ -29,6 +30,7 @@ namespace Mario
             MoveRightCommand = new MoveRightCommand(mario);
             JumpCommand = new JumpCommand(mario);
             CrouchCommand = new CrouchCommand(mario);
+            FireCommand = new FireCommand(mario);
             IdleCommand = new IdleCommand(mario);
             ActivateIdle = new ActivateIdle(mario);
             context = mario.context;
@@ -93,7 +95,7 @@ namespace Mario
 
                     // Dash/throw Fireball
                     case (int)Buttons.B:
-                        // Fireball.Execute();
+                        FireCommand.Execute();
                         break;
 
                     // Pause

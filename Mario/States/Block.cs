@@ -17,6 +17,7 @@ namespace Mario.States
 		BlockState oldState;
 		BlockSprite sprite;
 		Vector2 Location;
+		int cooldown;
 		private bool showHitbox;
 		public bool ShowHitbox
 		{
@@ -56,6 +57,7 @@ namespace Mario.States
 			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,17,16);
 			showHitbox = false;
 			entities = theatre.map.entities;
+			
 			
 
 		}
@@ -183,6 +185,7 @@ namespace Mario.States
 					System.Diagnostics.Debug.WriteLine(sprite.ToString());
 					System.Diagnostics.Debug.WriteLine(mario.ToString());
 					state.Bump(this, mario.context, sprite, entities, mario);
+					System.Diagnostics.Debug.WriteLine("dariougjbaeogiuvywbrsvouysbrvfiouywsvrbsULKVbsfi");
 				}
 				//if (collider is RedMushroom || collider is GreenMushroom || collider is )
             }
@@ -355,7 +358,7 @@ namespace Mario.States
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
-
+			
 			if (coins <= 10)
 			{
 				Vector2 coinLocation = sprite.GetLocation();

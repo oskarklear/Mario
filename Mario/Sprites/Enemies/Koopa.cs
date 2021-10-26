@@ -15,10 +15,12 @@ namespace Mario.Sprites.Enemies
         int millisecondsPerFrame;
         int currentFrame;
         int Columns;
-        Texture2D texture;
+        Texture2D textureLeft;
+        Texture2D textureRight;
         Vector2 position;
         Vector2 velocity;
         bool direction;
+        bool facingLeft;
         Game1 Theatre;
         bool dead;
         public Vector2 Position
@@ -50,19 +52,21 @@ namespace Mario.Sprites.Enemies
             Columns = 2;
             position = location;
             Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_leftWalking");
+            textureLeft = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_leftWalking");
+            textureRight = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_rightWalking");
             hitbox = new Rectangle((int)location.X + 7, (int)location.Y, 16, 26);
             dead = false;
             showHitbox = false;
             direction = false;
+            facingLeft = true;
             velocity.Y = 1f;
-            velocity.X = 1f;
+            velocity.X = 0.5f;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int width = texture.Width / Columns;
-            int height = texture.Height;
+            int width = textureLeft.Width / Columns;
+            int height = textureLeft.Height;
             int row = currentFrame / Columns;
             int column = currentFrame % Columns;
 
@@ -71,7 +75,9 @@ namespace Mario.Sprites.Enemies
             if (!dead)
             {
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+                if (facingLeft) spriteBatch.Draw(textureLeft, destinationRectangle, sourceRectangle, Color.White);
+                else spriteBatch.Draw(textureRight, destinationRectangle, sourceRectangle, Color.White);
+
                 if (showHitbox)
                 {
                     Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
@@ -93,7 +99,7 @@ namespace Mario.Sprites.Enemies
         public void Update()
         {
             position.Y += velocity.Y;
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+            hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 26);
 
             System.Diagnostics.Debug.WriteLine("X-VELOCITY: " + velocity.X);
             System.Diagnostics.Debug.WriteLine("Y-VELOCITY: " + velocity.Y);
@@ -110,10 +116,12 @@ namespace Mario.Sprites.Enemies
             if (direction)
             {
                 position.X += velocity.X;
+                facingLeft = false;
             }
             else
             {
                 position.X -= velocity.X;
+                facingLeft = true;
             }
         }
 
@@ -137,14 +145,14 @@ namespace Mario.Sprites.Enemies
 
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
-                    hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
+                    hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
                     position.X = hitbox.X;
                     direction = !direction;
                 }
 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
-                    hitbox.X = collider.Hitbox.X - hitbox.Width - 1;
+                    hitbox.X = collider.Hitbox.X - hitbox.Width - 3;
                     position.X = hitbox.X;
                     direction = !direction;
                 }

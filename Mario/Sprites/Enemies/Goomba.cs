@@ -75,10 +75,8 @@ namespace Mario.Sprites.Enemies
             if (!dead)
             {
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                if (facingLeft)
-                {
-                    spriteBatch.Draw(textureLeft, destinationRectangle, sourceRectangle, Color.White);
-                }
+
+                if (facingLeft) spriteBatch.Draw(textureLeft, destinationRectangle, sourceRectangle, Color.White);
                 else spriteBatch.Draw(textureRight, destinationRectangle, sourceRectangle, Color.White);
                 
                 if (showHitbox)
@@ -102,7 +100,7 @@ namespace Mario.Sprites.Enemies
         public void Update()
         {
             position.Y += velocity.Y;
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+            hitbox = new Rectangle((int)position.X + 5, (int)position.Y, 16, 16);
 
             System.Diagnostics.Debug.WriteLine("X-VELOCITY: " + velocity.X);
             System.Diagnostics.Debug.WriteLine("Y-VELOCITY: " + velocity.Y);
@@ -155,7 +153,7 @@ namespace Mario.Sprites.Enemies
 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
-                    hitbox.X = collider.Hitbox.X - hitbox.Width - 1;
+                    hitbox.X = collider.Hitbox.X - hitbox.Width - 3;
                     position.X = hitbox.X;
                     direction = !direction;
                 }
