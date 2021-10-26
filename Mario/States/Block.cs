@@ -17,6 +17,7 @@ namespace Mario.States
 		BlockState oldState;
 		BlockSprite sprite;
 		Vector2 Location;
+		int cooldown;
 		private bool showHitbox;
 		public bool ShowHitbox
 		{
@@ -56,6 +57,7 @@ namespace Mario.States
 			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,17,16);
 			showHitbox = false;
 			entities = theatre.map.entities;
+			
 			
 
 		}
@@ -355,17 +357,14 @@ namespace Mario.States
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
-
-			if (coins <= 10)
+			
+			if (coins < 10)
 			{
 				Vector2 coinLocation = sprite.GetLocation();
 				coinLocation.Y -= 3;
 				dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
 				coins++;
-			}
-            else
-            {
-				context.SetState(new UsedBlockState());
+				if (coins == 10) context.SetState(new UsedBlockState());
 			}
 
 			this.Movement(sprite);

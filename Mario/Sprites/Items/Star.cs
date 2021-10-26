@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.States;
 
 namespace Mario.Sprites.Items
 {
@@ -22,9 +23,11 @@ namespace Mario.Sprites.Items
         int count;
         int maxUpwardDistance;
         Vector2 comingFromBlockPosition;
-        bool fullyOutOfBlock;
+        bool spawning;
         ContentManager Content;
         Texture2D texture;
+        Vector2 velocity;
+        int spawnTime;
         Vector2 position;
         public Vector2 Position
         {
@@ -60,9 +63,12 @@ namespace Mario.Sprites.Items
             superMario = mario;
             horizontalDirection = mario.position.X < position.X ? true : false;
             verticalDirection = true;
-            maxUpwardDistance = 15;
+            maxUpwardDistance = 50;
             comingFromBlockPosition.Y = (int)position.Y - 13;
-            fullyOutOfBlock = false;
+            spawning = true;
+            velocity.Y = 1f;
+            velocity.X = 1f;
+            spawnTime = 0;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -76,6 +82,7 @@ namespace Mario.Sprites.Items
             {
                 Hitbox = new Rectangle((int)position.X, (int)position.Y, width, height);
                 spriteBatch.Draw(texture, Hitbox, sourceRectangle, Color.White);
+
                 if (showHitbox)
                 {
                     Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
@@ -97,7 +104,12 @@ namespace Mario.Sprites.Items
 
         public void Update()
         {
+            spawnTime += 1;
+            //position.Y += velocity.Y;
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+
             System.Diagnostics.Debug.WriteLine("VERTICALDIRECTION: " + verticalDirection);
+
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
                 currentFrame++;
@@ -107,64 +119,92 @@ namespace Mario.Sprites.Items
                 currentFrame = 0;
             timeSinceLastFrame++;
 
-            if (position.Y > comingFromBlockPosition.Y && !fullyOutOfBlock)
+            if (position.Y > comingFromBlockPosition.Y && spawning)
             {
-                position.Y -= 1;
-                hitbox.Y -= 1;
+                position.Y -= 2;
+                hitbox.Y -= 2;
             }
-            else if (position.Y == comingFromBlockPosition.Y)
+            
+            if (/*position.Y == comingFromBlockPosition.Y && spawning*/ spawnTime > 50 )
             {
-                fullyOutOfBlock = true;
+                spawning = false;
             }
-
-            if (horizontalDirection && fullyOutOfBlock)
+            
+            if (horizontalDirection && !spawning)
             {
                 position.X += 1;
                 hitbox.X += 1;
             }
-            else if (!horizontalDirection && fullyOutOfBlock)
+            else if (!horizontalDirection && !spawning)
             {
                 position.X -= 1;
                 hitbox.X -= 1;
             }
 
-            if (verticalDirection && fullyOutOfBlock)
+            if (verticalDirection && !spawning)
             {
                 position.Y -= 1;
                 hitbox.Y -= 1;
+                count++;
             }
-            else if (!verticalDirection && fullyOutOfBlock)
+            else if (!verticalDirection && !spawning)
             {
                 position.Y += 1;
                 hitbox.Y += 1;
             }
 
-            count += 1;
-            if (count > maxUpwardDistance && !verticalDirection)
+            
+            //count += 1;
+            if (count > maxUpwardDistance /*&& !verticalDirection*/)
             {
-                verticalDirection = !verticalDirection;
+                verticalDirection = false;
                 count = 0;
             }
         }
         public void Collision(ISprite collider)
         {
-            //if (collider is SuperMario)
-            //{
-                obtained = true;
-                hitbox = new Rectangle(-1, -1, 0, 0);
-            //}
-            
-/*            if (hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchTopOf(collider.Hitbox))
+            if (!spawning)
             {
-                verticalDirection = !verticalDirection;
+                if (collider is SuperMario)
+                {
+                    obtained = true;
+                    hitbox = new Rectangle(-1, -1, 0, 0);
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
+
+                if (collider is BlockContext)
+                {
+                    if (hitbox.TouchTopOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
+                        position.Y = hitbox.Y;
+                        verticalDirection = true;
+                    }
+
+                    if (hitbox.TouchRightOf(collider.Hitbox))
+                    {
+                        hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
+                        position.X = hitbox.X;
+                        horizontalDirection = !horizontalDirection;
+                    }
+
+                    if (hitbox.TouchLeftOf(collider.Hitbox))
+                    {
+                        hitbox.X = collider.Hitbox.X - hitbox.Width - 1;
+                        position.X = hitbox.X;
+                        horizontalDirection = !horizontalDirection;
+                    }
+
+                    if (hitbox.TouchBottomOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y + hitbox.Height;
+                        position.Y = hitbox.Y;
+                        verticalDirection = false;
+                    }
+                }
             }
-
-            if (hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
-            {
-                horizontalDirection = !horizontalDirection;
-            }*/
-
         }
-        
+
     }
 }

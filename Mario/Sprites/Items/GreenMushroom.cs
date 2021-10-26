@@ -96,6 +96,7 @@ namespace Mario.Sprites.Items
             {
                 spawning = false;
             }
+
             else if (direction)
             {
                 position.X += velocity.X;
@@ -128,7 +129,7 @@ namespace Mario.Sprites.Items
 
                     if (hitbox.TouchRightOf(collider.Hitbox))
                     {
-                        hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
+                        hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
                         position.X = hitbox.X;
                         direction = !direction;
                     }

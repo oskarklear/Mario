@@ -27,10 +27,12 @@ namespace Mario.Sprites.Items
         int Columns;
         Texture2D texture;
         Vector2 position;
+        Vector2 velocity;
         int topPosition;
         bool topPositionReached;
         int disappearPosition;
         bool coinActive;
+        bool obtained;
         Rectangle hitbox;
 
         public Rectangle Hitbox
@@ -49,7 +51,7 @@ namespace Mario.Sprites.Items
             get { return showHitbox; }
             set { showHitbox = value; }
         }
-        bool obtained;
+        
 
         public BlockCoin(Game1 theatre, Vector2 location)
         {
@@ -65,6 +67,8 @@ namespace Mario.Sprites.Items
             obtained = false;
             coinActive = true;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 12, 16);
+            velocity.Y = 1f;
+            velocity.X = 1f;
             showHitbox = false;
         }
 
@@ -81,10 +85,12 @@ namespace Mario.Sprites.Items
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+
             if (!obtained && coinActive)
             {
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
                 spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+
                 if (showHitbox)
                 {
                     Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
@@ -135,7 +141,13 @@ namespace Mario.Sprites.Items
 
         public void Collision(ISprite collider)
         {
-            obtained = true;
+            if (collider is SuperMario)
+            {
+                obtained = true;
+                hitbox = new Rectangle(-1, -1, 0, 0);
+                velocity.X = 0f;
+                velocity.Y = 0f;
+            }
         }
     }
 

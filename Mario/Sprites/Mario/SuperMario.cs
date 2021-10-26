@@ -493,7 +493,7 @@ namespace Mario.Sprites.Mario
                 {
                     if (collider is FireFlower)
                     {
-                        collider.Collision(null);
+                        collider.Collision(this);
                         context.GetFireFlower();
                     }
                     else if (collider is RedMushroom)
@@ -503,7 +503,11 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is MapCoin)
                     {
-                        collider.Collision(null);
+                        collider.Collision(this);
+                    }
+                    else if (collider is BlockCoin)
+                    {
+                        collider.Collision(this);
                     }
                     else if (collider is GreenMushroom)
                     {
@@ -511,7 +515,7 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is Star)
                     {
-                        collider.Collision(null);
+                        collider.Collision(this);
                     }
                 }
             }
