@@ -119,7 +119,7 @@ namespace Mario.Sprites.Items
                     velocity.Y = 0f;
                 }
 
-                if (collider is BlockContext)
+                if (collider is BlockContext || collider is Pipe)
                 {
                     if (hitbox.TouchTopOf(collider.Hitbox))
                     {

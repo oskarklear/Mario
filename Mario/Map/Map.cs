@@ -1,7 +1,6 @@
 ﻿using Mario.Sprites;
 using Mario.Sprites.Enemies;
 using Mario.Sprites.Items;
-using Mario.Sprites.Items;
 using Mario.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
