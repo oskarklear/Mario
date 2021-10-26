@@ -293,20 +293,29 @@ namespace Mario.Map
             for (int i = 0; i < entities.fireBallObjs.Count; i++)
             {
                 ISprite sprite = entities.fireBallObjs[i];
-                foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
+                if (sprite.Position.X > 0 && sprite.Position.X < 3584)
                 {
-                    sprite.Collision(block);
-                    if (mario.context.ShowHitbox) sprite.ShowHitbox = true;
-                    else sprite.ShowHitbox = false;
-
-                    if (sprite.delete())
+                    foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
                     {
+                        sprite.Collision(block);
+                        if (mario.context.ShowHitbox) sprite.ShowHitbox = true;
+                        else sprite.ShowHitbox = false;
+
+                        if (sprite.delete())
+                        {
+                            entities.fireBallObjs.Remove(sprite);
+                            sprite = null;
+                            break;
+                        }
+
+                    }
+                }
+                else
+                {
                         entities.fireBallObjs.Remove(sprite);
                         sprite = null;
-                        break;
-                    }
-
                 }
+
             }
 
 
