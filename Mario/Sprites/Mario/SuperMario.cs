@@ -15,6 +15,7 @@ namespace Mario.Sprites.Mario
 {
     public class SuperMario : ISprite
     {
+        protected const int delaytime = 100;
         int fireballCooldown;
         DynamicEntities entities;
         public MarioContext context { get; set; }
@@ -63,7 +64,7 @@ namespace Mario.Sprites.Mario
             texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             kinematics = new Kinematics();
-            delay = 100;
+            delay = 0;
             entities = theatre.map.entities;
         }
 
@@ -353,22 +354,25 @@ namespace Mario.Sprites.Mario
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (animated)
+            if (delay % 10 == 0)
             {
-                int width = texture.Width / Columns;
-                int height = texture.Height / Rows;
-                int row = currentFrame / Columns;
-                int column = currentFrame % Columns;
+                if (animated)
+                {
+                    int width = texture.Width / Columns;
+                    int height = texture.Height / Rows;
+                    int row = currentFrame / Columns;
+                    int column = currentFrame % Columns;
 
-                Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-                Rectangle destinationRectangle = new Rectangle((int)position.X - 7, (int)position.Y, width, height);
-                //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
-                spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
-            }
-            else
-            {
-                //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
-                spriteBatch.Draw(texture, position, Color.White);
+                    Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+                    Rectangle destinationRectangle = new Rectangle((int)position.X - 7, (int)position.Y, width, height);
+                    //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
+                    spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+                }
+                else
+                {
+                    //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
+                    spriteBatch.Draw(texture, position, Color.White);
+                }
             }
 
             if (ShowHitbox)
@@ -419,7 +423,7 @@ namespace Mario.Sprites.Mario
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
-                                delay = 300;
+                                delay = delaytime;
                             }
                         }
                         context.isTouchingTop = true;
@@ -434,7 +438,7 @@ namespace Mario.Sprites.Mario
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
-                                delay = 300;
+                                delay = delaytime;
                             }
                             
                         }
@@ -453,7 +457,7 @@ namespace Mario.Sprites.Mario
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
-                                delay = 300;
+                                delay = delaytime;
                             }
                         }
                         context.isTouchingRight = true;
@@ -469,7 +473,7 @@ namespace Mario.Sprites.Mario
                                 if (delay <= 0)
                                 {
                                     context.TakeDamage();
-                                    delay = 300;
+                                    delay = delaytime;
                                 }
                             }
                         }                      
