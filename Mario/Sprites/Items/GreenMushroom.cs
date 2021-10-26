@@ -51,7 +51,10 @@ namespace Mario.Sprites.Items
             velocity.X = 1f;
             spawning = true;
         }
-
+        public bool delete()
+        {
+            return false;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!obtained)

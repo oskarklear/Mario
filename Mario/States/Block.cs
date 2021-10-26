@@ -65,6 +65,11 @@ namespace Mario.States
 			return Theatre;
 		}
 
+		public bool delete()
+		{
+			return false;
+		}
+
 		public void SetState(BlockState NewState)
 		{
 			oldState = state;

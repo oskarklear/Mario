@@ -85,6 +85,11 @@ namespace Mario.Sprites
             moving = true;
         }
 
+        public bool delete()
+        {
+            return false;
+        }
+
         public Vector2 GetLocation()
         {
             return Location;

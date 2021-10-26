@@ -26,5 +26,7 @@ namespace Mario.Sprites
 
         public void Collision(ISprite collider);
 
+        public bool delete();
+
     }
 }
