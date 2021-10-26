@@ -182,7 +182,8 @@ namespace Mario.States
 					
 					System.Diagnostics.Debug.WriteLine(sprite.ToString());
 					System.Diagnostics.Debug.WriteLine(mario.ToString());
-					state.Bump(this, mario.context, sprite, entities, mario);
+					if (!mario.context.isFalling)
+						state.Bump(this, mario.context, sprite, entities, mario);
 				}
 				//if (collider is RedMushroom || collider is GreenMushroom || collider is )
             }
