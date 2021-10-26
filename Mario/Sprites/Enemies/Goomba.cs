@@ -15,10 +15,12 @@ namespace Mario.Sprites.Enemies
         int millisecondsPerFrame;
         int currentFrame;
         int Columns;
-        Texture2D texture;
+        Texture2D textureLeft;
+        Texture2D textureRight;
         Vector2 position;
         Vector2 velocity;
         bool direction;
+        bool facingLeft;
         Game1 Theatre;
         bool dead;
         public Vector2 Position
@@ -50,19 +52,21 @@ namespace Mario.Sprites.Enemies
             Columns = 2;
             position = location;
             Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
+            textureLeft = Theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
+            textureRight = Theatre.Content.Load<Texture2D>("enemies/goomba/goombaRight");
             hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
             dead = false;
             showHitbox = false;
             direction = false;
+            facingLeft = true;
             velocity.Y = 1f;
-            velocity.X = 1f;
+            velocity.X = 0.5f;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int width = texture.Width / Columns;
-            int height = texture.Height;
+            int width = textureLeft.Width / Columns;
+            int height = textureLeft.Height;
             int row = currentFrame / Columns;
             int column = currentFrame % Columns;
 
@@ -71,7 +75,12 @@ namespace Mario.Sprites.Enemies
             if (!dead)
             {
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
+                if (facingLeft)
+                {
+                    spriteBatch.Draw(textureLeft, destinationRectangle, sourceRectangle, Color.White);
+                }
+                else spriteBatch.Draw(textureRight, destinationRectangle, sourceRectangle, Color.White);
+                
                 if (showHitbox)
                 {
                     Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
@@ -110,10 +119,12 @@ namespace Mario.Sprites.Enemies
             if (direction)
             {
                 position.X += velocity.X;
+                facingLeft = false;
             }
             else
             {
                 position.X -= velocity.X;
+                facingLeft = true;
             }
         }
 
@@ -137,7 +148,7 @@ namespace Mario.Sprites.Enemies
 
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
-                    hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
+                    hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
                     position.X = hitbox.X;
                     direction = !direction;
                 }

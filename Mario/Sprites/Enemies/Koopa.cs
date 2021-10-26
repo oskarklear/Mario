@@ -119,9 +119,44 @@ namespace Mario.Sprites.Enemies
 
         public void Collision(ISprite collider)
         {
-            dead = true;
-            hitbox = new Rectangle(-1, -1, 0, 0);
+            if (collider is SuperMario)
+            {
+                dead = true;
+                hitbox = new Rectangle(-1, -1, 0, 0);
+                velocity.X = 0f;
+                velocity.Y = 0f;
+            }
+
+            if (collider is BlockContext)
+            {
+                if (hitbox.TouchTopOf(collider.Hitbox))
+                {
+                    hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
+                    position.Y = hitbox.Y;
+                }
+
+                if (hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
+                    position.X = hitbox.X;
+                    direction = !direction;
+                }
+
+                if (hitbox.TouchLeftOf(collider.Hitbox))
+                {
+                    hitbox.X = collider.Hitbox.X - hitbox.Width - 1;
+                    position.X = hitbox.X;
+                    direction = !direction;
+                }
+
+                if (hitbox.TouchBottomOf(collider.Hitbox))
+                {
+                    hitbox.Y = collider.Hitbox.Y + hitbox.Height;
+                    position.Y = hitbox.Y;
+                }
+            }
         }
+
         public void ToggleHitbox()
         {
             showHitbox = !showHitbox;

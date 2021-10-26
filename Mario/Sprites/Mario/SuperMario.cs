@@ -494,7 +494,11 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is MapCoin)
                     {
-                        collider.Collision(null);
+                        collider.Collision(this);
+                    }
+                    else if (collider is BlockCoin)
+                    {
+                        collider.Collision(this);
                     }
                     else if (collider is GreenMushroom)
                     {
