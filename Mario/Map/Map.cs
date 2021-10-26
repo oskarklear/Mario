@@ -29,7 +29,6 @@ namespace Mario.Map
         private List<GreenMushroom> greenMushroomObjs = new List<GreenMushroom>();
         private List<FireFlower> fireFlowerObjs = new List<FireFlower>();
         int numOfRedMushrooms = 0;
-
         private Game1 theatre;
         public Game1 Theatre
         {
