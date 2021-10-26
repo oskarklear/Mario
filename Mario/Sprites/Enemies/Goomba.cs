@@ -46,7 +46,7 @@ namespace Mario.Sprites.Enemies
             position = location;
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
-            hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
+            hitbox = new Rectangle((int)location.X + 5, (int)location.Y, 16, 16);
             dead = false;
             showHitbox = false;
         }
