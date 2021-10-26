@@ -125,7 +125,7 @@ namespace Mario.Sprites.Items
                 hitbox.Y -= 2;
             }
             
-            if (/*position.Y == comingFromBlockPosition.Y && spawning*/ spawnTime > 50 )
+            if (/*position.Y == comingFromBlockPosition.Y && spawning*/ spawnTime > 12 )
             {
                 spawning = false;
             }
