@@ -96,6 +96,7 @@ namespace Mario.Sprites.Items
             {
                 spawning = false;
             }
+
             else if (direction)
             {
                 position.X += velocity.X;

@@ -358,16 +358,13 @@ namespace Mario.States
 		{
 			System.Diagnostics.Debug.WriteLine("Bump");
 			
-			if (coins <= 10)
+			if (coins < 10)
 			{
 				Vector2 coinLocation = sprite.GetLocation();
 				coinLocation.Y -= 3;
 				dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
 				coins++;
-			}
-            else
-            {
-				context.SetState(new UsedBlockState());
+				if (coins == 10) context.SetState(new UsedBlockState());
 			}
 
 			this.Movement(sprite);

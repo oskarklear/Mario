@@ -515,7 +515,7 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is Star)
                     {
-                        collider.Collision(null);
+                        collider.Collision(this);
                     }
                 }
             }
