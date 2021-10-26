@@ -97,7 +97,7 @@ namespace Mario.Map
                         switch (number)
                         {
                             case GROUNDBLOCK: //Ground Block
-                                BlockContext groundBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                BlockContext groundBlock = new BlockContext(theatre, new Vector2((i * (BLOCK - 1)), j * BLOCK));
                                 groundBlock.SetState(new GroundBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(groundBlock);
                                 break;
@@ -155,7 +155,7 @@ namespace Mario.Map
                                 collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
                             case 118:  //Coin
-                                collisionObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
+                                //.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
                                 break;
                             case 111:  //Green Mushroom
                                 collisionObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
@@ -181,7 +181,7 @@ namespace Mario.Map
                                 bgLayerMid.Sprites.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));
                                 break;
                             case 52: //Bush
-                                bgLayerNear.Sprites.Add(new Bush(Theatre, new Vector2(i * 13, (j * 5) + 350)));
+                                bgLayerNear.Sprites.Add(new Bush(Theatre, new Vector2(i * 14, (j * 13))));
                                 break;
                             case 41: //Mario
                                 if (!reset)
@@ -203,6 +203,9 @@ namespace Mario.Map
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            bgLayerNear.Draw(spriteBatch);
+            bgLayerMid.Draw(spriteBatch);
+            bgLayerFar.Draw(spriteBatch);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(1f)));
             foreach (ISprite obj in bgObjects)
                 obj.Draw(spriteBatch);
@@ -214,9 +217,7 @@ namespace Mario.Map
             }
             entities.Draw(spriteBatch);
             spriteBatch.End();
-            bgLayerNear.Draw(spriteBatch);
-            bgLayerMid.Draw(spriteBatch);
-            bgLayerFar.Draw(spriteBatch);
+            
             
 
         }
