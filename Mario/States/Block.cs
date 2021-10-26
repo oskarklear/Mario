@@ -178,14 +178,13 @@ namespace Mario.States
 				
 				if (collider is SuperMario)
                 {
-					
 					SuperMario mario=collider as SuperMario;
 					System.Diagnostics.Debug.WriteLine("collision with mario");
 					
 					System.Diagnostics.Debug.WriteLine(sprite.ToString());
 					System.Diagnostics.Debug.WriteLine(mario.ToString());
-					state.Bump(this, mario.context, sprite, entities, mario);
-					System.Diagnostics.Debug.WriteLine("dariougjbaeogiuvywbrsvouysbrvfiouywsvrbsULKVbsfi");
+					if (mario.context.Velocity.Y > 0)
+						state.Bump(this, mario.context, sprite, entities, mario);
 				}
 				//if (collider is RedMushroom || collider is GreenMushroom || collider is )
             }

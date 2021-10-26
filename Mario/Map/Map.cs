@@ -51,7 +51,6 @@ namespace Mario.Map
         private const int GOOMBAH = 16;
         private const int GOOMBAW = 16;
         private const int MUSHROOM = 18;
-        private const int FLOWER = 16;
         private const int COINH = 16;
         private const int COINW = 12;
         private const int BLOCK = 16;
@@ -133,12 +132,12 @@ namespace Mario.Map
                                 tenCoinBrickBlock.SetState(new TenCoinBrickBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(tenCoinBrickBlock);
                                 break;
-                            case 4:  //Hidden Block
+                            case 19:  //Hidden Block
                                 BlockContext hblock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 hblock.SetState(new HiddenBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(hblock);
                                 break;
-                            case 5:  //Used Block
+                            case 20:  //Used Block
                                 BlockContext ublock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 ublock.SetState(new UsedBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(ublock);
@@ -156,7 +155,7 @@ namespace Mario.Map
                                 collisionObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
                                 break;
                             case 133:  //Fire Flower
-                                collisionObjs.Add(new FireFlower(theatre, new Vector2(i * FLOWER, j * FLOWER)));
+                                collisionObjs.Add(new FireFlower(theatre, new Vector2(i * BLOCK, j * BLOCK)));
                                 break;
                             case 144:  //Star
                                 collisionObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK), Mario));
@@ -296,20 +295,29 @@ namespace Mario.Map
             for (int i = 0; i < entities.fireBallObjs.Count; i++)
             {
                 ISprite sprite = entities.fireBallObjs[i];
-                foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
+                if (sprite.Position.X > 0 && sprite.Position.X < 3584)
                 {
-                    sprite.Collision(block);
-                    if (mario.context.ShowHitbox) sprite.ShowHitbox = true;
-                    else sprite.ShowHitbox = false;
-
-                    if (sprite.delete())
+                    foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
                     {
+                        sprite.Collision(block);
+                        if (mario.context.ShowHitbox) sprite.ShowHitbox = true;
+                        else sprite.ShowHitbox = false;
+
+                        if (sprite.delete())
+                        {
+                            entities.fireBallObjs.Remove(sprite);
+                            sprite = null;
+                            break;
+                        }
+
+                    }
+                }
+                else
+                {
                         entities.fireBallObjs.Remove(sprite);
                         sprite = null;
-                        break;
-                    }
-
                 }
+
             }
 
 
