@@ -124,7 +124,7 @@ namespace Mario.Sprites.Mario
 
         public void FireCommand()
         {
-            if (context.GetPowerUpState() is FireMarioState && entities.fireBallObjs.Count < 3 && fireballCooldown > 50)
+            if (context.GetPowerUpState() is FireMarioState && entities.fireBallObjs.Count < 2 && fireballCooldown > 20)
             {
                 entities.fireBallObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
                 fireballCooldown = 0;
