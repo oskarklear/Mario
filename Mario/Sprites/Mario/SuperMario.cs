@@ -460,19 +460,22 @@ namespace Mario.Sprites.Mario
                     }
                     if (hitbox.TouchBottomOf(collider.Hitbox))
                     {
-                        hitbox.Y = collider.Hitbox.Y + hitbox.Height;
-                        position.Y = hitbox.Y;
-                        if (collider is Goomba || collider is Koopa)
+                        if (!context.isFalling)
                         {
-                            if (delay <= 0)
+                            hitbox.Y = collider.Hitbox.Y + hitbox.Height;
+                            position.Y = hitbox.Y;
+                            if (collider is Goomba || collider is Koopa)
                             {
-                                context.TakeDamage();
-                                delay = 300;
+                                if (delay <= 0)
+                                {
+                                    context.TakeDamage();
+                                    delay = 300;
+                                }
                             }
-                        }
+                        }                      
                         System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
                         //context.isTouchingBottom = true;
-                        context.GetActionState().FallingTransition();
+                        context.GetActionState().FallingTransition();                   
                     }
                 }
             }
