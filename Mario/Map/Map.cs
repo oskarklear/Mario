@@ -292,7 +292,7 @@ namespace Mario.Map
             {
                 foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
                 {
-                    if (block is BlockContext)
+                    if (block is BlockContext || block is Pipe)
                     {
                         sprite.Collision(block);
                         if (mario.context.ShowHitbox)
