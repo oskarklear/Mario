@@ -485,7 +485,7 @@ namespace Mario.Sprites.Mario
                 {
                     if (collider is FireFlower)
                     {
-                        collider.Collision(null);
+                        collider.Collision(this);
                         context.GetFireFlower();
                     }
                     else if (collider is RedMushroom)

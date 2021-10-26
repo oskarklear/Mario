@@ -163,10 +163,12 @@ namespace Mario.Map
                                 collisionObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK), Mario));
                                 break;
                             case 30:  //Goomba
-                                collisionZones[(i * GOOMBAW) / 256].Add(new Goomba(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
+                                //collisionZones[(i * GOOMBAW) / 256].Add(new Goomba(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
+                                entities.entityObjs.Add(new Goomba(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
                                 break;
                             case 31:  //Koopa
-                                collisionZones[(i * KOOPAW) / 256].Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
+                                //collisionZones[(i * KOOPAW) / 256].Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
+                                entities.entityObjs.Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
                                 break;
                             case 51: //Cloud
                                 bgLayerMid.Sprites.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));

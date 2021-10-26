@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.States;
+using Mario.Sprites.Mario;
 
 namespace Mario.Sprites.Enemies
 {
@@ -15,6 +17,8 @@ namespace Mario.Sprites.Enemies
         int Columns;
         Texture2D texture;
         Vector2 position;
+        Vector2 velocity;
+        bool direction;
         Game1 Theatre;
         bool dead;
         public Vector2 Position
@@ -49,6 +53,9 @@ namespace Mario.Sprites.Enemies
             hitbox = new Rectangle((int)location.X + 13, (int)location.Y + 15, 10, 10);
             dead = false;
             showHitbox = false;
+            direction = false;
+            velocity.Y = 1f;
+            velocity.X = 1f;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -58,6 +65,7 @@ namespace Mario.Sprites.Enemies
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+
             if (!dead)
             {
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
@@ -82,6 +90,12 @@ namespace Mario.Sprites.Enemies
 
         public void Update()
         {
+            position.Y += velocity.Y;
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+
+            System.Diagnostics.Debug.WriteLine("X-VELOCITY: " + velocity.X);
+            System.Diagnostics.Debug.WriteLine("Y-VELOCITY: " + velocity.Y);
+
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
                 currentFrame++;
@@ -90,13 +104,58 @@ namespace Mario.Sprites.Enemies
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
+
+            if (direction)
+            {
+                position.X += velocity.X;
+            }
+            else
+            {
+                position.X -= velocity.X;
+            }
         }
 
         public void Collision(ISprite collider)
         {
-            dead = true;
-            hitbox = new Rectangle(-1, -1, 0, 0);
+            if (collider is SuperMario)
+            {
+                dead = true;
+                hitbox = new Rectangle(-1, -1, 0, 0);
+                velocity.X = 0f;
+                velocity.Y = 0f;
+            }
+
+            if (collider is BlockContext)
+            {
+                if (hitbox.TouchTopOf(collider.Hitbox))
+                {
+                    hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
+                    position.Y = hitbox.Y;
+                }
+
+                if (hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
+                    position.X = hitbox.X;
+                    direction = !direction;
+                }
+
+                if (hitbox.TouchLeftOf(collider.Hitbox))
+                {
+                    hitbox.X = collider.Hitbox.X - hitbox.Width - 1;
+                    position.X = hitbox.X;
+                    direction = !direction;
+                }
+
+                if (hitbox.TouchBottomOf(collider.Hitbox))
+                {
+                    hitbox.Y = collider.Hitbox.Y + hitbox.Height;
+                    position.Y = hitbox.Y;
+                }
+            }
         }
+
+
         public void ToggleHitbox()
         {
             showHitbox = !showHitbox;

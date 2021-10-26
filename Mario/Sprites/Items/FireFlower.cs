@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.States;
 
 namespace Mario.Sprites.Items
 {
@@ -17,14 +18,15 @@ namespace Mario.Sprites.Items
         Texture2D texture;
         Vector2 position;
         int endPosition;
+        Vector2 velocity;
         bool obtained;
+        bool spawning;
         private bool showHitbox;
         public bool ShowHitbox
         {
             get { return showHitbox; }
             set { showHitbox = value; }
         }
-
         public bool delete()
         {
             return false;
@@ -46,11 +48,14 @@ namespace Mario.Sprites.Items
             currentFrame = 0;
             Columns = 2;
             position = location;
-            endPosition = (int)position.Y - 15;
+            endPosition = (int)position.Y - 13;
             texture = theatre.Content.Load<Texture2D>("items/fire_flower");
             obtained = false;
             showHitbox = false;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
+            velocity.Y = 1f;
+            velocity.X = 1f;
+            spawning = true;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -60,10 +65,12 @@ namespace Mario.Sprites.Items
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+
             if (!obtained)
             {
                 Hitbox = new Rectangle((int)position.X, (int)position.Y, width, height);
                 spriteBatch.Draw(texture, Hitbox, sourceRectangle, Color.White);
+
                 if (showHitbox)
                 {
                     Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
@@ -80,11 +87,12 @@ namespace Mario.Sprites.Items
                     spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
                 }
             }
-            
         }
 
         public void Update()
         {
+            position.Y += velocity.Y;
+
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
                 currentFrame++;
@@ -94,30 +102,58 @@ namespace Mario.Sprites.Items
                 currentFrame = 0;
             timeSinceLastFrame++;
 
-            if (position.Y > endPosition)
+            if (position.Y > endPosition && spawning)
             {
-                position.Y -= 1;
-                hitbox.Y -= 1;
+                position.Y -= 2;
+                hitbox.Y -= 2;
+            }
+            else if (position.Y == endPosition && spawning)
+            {
+                spawning = false;
             }
         }
 
         public void Collision(ISprite collider)
         {
-            obtained = true;
-            hitbox = new Rectangle(-1, -1, 0, 0);
+            if (!spawning)
+            {
+                if (collider is SuperMario)
+                {
+                    obtained = true;
+                    hitbox = new Rectangle(-1, -1, 0, 0);
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
 
-            //if (Hitbox.TouchTopOf(collider.Hitbox) || Hitbox.TouchRightOf(collider.Hitbox)
-            // || Hitbox.TouchLeftOf(collider.Hitbox) || Hitbox.TouchBottomOf(collider.Hitbox))
-            //{
-            //System.Diagnostics.Debug.WriteLine("collision");
-            //   if (collider is SuperMario)
-            //    {
-            //       obtained = true;
-            //Hitbox = new Rectangle(-1, -1, 0, 0);
-            //   }
-            // }
+                if (collider is BlockContext)
+                {
+                    if (hitbox.TouchTopOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
+                        position.Y = hitbox.Y;
+                    }
+
+                    if (hitbox.TouchRightOf(collider.Hitbox))
+                    {
+                        hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
+                        position.X = hitbox.X;
+                    }
+
+                    if (hitbox.TouchLeftOf(collider.Hitbox))
+                    {
+                        hitbox.X = collider.Hitbox.X - hitbox.Width - 1;
+                        position.X = hitbox.X;
+                    }
+
+                    if (hitbox.TouchBottomOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y + hitbox.Height;
+                        position.Y = hitbox.Y;
+                    }
+                }
+            }
         }
-       
+
     }
 }
 
