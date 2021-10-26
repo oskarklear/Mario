@@ -54,7 +54,7 @@ namespace Mario.States
 			rubbleLocation4.X += 10;*/
 			rubbleList = new List<BrokenBlockSprite>();
 			rubbleActive = false;
-			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,17,16);
+			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,12,16);
 			showHitbox = false;
 			entities = theatre.map.entities;
 			
@@ -210,7 +210,6 @@ namespace Mario.States
 			Vector2 mushroomLocation = sprite.GetLocation();
 			mushroomLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new RedMushroom(context.GetGame(), mushroomLocation, superMario));
-
 			this.Movement(sprite);
 		}
 		public override string ToString()

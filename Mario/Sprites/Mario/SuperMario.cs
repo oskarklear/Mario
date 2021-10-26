@@ -420,7 +420,6 @@ namespace Mario.Sprites.Mario
                         System.Diagnostics.Debug.WriteLine("mario hit the top of something");
                         if (collider is Goomba || collider is Koopa)
                         {
-
                             if (delay <= 0)
                             {
                                 context.TakeDamage();

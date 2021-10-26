@@ -143,6 +143,11 @@ namespace Mario.Sprites.Enemies
                 {
                     hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
                     position.Y = hitbox.Y;
+                    velocity.Y = 0f;
+                }
+                else
+                {
+                    velocity.Y = 1f;
                 }
 
                 if (hitbox.TouchRightOf(collider.Hitbox))
@@ -151,6 +156,7 @@ namespace Mario.Sprites.Enemies
                     else hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
                     position.X = hitbox.X;
                     direction = !direction;
+                    velocity.Y = 1f;
                 }
 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
@@ -159,12 +165,14 @@ namespace Mario.Sprites.Enemies
                     else hitbox.X = collider.Hitbox.X - hitbox.Width - 2;
                     position.X = hitbox.X;
                     direction = !direction;
+                    velocity.Y = 1f;
                 }
 
                 if (hitbox.TouchBottomOf(collider.Hitbox))
                 {
                     hitbox.Y = collider.Hitbox.Y + hitbox.Height;
                     position.Y = hitbox.Y;
+                    velocity.Y = 1f;
                 }
             }
         }
