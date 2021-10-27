@@ -149,7 +149,7 @@ namespace Mario.Sprites.Enemies
 
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
-                    if (collider is Pipe) hitbox.X = collider.Hitbox.X + hitbox.Width + 10;
+                    if (collider is Pipe) hitbox.X = collider.Hitbox.X + hitbox.Width + 12;
                     else hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
                     position.X = hitbox.X;
                     direction = !direction;
