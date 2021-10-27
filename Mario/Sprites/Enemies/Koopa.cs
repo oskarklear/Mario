@@ -31,7 +31,6 @@ namespace Mario.Sprites.Enemies
         bool deleted;
         bool isMoving;
         int shellSpeed;
-        bool isShell;
         int shellDirection;
 
         public Vector2 Position
