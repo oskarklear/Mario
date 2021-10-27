@@ -409,11 +409,19 @@ namespace Mario.Sprites.Mario
                     {
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                         position.Y = hitbox.Y;
-                        context.Velocity.Y = 0f;
-
-                        if (collider is Goomba || collider is Koopa)
+                        context.Velocity.Y = 0f;                        
+                        if (collider is Goomba)
                         {
                             //collider.Collision(this);
+                            context.Velocity.Y = 4f;
+                        }
+
+                        if (collider is Koopa)
+                        {
+                            System.Diagnostics.Debug.WriteLine("TEMP");
+                            //collider.Collision(this);
+                            System.Diagnostics.Debug.WriteLine("COLIDER: " + collider.ToString());
+                            collider.Collision(this);
                             context.Velocity.Y = 4f;
                         }
                         context.isTouchingTop = true;

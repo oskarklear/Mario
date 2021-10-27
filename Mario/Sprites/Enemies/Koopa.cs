@@ -37,7 +37,7 @@ namespace Mario.Sprites.Enemies
         {
             get { return position; }
         }
-        Rectangle hitbox;
+        public Rectangle hitbox;
         public Rectangle Hitbox
         {
             get { return hitbox; }
@@ -112,7 +112,9 @@ namespace Mario.Sprites.Enemies
                 } 
                 else
                 {
-                    spriteBatch.Draw(shellTexture, destinationRectangle, sourceRectangle, Color.White);
+                    System.Diagnostics.Debug.WriteLine("DRAW");
+                    Columns = 1;
+                    spriteBatch.Draw(shellTexture, position, Color.White);
                 }
             }
         }
@@ -145,7 +147,8 @@ namespace Mario.Sprites.Enemies
                 }
             }
             else
-            {
+            {               
+                Columns = 1;
                 hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 16);
             }
         }
@@ -156,20 +159,21 @@ namespace Mario.Sprites.Enemies
             {
                 //dead = true;
                 //hitbox = new Rectangle(-1, -1, 0, 0);
-
-                System.Diagnostics.Debug.WriteLine(hitbox.ToString());
-                System.Diagnostics.Debug.WriteLine(collider.Hitbox.ToString());
-
+                System.Diagnostics.Debug.WriteLine("KOOPA TOP: " + hitbox.Top);
+                System.Diagnostics.Debug.WriteLine("MARIO BOTTOM: " + collider.Hitbox.Bottom);
                 if (hitbox.TouchTopOf(collider.Hitbox))
                 {
                     //isShell = true;
                 }
-                if (hitbox.TouchBottomOf(collider.Hitbox))
+                if (hitbox.Top <= collider.Hitbox.Bottom + 1 &&
+                hitbox.Top >= collider.Hitbox.Bottom - 2 &&
+                hitbox.Right >= collider.Hitbox.Left + (collider.Hitbox.Width / 5) &&
+                hitbox.Left <= collider.Hitbox.Right - (collider.Hitbox.Width / 5))
                 {
+                    System.Diagnostics.Debug.WriteLine("FUCK");
                     velocity.X = 0f;
                     velocity.Y = 0f;
                     isShell = true;
-                    Columns = 1;
                 } 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {

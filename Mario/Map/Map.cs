@@ -323,8 +323,7 @@ namespace Mario.Map
             for (int i = 0; i < entities.enemyObjs.Count; i++)
             {
                 ISprite sprite = entities.enemyObjs[i];
-                sprite.Collision(mario);
-                //mario.Collision(sprite);
+                //sprite.Collision(mario);        
                 
 
                 foreach(ISprite fireball in entities.fireBallObjs)
@@ -368,6 +367,7 @@ namespace Mario.Map
                         }
                     }
                 }
+                mario.Collision(sprite);
             }
 
             for (int i = 0; i < entities.fireBallObjs.Count; i++)
