@@ -151,11 +151,11 @@ namespace Mario.Sprites.Enemies
             }
             else
             {
-                
                 if (isMoving)
                 {
-                    System.Diagnostics.Debug.WriteLine("BIG ASSSSS");
+                    position.Y += velocity.Y;
                     position.X += shellDirection * shellSpeed;
+                    hitbox = new Rectangle((int)position.X, (int)position.Y, 8, 8);
                 }
             }
         }
@@ -168,6 +168,8 @@ namespace Mario.Sprites.Enemies
                 //hitbox = new Rectangle(-1, -1, 0, 0);
                 System.Diagnostics.Debug.WriteLine("KOOPA TOP: " + hitbox.Top);
                 System.Diagnostics.Debug.WriteLine("MARIO BOTTOM: " + collider.Hitbox.Bottom);
+                System.Diagnostics.Debug.WriteLine("KOOPA RIGHT: " + hitbox.Right);
+                System.Diagnostics.Debug.WriteLine("MARIO LEFT: " + collider.Hitbox.Left);
                 if (hitbox.TouchTopOf(collider.Hitbox))
                 {
                     //isShell = true;
@@ -182,17 +184,23 @@ namespace Mario.Sprites.Enemies
                     velocity.Y = 0f;
                     isShell = true;
                 } 
-                if (hitbox.TouchLeftOf(collider.Hitbox))
-                {
-                    System.Diagnostics.Debug.WriteLine("FUCK");
-                    isMoving = true;
-                    shellDirection = 1;
-                }
-                if (hitbox.TouchRightOf(collider.Hitbox))
+                if (hitbox.Right <= collider.Hitbox.Right &&
+                hitbox.Right >= collider.Hitbox.Left - 4 &&
+                hitbox.Top <= collider.Hitbox.Bottom - (collider.Hitbox.Width / 4) &&
+                hitbox.Bottom >= collider.Hitbox.Top + (collider.Hitbox.Width / 4))
                 {
                     System.Diagnostics.Debug.WriteLine("FUCK");
                     isMoving = true;
                     shellDirection = -1;
+                }
+                if (hitbox.Left >= collider.Hitbox.Left &&
+                hitbox.Left <= collider.Hitbox.Right &&
+                hitbox.Top <= collider.Hitbox.Bottom - (collider.Hitbox.Width / 4) &&
+                hitbox.Bottom >= collider.Hitbox.Top + (collider.Hitbox.Width / 4))
+                {
+                    System.Diagnostics.Debug.WriteLine("FUCK");
+                    isMoving = true;
+                    shellDirection = 1;
                 }
 
             }

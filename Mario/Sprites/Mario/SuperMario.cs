@@ -418,17 +418,21 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba)
                         {
                             //collider.Collision(this);
-                            context.Velocity.Y = 4f;
+                            context.Velocity.Y = 4f;                           
                             collider.Collision(this);
+                            context.jumpHeight = 0;
+                            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+                            context.jumpingState.Enter(context.GetActionState());
                         }
 
                         if (collider is Koopa)
                         {
-                            System.Diagnostics.Debug.WriteLine("TEMP");
                             //collider.Collision(this);
-                            System.Diagnostics.Debug.WriteLine("COLIDER: " + collider.ToString());
                             collider.Collision(this);
                             context.Velocity.Y = 4f;
+                            context.jumpHeight = 0;
+                            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+                            context.jumpingState.Enter(context.GetActionState());
                         }
                         context.isTouchingTop = true;
                     }
