@@ -282,7 +282,6 @@ namespace Mario.Map
             foreach (ISprite sprite in entities.entityObjs)
             {
                 mario.Collision(sprite);
-                
                 if (mario.context.ShowHitbox)
                     sprite.ShowHitbox = true;
                 else

@@ -30,6 +30,14 @@ namespace Mario.Sprites.Projectiles
             get { return position; }
         }
         private bool showHitbox;
+
+        public bool ShowHitbox
+        {
+            get;
+            set;
+        }
+
+
         public Fireball(Game1 theatre, Vector2 location, SuperMario mario, bool xDirection)
         {
             position = location;
