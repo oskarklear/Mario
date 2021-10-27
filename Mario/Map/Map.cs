@@ -326,8 +326,8 @@ namespace Mario.Map
             {
                 ISprite sprite = entities.enemyObjs[i];
                 //sprite.Collision(mario);        
-                
-
+                if (sprite.Position.X < 0 && sprite.Position.Y < 0)
+                    entities.enemyObjs.RemoveAt(i);
                 foreach(ISprite fireball in entities.fireBallObjs)
                 {
                     sprite.Collision(fireball);

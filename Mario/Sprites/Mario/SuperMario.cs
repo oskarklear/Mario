@@ -338,7 +338,7 @@ namespace Mario.Sprites.Mario
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             else if (context.GetPowerUpState().ToString().Equals("DeadMario"))
-                hitbox = new Rectangle(-1, -1, 0, 0);
+                hitbox = new Rectangle(-1, -1, 1, 1);
             else
             {
                 if (context.GetActionState().ToString().Equals("CrouchingState"))
@@ -418,6 +418,7 @@ namespace Mario.Sprites.Mario
                         {
                             //collider.Collision(this);
                             context.Velocity.Y = 4f;
+                            collider.Collision(this);
                         }
 
                         if (collider is Koopa)

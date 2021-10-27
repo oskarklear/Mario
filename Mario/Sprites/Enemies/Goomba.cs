@@ -42,7 +42,7 @@ namespace Mario.Sprites.Enemies
         }
         public bool delete()
         {
-            return false;
+            return true;
         }
 
         public Goomba(Game1 theatre, Vector2 location)
@@ -101,7 +101,10 @@ namespace Mario.Sprites.Enemies
         public void Update()
         {
             position.Y += velocity.Y;
-            hitbox = new Rectangle((int)position.X + 5, (int)position.Y, 16, 16);
+            if (!dead)
+                hitbox = new Rectangle((int)position.X + 5, (int)position.Y, 16, 16);
+            else
+                hitbox = new Rectangle(-1, -1, 0, 0);
 
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
@@ -129,7 +132,6 @@ namespace Mario.Sprites.Enemies
             if (collider is SuperMario)
             {
                 dead = true;
-                hitbox = new Rectangle(-1, -1, 0, 0);
                 velocity.X = 0f;
                 velocity.Y = 0f;
             }
