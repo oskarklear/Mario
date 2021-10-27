@@ -7,6 +7,7 @@ using System.Text;
 using Mario.States;
 using Mario.Sprites.Mario;
 using Mario.Sprites.Items;
+using Mario.Map;
 
 namespace Mario.Sprites.Enemies
 {
@@ -18,13 +19,21 @@ namespace Mario.Sprites.Enemies
         int Columns;
         Texture2D textureLeft;
         Texture2D textureRight;
+        Texture2D shellTexture;
         Vector2 position;
         Vector2 velocity;
         bool direction;
         bool facingLeft;
         Game1 Theatre;
         bool dead;
+        bool falling;
         bool colliding;
+        bool deleted;
+        bool isMoving;
+        bool shellSpeed;
+        bool isShell;
+        bool falling;
+
         public Vector2 Position
         {
             get { return position; }
@@ -46,6 +55,7 @@ namespace Mario.Sprites.Enemies
             return false;
         }
 
+
         public Koopa(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -56,6 +66,7 @@ namespace Mario.Sprites.Enemies
             Theatre = theatre;
             textureLeft = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_leftWalking");
             textureRight = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_rightWalking");
+            shellTexture = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_shell_green_init");
             hitbox = new Rectangle((int)location.X + 7, (int)location.Y, 16, 26);
             dead = false;
             showHitbox = false;
@@ -63,6 +74,7 @@ namespace Mario.Sprites.Enemies
             facingLeft = true;
             velocity.Y = 1f;
             velocity.X = 0.5f;
+            isShell = false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -77,31 +89,39 @@ namespace Mario.Sprites.Enemies
             if (!dead)
             {
                 Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                if (facingLeft) spriteBatch.Draw(textureLeft, destinationRectangle, sourceRectangle, Color.White);
-                else spriteBatch.Draw(textureRight, destinationRectangle, sourceRectangle, Color.White);
-
-                if (showHitbox)
+                if (!isShell)
                 {
-                    Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
-                    Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
-                    Color[] dataW = new Color[hitbox.Width];
-                    for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Red;
-                    Color[] dataH = new Color[hitbox.Height];
-                    for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Red;
-                    hitboxTextureW.SetData(dataW);
-                    hitboxTextureH.SetData(dataH);
-                    spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                    spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
-                    spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                    spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
+                    if (facingLeft) spriteBatch.Draw(textureLeft, destinationRectangle, sourceRectangle, Color.White);
+                    else spriteBatch.Draw(textureRight, destinationRectangle, sourceRectangle, Color.White);
+
+                    if (showHitbox)
+                    {
+                        Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
+                        Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
+                        Color[] dataW = new Color[hitbox.Width];
+                        for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Red;
+                        Color[] dataH = new Color[hitbox.Height];
+                        for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Red;
+                        hitboxTextureW.SetData(dataW);
+                        hitboxTextureH.SetData(dataH);
+                        spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                        spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
+                        spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
+                        spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
+                    }
+                } else
+                {
+                    spriteBatch.Draw(shellTexture, destinationRectangle, sourceRectangle, Color.White);
                 }
             }
         }
 
         public void Update()
         {
-            position.Y += velocity.Y;
-            hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 26);
+            if (!isShell)
+            {
+                position.Y += velocity.Y;
+                hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 26);
 
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
@@ -112,15 +132,19 @@ namespace Mario.Sprites.Enemies
                 currentFrame = 0;
             timeSinceLastFrame++;
 
-            if (direction)
+                if (direction)
+                {
+                    position.X += velocity.X;
+                    facingLeft = false;
+                }
+                else
+                {
+                    position.X -= velocity.X;
+                    facingLeft = true;
+                }
+            } else
             {
-                position.X += velocity.X;
-                facingLeft = false;
-            }
-            else
-            {
-                position.X -= velocity.X;
-                facingLeft = true;
+                hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 16);
             }
         }
 
@@ -128,10 +152,31 @@ namespace Mario.Sprites.Enemies
         {
             if (collider is SuperMario)
             {
-                dead = true;
-                hitbox = new Rectangle(-1, -1, 0, 0);
+                //dead = true;
+                //hitbox = new Rectangle(-1, -1, 0, 0);
                 velocity.X = 0f;
                 velocity.Y = 0f;
+
+                System.Diagnostics.Debug.WriteLine(hitbox.ToString());
+                System.Diagnostics.Debug.WriteLine(collider.Hitbox.ToString());
+
+                if (hitbox.TouchTopOf(collider.Hitbox))
+                {
+                    isShell = true;
+                }
+                if (hitbox.TouchBottomOf(collider.Hitbox))
+                {
+                    isShell = true;
+                }
+                if (hitbox.TouchLeftOf(collider.Hitbox))
+                {
+                    isShell = true;
+                }
+                if (hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    isShell = true;
+                }
+
             }
 
             if (collider is BlockContext || collider is Pipe)
@@ -141,34 +186,36 @@ namespace Mario.Sprites.Enemies
                     hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
                     position.Y = hitbox.Y;
                     velocity.Y = 0f;
-                    colliding = true;
+                    falling = false;
                 }
                 else
+                {
                     velocity.Y = 1f;
+                    falling = true;
+                }
 
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
                     if (collider is Pipe) hitbox.X = collider.Hitbox.X + hitbox.Width + 10;
                     else hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
                     position.X = hitbox.X;
-                    direction = !direction;
-                    colliding = true;
+                    //if (!falling)
+                        direction = !direction;
                 }
 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
                     if (collider is Pipe) hitbox.X = collider.Hitbox.X - hitbox.Width - 10;
-                    else hitbox.X = collider.Hitbox.X - hitbox.Width - 2;
+                    else hitbox.X = collider.Hitbox.X - hitbox.Width - 8;
                     position.X = hitbox.X;
-                    direction = !direction;
-                    colliding = true;
+                    //if (!falling)
+                        direction = !direction;
                 }
 
                 if (hitbox.TouchBottomOf(collider.Hitbox))
                 {
                     hitbox.Y = collider.Hitbox.Y + hitbox.Height;
                     position.Y = hitbox.Y;
-                    colliding = true;
                 }
             }
         }

@@ -122,7 +122,7 @@ namespace Mario.Sprites.Mario
 
         public void FireCommand()
         {
-            if (context.GetPowerUpState() is FireMarioState && entities.fireBallObjs.Count < 3 && fireballCooldown > 50)
+            if (context.GetPowerUpState() is FireMarioState && entities.fireBallObjs.Count < 2 && fireballCooldown > 20)
             {
                 entities.fireBallObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
                 fireballCooldown = 0;
@@ -413,11 +413,8 @@ namespace Mario.Sprites.Mario
 
                         if (collider is Goomba || collider is Koopa)
                         {
-                            if (delay <= 0)
-                            {
-                                context.TakeDamage();
-                                delay = delaytime;
-                            }
+                            collider.Collision(this);
+                            context.Velocity.Y = 4f;
                         }
                         context.isTouchingTop = true;
                     }
@@ -429,11 +426,11 @@ namespace Mario.Sprites.Mario
 
                         if (collider is Goomba || collider is Koopa)
                         {
-                            if (delay <= 0)
+                            /*if (delay <= 0)
                             {
                                 context.TakeDamage();
                                 delay = delaytime;
-                            }
+                            }*/
                             
                         }
                         context.isTouchingLeft = true;

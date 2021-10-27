@@ -274,7 +274,6 @@ namespace Mario.Map
             foreach (ISprite sprite in entities.entityObjs)
             {
                 mario.Collision(sprite);
-                
                 if (mario.context.ShowHitbox)
                     sprite.ShowHitbox = true;
                 else
@@ -283,6 +282,19 @@ namespace Mario.Map
 
             foreach (ISprite sprite in entities.entityObjs)
             {
+                if (sprite.Position.X > 256)
+                {
+                    foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) - 1])
+                    {
+                        if (block is BlockContext || block is Pipe)
+                        {
+                            sprite.Collision(block);
+                            if (mario.context.ShowHitbox)
+                                sprite.ShowHitbox = true;
+                            else sprite.ShowHitbox = false;
+                        }
+                    }
+                }
                 foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
                 {
                     if (block is BlockContext || block is Pipe)
@@ -291,6 +303,19 @@ namespace Mario.Map
                         if (mario.context.ShowHitbox)
                             sprite.ShowHitbox = true;
                         else sprite.ShowHitbox = false;
+                    }
+                }
+                if (mario.position.X < 3328)
+                {
+                    foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) + 1])
+                    {
+                        if (block is BlockContext || block is Pipe)
+                        {
+                            sprite.Collision(block);
+                            if (mario.context.ShowHitbox)
+                                sprite.ShowHitbox = true;
+                            else sprite.ShowHitbox = false;
+                        }
                     }
                 }
             }

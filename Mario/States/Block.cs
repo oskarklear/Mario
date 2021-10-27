@@ -42,7 +42,7 @@ namespace Mario.States
 			sprite = new BrickBlockSprite(Theatre, Location, this);
 			rubbleList = new List<BrokenBlockSprite>();
 			rubbleActive = false;
-			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,12,16);
+			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,16,16);
 			showHitbox = false;
 			entities = theatre.map.entities;
 		}
