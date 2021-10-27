@@ -30,14 +30,14 @@ namespace Mario.Sprites.Enemies
         bool colliding;
         bool deleted;
         bool isMoving;
-        bool shellSpeed;
-        bool isShell;
+        int shellSpeed;
+        int shellDirection;
 
         public Vector2 Position
         {
             get { return position; }
         }
-        Rectangle hitbox;
+        public Rectangle hitbox;
         public Rectangle Hitbox
         {
             get { return hitbox; }
@@ -49,6 +49,7 @@ namespace Mario.Sprites.Enemies
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool isShell { get; set; }
         public bool delete()
         {
             return false;
@@ -74,6 +75,8 @@ namespace Mario.Sprites.Enemies
             velocity.Y = 1f;
             velocity.X = 0.5f;
             isShell = false;
+            shellDirection = 1;
+            shellSpeed = 2;
 
         }
 
@@ -109,9 +112,12 @@ namespace Mario.Sprites.Enemies
                         spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
                         spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
                     }
-                } else
+                } 
+                else
                 {
-                    spriteBatch.Draw(shellTexture, destinationRectangle, sourceRectangle, Color.White);
+                    
+                    Columns = 1;
+                    spriteBatch.Draw(shellTexture, position, Color.White);
                 }
             }
         }
@@ -123,14 +129,14 @@ namespace Mario.Sprites.Enemies
                 position.Y += velocity.Y;
                 hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 26);
 
-            if (timeSinceLastFrame > millisecondsPerFrame)
-            {
-                currentFrame++;
-                timeSinceLastFrame = 0;
-            }
-            if (currentFrame == Columns)
-                currentFrame = 0;
-            timeSinceLastFrame++;
+                if (timeSinceLastFrame > millisecondsPerFrame)
+                {
+                    currentFrame++;
+                    timeSinceLastFrame = 0;
+                }
+                if (currentFrame == Columns)
+                    currentFrame = 0;
+                timeSinceLastFrame++;
 
                 if (direction)
                 {
@@ -142,9 +148,15 @@ namespace Mario.Sprites.Enemies
                     position.X -= velocity.X;
                     facingLeft = true;
                 }
-            } else
+            }
+            else
             {
-                hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 16);
+                
+                if (isMoving)
+                {
+                    System.Diagnostics.Debug.WriteLine("BIG ASSSSS");
+                    position.X += shellDirection * shellSpeed;
+                }
             }
         }
 
@@ -154,27 +166,33 @@ namespace Mario.Sprites.Enemies
             {
                 //dead = true;
                 //hitbox = new Rectangle(-1, -1, 0, 0);
-
-                System.Diagnostics.Debug.WriteLine(hitbox.ToString());
-                System.Diagnostics.Debug.WriteLine(collider.Hitbox.ToString());
-
+                System.Diagnostics.Debug.WriteLine("KOOPA TOP: " + hitbox.Top);
+                System.Diagnostics.Debug.WriteLine("MARIO BOTTOM: " + collider.Hitbox.Bottom);
                 if (hitbox.TouchTopOf(collider.Hitbox))
                 {
                     //isShell = true;
                 }
-                if (hitbox.TouchBottomOf(collider.Hitbox))
+                if (hitbox.Top <= collider.Hitbox.Bottom + 1 &&
+                hitbox.Top >= collider.Hitbox.Bottom - 2 &&
+                hitbox.Right >= collider.Hitbox.Left + (collider.Hitbox.Width / 5) &&
+                hitbox.Left <= collider.Hitbox.Right - (collider.Hitbox.Width / 5))
                 {
+                    System.Diagnostics.Debug.WriteLine("FUCK");
                     velocity.X = 0f;
                     velocity.Y = 0f;
                     isShell = true;
                 } 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
-                    //isShell = true;
+                    System.Diagnostics.Debug.WriteLine("FUCK");
+                    isMoving = true;
+                    shellDirection = 1;
                 }
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
-                    //isShell = true;
+                    System.Diagnostics.Debug.WriteLine("FUCK");
+                    isMoving = true;
+                    shellDirection = -1;
                 }
 
             }

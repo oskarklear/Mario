@@ -11,6 +11,7 @@ namespace Mario.Sprites
 
     class GoalGate : ISprite
     {
+
         Game1 Theatre;
         Texture2D texture;
         Vector2 position;
@@ -30,6 +31,7 @@ namespace Mario.Sprites
             set { showHitbox = value; }
         }
 
+        public bool isShell { get; set; }
         public bool delete()
         {
             return false;
@@ -63,6 +65,7 @@ namespace Mario.Sprites
         Game1 Theatre;
         Texture2D texture;
         Vector2 position;
+
         public Vector2 Position
         {
             get { return position; }
@@ -78,6 +81,7 @@ namespace Mario.Sprites
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool isShell { get; set; }
         bool up;
 
         public GoalGateMovingPart(Game1 theatre, Vector2 location)

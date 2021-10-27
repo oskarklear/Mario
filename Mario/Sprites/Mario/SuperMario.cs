@@ -15,6 +15,8 @@ namespace Mario.Sprites.Mario
 {
     public class SuperMario : ISprite
     {
+        protected const int MAPW = 3584;
+        protected const int MAPH = 272;
         protected const int delaytime = 100;
         int fireballCooldown;
         DynamicEntities entities;
@@ -46,6 +48,7 @@ namespace Mario.Sprites.Mario
             set { hitbox = value; }
         }
 
+        public bool isShell { get; set; }
         public bool delete()
         {
             return false;
@@ -331,10 +334,12 @@ namespace Mario.Sprites.Mario
                 if (context.isFalling)
                     context.jumpHeight = 0;
                 context.isFalling = false;
-            }   
+            }
 
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
+            else if (context.GetPowerUpState().ToString().Equals("DeadMario"))
+                hitbox = new Rectangle(-1, -1, 1, 1);
             else
             {
                 if (context.GetActionState().ToString().Equals("CrouchingState"))
@@ -409,11 +414,20 @@ namespace Mario.Sprites.Mario
                     {
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                         position.Y = hitbox.Y;
-                        context.Velocity.Y = 0f;
-
-                        if (collider is Goomba || collider is Koopa)
+                        context.Velocity.Y = 0f;                        
+                        if (collider is Goomba)
                         {
                             //collider.Collision(this);
+                            context.Velocity.Y = 4f;
+                            collider.Collision(this);
+                        }
+
+                        if (collider is Koopa)
+                        {
+                            System.Diagnostics.Debug.WriteLine("TEMP");
+                            //collider.Collision(this);
+                            System.Diagnostics.Debug.WriteLine("COLIDER: " + collider.ToString());
+                            collider.Collision(this);
                             context.Velocity.Y = 4f;
                         }
                         context.isTouchingTop = true;
@@ -424,14 +438,25 @@ namespace Mario.Sprites.Mario
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba || collider is Koopa)
+                        if (collider is Goomba)
                         {
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
                                 delay = delaytime;
                             }
-                            
+                        }
+                        if (collider is Koopa)
+                        {
+                            if (collider.isShell)
+                            {
+                                collider.Collision(this);
+                            }
+                            else
+                            {
+                                context.TakeDamage();
+                                delay = delaytime;
+                            }
                         }
                         context.isTouchingLeft = true;
                     }
@@ -444,9 +469,21 @@ namespace Mario.Sprites.Mario
                             hitbox.X = collider.Hitbox.X + hitbox.Width + 18;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba || collider is Koopa)
+                        if (collider is Goomba)
                         {
                             if (delay <= 0)
+                            {
+                                context.TakeDamage();
+                                delay = delaytime;
+                            }
+                        }
+                        if (collider is Koopa)
+                        {
+                            if (collider.isShell)
+                            {
+                                collider.Collision(this);
+                            }
+                            else
                             {
                                 context.TakeDamage();
                                 delay = delaytime;
@@ -512,16 +549,16 @@ namespace Mario.Sprites.Mario
             if (position.X < 0)
                 position.X = 0;
 
-            if (position.X > 3584 - hitbox.Width)
-                position.X = 3584 - hitbox.Width;
+            if (position.X > MAPW - hitbox.Width)
+                position.X = MAPW - hitbox.Width;
 
             if (position.Y < 0)
                 position.Y = 0;
 
-            if (position.Y > 272 - hitbox.Height)
+            if (position.Y > MAPH - hitbox.Height)
             {
                 context.DieInPit();
-                position.Y = 272 - hitbox.Height;
+                position.Y = MAPH - hitbox.Height;
             }
         }
     }
