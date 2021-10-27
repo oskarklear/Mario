@@ -161,7 +161,7 @@ namespace Mario.Sprites.Enemies
                 System.Diagnostics.Debug.WriteLine(hitbox.ToString());
                 System.Diagnostics.Debug.WriteLine(collider.Hitbox.ToString());
 
-/*                if (hitbox.TouchTopOf(collider.Hitbox))
+                if (hitbox.TouchTopOf(collider.Hitbox))
                 {
                     //isShell = true;
                 }
