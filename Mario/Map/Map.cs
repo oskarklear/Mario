@@ -305,7 +305,7 @@ namespace Mario.Map
                         else sprite.ShowHitbox = false;
                     }
                 }
-                if (mario.position.X < 3328)
+                if (sprite.Position.X < 3328)
                 {
                     foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) + 1])
                     {
@@ -317,6 +317,27 @@ namespace Mario.Map
                             else sprite.ShowHitbox = false;
                         }
                     }
+                }
+            }
+
+            for (int i = 0; i < entities.enemyObjs.Count; i++)
+            {
+                ISprite sprite = entities.enemyObjs[i];
+                sprite.Collision(mario);
+                //mario.Collision(sprite);
+                
+
+                foreach(ISprite fireball in entities.fireBallObjs)
+                {
+                    sprite.Collision(fireball);
+                }
+
+                foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
+                {
+                    sprite.Collision(block);
+                    if (mario.context.ShowHitbox) sprite.ShowHitbox = true;
+                    else sprite.ShowHitbox = false;
+
                 }
             }
 
