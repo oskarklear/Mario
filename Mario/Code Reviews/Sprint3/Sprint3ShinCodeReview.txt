@@ -1,0 +1,13 @@
+﻿Author: Kyle Shin
+Date: 10/26/21
+Sprint: 3
+Name of file being reviewed: RedMushroom.cs
+Author: Bennett Palmer
+Comments:
+- Collision with Mario puts the mushroom at the corner of the map. This may lead to errors in the future,
+and may not applicable for future games that do not keep the whole map in memory
+- Fair amount of cyclomatic complexity: Lots of if-else statements
+- Use of the collisionHelper methods is good. Those have lots of reusability. 
+
+Minutes taken: 5
+Hypothetical change: Completely remove the Red Mushroom object from the game when it collides with Mario. 
