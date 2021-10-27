@@ -313,7 +313,7 @@ namespace Mario.Map
                         else sprite.ShowHitbox = false;
                     }
                 }
-                if (mario.position.X < 3328)
+                if (sprite.Position.X < 3328)
                 {
                     foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) + 1])
                     {
