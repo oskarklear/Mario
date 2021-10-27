@@ -169,7 +169,7 @@ namespace Mario.Map
                                 entities.entityObjs.Add(new Goomba(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
                                 break;
                             case 31:  //Koopa
-                                entities.entityObjs.Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
+                                entities.enemyObjs.Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
                                 break;
                             case 51: //Cloud
                                 bgLayerFar.Sprites.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));
@@ -331,13 +331,42 @@ namespace Mario.Map
                 {
                     sprite.Collision(fireball);
                 }
-
+                //World collision
+                if (sprite.Position.X > 256)
+                {
+                    foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) - 1])
+                    {
+                        if (block is BlockContext || block is Pipe)
+                        {
+                            sprite.Collision(block);
+                            if (mario.context.ShowHitbox)
+                                sprite.ShowHitbox = true;
+                            else sprite.ShowHitbox = false;
+                        }
+                    }
+                }
                 foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
                 {
-                    sprite.Collision(block);
-                    if (mario.context.ShowHitbox) sprite.ShowHitbox = true;
-                    else sprite.ShowHitbox = false;
-
+                    if (block is BlockContext || block is Pipe)
+                    {
+                        sprite.Collision(block);
+                        if (mario.context.ShowHitbox)
+                            sprite.ShowHitbox = true;
+                        else sprite.ShowHitbox = false;
+                    }
+                }
+                if (sprite.Position.X < 3328)
+                {
+                    foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) + 1])
+                    {
+                        if (block is BlockContext || block is Pipe)
+                        {
+                            sprite.Collision(block);
+                            if (mario.context.ShowHitbox)
+                                sprite.ShowHitbox = true;
+                            else sprite.ShowHitbox = false;
+                        }
+                    }
                 }
             }
 
