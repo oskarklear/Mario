@@ -17,7 +17,6 @@ namespace Mario.States
 		BlockState oldState;
 		BlockSprite sprite;
 		Vector2 Location;
-		int cooldown;
 		private bool showHitbox;
 		public bool ShowHitbox
 		{
@@ -29,10 +28,7 @@ namespace Mario.States
 			get { return Location; }
 		}
 		Game1 Theatre;
-		//Level level;
 		List<BrokenBlockSprite> rubbleList;
-		//List<ISprite> powerups;
-		//String powerup;
 		DynamicEntities entities;
 		Boolean rubbleActive;
 		public Rectangle Hitbox { get; set; }
@@ -44,23 +40,13 @@ namespace Mario.States
 			oldState = state;
 			Location = location;
 			sprite = new BrickBlockSprite(Theatre, Location, this);
-/*			Vector2 rubbleLocation1 = sprite.GetLocation();
-			rubbleLocation1.X -= 10;
-			Vector2 rubbleLocation2 = sprite.GetLocation();
-			rubbleLocation2.X -= 5;
-			Vector2 rubbleLocation3 = sprite.GetLocation();
-			rubbleLocation3.X += 5;
-			Vector2 rubbleLocation4 = sprite.GetLocation();
-			rubbleLocation4.X += 10;*/
 			rubbleList = new List<BrokenBlockSprite>();
 			rubbleActive = false;
 			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,12,16);
 			showHitbox = false;
 			entities = theatre.map.entities;
-			
-			
-
 		}
+
 		public Game1 GetGame()
 		{
 			return Theatre;
@@ -75,6 +61,7 @@ namespace Mario.States
 		{
 			oldState = state;
 			state = NewState;
+
 			switch (state.ToString())
 			{
 				case "BrickBlock":
@@ -94,15 +81,16 @@ namespace Mario.States
 					break;
 			}
 		}
+
 		public BlockState GetState()
 		{
 			return state;
 		}
+
 		public void Bump(MarioContext Mario, Game1 theatre, SuperMario superMario)
 		{
 			entities = theatre.map.entities;
 			state.Bump(this, Mario, sprite, entities, superMario);
-			System.Diagnostics.Debug.WriteLine("Bump");
 		}
 
 		public void Update()
@@ -141,8 +129,8 @@ namespace Mario.States
             {
 				rubble.Draw(spriteBatch);
             }
-
 		}
+
 		public void ToggleRubble()
 		{
 			if (!rubbleActive)
@@ -164,10 +152,8 @@ namespace Mario.States
 				{
 					rubble.ToggleRubble();
 				}
-				System.Diagnostics.Debug.WriteLine("rubble");
 				Hitbox = new Rectangle(-1, -1, 1, 1);
 			}
-
 		}
 
         public void Collision(ISprite collider)
@@ -178,15 +164,11 @@ namespace Mario.States
 				
 				if (collider is SuperMario)
                 {
-					SuperMario mario=collider as SuperMario;
-					System.Diagnostics.Debug.WriteLine("collision with mario");
-					
-					System.Diagnostics.Debug.WriteLine(sprite.ToString());
-					System.Diagnostics.Debug.WriteLine(mario.ToString());
+					SuperMario mario = collider as SuperMario;
+
 					if (mario.context.Velocity.Y > 0)
 						state.Bump(this, mario.context, sprite, entities, mario);
 				}
-				//if (collider is RedMushroom || collider is GreenMushroom || collider is )
             }
         }
 	}
@@ -204,14 +186,13 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new UsedBlockState());
-
 			Vector2 mushroomLocation = sprite.GetLocation();
 			mushroomLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new RedMushroom(context.GetGame(), mushroomLocation, superMario));
 			this.Movement(sprite);
 		}
+
 		public override string ToString()
 		{
 			return "QuestionBlock";
@@ -222,15 +203,13 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new UsedBlockState());
-
 			Vector2 mushroomLocation = sprite.GetLocation();
 			mushroomLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new GreenMushroom(context.GetGame(), mushroomLocation, superMario));
-
 			this.Movement(sprite);
 		}
+
 		public override string ToString()
 		{
 			return "QuestionBlock";
@@ -241,15 +220,13 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new UsedBlockState());
-
 			Vector2 flowerLocation = sprite.GetLocation();
 			flowerLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new FireFlower(context.GetGame(), flowerLocation));
-
 			this.Movement(sprite);
 		}
+
 		public override string ToString()
 		{
 			return "QuestionBlock";
@@ -260,15 +237,13 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new UsedBlockState());
-
 			Vector2 starLocation = sprite.GetLocation();
 			starLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new Star(context.GetGame(), starLocation, superMario));
-
 			this.Movement(sprite);
 		}
+
 		public override string ToString()
 		{
 			return "QuestionBlock";
@@ -279,15 +254,13 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new UsedBlockState());
-
 			Vector2 coinLocation = sprite.GetLocation();
 			coinLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
-
 			this.Movement(sprite);
 		}
+
 		public override string ToString()
 		{
 			return "QuestionBlock";
@@ -298,9 +271,7 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			System.Diagnostics.Debug.WriteLine("Bump");
 			context.SetState(new BrickBlockState());
-
 		}
 		public override string ToString()
 		{
@@ -310,20 +281,20 @@ namespace Mario.States
 
 	class BrickBlockState : BlockState
 	{
-
 		void Destroy(BlockContext context)
 		{
 			context.ToggleRubble();
 		}
+
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			System.Diagnostics.Debug.WriteLine("Bump");
 			this.Movement(sprite);
 			if (Mario.GetPowerUpState().ToString().Equals("SuperMario") || Mario.GetPowerUpState().ToString().Equals("FireMario"))
 			{
 				Destroy(context);
 			}
 		}
+
 		public override string ToString()
 		{
 			return "BrickBlock";
@@ -334,16 +305,14 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			System.Diagnostics.Debug.WriteLine("Bump");
 			this.Movement(sprite);
 			context.SetState(new UsedBlockState());
-
 			Vector2 coinLocation = sprite.GetLocation();
 			coinLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
-
 			this.Movement(sprite);
 		}
+
 		public override string ToString()
 		{
 			return "BrickBlock";
@@ -355,8 +324,6 @@ namespace Mario.States
 		int coins = 0;
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			System.Diagnostics.Debug.WriteLine("Bump");
-			
 			if (coins < 10)
 			{
 				Vector2 coinLocation = sprite.GetLocation();
@@ -365,9 +332,9 @@ namespace Mario.States
 				coins++;
 				if (coins == 10) context.SetState(new UsedBlockState());
 			}
-
 			this.Movement(sprite);
 		}
+
 		public override string ToString()
 		{
 			return "BrickBlock";
@@ -378,20 +345,22 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			System.Diagnostics.Debug.WriteLine("Bump");
 			//does nothing
 		}
+
 		public override string ToString()
 		{
 			return "UsedBlock";
 		}
 	}
+
 	class GroundBlockState : BlockState
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
 			//does nothing
 		}
+
 		public override string ToString()
 		{
 			return "GroundBlock";

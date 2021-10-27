@@ -78,6 +78,7 @@ namespace Mario.States
             if (!marioContext.isTouchingTop)
                 FallingTransition();
         }
+
         public override void FaceRightTransition()
         {
             if (marioContext.isTouchingLeft)
@@ -104,6 +105,7 @@ namespace Mario.States
         public override void FaceLeftDiscontinueTransition()
         {
             kinematics.XDecelerateToRight(marioContext);
+
             if (marioContext.Velocity.X > -0.16 && marioContext.Velocity.X < 0)
             {
                 StandingTransition();
@@ -113,6 +115,7 @@ namespace Mario.States
         public override void FaceRightDiscontinueTransition()
         {
             kinematics.XDecelerateToLeft(marioContext);
+
             if (marioContext.Velocity.X < 0.16 && marioContext.Velocity.X > 0)
             {
                 StandingTransition();
@@ -128,6 +131,7 @@ namespace Mario.States
         {
             marioContext.jumped = false;
         }
+
         public override string ToString()
         {
             return ("RunningState");

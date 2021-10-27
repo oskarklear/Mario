@@ -5,14 +5,13 @@ using System.Text;
 
 namespace Mario.Movement
 {
-    
     public class Kinematics
     {
-
         public Kinematics()
         {
 
         }
+
         public void AccelerateLeft(MarioContext context)
         {
             float marioTopLeftSpeed = (float)-3.0;
@@ -70,7 +69,6 @@ namespace Mario.Movement
             {
                 context.Velocity.X = 0;
             }
-
         }
 
         public void IdleYDecelerate(MarioContext context)

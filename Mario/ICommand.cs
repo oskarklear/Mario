@@ -42,6 +42,7 @@ namespace Mario
         {
             this.receiver = receiver;
         }
+
         public abstract void Execute();
     }
 

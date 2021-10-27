@@ -41,6 +41,7 @@ namespace Mario.Sprites
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("GoalGate");
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
@@ -56,6 +57,7 @@ namespace Mario.Sprites
             //Does nothing
         }
     }
+
     class GoalGateMovingPart : ISprite
     {
         Game1 Theatre;

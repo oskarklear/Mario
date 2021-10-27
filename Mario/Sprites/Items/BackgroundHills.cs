@@ -1,15 +1,12 @@
-﻿using Mario.Sprites.Mario;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Mario.Sprites.Items
 {
-
-    class Cloud : ISprite
+    class BackgroundHills : ISprite
     {
         Game1 Theatre;
         Texture2D texture;
@@ -35,14 +32,13 @@ namespace Mario.Sprites.Items
             return false;
         }
 
-        public Cloud(Game1 theatre, Vector2 location)
+        public BackgroundHills(Game1 theatre, Vector2 location)
         {
             position = location;
             Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("BackgroundEntities/cloudBoi");
+            texture = Theatre.Content.Load<Texture2D>("BackgroundEntities/BackgroundHills");
 
         }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, Color.White);

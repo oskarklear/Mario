@@ -11,7 +11,6 @@ namespace Mario.States
         {
             marioContext = context;
             PowerUpState = context.GetPowerUpState();
-            System.Diagnostics.Debug.WriteLine(PowerUpState.ToString());
             kinematics = new Kinematics();
         }
 
@@ -25,6 +24,7 @@ namespace Mario.States
 
         public override void Exit()
         {
+
         }
 
         public override void StandingTransition()
@@ -36,8 +36,6 @@ namespace Mario.States
         {
             if (marioContext.GetPowerUpState().ToString() != "DeadMario")
             {
-                //if (marioContext.GetPowerUpState().ToString() != "StandardMario")
-
                 marioContext.crouchingState.Enter(this);
                 kinematics.IdleXDecelerate(marioContext);
 
@@ -98,7 +96,6 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
-            System.Diagnostics.Debug.WriteLine("Facing left: " + marioContext.facingLeft);
             kinematics.IdleXDecelerate(marioContext);
         }
 

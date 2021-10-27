@@ -51,10 +51,12 @@ namespace Mario.Sprites.Items
             velocity.X = 1f;
             spawning = true;
         }
+
         public bool delete()
         {
             return false;
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!obtained)
@@ -84,9 +86,6 @@ namespace Mario.Sprites.Items
             position.Y += velocity.Y;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
 
-            System.Diagnostics.Debug.WriteLine("X-VELOCITY: " + velocity.X);
-            System.Diagnostics.Debug.WriteLine("Y-VELOCITY: " + velocity.Y);
-
             if (position.Y > endPosition && spawning)
             {
                 position.Y -= 2;
@@ -96,7 +95,6 @@ namespace Mario.Sprites.Items
             {
                 spawning = false;
             }
-
             else if (direction)
             {
                 position.X += velocity.X;

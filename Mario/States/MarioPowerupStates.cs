@@ -7,9 +7,7 @@ namespace Mario.States
 		public abstract void TakeDamage(MarioContext context);
 		public abstract void GetMushroom(MarioContext context);
 		public abstract void GetFireFlower(MarioContext context);
-
         public abstract void DieInPit(MarioContext context);
-
 	}
 
     class StandardMarioState : MarioPowerupState
@@ -28,15 +26,18 @@ namespace Mario.States
         {
             context.SetPowerUpState(new DeadMarioState());
         }
+
         public override void DieInPit(MarioContext context)
         {
             context.SetPowerUpState(new DeadMarioState());
         }
+
         public override string ToString()
         {
             return "StandardMario";
         }
     }
+
     class SuperMarioState : MarioPowerupState
     {
         public override void GetFireFlower(MarioContext context)
@@ -53,10 +54,12 @@ namespace Mario.States
         {
             context.SetPowerUpState(new StandardMarioState());
         }
+
         public override void DieInPit(MarioContext context)
         {
             context.SetPowerUpState(new DeadMarioState());
         }
+
         public override string ToString()
         {
             return "SuperMario";
@@ -79,15 +82,18 @@ namespace Mario.States
         {
             context.SetPowerUpState(new SuperMarioState());
         }
+
         public override void DieInPit(MarioContext context)
         {
             context.SetPowerUpState(new DeadMarioState());
         }
+
         public override string ToString()
         {
             return "FireMario";
         }
     }
+
     class DeadMarioState : MarioPowerupState
     {
         public override void GetFireFlower(MarioContext context)
@@ -104,15 +110,16 @@ namespace Mario.States
         {
             //does nothing
         }
+
         public override void DieInPit(MarioContext context)
         {
             context.SetPowerUpState(new DeadMarioState());
         }
+
         public override string ToString()
         {
             return "DeadMario";
         }
     }
-
 }
 

@@ -62,11 +62,6 @@ namespace Mario
 
         public void UpdateInput()
         {
-            /*if (!GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) && !GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft))
-            {
-                IdleCommand.Execute();
-            }*/
-
             ActivateIdle.ActivateIdleCommand();
 
             List<Input> inputs = GetInput();

@@ -27,10 +27,12 @@ namespace Mario.States
         {
             PreviousActionState.Enter(this);
         }
+
         public override void StandingTransition()
         {
             marioContext.idleState.Enter(this);
         }
+
         public override void CrouchingTransition()
         {
             //Does nothing - for now
@@ -47,7 +49,6 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
-            System.Diagnostics.Debug.WriteLine("HEIGHT: " + marioContext.jumpHeight);
             if (marioContext.jumpHeight > 12 || marioContext.isTouchingBottom)
             {
                 FallingTransition();
@@ -104,10 +105,12 @@ namespace Mario.States
         {
             kinematics.XDecelerateToRight(marioContext);
         }
+
         public override void FaceRightDiscontinueTransition()
         {
             kinematics.XDecelerateToLeft(marioContext);
         }
+
         public override void RunningDiscontinueTransition()
         {
             //Does nothing
@@ -129,6 +132,7 @@ namespace Mario.States
                 }
             }
         }
+
         public override string ToString()
         {
             return ("JumpingState");

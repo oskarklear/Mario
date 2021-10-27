@@ -32,6 +32,7 @@ namespace Mario.Sprites.Items
         {
             get { return position; }
         }
+
         public Pipe(Game1 theatre, Vector2 location)
         {
             position = location;
@@ -39,6 +40,7 @@ namespace Mario.Sprites.Items
             Hitbox = new Rectangle((int)location.X, (int)location.Y, 32, 33);
             showHitbox = false;
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, Color.White);

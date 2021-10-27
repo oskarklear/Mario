@@ -8,17 +8,6 @@ using System.Text;
 
 namespace Mario.Sprites.Items
 {
-/*    public abstract class Coin : ISprite
-    {
-        public abstract Rectangle Hitbox { get; }
-        public abstract bool ShowHitbox { get; set; }
-        public abstract void Draw(SpriteBatch spriteBatch);
-
-        public abstract void Update();
-
-        public abstract void Collision(ISprite collider, int xoffset, int yoffset);
-    }*/
-
     class BlockCoin : ISprite
     {
         int timeSinceLastFrame;
@@ -52,7 +41,6 @@ namespace Mario.Sprites.Items
             set { showHitbox = value; }
         }
         
-
         public BlockCoin(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -164,13 +152,11 @@ namespace Mario.Sprites.Items
             get { return position; }
         }
         Rectangle hitbox;
-
         public Rectangle Hitbox
         {
             get { return hitbox; }
             set { hitbox = value; }
         }
-
         private bool showHitbox;
         public bool ShowHitbox
         {
@@ -191,10 +177,12 @@ namespace Mario.Sprites.Items
             hitbox = new Rectangle((int)position.X, (int)position.Y, 12, 16);
             showHitbox = false;
         }
+
         public bool delete()
         {
             return false;
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             int width = texture.Width / Columns;
@@ -236,6 +224,7 @@ namespace Mario.Sprites.Items
                 currentFrame = 0;
             timeSinceLastFrame++;
         }
+
         public void Collision(ISprite collider)
         {
             obtained = true;

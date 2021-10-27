@@ -36,6 +36,7 @@ namespace Mario.Sprites.Items
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+
         public bool delete()
         {
             return false;
@@ -84,9 +85,6 @@ namespace Mario.Sprites.Items
         {
             position.Y += velocity.Y;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
-
-            System.Diagnostics.Debug.WriteLine("X-VELOCITY: " + velocity.X);
-            System.Diagnostics.Debug.WriteLine("Y-VELOCITY: " + velocity.Y);
 
             if (position.Y > endPosition && spawning) 
             {

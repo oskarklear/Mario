@@ -103,9 +103,6 @@ namespace Mario.Sprites.Enemies
             position.Y += velocity.Y;
             hitbox = new Rectangle((int)position.X + 5, (int)position.Y, 16, 16);
 
-            System.Diagnostics.Debug.WriteLine("X-VELOCITY: " + velocity.X);
-            System.Diagnostics.Debug.WriteLine("Y-VELOCITY: " + velocity.Y);
-
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
                 currentFrame++;
