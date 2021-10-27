@@ -32,6 +32,7 @@ namespace Mario.Sprites.Enemies
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool isShell { get; set; }
 
         public koopaShell(Game1 theatre, Vector2 location, int color)
         {

@@ -30,6 +30,7 @@ namespace Mario.Sprites.Projectiles
         {
             get { return position; }
         }
+        public bool isShell { get; set; }
         private bool showHitbox;
 
 

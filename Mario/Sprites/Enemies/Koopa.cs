@@ -31,7 +31,6 @@ namespace Mario.Sprites.Enemies
         bool deleted;
         bool isMoving;
         bool shellSpeed;
-        bool isShell;
 
         public Vector2 Position
         {
@@ -49,6 +48,7 @@ namespace Mario.Sprites.Enemies
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool isShell { get; set; }
         public bool delete()
         {
             return false;

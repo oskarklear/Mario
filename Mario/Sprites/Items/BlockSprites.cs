@@ -46,6 +46,7 @@ namespace Mario.Sprites
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool isShell { get; set; }
         protected BlockContext Context;
         protected int timeSinceLastFrame;
         protected int millisecondsPerFrame;

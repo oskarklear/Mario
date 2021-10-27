@@ -27,6 +27,7 @@ namespace Mario.Sprites.Items
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool isShell { get; set; }
         public bool delete()
         {
             return false;

@@ -44,6 +44,7 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
+        public bool isShell { get; set; }
         public bool delete()
         {
             return false;
