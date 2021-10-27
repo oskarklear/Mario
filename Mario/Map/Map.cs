@@ -27,13 +27,8 @@ namespace Mario.Map
         protected const int ONECOINBRICKBLOCK = 17;
         protected const int TENCOINBRICKBLOCK = 18;
         protected const int PIPE = 6;
-        private List<ISprite> collisionObjs = new List<ISprite>();
         public List<ISprite> bgObjects = new List<ISprite>();
         public List<ISprite> [] collisionZones = new List<ISprite> [14];
-        public List<ISprite> CollisionObjs
-        {
-            get { return collisionObjs; }
-        }
         private Game1 theatre;
         public Game1 Theatre
         {
@@ -154,16 +149,16 @@ namespace Mario.Map
                                 entities.entityObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
                                 break;
                             case 111:  //Green Mushroom
-                                collisionObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
+                                entities.entityObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
                                 break;
                             case 112:  //Red Mushroom
-                                collisionObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
+                                entities.entityObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
                                 break;
                             case 133:  //Fire Flower
-                                collisionObjs.Add(new FireFlower(theatre, new Vector2(i * BLOCK, j * BLOCK)));
+                                entities.entityObjs.Add(new FireFlower(theatre, new Vector2(i * BLOCK, j * BLOCK)));
                                 break;
                             case 144:  //Star
-                                collisionObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK), Mario));
+                                entities.entityObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK), Mario));
                                 break;
                             case 30:  //Goomba
                                 entities.enemyObjs.Add(new Goomba(theatre, new Vector2(i * BLOCK + 10, j * BLOCK - 15)));
@@ -403,7 +398,9 @@ namespace Mario.Map
 
         public void Reset()
         {
-            collisionObjs.Clear();
+            entities.enemyObjs.Clear();
+            entities.entityObjs.Clear();
+            entities.fireBallObjs.Clear();
             bgObjects.Clear();
             reset = true;
             GenerateMap();
