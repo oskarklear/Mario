@@ -1,0 +1,10 @@
+Oskar Klear
+10/26/2021
+Sprint 3
+Entities.cs
+Matt
+- Seems unneccesary, could simply have these lists within Map.cs.
+- Lists shouldn't be public, should make them private and accessible by a property.
+
+5 Minutes
+- If I had to keep the class, I would make the lists private and add properties to access them.
