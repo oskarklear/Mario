@@ -1,0 +1,14 @@
+Bennett Palmer
+10/26/2021
+Sprint 3
+Koopa.cs
+Matthew Manning
+Specific Comments:
+lots of magic numbers make it hard to understand whats going on,
+and there are also a lot of long functions with lots of nested if statements.
+It would be pretty hard to debug this function if things went wrong.
+
+code review time: 15 minutes
+A hypothetical change to the game that could impact this file would be making the koopa collide with goombas and turn around.
+The current implementation could handle this, by changing the if statements in collision to include goombas or other koopas as things
+that they collide with, which would be pretty simple.
