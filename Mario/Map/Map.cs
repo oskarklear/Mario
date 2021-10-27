@@ -166,7 +166,7 @@ namespace Mario.Map
                                 collisionObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK), Mario));
                                 break;
                             case 30:  //Goomba
-                                entities.entityObjs.Add(new Goomba(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
+                                entities.enemyObjs.Add(new Goomba(theatre, new Vector2(i * BLOCK + 10, j * BLOCK - 15)));
                                 break;
                             case 31:  //Koopa
                                 entities.enemyObjs.Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
@@ -219,6 +219,8 @@ namespace Mario.Map
         }
         public void Update()
         {
+            //entities.Update();
+            mario.Update();
             //Zone behind Mario
             if (mario.position.X > 256)
             {
@@ -319,12 +321,10 @@ namespace Mario.Map
                     }
                 }
             }
-
-            for (int i = 0; i < entities.enemyObjs.Count; i++)
+            foreach (ISprite sprite in entities.enemyObjs)
             {
-                ISprite sprite = entities.enemyObjs[i];
-                sprite.Collision(mario);
-                //mario.Collision(sprite);
+                //sprite.Collision(mario);
+                
                 
 
                 foreach(ISprite fireball in entities.fireBallObjs)
@@ -368,6 +368,7 @@ namespace Mario.Map
                         }
                     }
                 }
+                mario.Collision(sprite);
             }
 
             for (int i = 0; i < entities.fireBallObjs.Count; i++)

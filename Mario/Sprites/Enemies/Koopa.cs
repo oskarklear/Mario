@@ -157,8 +157,8 @@ namespace Mario.Sprites.Enemies
                 //dead = true;
                 //hitbox = new Rectangle(-1, -1, 0, 0);
 
-                System.Diagnostics.Debug.WriteLine(hitbox.ToString());
-                System.Diagnostics.Debug.WriteLine(collider.Hitbox.ToString());
+                //System.Diagnostics.Debug.WriteLine(hitbox.ToString());
+                //System.Diagnostics.Debug.WriteLine(collider.Hitbox.ToString());
 
                 if (hitbox.TouchTopOf(collider.Hitbox))
                 {
