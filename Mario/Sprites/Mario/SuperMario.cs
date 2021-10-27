@@ -432,11 +432,11 @@ namespace Mario.Sprites.Mario
                         //System.Diagnostics.Debug.WriteLine("mario hit the left of something");
                         if (collider is Goomba || collider is Koopa)
                         {
-                            /*if (delay <= 0)
+                            if (delay <= 0)
                             {
                                 context.TakeDamage();
                                 delay = delaytime;
-                            }*/
+                            }
                             
                         }
                         context.isTouchingLeft = true;
