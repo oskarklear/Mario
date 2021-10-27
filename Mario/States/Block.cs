@@ -27,6 +27,7 @@ namespace Mario.States
 		{
 			get { return Location; }
 		}
+		public bool isShell { get; set; }
 		Game1 Theatre;
 		List<BrokenBlockSprite> rubbleList;
 		DynamicEntities entities;

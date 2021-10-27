@@ -40,7 +40,7 @@ namespace Mario.Sprites.Items
             get { return showHitbox; }
             set { showHitbox = value; }
         }
-        
+        public bool isShell { get; set; }
         public BlockCoin(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -163,6 +163,7 @@ namespace Mario.Sprites.Items
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool isShell { get; set; }
         bool obtained;
 
         public MapCoin(Game1 theatre, Vector2 location)

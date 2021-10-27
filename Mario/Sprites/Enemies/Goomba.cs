@@ -40,6 +40,7 @@ namespace Mario.Sprites.Enemies
             get { return hitbox; }
             set { hitbox = value; }
         }
+        public bool isShell { get; set; }
         public bool delete()
         {
             return false;
