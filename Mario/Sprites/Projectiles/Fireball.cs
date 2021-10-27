@@ -126,7 +126,6 @@ namespace Mario.Sprites.Projectiles
                 spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
                 spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
             }
-
         }
     }
 }

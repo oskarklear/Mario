@@ -19,17 +19,20 @@ namespace Mario.States
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
         }
+
         public override void Exit()
         {
             PreviousActionState.Enter(this);
         }
+
         public override void StandingTransition()
         {
             marioContext.idleState.Enter(this);
-
         }
+
         public override void CrouchingTransition()
-        {          
+        {
+            //Does nothing
         }
 
         public override void WalkingTransition()
@@ -42,14 +45,9 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
-            /*if (!(marioContext.jumpHeight > 5 || marioContext.isTouchingBottom))
-            {
-                System.Diagnostics.Debug.WriteLine(marioContext.jumpHeight);
-                kinematics.AccelerateUp(marioContext);
-            }
-            else
-                kinematics.AccelerateDown(marioContext);*/
+            //Does nothing
         }
+
         public override void FallingTransition()
         {
             kinematics.IdleXDecelerate(marioContext);
@@ -60,11 +58,11 @@ namespace Mario.States
             if (!marioContext.facingLeft)
                 marioContext.facingLeft = true;
         }
+
         public override void FaceRightTransition()
         {
             if (marioContext.facingLeft)
                 marioContext.facingLeft = false;
-
         }
 
         public override void CrouchingDiscontinueTransition()
@@ -80,6 +78,7 @@ namespace Mario.States
         {
             kinematics.XDecelerateToRight(marioContext);
         }
+
         public override void FaceRightDiscontinueTransition()
         {
             kinematics.XDecelerateToLeft(marioContext);
@@ -94,6 +93,7 @@ namespace Mario.States
         {
             //Does nothing
         }
+
         public override string ToString()
         {
             return ("CrouchingState");

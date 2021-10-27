@@ -41,6 +41,7 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
+
         public FireFlower(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -57,6 +58,7 @@ namespace Mario.Sprites.Items
             velocity.X = 1f;
             spawning = true;
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             int width = texture.Width / Columns;
@@ -153,7 +155,6 @@ namespace Mario.Sprites.Items
                 }
             }
         }
-
     }
 }
 

@@ -28,14 +28,12 @@ public class MarioContext
 		get { return showHitbox; }
 		set { showHitbox = value; }
 	}
-	//public bool isFalling;
 
 	public MarioContext()
 	{
 		PowerupState = new StandardMarioState();
 		ActionState = new IdleState(this);
 		facingLeft = true;
-
 		idleState = new IdleState(this);
 		runningState = new RunningState(this);
 		jumpingState = new JumpingState(this);
@@ -44,18 +42,22 @@ public class MarioContext
 		jumpHeight = 0;
 		showHitbox = false;
 	}
+
 	public MarioActionState GetActionState()
     {
 		return ActionState;
     }
+
 	public MarioPowerupState GetPowerUpState()
     {
 		return PowerupState;
     }
+
 	public void SetActionState(MarioActionState NewActionState)
     {
 		ActionState = NewActionState;
     }
+
 	public void SetPowerUpState(MarioPowerupState NewPowerUpState)
     {
 		PowerupState = NewPowerUpState;
@@ -65,18 +67,22 @@ public class MarioContext
     {
 		ActionState.JumpingTransition();
     }
+
 	public void PressDown()
     {
 		ActionState.FallingTransition();
     }
+
 	public void PressRight()
 	{
 		ActionState.FaceRightTransition();
 	}
+
 	public void PressLeft()
     {
 		ActionState.FaceLeftTransition();
     }
+
 	public void TakeDamage()
     {
 		PowerupState.TakeDamage(this);
@@ -90,6 +96,7 @@ public class MarioContext
     {
 		PowerupState.GetFireFlower(this);
     }
+
 	public void ToggleHitbox()
     {
 		showHitbox = !showHitbox;
@@ -98,6 +105,5 @@ public class MarioContext
 	public void DieInPit()
     {
 		PowerupState.DieInPit(this);
-
     }
 }

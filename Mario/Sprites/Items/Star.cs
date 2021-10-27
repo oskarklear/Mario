@@ -24,7 +24,6 @@ namespace Mario.Sprites.Items
         int maxUpwardDistance;
         Vector2 comingFromBlockPosition;
         bool spawning;
-        ContentManager Content;
         Texture2D texture;
         Vector2 velocity;
         int spawnTime;
@@ -32,10 +31,6 @@ namespace Mario.Sprites.Items
         public Vector2 Position
         {
             get { return position; }
-        }
-        public bool delete()
-        {
-            return false;
         }
         private bool showHitbox;
         public bool ShowHitbox
@@ -49,6 +44,11 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
+        public bool delete()
+        {
+            return false;
+        }
+
         public Star(Game1 theatre, Vector2 location, SuperMario mario)
         {
             timeSinceLastFrame = 0;
@@ -70,6 +70,7 @@ namespace Mario.Sprites.Items
             velocity.X = 1f;
             spawnTime = 0;
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             int width = texture.Width / Columns;
@@ -99,22 +100,19 @@ namespace Mario.Sprites.Items
                     spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
                 }
             }
-            
         }
 
         public void Update()
         {
             spawnTime += 1;
-            //position.Y += velocity.Y;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
-
-            System.Diagnostics.Debug.WriteLine("VERTICALDIRECTION: " + verticalDirection);
 
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
                 currentFrame++;
                 timeSinceLastFrame = 0;
             }
+
             if (currentFrame == Columns)
                 currentFrame = 0;
             timeSinceLastFrame++;
@@ -125,7 +123,7 @@ namespace Mario.Sprites.Items
                 hitbox.Y -= 2;
             }
             
-            if (/*position.Y == comingFromBlockPosition.Y && spawning*/ spawnTime > 12 )
+            if (spawnTime > 12 )
             {
                 spawning = false;
             }
@@ -153,14 +151,13 @@ namespace Mario.Sprites.Items
                 hitbox.Y += 1;
             }
 
-            
-            //count += 1;
-            if (count > maxUpwardDistance /*&& !verticalDirection*/)
+            if (count > maxUpwardDistance)
             {
                 verticalDirection = false;
                 count = 0;
             }
         }
+
         public void Collision(ISprite collider)
         {
             if (!spawning)
@@ -207,6 +204,5 @@ namespace Mario.Sprites.Items
                 }
             }
         }
-
     }
 }

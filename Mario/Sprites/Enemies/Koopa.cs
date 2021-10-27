@@ -109,7 +109,8 @@ namespace Mario.Sprites.Enemies
                         spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
                         spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
                     }
-                } else
+                } 
+                else
                 {
                     spriteBatch.Draw(shellTexture, destinationRectangle, sourceRectangle, Color.White);
                 }
@@ -122,9 +123,6 @@ namespace Mario.Sprites.Enemies
             {
                 position.Y += velocity.Y;
                 hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 26);
-
-                System.Diagnostics.Debug.WriteLine("X-VELOCITY: " + velocity.X);
-                System.Diagnostics.Debug.WriteLine("Y-VELOCITY: " + velocity.Y);
 
                 if (timeSinceLastFrame > millisecondsPerFrame)
                 {
@@ -145,7 +143,8 @@ namespace Mario.Sprites.Enemies
                     position.X -= velocity.X;
                     facingLeft = true;
                 }
-            } else
+            }
+            else
             {
                 hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 16);
             }
@@ -170,6 +169,7 @@ namespace Mario.Sprites.Enemies
                     velocity.X = 0f;
                     velocity.Y = 0f;
                     isShell = true;
+                    Columns = 1;
                 } 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {

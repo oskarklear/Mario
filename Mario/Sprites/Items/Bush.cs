@@ -42,6 +42,7 @@ namespace Mario.Sprites.Items
             texture = Theatre.Content.Load<Texture2D>("BackgroundEntities/bush");
 
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, Color.White);

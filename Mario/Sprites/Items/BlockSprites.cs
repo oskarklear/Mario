@@ -51,15 +51,12 @@ namespace Mario.Sprites
         protected int millisecondsPerFrame;
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            
-            
-             row = currentFrame / Columns;
-             column = currentFrame % Columns;
+            row = currentFrame / Columns;
+            column = currentFrame % Columns;
 
-             sourceRectangle = new Rectangle(width * column, height * row, width, height);
-             destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, width, height);
+            sourceRectangle = new Rectangle(width * column, height * row, width, height);
+            destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, width, height);
 
-            
             spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             if (showHitbox)
             {
@@ -76,7 +73,6 @@ namespace Mario.Sprites
                 spriteBatch.Draw(hitboxTextureH, new Vector2((int)Hitbox.X, (int)Hitbox.Y), Color.White);
                 spriteBatch.Draw(hitboxTextureH, new Vector2((int)Hitbox.X + (int)Hitbox.Width, (int)Hitbox.Y), Color.White);
             }
-
         }
 
         public void setMovement(int range)
@@ -112,11 +108,13 @@ namespace Mario.Sprites
                 moveDistance--;
                 
             }
+
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
                 currentFrame++;
                 timeSinceLastFrame = 0;
             }
+
             if (currentFrame == totalFrames)
                 currentFrame = 0;
             timeSinceLastFrame++;
@@ -126,15 +124,13 @@ namespace Mario.Sprites
         {
 
         }
-        
     }
+
     public class BrickBlockSprite : BlockSprite
     {
         public BrickBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
-            
             Texture = theatre.Content.Load<Texture2D>("obstacles/Brick Block");
-            
             Location = location;
             moveDistance = 0;
             moveRange = 0;
@@ -148,16 +144,14 @@ namespace Mario.Sprites
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 10;
             ShowHitbox = false;
-
         }        
     }
+
     public class GroundBlockSprite : BlockSprite
     {
         public GroundBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
-
             Texture = theatre.Content.Load<Texture2D>("obstacles/GroundBlock");
-
             Location = location;
             moveDistance = 0;
             moveRange = 0;
@@ -171,16 +165,13 @@ namespace Mario.Sprites
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 10;
             ShowHitbox = false;
-
         }
     }
 
     public class QuestionBlockSprite : BlockSprite
     {
-        Boolean redMushroomActive;
         public QuestionBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
-
             Texture = theatre.Content.Load<Texture2D>("obstacles/Item Block");
             ShowHitbox = false;
             Location = location;
@@ -195,25 +186,18 @@ namespace Mario.Sprites
             Context = context;
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 10;
-            redMushroomActive = false;
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (redMushroomActive)
-            {
-
-            }
-
             base.Draw(spriteBatch);
         }
     }
+
     public class UsedBlockSprite : BlockSprite
     {
         public UsedBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
-
             Texture = theatre.Content.Load<Texture2D>("obstacles/Used Item Block");
             ShowHitbox = false;
             Location = location;
@@ -230,6 +214,7 @@ namespace Mario.Sprites
             millisecondsPerFrame = 10;
         }
     }
+
     public class HiddenBlockSprite : BlockSprite
     {
         public HiddenBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
@@ -262,7 +247,6 @@ namespace Mario.Sprites
         Game1 Theatre;
         public BrokenBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
-
             Texture = theatre.Content.Load<Texture2D>("obstacles/Block Debris");
             ShowHitbox = false;
             Location = location;
@@ -279,8 +263,8 @@ namespace Mario.Sprites
             Theatre = theatre;
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 10;
-
         }
+
         public override void Update()
         {
             if (rubbleActive)
@@ -294,31 +278,23 @@ namespace Mario.Sprites
                 Location.Y++;
                 if(Location.Y > Theatre.GraphicsDevice.PresentationParameters.BackBufferHeight)
                 {
-                    System.Diagnostics.Debug.WriteLine("rubble deactivated");
                     ToggleRubble();
                 }
             }
-            
         }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
             if (rubbleActive)
             {
-                System.Diagnostics.Debug.WriteLine("rubble draw");
                 base.Draw(spriteBatch);
             }
         }
+
         public void ToggleRubble()
         {
-            
             rubbleActive = !rubbleActive;
-            
         }
-        
-        
-
-        }
-        
-    }
+    }    
+}
 

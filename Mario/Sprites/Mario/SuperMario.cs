@@ -40,12 +40,12 @@ namespace Mario.Sprites.Mario
             get { return context.ShowHitbox; }
             set { context.ShowHitbox = value; }
         }
-        
         public Rectangle Hitbox 
         {
             get { return hitbox; }
             set { hitbox = value; }
         }
+
         public bool delete()
         {
             return false;
@@ -82,7 +82,6 @@ namespace Mario.Sprites.Mario
             {
                 context.GetActionState().FaceRightTransition();
             }
-
         }
 
         public void JumpCommand()
@@ -91,8 +90,6 @@ namespace Mario.Sprites.Mario
             {
                 context.GetActionState().JumpingTransition();
             }
-
-
         }
 
         public void CrouchCommand()
@@ -102,6 +99,7 @@ namespace Mario.Sprites.Mario
                 context.GetActionState().FallingTransition();
             }
         }
+
         public void CrouchingDiscontinueCommand()
         {
             context.GetActionState().CrouchingDiscontinueTransition();
@@ -129,19 +127,15 @@ namespace Mario.Sprites.Mario
                 entities.fireBallObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
                 fireballCooldown = 0;
             }
-            
         }
 
         public void IdleCommand()
         {
-            //context.GetActionState().PressNothing(context);
-        }
 
+        }
 
         public void Update()
         {
-            System.Diagnostics.Debug.WriteLine("X: " + context.Velocity.X);
-            //System.Diagnostics.Debug.WriteLine("Y: " + context.Velocity.Y);
             fireballCooldown += 1;
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
@@ -306,12 +300,14 @@ namespace Mario.Sprites.Mario
             //set mario's new pos
             position.X += context.Velocity.X;
             position.Y -= context.Velocity.Y;
+
             //If mario moves to the right or left, he cannot be touching anything
             if (Math.Abs(context.Velocity.X) > 0 || Math.Abs(context.Velocity.Y) > 0)
             {
                 context.isTouchingLeft = false;
                 context.isTouchingRight = false;
             }
+
             //If mario is not touching ground, GRAVITY
             if (!context.isTouchingTop)
             {
@@ -365,12 +361,10 @@ namespace Mario.Sprites.Mario
 
                     Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
                     Rectangle destinationRectangle = new Rectangle((int)position.X - 7, (int)position.Y, width, height);
-                    //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
                     spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
                 }
                 else
                 {
-                    //System.Diagnostics.Debug.WriteLine("Colliding: " + colliding);
                     spriteBatch.Draw(texture, position, Color.White);
                 }
             }
@@ -408,7 +402,6 @@ namespace Mario.Sprites.Mario
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height;
                         position.Y = hitbox.Y;
                     }
-
                 }
                 else
                 {
@@ -417,7 +410,7 @@ namespace Mario.Sprites.Mario
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                         position.Y = hitbox.Y;
                         context.Velocity.Y = 0f;
-                        System.Diagnostics.Debug.WriteLine("mario hit the top of something");
+
                         if (collider is Goomba || collider is Koopa)
                         {
                             //collider.Collision(this);
@@ -425,22 +418,24 @@ namespace Mario.Sprites.Mario
                         }
                         context.isTouchingTop = true;
                     }
+
                     if (hitbox.TouchLeftOf(collider.Hitbox))
                     {
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
-                        //System.Diagnostics.Debug.WriteLine("mario hit the left of something");
+
                         if (collider is Goomba || collider is Koopa)
                         {
-                            /*if (delay <= 0)
+                            if (delay <= 0)
                             {
                                 context.TakeDamage();
                                 delay = delaytime;
-                            }*/
+                            }
                             
                         }
                         context.isTouchingLeft = true;
                     }
+
                     if (hitbox.TouchRightOf(collider.Hitbox))
                     {
                         if (!(collider is Pipe))
@@ -448,7 +443,7 @@ namespace Mario.Sprites.Mario
                         else
                             hitbox.X = collider.Hitbox.X + hitbox.Width + 18;
                         position.X = hitbox.X;
-                        //System.Diagnostics.Debug.WriteLine("mario hit the right of something");
+
                         if (collider is Goomba || collider is Koopa)
                         {
                             if (delay <= 0)
@@ -459,6 +454,7 @@ namespace Mario.Sprites.Mario
                         }
                         context.isTouchingRight = true;
                     }
+
                     if (hitbox.TouchBottomOf(collider.Hitbox))
                     {
                         if (context.Velocity.Y > 0)
@@ -474,9 +470,6 @@ namespace Mario.Sprites.Mario
                                 }
                             }
                         }                      
-                        System.Diagnostics.Debug.WriteLine("mario hit the bottom of something");
-                        //context.isTouchingBottom = true;
-                        System.Diagnostics.Debug.WriteLine("FALL");
                         context.GetActionState().FallingTransition();                   
                     }
                 }
@@ -527,7 +520,6 @@ namespace Mario.Sprites.Mario
 
             if (position.Y > 272 - hitbox.Height)
             {
-                System.Diagnostics.Debug.WriteLine("Dead");
                 context.DieInPit();
                 position.Y = 272 - hitbox.Height;
             }
