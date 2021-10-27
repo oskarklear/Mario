@@ -450,7 +450,7 @@ namespace Mario.Sprites.Mario
                         {
                             if (collider.isShell)
                             {
-
+                                collider.Collision(this);
                             }
                             else
                             {
@@ -481,7 +481,7 @@ namespace Mario.Sprites.Mario
                         {
                             if (collider.isShell)
                             {
-                                
+                                collider.Collision(this);
                             }
                             else
                             {

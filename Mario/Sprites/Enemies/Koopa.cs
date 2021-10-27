@@ -115,7 +115,7 @@ namespace Mario.Sprites.Enemies
                 } 
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("DRAW");
+                    
                     Columns = 1;
                     spriteBatch.Draw(shellTexture, position, Color.White);
                 }
@@ -150,12 +150,11 @@ namespace Mario.Sprites.Enemies
                 }
             }
             else
-            {               
-                Columns = 1;
-                hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 16);
-
+            {
+                
                 if (isMoving)
                 {
+                    System.Diagnostics.Debug.WriteLine("BIG ASSSSS");
                     position.X += shellDirection * shellSpeed;
                 }
             }
@@ -185,11 +184,13 @@ namespace Mario.Sprites.Enemies
                 } 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
+                    System.Diagnostics.Debug.WriteLine("FUCK");
                     isMoving = true;
                     shellDirection = 1;
                 }
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
+                    System.Diagnostics.Debug.WriteLine("FUCK");
                     isMoving = true;
                     shellDirection = -1;
                 }

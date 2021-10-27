@@ -11,6 +11,7 @@ namespace Mario.Sprites
 
     class GoalGate : ISprite
     {
+
         Game1 Theatre;
         Texture2D texture;
         Vector2 position;
@@ -64,6 +65,7 @@ namespace Mario.Sprites
         Game1 Theatre;
         Texture2D texture;
         Vector2 position;
+
         public Vector2 Position
         {
             get { return position; }
