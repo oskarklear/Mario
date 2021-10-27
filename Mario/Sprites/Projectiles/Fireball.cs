@@ -8,7 +8,7 @@ using Mario.Sprites.Mario;
 
 namespace Mario.Sprites.Projectiles
 {
-    public class Fireball : ISprite
+    class Fireball : ISprite
     {
         Texture2D texture;
         Vector2 initPos;
@@ -30,11 +30,6 @@ namespace Mario.Sprites.Projectiles
             get { return position; }
         }
         private bool showHitbox;
-        public bool ShowHitbox
-        {
-            get { return showHitbox; }
-            set { showHitbox = value; }
-        }
         public Fireball(Game1 theatre, Vector2 location, SuperMario mario, bool xDirection)
         {
             position = location;
