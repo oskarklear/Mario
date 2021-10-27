@@ -35,6 +35,7 @@ namespace Mario.Map
         {
             get { return collisionObjs; }
         }
+
         private List<RedMushroom> redMushroomObjs = new List<RedMushroom>();
         private List<GreenMushroom> greenMushroomObjs = new List<GreenMushroom>();
         private List<FireFlower> fireFlowerObjs = new List<FireFlower>();
@@ -175,7 +176,7 @@ namespace Mario.Map
                                 break;
                             case 31:  //Koopa
                                 //collisionZones[(i * KOOPAW) / 256].Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
-                                entities.entityObjs.Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
+                                entities.enemyObjs.Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
                                 break;
                             case 51: //Cloud
                                 bgLayerMid.Sprites.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));
@@ -324,6 +325,27 @@ namespace Mario.Map
                             else sprite.ShowHitbox = false;
                         }
                     }
+                }
+            }
+
+            for (int i = 0; i < entities.enemyObjs.Count; i++)
+            {
+                ISprite sprite = entities.enemyObjs[i];
+                sprite.Collision(mario);
+                //mario.Collision(sprite);
+                
+
+                foreach(ISprite fireball in entities.fireBallObjs)
+                {
+                    sprite.Collision(fireball);
+                }
+
+                foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
+                {
+                    sprite.Collision(block);
+                    if (mario.context.ShowHitbox) sprite.ShowHitbox = true;
+                    else sprite.ShowHitbox = false;
+
                 }
             }
 

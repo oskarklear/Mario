@@ -12,6 +12,7 @@ namespace Mario.Entities
     {
         public List<ISprite> entityObjs = new List<ISprite>();
         public List<ISprite> fireBallObjs = new List<ISprite>();
+        public List<ISprite> enemyObjs = new List<ISprite>();
 
 
         public void Draw(SpriteBatch spriteBatch)
@@ -20,6 +21,8 @@ namespace Mario.Entities
                 obj.Draw(spriteBatch);
             foreach (ISprite fireball in fireBallObjs)
                 fireball.Draw(spriteBatch);
+            foreach (ISprite enemy in enemyObjs)
+                enemy.Draw(spriteBatch);
         }
 
         public void Update()
@@ -31,6 +34,10 @@ namespace Mario.Entities
             foreach (ISprite fireball in fireBallObjs)
             {
                 fireball.Update();
+            }
+            foreach (ISprite enemy in enemyObjs)
+            {
+                enemy.Update();
             }
         }
     }

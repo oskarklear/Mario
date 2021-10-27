@@ -32,7 +32,6 @@ namespace Mario.Sprites.Enemies
         bool isMoving;
         bool shellSpeed;
         bool isShell;
-        bool falling;
 
         public Vector2 Position
         {
@@ -75,6 +74,7 @@ namespace Mario.Sprites.Enemies
             velocity.Y = 1f;
             velocity.X = 0.5f;
             isShell = false;
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -157,27 +157,27 @@ namespace Mario.Sprites.Enemies
             {
                 //dead = true;
                 //hitbox = new Rectangle(-1, -1, 0, 0);
-                velocity.X = 0f;
-                velocity.Y = 0f;
 
                 System.Diagnostics.Debug.WriteLine(hitbox.ToString());
                 System.Diagnostics.Debug.WriteLine(collider.Hitbox.ToString());
 
                 if (hitbox.TouchTopOf(collider.Hitbox))
                 {
-                    isShell = true;
+                    //isShell = true;
                 }
                 if (hitbox.TouchBottomOf(collider.Hitbox))
                 {
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
                     isShell = true;
-                }
+                } 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
-                    isShell = true;
+                    //isShell = true;
                 }
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
-                    isShell = true;
+                    //isShell = true;
                 }
 
             }
