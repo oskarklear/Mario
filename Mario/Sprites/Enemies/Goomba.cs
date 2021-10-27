@@ -156,23 +156,23 @@ namespace Mario.Sprites.Enemies
                     else hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
                     position.X = hitbox.X;
                     direction = !direction;
-                    velocity.Y = 1f;
+                    velocity.Y = 0f;
                 }
+                else
+                    velocity.Y = 1f;
 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
                     if (collider is Pipe) hitbox.X = collider.Hitbox.X - hitbox.Width - 10;
-                    else hitbox.X = collider.Hitbox.X - hitbox.Width - 2;
+                    else hitbox.X = collider.Hitbox.X - hitbox.Width - 8;
                     position.X = hitbox.X;
                     direction = !direction;
-                    velocity.Y = 1f;
                 }
 
                 if (hitbox.TouchBottomOf(collider.Hitbox))
                 {
                     hitbox.Y = collider.Hitbox.Y + hitbox.Height;
                     position.Y = hitbox.Y;
-                    velocity.Y = 1f;
                 }
             }
         }

@@ -12,6 +12,7 @@ namespace Mario.Sprites.Projectiles
     {
         Texture2D texture;
         Vector2 initPos;
+        public bool ShowHitbox { get; set; }
         public Vector2 position;
         Rectangle hitbox;
         SuperMario superMario;
