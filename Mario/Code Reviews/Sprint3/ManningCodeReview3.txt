@@ -1,0 +1,23 @@
+﻿Reviewer: Matthew Manning
+
+Date: 10/26/2021
+
+Sprint 3
+
+File: Fireball.cs
+
+File Author: Dan Jones
+
+Comments:
+
+-In the Update method, there are some pretty arbitrary numbers for moving the position in the X and Y directions, and 
+ there is an arbitrary number in the if statement with the absolute value function.
+
+-The formatting for the if-else could be more consistent.
+
+Minute taken: 10 minutes
+
+Hypothetically we could not use arbitrary numbers. The current implementation could support this change by defining the
+numbers before they are used. The count variable seems like it could be made to just be incremented as 1, which would
+make more sense and seem less arbitrary.
+
