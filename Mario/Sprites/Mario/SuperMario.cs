@@ -48,6 +48,7 @@ namespace Mario.Sprites.Mario
             set { hitbox = value; }
         }
 
+        public bool isShell { get; set; }
         public bool delete()
         {
             return false;
@@ -338,7 +339,7 @@ namespace Mario.Sprites.Mario
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             else if (context.GetPowerUpState().ToString().Equals("DeadMario"))
-                hitbox = new Rectangle(-1, -1, 0, 0);
+                hitbox = new Rectangle(-1, -1, 1, 1);
             else
             {
                 if (context.GetActionState().ToString().Equals("CrouchingState"))
@@ -417,16 +418,21 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba)
                         {
                             //collider.Collision(this);
-                            context.Velocity.Y = 4f;
+                            context.Velocity.Y = 4f;                           
+                            collider.Collision(this);
+                            context.jumpHeight = 0;
+                            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+                            context.jumpingState.Enter(context.GetActionState());
                         }
 
                         if (collider is Koopa)
                         {
-                            System.Diagnostics.Debug.WriteLine("TEMP");
                             //collider.Collision(this);
-                            System.Diagnostics.Debug.WriteLine("COLIDER: " + collider.ToString());
                             collider.Collision(this);
                             context.Velocity.Y = 4f;
+                            context.jumpHeight = 0;
+                            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
+                            context.jumpingState.Enter(context.GetActionState());
                         }
                         context.isTouchingTop = true;
                     }
@@ -436,14 +442,25 @@ namespace Mario.Sprites.Mario
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba || collider is Koopa)
+                        if (collider is Goomba)
                         {
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
                                 delay = delaytime;
                             }
-                            
+                        }
+                        if (collider is Koopa)
+                        {
+                            if (collider.isShell)
+                            {
+                                collider.Collision(this);
+                            }
+                            else
+                            {
+                                context.TakeDamage();
+                                delay = delaytime;
+                            }
                         }
                         context.isTouchingLeft = true;
                     }
@@ -456,9 +473,21 @@ namespace Mario.Sprites.Mario
                             hitbox.X = collider.Hitbox.X + hitbox.Width + 18;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba || collider is Koopa)
+                        if (collider is Goomba)
                         {
                             if (delay <= 0)
+                            {
+                                context.TakeDamage();
+                                delay = delaytime;
+                            }
+                        }
+                        if (collider is Koopa)
+                        {
+                            if (collider.isShell)
+                            {
+                                collider.Collision(this);
+                            }
+                            else
                             {
                                 context.TakeDamage();
                                 delay = delaytime;

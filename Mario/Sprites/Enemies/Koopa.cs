@@ -30,8 +30,8 @@ namespace Mario.Sprites.Enemies
         bool colliding;
         bool deleted;
         bool isMoving;
-        bool shellSpeed;
-        bool isShell;
+        int shellSpeed;
+        int shellDirection;
 
         public Vector2 Position
         {
@@ -49,6 +49,7 @@ namespace Mario.Sprites.Enemies
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool isShell { get; set; }
         public bool delete()
         {
             return false;
@@ -74,6 +75,8 @@ namespace Mario.Sprites.Enemies
             velocity.Y = 1f;
             velocity.X = 0.5f;
             isShell = false;
+            shellDirection = 1;
+            shellSpeed = 2;
 
         }
 
@@ -112,7 +115,7 @@ namespace Mario.Sprites.Enemies
                 } 
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("DRAW");
+                    
                     Columns = 1;
                     spriteBatch.Draw(shellTexture, position, Color.White);
                 }
@@ -147,9 +150,13 @@ namespace Mario.Sprites.Enemies
                 }
             }
             else
-            {               
-                Columns = 1;
-                hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 16);
+            {
+                if (isMoving)
+                {
+                    position.Y += velocity.Y;
+                    position.X += shellDirection * shellSpeed;
+                    hitbox = new Rectangle((int)position.X, (int)position.Y, 8, 8);
+                }
             }
         }
 
@@ -161,6 +168,8 @@ namespace Mario.Sprites.Enemies
                 //hitbox = new Rectangle(-1, -1, 0, 0);
                 System.Diagnostics.Debug.WriteLine("KOOPA TOP: " + hitbox.Top);
                 System.Diagnostics.Debug.WriteLine("MARIO BOTTOM: " + collider.Hitbox.Bottom);
+                System.Diagnostics.Debug.WriteLine("KOOPA RIGHT: " + hitbox.Right);
+                System.Diagnostics.Debug.WriteLine("MARIO LEFT: " + collider.Hitbox.Left);
                 if (hitbox.TouchTopOf(collider.Hitbox))
                 {
                     //isShell = true;
@@ -175,13 +184,23 @@ namespace Mario.Sprites.Enemies
                     velocity.Y = 0f;
                     isShell = true;
                 } 
-                if (hitbox.TouchLeftOf(collider.Hitbox))
+                if (hitbox.Right <= collider.Hitbox.Right &&
+                hitbox.Right >= collider.Hitbox.Left - 4 &&
+                hitbox.Top <= collider.Hitbox.Bottom - (collider.Hitbox.Width / 4) &&
+                hitbox.Bottom >= collider.Hitbox.Top + (collider.Hitbox.Width / 4))
                 {
-                    //isShell = true;
+                    System.Diagnostics.Debug.WriteLine("FUCK");
+                    isMoving = true;
+                    shellDirection = -1;
                 }
-                if (hitbox.TouchRightOf(collider.Hitbox))
+                if (hitbox.Left >= collider.Hitbox.Left &&
+                hitbox.Left <= collider.Hitbox.Right &&
+                hitbox.Top <= collider.Hitbox.Bottom - (collider.Hitbox.Width / 4) &&
+                hitbox.Bottom >= collider.Hitbox.Top + (collider.Hitbox.Width / 4))
                 {
-                    //isShell = true;
+                    System.Diagnostics.Debug.WriteLine("FUCK");
+                    isMoving = true;
+                    shellDirection = 1;
                 }
 
             }
