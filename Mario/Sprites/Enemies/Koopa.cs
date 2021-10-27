@@ -55,13 +55,13 @@ namespace Mario.Sprites.Enemies
             Theatre = theatre;
             textureLeft = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_leftWalking");
             textureRight = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_rightWalking");
-            hitbox = new Rectangle((int)location.X + 7, (int)location.Y, 16, 26);
+            hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 26);
             dead = false;
             showHitbox = false;
-            direction = false;
-            facingLeft = true;
+            direction = true;
+            facingLeft = false;
             velocity.Y = 1f;
-            velocity.X = 0.5f;
+            velocity.X = 1.0f;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -142,6 +142,11 @@ namespace Mario.Sprites.Enemies
                 {
                     hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
                     position.Y = hitbox.Y;
+                    //velocity.Y = 0;
+                }
+                else
+                {
+                    //System.Diagnostics.Debug.WriteLine("FALL WHY");
                 }
 
                 if (hitbox.TouchRightOf(collider.Hitbox))
