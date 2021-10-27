@@ -1,0 +1,17 @@
+Dan Jones -- Code review
+
+Author of Code:  
+Date: 10/26/2021
+Sprint: 3
+File name: map.cs
+Author: Oskar Klear
+
+Quality: 
+
+ - a little sloppy, long methods.
+ - repeated foreach loops
+ - Magic numbers
+ 
+ - I would find a way to combine the foreach loops and unsloppify them. 
+
+Mins taken: ~10 mins
