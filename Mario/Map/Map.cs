@@ -38,7 +38,6 @@ namespace Mario.Map
         private List<RedMushroom> redMushroomObjs = new List<RedMushroom>();
         private List<GreenMushroom> greenMushroomObjs = new List<GreenMushroom>();
         private List<FireFlower> fireFlowerObjs = new List<FireFlower>();
-        int numOfRedMushrooms = 0;
         private Game1 theatre;
         public Game1 Theatre
         {
@@ -172,7 +171,7 @@ namespace Mario.Map
                                 break;
                             case 30:  //Goomba
                                 //collisionZones[(i * GOOMBAW) / 256].Add(new Goomba(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
-                                entities.entityObjs.Add(new Goomba(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
+                                entities.entityObjs.Add(new Goomba(theatre, new Vector2(i * 14, j * 14 + 15)));
                                 break;
                             case 31:  //Koopa
                                 //collisionZones[(i * KOOPAW) / 256].Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
