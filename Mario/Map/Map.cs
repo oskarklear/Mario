@@ -98,7 +98,7 @@ namespace Mario.Map
                         switch (number)
                         {
                             case GROUNDBLOCK: //Ground Block
-                                BlockContext groundBlock = new BlockContext(theatre, new Vector2((i * (BLOCK - 1)), j * BLOCK));
+                                BlockContext groundBlock = new BlockContext(theatre, new Vector2((i * (BLOCK)), j * BLOCK));
                                 groundBlock.SetState(new GroundBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(groundBlock);
                                 break;
@@ -291,6 +291,19 @@ namespace Mario.Map
 
             foreach (ISprite sprite in entities.entityObjs)
             {
+                if (sprite.Position.X > 256)
+                {
+                    foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) - 1])
+                    {
+                        if (block is BlockContext || block is Pipe)
+                        {
+                            sprite.Collision(block);
+                            if (mario.context.ShowHitbox)
+                                sprite.ShowHitbox = true;
+                            else sprite.ShowHitbox = false;
+                        }
+                    }
+                }
                 foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
                 {
                     if (block is BlockContext || block is Pipe)
@@ -299,6 +312,19 @@ namespace Mario.Map
                         if (mario.context.ShowHitbox)
                             sprite.ShowHitbox = true;
                         else sprite.ShowHitbox = false;
+                    }
+                }
+                if (mario.position.X < 3328)
+                {
+                    foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) + 1])
+                    {
+                        if (block is BlockContext || block is Pipe)
+                        {
+                            sprite.Collision(block);
+                            if (mario.context.ShowHitbox)
+                                sprite.ShowHitbox = true;
+                            else sprite.ShowHitbox = false;
+                        }
                     }
                 }
             }
