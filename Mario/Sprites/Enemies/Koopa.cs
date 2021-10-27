@@ -24,6 +24,7 @@ namespace Mario.Sprites.Enemies
         bool facingLeft;
         Game1 Theatre;
         bool dead;
+        bool colliding;
         public Vector2 Position
         {
             get { return position; }
@@ -55,13 +56,13 @@ namespace Mario.Sprites.Enemies
             Theatre = theatre;
             textureLeft = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_leftWalking");
             textureRight = Theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_rightWalking");
-            hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 26);
+            hitbox = new Rectangle((int)location.X + 7, (int)location.Y, 16, 26);
             dead = false;
             showHitbox = false;
-            direction = true;
-            facingLeft = false;
+            direction = false;
+            facingLeft = true;
             velocity.Y = 1f;
-            velocity.X = 1.0f;
+            velocity.X = 0.5f;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -142,12 +143,11 @@ namespace Mario.Sprites.Enemies
                 {
                     hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
                     position.Y = hitbox.Y;
-                    //velocity.Y = 0;
+                    velocity.Y = 0f;
+                    colliding = true;
                 }
                 else
-                {
-                    //System.Diagnostics.Debug.WriteLine("FALL WHY");
-                }
+                    velocity.Y = 1f;
 
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
@@ -155,6 +155,7 @@ namespace Mario.Sprites.Enemies
                     else hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
                     position.X = hitbox.X;
                     direction = !direction;
+                    colliding = true;
                 }
 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
@@ -163,12 +164,14 @@ namespace Mario.Sprites.Enemies
                     else hitbox.X = collider.Hitbox.X - hitbox.Width - 2;
                     position.X = hitbox.X;
                     direction = !direction;
+                    colliding = true;
                 }
 
                 if (hitbox.TouchBottomOf(collider.Hitbox))
                 {
                     hitbox.Y = collider.Hitbox.Y + hitbox.Height;
                     position.Y = hitbox.Y;
+                    colliding = true;
                 }
             }
         }
