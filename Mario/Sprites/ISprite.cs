@@ -25,6 +25,7 @@ namespace Mario.Sprites
         public void Draw(SpriteBatch spriteBatch);
 
         public void Collision(ISprite collider);
+        public bool isShell { get; set; }
 
         public bool delete();
 

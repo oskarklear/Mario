@@ -32,7 +32,7 @@ namespace Mario.Sprites.Items
         {
             get { return position; }
         }
-
+        public bool isShell { get; set; }
         public Pipe(Game1 theatre, Vector2 location)
         {
             position = location;

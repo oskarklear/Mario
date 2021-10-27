@@ -30,8 +30,9 @@ namespace Mario.Sprites.Enemies
         bool colliding;
         bool deleted;
         bool isMoving;
-        bool shellSpeed;
+        int shellSpeed;
         bool isShell;
+        int shellDirection;
 
         public Vector2 Position
         {
@@ -49,6 +50,7 @@ namespace Mario.Sprites.Enemies
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        public bool isShell { get; set; }
         public bool delete()
         {
             return false;
@@ -74,6 +76,8 @@ namespace Mario.Sprites.Enemies
             velocity.Y = 1f;
             velocity.X = 0.5f;
             isShell = false;
+            shellDirection = 1;
+            shellSpeed = 2;
 
         }
 
@@ -150,6 +154,11 @@ namespace Mario.Sprites.Enemies
             {               
                 Columns = 1;
                 hitbox = new Rectangle((int)position.X + 7, (int)position.Y, 16, 16);
+
+                if (isMoving)
+                {
+                    position.X += shellDirection * shellSpeed;
+                }
             }
         }
 
@@ -177,11 +186,13 @@ namespace Mario.Sprites.Enemies
                 } 
                 if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
-                    //isShell = true;
+                    isMoving = true;
+                    shellDirection = 1;
                 }
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
-                    //isShell = true;
+                    isMoving = true;
+                    shellDirection = -1;
                 }
 
             }

@@ -36,7 +36,7 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
-
+        public bool isShell { get; set; }
         public GreenMushroom(Game1 theatre, Vector2 location, SuperMario mario)
         {
             position = location;
