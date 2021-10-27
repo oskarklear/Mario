@@ -166,7 +166,7 @@ namespace Mario.Map
                                 collisionObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK), Mario));
                                 break;
                             case 30:  //Goomba
-                                entities.entityObjs.Add(new Goomba(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
+                                entities.enemyObjs.Add(new Goomba(theatre, new Vector2(i * BLOCK + 10, j * BLOCK - 15)));
                                 break;
                             case 31:  //Koopa
                                 entities.enemyObjs.Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
@@ -219,6 +219,8 @@ namespace Mario.Map
         }
         public void Update()
         {
+            //entities.Update();
+            mario.Update();
             //Zone behind Mario
             if (mario.position.X > 256)
             {

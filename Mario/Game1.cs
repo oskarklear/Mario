@@ -61,7 +61,6 @@ namespace Mario
 
             gp1.UpdateInput();
             kb.UpdateInput();
-            map.Mario.Update();
             map.Update();
             base.Update(gameTime);
         }

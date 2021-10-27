@@ -15,6 +15,8 @@ namespace Mario.Sprites.Mario
 {
     public class SuperMario : ISprite
     {
+        protected const int MAPW = 3584;
+        protected const int MAPH = 272;
         protected const int delaytime = 100;
         int fireballCooldown;
         DynamicEntities entities;
@@ -331,10 +333,12 @@ namespace Mario.Sprites.Mario
                 if (context.isFalling)
                     context.jumpHeight = 0;
                 context.isFalling = false;
-            }   
+            }
 
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
+            else if (context.GetPowerUpState().ToString().Equals("DeadMario"))
+                hitbox = new Rectangle(-1, -1, 0, 0);
             else
             {
                 if (context.GetActionState().ToString().Equals("CrouchingState"))
@@ -520,16 +524,16 @@ namespace Mario.Sprites.Mario
             if (position.X < 0)
                 position.X = 0;
 
-            if (position.X > 3584 - hitbox.Width)
-                position.X = 3584 - hitbox.Width;
+            if (position.X > MAPW - hitbox.Width)
+                position.X = MAPW - hitbox.Width;
 
             if (position.Y < 0)
                 position.Y = 0;
 
-            if (position.Y > 272 - hitbox.Height)
+            if (position.Y > MAPH - hitbox.Height)
             {
                 context.DieInPit();
-                position.Y = 272 - hitbox.Height;
+                position.Y = MAPH - hitbox.Height;
             }
         }
     }
