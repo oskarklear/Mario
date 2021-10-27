@@ -32,7 +32,6 @@ namespace Mario.Sprites.Enemies
         bool isMoving;
         bool shellSpeed;
         bool isShell;
-        bool falling;
 
         public Vector2 Position
         {
@@ -163,22 +162,23 @@ namespace Mario.Sprites.Enemies
                 System.Diagnostics.Debug.WriteLine(hitbox.ToString());
                 System.Diagnostics.Debug.WriteLine(collider.Hitbox.ToString());
 
-                if (hitbox.TouchTopOf(collider.Hitbox))
+/*                if (hitbox.TouchTopOf(collider.Hitbox))
                 {
                     isShell = true;
-                }
+                }*/
                 if (hitbox.TouchBottomOf(collider.Hitbox))
                 {
                     isShell = true;
                 }
-                if (hitbox.TouchLeftOf(collider.Hitbox))
+                System.Diagnostics.Debug.WriteLine("isShell: =------------------------------------------- " + isShell);
+/*                if (hitbox.TouchLeftOf(collider.Hitbox))
                 {
                     isShell = true;
                 }
                 if (hitbox.TouchRightOf(collider.Hitbox))
                 {
                     isShell = true;
-                }
+                }*/
 
             }
 
