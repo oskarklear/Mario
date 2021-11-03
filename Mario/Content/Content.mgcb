@@ -781,11 +781,11 @@
 /processorParam:TextureFormat=Color
 /build:obstacles/Used Item Block.png
 
-#begin OverworldTheme.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin OverworldTheme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:OverworldTheme.mp3
+/build:OverworldTheme.wav
 
 #begin projectiles/fireball.png
 /importer:TextureImporter
@@ -799,9 +799,9 @@
 /processorParam:TextureFormat=Color
 /build:projectiles/fireball.png
 
-#begin UndergroundTheme.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin UndergroundTheme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:UndergroundTheme.mp3
+/build:UndergroundTheme.wav
 
