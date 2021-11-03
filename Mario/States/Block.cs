@@ -8,6 +8,7 @@ using Mario.Sprites.Mario;
 using Mario.Sprites.Items;
 using Mario.Entities;
 using Mario.Map;
+using Mario.Trackers;
 
 namespace Mario.States
 {
@@ -260,6 +261,7 @@ namespace Mario.States
 			coinLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
 			this.Movement(sprite);
+
 		}
 
 		public override string ToString()
