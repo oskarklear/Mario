@@ -38,7 +38,7 @@ namespace Mario
         protected override void Initialize()
         {
             graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 608;
+            graphics.PreferredBackBufferHeight = 272;
             graphics.ApplyChanges();
             map = new Level(this);
             base.Initialize();

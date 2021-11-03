@@ -783,7 +783,7 @@
 
 #begin OverworldTheme.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:OverworldTheme.wav
 
@@ -801,7 +801,7 @@
 
 #begin UndergroundTheme.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:UndergroundTheme.wav
 

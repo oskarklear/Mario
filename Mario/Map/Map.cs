@@ -57,6 +57,8 @@ namespace Mario.Map
         private const int BLOCK = 16;
         string[][] overworld;
         string[][] underground;
+        Song OverworldTheme;
+        Song UndergroundTheme;
         public Level(Game1 theatre)
         {
             this.theatre = theatre;
@@ -65,8 +67,8 @@ namespace Mario.Map
             reset = false;
             camera = new Camera(theatre.Graphics.GraphicsDevice.Viewport);
             camera.Limits = new Rectangle(0, 0, 3584, 272);
-            Song OverworldTheme = theatre.Content.Load<Song>("OverworldTheme");
-            Song UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
+            OverworldTheme = theatre.Content.Load<Song>("OverworldTheme");
+            UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
             
             for (int i = 0; i < collisionZones.Length; i++)
             {
@@ -76,6 +78,7 @@ namespace Mario.Map
 
         public void GenerateMap()
         {
+            MediaPlayer.Play(OverworldTheme);
             bgLayerNear = new Layer(camera);
             bgLayerNear.Parallax=new Vector2(.8f);
             bgLayerMid = new Layer(camera);
