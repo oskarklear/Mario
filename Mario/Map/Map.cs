@@ -12,6 +12,7 @@ using Mario.Sprites.Mario;
 using Mario.Entities;
 using System.IO;
 using System.Linq;
+using Microsoft.Xna.Framework.Media;
 
 namespace Mario.Map
 {
@@ -54,15 +55,19 @@ namespace Mario.Map
         private const int COINH = 16;
         private const int COINW = 12;
         private const int BLOCK = 16;
-        string[][] map;
+        string[][] overworld;
+        string[][] underground;
         public Level(Game1 theatre)
         {
             this.theatre = theatre;
             entities = new DynamicEntities();
-            map = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
+            overworld = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
             reset = false;
             camera = new Camera(theatre.Graphics.GraphicsDevice.Viewport);
             camera.Limits = new Rectangle(0, 0, 3584, 272);
+            Song OverworldTheme = theatre.Content.Load<Song>("OverworldTheme");
+            Song UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
+            
             for (int i = 0; i < collisionZones.Length; i++)
             {
                 collisionZones[i] = new List<ISprite>();
@@ -81,7 +86,7 @@ namespace Mario.Map
             {
                 for (int j = 0; j < 17; j++)
                 {
-                    int number = Int32.Parse(map[j][i]);
+                    int number = Int32.Parse(overworld[j][i]);
 
                     if (number > 0)
                     {
