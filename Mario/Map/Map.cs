@@ -69,7 +69,7 @@ namespace Mario.Map
             camera.Limits = new Rectangle(0, 0, 3584, 272);
             OverworldTheme = theatre.Content.Load<Song>("OverworldTheme");
             UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
-            
+            MediaPlayer.IsRepeating = true;
             for (int i = 0; i < collisionZones.Length; i++)
             {
                 collisionZones[i] = new List<ISprite>();

@@ -8,6 +8,7 @@ using Mario.States;
 using Mario.Sprites;
 using System.Windows.Input;
 using Mario.Map;
+using Microsoft.Xna.Framework.Media;
 
 namespace Mario
 {
@@ -169,7 +170,7 @@ namespace Mario
 
                     // Mute
                     case (int)Keys.M:
-                        //Mute.Execute();
+                        MediaPlayer.IsMuted = true;
                         break;
 
                     // Standard state
