@@ -25,6 +25,7 @@ namespace Mario.States
         public override void TakeDamage(MarioContext context)
         {
             context.SetPowerUpState(new DeadMarioState());
+            context.Theatre.tracker.RemoveLifeCommand();
         }
 
         public override void DieInPit(MarioContext context)

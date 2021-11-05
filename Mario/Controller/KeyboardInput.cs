@@ -76,7 +76,6 @@ namespace Mario
                 switch (input.Key)
                 {
                     //Leftward Movement (A key)
-
                     case (int)Keys.A:
                         MoveLeftCommand.Execute();
                         break;

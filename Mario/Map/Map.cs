@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Mario.States;
 using Mario.Sprites.Mario;
 using Mario.Entities;
 using System.IO;
@@ -185,7 +184,7 @@ namespace Mario.Map
                                 break;
                             case 41: //Mario
                                 if (!reset)
-                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext()) { animated = false };
+                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext(theatre)) { animated = false };
                                 break;
                             case 99:
                                 GoalGate gg = new GoalGate(theatre, new Vector2(i * BLOCK, j * BLOCK - 99));

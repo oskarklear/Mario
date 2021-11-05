@@ -13,6 +13,7 @@ public class MarioContext
 	public MarioActionState crouchingState;
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
+	public Mario.Game1 Theatre;
 	public Vector2 Velocity;
 	public bool facingLeft;
 	public bool isTouchingLeft { get; set; }
@@ -29,7 +30,7 @@ public class MarioContext
 		set { showHitbox = value; }
 	}
 
-	public MarioContext()
+	public MarioContext(Mario.Game1 theatre)
 	{
 		PowerupState = new StandardMarioState();
 		ActionState = new IdleState(this);
@@ -41,6 +42,7 @@ public class MarioContext
 		crouchingState = new CrouchingState(this);
 		jumpHeight = 0;
 		showHitbox = false;
+		Theatre = theatre; 
 	}
 
 	public MarioActionState GetActionState()
