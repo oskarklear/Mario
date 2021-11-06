@@ -41,6 +41,7 @@ namespace Mario
             IdleCommand = new IdleCommand(map.Mario);
             ActivateIdle = new ActivateIdle(map.Mario);
             FireCommand = new FireCommand(map.Mario);
+            Pause = new Pause(map.menu);
             context = map.Mario.context;
             this.map = map;
         }
@@ -80,22 +81,50 @@ namespace Mario
                     //Leftward Movement (A key)
 
                     case (int)Keys.A:
-                        MoveLeftCommand.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            MoveLeftCommand.Execute();
+                        }
                         break;
 
                     // Leftward Movement (Left Arrow)
                     case (int)Keys.Left:
-                        MoveLeftCommand.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            MoveLeftCommand.Execute();
+                        }
                         break;
 
                     //Rightward Movement(D key)
                     case (int)Keys.D:
-                        MoveRightCommand.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            MoveRightCommand.Execute();
+                        }
                         break;
 
                     // Rightward Movement (Right Arrow)
                     case (int)Keys.Right:
-                        MoveRightCommand.Execute();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            MoveRightCommand.Execute();
+                        }
                         break;
 
                     // Jump (W key)
@@ -166,7 +195,7 @@ namespace Mario
                     // Pause
                     case (int)Keys.P:
                         GameObj.IsMenuVisible = !GameObj.IsMenuVisible;
-                        //Pause.Execute();
+                        Pause.Execute();
                         break;
 
                     // Mute
@@ -176,27 +205,62 @@ namespace Mario
 
                     // Standard state
                     case (int)Keys.Y:
-                        context.SetPowerUpState(new StandardMarioState());
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            context.SetPowerUpState(new StandardMarioState());
+                        }
                         break;
 
                     // Super state
                     case (int)Keys.U:
-                        context.SetPowerUpState(new SuperMarioState());
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            context.SetPowerUpState(new SuperMarioState());
+                        }
                         break;
 
                     // Fire state
                     case (int)Keys.I:
-                        context.SetPowerUpState(new FireMarioState());
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            context.SetPowerUpState(new FireMarioState());
+                        }
                         break;
 
                     // Damage avatar
                     case (int)Keys.O:
-                        context.TakeDamage();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            context.TakeDamage();
+                        }
                         break;
 
                     //Show Hitboxes
                     case (int)Keys.C:
-                        context.ToggleHitbox();
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            context.ToggleHitbox();
+                        }
                         break;
 
                     //Reset

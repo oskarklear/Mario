@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
@@ -13,10 +12,11 @@ namespace Mario.States
     public class Overlay
     {
         OverlayState state;
-        SpriteBatch spritebatch;
-        public Overlay(SpriteBatch _spriteBatch)
+        
+        
+        public Overlay()
         {
-            spritebatch = _spriteBatch;
+            
             state = new NoOverlayState();
         }
 
@@ -29,14 +29,15 @@ namespace Mario.States
         {
             state.Draw(spritebatch);
         }
-        public Boolean isActive()
+        public String toString()
         {
-            return state.isActive();
+            return state.toString();
         }
         public void Pause()
         {
             state.Pause(this);
         }
+        
         
 
         

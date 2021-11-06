@@ -17,6 +17,10 @@ namespace Mario.States
         public abstract  bool isActive();
 
         public abstract void Pause(Overlay context);
+
+        public abstract String toString();
+
+        
     }
 
     public class GameOverState : OverlayState
@@ -35,6 +39,11 @@ namespace Mario.States
         {
             //does nothing
         }
+
+        public override string toString()
+        {
+            return "GameOver";
+        }
     }
     public class PauseState : OverlayState
     {
@@ -51,6 +60,11 @@ namespace Mario.States
         public override void Pause(Overlay context)
         {
             context.SwitchOverlay(new NoOverlayState());
+        }
+
+        public override string toString()
+        {
+            return "Pause";
         }
     }
     public class WinState : OverlayState
@@ -70,6 +84,10 @@ namespace Mario.States
             //does nothing
         }
 
+        public override string toString()
+        {
+            return "Win";
+        }
     }
     public class NoOverlayState : OverlayState
     {
@@ -85,6 +103,11 @@ namespace Mario.States
         public override void Pause(Overlay context)
         {
             context.SwitchOverlay(new PauseState());
+        }
+
+        public override string toString()
+        {
+            return "NoOverlay";
         }
     }
 }
