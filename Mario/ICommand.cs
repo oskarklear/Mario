@@ -46,5 +46,17 @@ namespace Mario
         public abstract void Execute();
     }
 
+    public abstract class MenuCommand : ICommand
+    {
+        protected Overlay receiver;
+
+        protected MenuCommand(Overlay receiver)
+        {
+            this.receiver = receiver;
+        }
+
+        public abstract void Execute();
+    }
+
 }
 

@@ -27,6 +27,8 @@ namespace Mario
         public ICommand HiddenBumpCommand { get; set; }
         public ICommand BrickBumpCommand { get; set; }
 
+        public ICommand Pause { get; set; }
+
         Level map;
         private MarioContext context;
 
