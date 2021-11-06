@@ -333,7 +333,7 @@ namespace Mario.States
 				Vector2 coinLocation = sprite.GetLocation();
 				coinLocation.Y -= 3;
 				dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
-				//coins++;
+				coins++;
 				if (coins == 10) context.SetState(new UsedBlockState());
 				context.GetGame().tracker.AddCoinCommand();
 			}

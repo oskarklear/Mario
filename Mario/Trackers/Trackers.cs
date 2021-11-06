@@ -10,17 +10,17 @@ namespace Mario.Trackers
 
         public int lives;
         public int coins;
-        int points;
+        public int points;
         public int timeRemaining;
-        public bool lifeRemovedAfterTimeRemainingIsZero;
+        //public bool lifeRemovedAfterTimeRemainingIsZero;
 
         public StatTracker()
         {
             lives = 3;
             coins = 0;
             points = 0;
-            timeRemaining = FRAMESPERSECOND * 5;
-            lifeRemovedAfterTimeRemainingIsZero = false;
+            timeRemaining = FRAMESPERSECOND * 400;
+            //lifeRemovedAfterTimeRemainingIsZero = false;
         }
 
         public void AddCoinCommand()
