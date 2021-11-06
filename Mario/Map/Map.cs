@@ -12,6 +12,7 @@ using Mario.Entities;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework.Media;
+using Mario.Trackers;
 
 namespace Mario.Map
 {
@@ -58,6 +59,7 @@ namespace Mario.Map
         string[][] underground;
         Song OverworldTheme;
         Song UndergroundTheme;
+        ICommand ResetTimeRemainingCommand { get; set; }
         public Level(Game1 theatre)
         {
             this.theatre = theatre;
@@ -68,6 +70,7 @@ namespace Mario.Map
             camera.Limits = new Rectangle(0, 0, 3584, 272);
             OverworldTheme = theatre.Content.Load<Song>("OverworldTheme");
             UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
+            ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
             
             for (int i = 0; i < collisionZones.Length; i++)
             {
@@ -284,8 +287,11 @@ namespace Mario.Map
                     sprite.ShowHitbox = false;
             }
 
-            foreach (ISprite sprite in entities.entityObjs)
+            for (int i = 0; i < entities.entityObjs.Count; i++)
             {
+                ISprite sprite = entities.entityObjs[i];
+                //if (sprite.Position.X < 0 && sprite.Position.Y < 0)
+                //    entities.entityObjs.RemoveAt(i);
                 if (sprite.Position.X > 256)
                 {
                     foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) - 1])
@@ -413,6 +419,7 @@ namespace Mario.Map
             GenerateMap();
             mario.position = new Vector2(100, 230);
             mario.context.SetPowerUpState(new StandardMarioState());
+            ResetTimeRemainingCommand.Execute();
         }
     }
 }

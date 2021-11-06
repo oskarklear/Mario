@@ -6,17 +6,21 @@ namespace Mario.Trackers
 {
     public class StatTracker
     {
+        protected const int FRAMESPERSECOND = 60;
+
         public int lives;
         public int coins;
         int points;
-        int timeRemaining;
+        public int timeRemaining;
+        public bool lifeRemovedAfterTimeRemainingIsZero;
 
         public StatTracker()
         {
             lives = 3;
-            coins = 99;
+            coins = 0;
             points = 0;
-            timeRemaining = 400;
+            timeRemaining = FRAMESPERSECOND * 5;
+            lifeRemovedAfterTimeRemainingIsZero = false;
         }
 
         public void AddCoinCommand()
@@ -42,8 +46,19 @@ namespace Mario.Trackers
 
         public void DecrementTimeCommand()
         {
-            timeRemaining--;
-            //if (timeRemaining == 0)
+            if (timeRemaining > 0) timeRemaining--;
+/*            else if (timeRemaining == 0 && !lifeRemovedAfterTimeRemainingIsZero)
+            {
+                lifeRemovedAfterTimeRemainingIsZero = true;
+                
+            }*/
+        }
+
+        public void ResetTimeRemainingCommand()
+        {
+            timeRemaining = FRAMESPERSECOND * 400;
+            //lifeRemovedAfterTimeRemainingIsZero = false;
+            RemoveLifeCommand();
         }
     }
 }

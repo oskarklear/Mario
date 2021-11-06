@@ -86,7 +86,10 @@ namespace Mario.Sprites.Items
         public void Update()
         {
             position.Y += velocity.Y;
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+            if (!obtained)
+                hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+            else
+                hitbox = new Rectangle(-1, -1, 0, 0);
 
             if (position.Y > endPosition && spawning)
             {

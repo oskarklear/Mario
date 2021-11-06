@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.Trackers;
 
 namespace Mario.Sprites.Items
 {
@@ -166,7 +167,7 @@ namespace Mario.Sprites.Items
         public bool isShell { get; set; }
         bool obtained;
         Game1 Theatre;
-
+        ICommand AddCoinCommand { get; set; }
         public MapCoin(Game1 theatre, Vector2 location)
         {
             Theatre = theatre;
@@ -179,6 +180,7 @@ namespace Mario.Sprites.Items
             obtained = false;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 12, 16);
             showHitbox = false;
+            AddCoinCommand = new AddCoinCommand(theatre.tracker);
         }
 
         public bool delete()
@@ -234,7 +236,7 @@ namespace Mario.Sprites.Items
             {
                 obtained = true;
                 hitbox = new Rectangle(-1, -1, 0, 0);
-                Theatre.tracker.AddCoinCommand();
+                AddCoinCommand.Execute();
             }
         }
     }

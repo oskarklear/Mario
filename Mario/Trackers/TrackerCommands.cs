@@ -41,6 +41,30 @@ namespace Mario.Trackers
         }
     }
 
+    class DecrementTimeCommand : TrackerCommand
+    {
+        public DecrementTimeCommand(StatTracker receiver) : base(receiver)
+        {
+        }
+
+        public override void Execute()
+        {
+            receiver.DecrementTimeCommand();
+        }
+    }
+
+    class ResetTimeRemainingCommand : TrackerCommand
+    {
+        public ResetTimeRemainingCommand(StatTracker receiver) : base(receiver)
+        {
+        }
+
+        public override void Execute()
+        {
+            receiver.ResetTimeRemainingCommand();
+        }
+    }
+
 /*    class AddPointsCommand : TrackerCommand
     {
         public AddPointsCommand(StatTracker receiver) : base(receiver)
