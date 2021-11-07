@@ -15,6 +15,7 @@ public class MarioContext
 	public MarioActionState crouchingState;
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
+	public Mario.Game1 Theatre;
 	public Vector2 Velocity;
 	public bool facingLeft;
 	public bool isTouchingLeft { get; set; }

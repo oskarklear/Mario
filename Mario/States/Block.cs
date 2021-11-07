@@ -276,7 +276,7 @@ namespace Mario.States
 			coinLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
 			this.Movement(sprite);
-
+			context.GetGame().tracker.AddCoinCommand();
 		}
 
 		public override string ToString()
@@ -330,7 +330,8 @@ namespace Mario.States
 			Vector2 coinLocation = sprite.GetLocation();
 			coinLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
-			this.Movement(sprite);
+			//this.Movement(sprite);
+			context.GetGame().tracker.AddCoinCommand();
 		}
 
 		public override string ToString()
@@ -352,6 +353,7 @@ namespace Mario.States
 				dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));
 				coins++;
 				if (coins == 10) context.SetState(new UsedBlockState());
+				context.GetGame().tracker.AddCoinCommand();
 			}
 			this.Movement(sprite);
 		}

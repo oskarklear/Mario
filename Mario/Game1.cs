@@ -6,6 +6,7 @@ using Mario.Map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Mario.Trackers;
 
 namespace Mario
 {
@@ -24,7 +25,7 @@ namespace Mario
         IController gp1;
         public Level map;
         public Camera camera;
-
+        public StatTracker tracker;
 
 
         public Game1()
@@ -33,6 +34,7 @@ namespace Mario
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
+            tracker = new StatTracker();
         }
 
         protected override void Initialize()
@@ -63,6 +65,14 @@ namespace Mario
             kb.UpdateInput();
             map.Update();
             base.Update(gameTime);
+
+            //System.Diagnostics.Debug.WriteLine("Coins: " + tracker.coins);
+            //System.Diagnostics.Debug.WriteLine("Lives: " + tracker.lives);
+            if (tracker.timeRemaining % 60 == 0)
+                System.Diagnostics.Debug.WriteLine("Time Remaining: " + tracker.timeRemaining / 60);
+            //System.Diagnostics.Debug.WriteLine(tracker.lifeRemovedAfterTimeRemainingIsZero);
+            tracker.DecrementTimeCommand();
+            if (tracker.timeRemaining == 0) map.Reset();
         }
 
         protected override void Draw(GameTime gameTime)

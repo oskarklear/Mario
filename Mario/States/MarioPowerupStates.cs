@@ -28,6 +28,7 @@ namespace Mario.States
         {
             context.death.Play();
             context.SetPowerUpState(new DeadMarioState());
+            context.Theatre.tracker.RemoveLifeCommand();
         }
 
         public override void DieInPit(MarioContext context)

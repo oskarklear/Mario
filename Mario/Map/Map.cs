@@ -7,12 +7,12 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Mario.States;
 using Mario.Sprites.Mario;
 using Mario.Entities;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework.Media;
+using Mario.Trackers;
 
 namespace Mario.Map
 {
@@ -59,6 +59,7 @@ namespace Mario.Map
         string[][] underground;
         Song OverworldTheme;
         Song UndergroundTheme;
+        ICommand ResetTimeRemainingCommand { get; set; }
         public Level(Game1 theatre)
         {
             this.theatre = theatre;
@@ -70,6 +71,8 @@ namespace Mario.Map
             OverworldTheme = theatre.Content.Load<Song>("OverworldTheme");
             UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
             MediaPlayer.IsRepeating = true;
+            ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
+            
             for (int i = 0; i < collisionZones.Length; i++)
             {
                 collisionZones[i] = new List<ISprite>();
@@ -426,6 +429,7 @@ namespace Mario.Map
             GenerateMap();
             mario.position = new Vector2(100, 230);
             mario.context.SetPowerUpState(new StandardMarioState());
+            ResetTimeRemainingCommand.Execute();
         }
     }
 }

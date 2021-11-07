@@ -77,7 +77,6 @@ namespace Mario
                 switch (input.Key)
                 {
                     //Leftward Movement (A key)
-
                     case (int)Keys.A:
                         if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
                             MoveLeftCommand.Execute();
