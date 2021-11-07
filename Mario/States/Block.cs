@@ -38,6 +38,7 @@ namespace Mario.States
 		public SoundEffect powerup_appears { get; }
 		public SoundEffect break_block { get; }
 		public SoundEffect coin { get; }
+		public SoundEffect bump { get; }
 
 		public BlockContext(Game1 theatre,Vector2 location)
 		{
@@ -54,6 +55,7 @@ namespace Mario.States
 			powerup_appears = theatre.Content.Load<SoundEffect>("SoundEffects/powerup_appears");
 			break_block = theatre.Content.Load<SoundEffect>("SoundEffects/break_block");
 			coin = theatre.Content.Load<SoundEffect>("SoundEffects/coin");
+			bump = theatre.Content.Load<SoundEffect>("SoundEffects/bump");
 		}
 
 		public Game1 GetGame()
@@ -307,6 +309,7 @@ namespace Mario.States
 
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
+			context.bump.Play();
 			this.Movement(sprite);
 			if (Mario.GetPowerUpState().ToString().Equals("SuperMario") || Mario.GetPowerUpState().ToString().Equals("FireMario"))
 			{

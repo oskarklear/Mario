@@ -58,6 +58,7 @@ namespace Mario.States
 
         public override void TakeDamage(MarioContext context)
         {
+            context.powerdown.Play();
             context.SetPowerUpState(new StandardMarioState());
         }
 
@@ -87,6 +88,7 @@ namespace Mario.States
 
         public override void TakeDamage(MarioContext context)
         {
+            context.powerdown.Play();
             context.SetPowerUpState(new SuperMarioState());
         }
 

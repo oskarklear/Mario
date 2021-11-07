@@ -799,6 +799,18 @@
 /processorParam:TextureFormat=Color
 /build:projectiles/fireball.png
 
+#begin SoundEffects/8d82b5_Super_Mario_Bros_Warning_Sound_Effect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/8d82b5_Super_Mario_Bros_Warning_Sound_Effect.wav;SoundEffects/time_warning.wav
+
+#begin SoundEffects/smb_bump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smb_bump.wav;SoundEffects/bump.wav
+
 #begin SoundEffects/smw_1-up.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -817,17 +829,41 @@
 /processorParam:Quality=Best
 /build:SoundEffects/smw_coin.wav;SoundEffects/coin.wav
 
+#begin SoundEffects/smw_fireball.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_fireball.wav;SoundEffects/fireball.wav
+
+#begin SoundEffects/smw_game_over.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_game_over.wav;SoundEffects/game_over.wav
+
 #begin SoundEffects/smw_jump.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/smw_jump.wav;SoundEffects/jump.wav
 
+#begin SoundEffects/smw_kick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_kick.wav;SoundEffects/kick.wav
+
 #begin SoundEffects/smw_lost_a_life.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/smw_lost_a_life.wav;SoundEffects/death.wav
+
+#begin SoundEffects/smw_pipe.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_pipe.wav;SoundEffects/pipe.wav
 
 #begin SoundEffects/smw_power-up.wav
 /importer:WavImporter
@@ -840,6 +876,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/smw_power-up_appears.wav;SoundEffects/powerup_appears.wav
+
+#begin SoundEffects/smw_shell_ricochet.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_shell_ricochet.wav;SoundEffects/shell_ricochet.wav
 
 #begin SoundEffects/smw_stomp.wav
 /importer:WavImporter

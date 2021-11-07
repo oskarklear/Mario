@@ -134,6 +134,7 @@ namespace Mario.Sprites.Mario
         {
             if (context.GetPowerUpState() is FireMarioState && entities.fireBallObjs.Count < 2 && fireballCooldown > 20)
             {
+                context.fireball.Play();
                 entities.fireBallObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
                 fireballCooldown = 0;
             }
@@ -596,10 +597,6 @@ namespace Mario.Sprites.Mario
                 context.DieInPit();
                 position.Y = MAPH - hitbox.Height;
             }
-        }
-        private void Death()
-        {
-
         }
     }
 }

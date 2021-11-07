@@ -15,7 +15,6 @@ public class MarioContext
 	public MarioActionState crouchingState;
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
-	public Mario.Game1 Theatre;
 	public Vector2 Velocity;
 	public bool facingLeft;
 	public bool isTouchingLeft { get; set; }
@@ -31,13 +30,15 @@ public class MarioContext
 		get { return showHitbox; }
 		set { showHitbox = value; }
 	}
-	Game1 Theatre;
+	public Game1 Theatre;
 	public SoundEffect jump { get; }
 	public SoundEffect powerup { get; }
 	public SoundEffect stomp { get; }
 	public SoundEffect coin { get; }
 	public SoundEffect death { get; }
 	public SoundEffect oneup { get; }
+	public SoundEffect powerdown { get; }
+	public SoundEffect fireball { get; }
 
 	public MarioContext(Game1 theatre)
 	{
@@ -58,7 +59,8 @@ public class MarioContext
 		coin = theatre.Content.Load<SoundEffect>("SoundEffects/coin");
 		death = theatre.Content.Load<SoundEffect>("SoundEffects/death");
 		oneup = theatre.Content.Load<SoundEffect>("SoundEffects/1up");
-
+		powerdown = theatre.Content.Load<SoundEffect>("SoundEffects/pipe");
+		fireball = theatre.Content.Load<SoundEffect>("SoundEffects/fireball");
 	}
 
 	public MarioActionState GetActionState()
