@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Mario.States;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Mario.Sprites.Items
 {
@@ -84,7 +85,8 @@ namespace Mario.Sprites.Items
         public void Update()
         {
             position.Y += velocity.Y;
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+            if (!obtained)
+                hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
 
             if (position.Y > endPosition && spawning) 
             {
@@ -112,7 +114,7 @@ namespace Mario.Sprites.Items
                 if (collider is SuperMario)
                 {
                     obtained = true;
-                    hitbox = new Rectangle(-1, -1, 0, 0);
+                    hitbox = Rectangle.Empty;
                     velocity.X = 0f;
                     velocity.Y = 0f;
                 }

@@ -3,6 +3,8 @@ using Mario.Sprites.Mario;
 using Mario.States;
 using Mario.Sprites;
 using Microsoft.Xna.Framework;
+using Mario;
+using Microsoft.Xna.Framework.Audio;
 
 public class MarioContext
 {
@@ -28,8 +30,15 @@ public class MarioContext
 		get { return showHitbox; }
 		set { showHitbox = value; }
 	}
+	Game1 Theatre;
+	public SoundEffect jump { get; }
+	public SoundEffect powerup { get; }
+	public SoundEffect stomp { get; }
+	public SoundEffect coin { get; }
+	public SoundEffect death { get; }
+	public SoundEffect oneup { get; }
 
-	public MarioContext()
+	public MarioContext(Game1 theatre)
 	{
 		PowerupState = new StandardMarioState();
 		ActionState = new IdleState(this);
@@ -41,6 +50,14 @@ public class MarioContext
 		crouchingState = new CrouchingState(this);
 		jumpHeight = 0;
 		showHitbox = false;
+		this.Theatre = theatre;
+		jump = theatre.Content.Load<SoundEffect>("SoundEffects/jump");
+		powerup = theatre.Content.Load<SoundEffect>("SoundEffects/powerup");
+		stomp = theatre.Content.Load<SoundEffect>("SoundEffects/stomp");
+		coin = theatre.Content.Load<SoundEffect>("SoundEffects/coin");
+		death = theatre.Content.Load<SoundEffect>("SoundEffects/death");
+		oneup = theatre.Content.Load<SoundEffect>("SoundEffects/1up");
+
 	}
 
 	public MarioActionState GetActionState()

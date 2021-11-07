@@ -799,6 +799,54 @@
 /processorParam:TextureFormat=Color
 /build:projectiles/fireball.png
 
+#begin SoundEffects/smw_1-up.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_1-up.wav;SoundEffects/1up.wav
+
+#begin SoundEffects/smw_break_block.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_break_block.wav;SoundEffects/break_block.wav
+
+#begin SoundEffects/smw_coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_coin.wav;SoundEffects/coin.wav
+
+#begin SoundEffects/smw_jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_jump.wav;SoundEffects/jump.wav
+
+#begin SoundEffects/smw_lost_a_life.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_lost_a_life.wav;SoundEffects/death.wav
+
+#begin SoundEffects/smw_power-up.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_power-up.wav;SoundEffects/powerup.wav
+
+#begin SoundEffects/smw_power-up_appears.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_power-up_appears.wav;SoundEffects/powerup_appears.wav
+
+#begin SoundEffects/smw_stomp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_stomp.wav;SoundEffects/stomp.wav
+
 #begin UndergroundTheme.wav
 /importer:WavImporter
 /processor:SongProcessor

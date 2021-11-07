@@ -14,21 +14,25 @@ namespace Mario.States
     {
         public override void GetFireFlower(MarioContext context)
         {
+            context.powerup.Play();
             context.SetPowerUpState(new FireMarioState());
         }
 
         public override void GetMushroom(MarioContext context)
         {
+            context.powerup.Play();
             context.SetPowerUpState(new SuperMarioState());
         }
 
         public override void TakeDamage(MarioContext context)
         {
+            context.death.Play();
             context.SetPowerUpState(new DeadMarioState());
         }
 
         public override void DieInPit(MarioContext context)
         {
+            context.death.Play();
             context.SetPowerUpState(new DeadMarioState());
         }
 
@@ -42,12 +46,13 @@ namespace Mario.States
     {
         public override void GetFireFlower(MarioContext context)
         {
+            context.powerup.Play();
             context.SetPowerUpState(new FireMarioState());
         }
 
         public override void GetMushroom(MarioContext context)
         {
-            //does nothing
+            context.powerup.Play();
         }
 
         public override void TakeDamage(MarioContext context)
@@ -57,6 +62,7 @@ namespace Mario.States
 
         public override void DieInPit(MarioContext context)
         {
+            context.death.Play();
             context.SetPowerUpState(new DeadMarioState());
         }
 
@@ -70,12 +76,12 @@ namespace Mario.States
     {
         public override void GetFireFlower(MarioContext context)
         {
-            //does nothing
+            context.powerup.Play();
         }
 
         public override void GetMushroom(MarioContext context)
         {
-            //does nothing 
+            context.powerup.Play();
         }
 
         public override void TakeDamage(MarioContext context)
@@ -85,6 +91,7 @@ namespace Mario.States
 
         public override void DieInPit(MarioContext context)
         {
+            context.death.Play();
             context.SetPowerUpState(new DeadMarioState());
         }
 

@@ -79,22 +79,26 @@ namespace Mario
                     //Leftward Movement (A key)
 
                     case (int)Keys.A:
-                        MoveLeftCommand.Execute();
+                        if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                            MoveLeftCommand.Execute();
                         break;
 
                     // Leftward Movement (Left Arrow)
                     case (int)Keys.Left:
-                        MoveLeftCommand.Execute();
+                        if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                            MoveLeftCommand.Execute();
                         break;
 
                     //Rightward Movement(D key)
                     case (int)Keys.D:
-                        MoveRightCommand.Execute();
+                        if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                            MoveRightCommand.Execute();
                         break;
 
                     // Rightward Movement (Right Arrow)
                     case (int)Keys.Right:
-                        MoveRightCommand.Execute();
+                        if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                            MoveRightCommand.Execute();
                         break;
 
                     // Jump (W key)
@@ -105,7 +109,8 @@ namespace Mario
                         }
                         else
                         {
-                            JumpCommand.Execute();
+                            if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                JumpCommand.Execute();
                         }
                         break;
 
@@ -117,7 +122,8 @@ namespace Mario
                         }
                         else
                         {
-                            JumpCommand.Execute();
+                            if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                JumpCommand.Execute();
                         }
                         break;
 
@@ -129,7 +135,8 @@ namespace Mario
                         }
                         else
                         {
-                            CrouchCommand.Execute();
+                            if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                CrouchCommand.Execute();
                         }
                         break;
 
@@ -141,7 +148,8 @@ namespace Mario
                         }
                         else
                         {
-                            CrouchCommand.Execute();
+                            if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                CrouchCommand.Execute();
                         }
                         break;
 

@@ -1,5 +1,6 @@
 ﻿using Mario.Sprites.Mario;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -58,6 +59,7 @@ namespace Mario.Sprites.Items
             velocity.Y = 1f;
             velocity.X = 1f;
             showHitbox = false;
+            
         }
 
         public bool delete()
@@ -211,6 +213,11 @@ namespace Mario.Sprites.Items
                     spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
                     spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
                 }
+            }
+            else
+            {
+                hitbox = Rectangle.Empty;
+                position = new Vector2(-1, -1);
             }
         }
 
