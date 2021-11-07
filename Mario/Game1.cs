@@ -24,7 +24,9 @@ namespace Mario
         IController gp1;
         public Level map;
         public Camera camera;
-
+        float time;
+        SpriteFont HeadsUpDisplay;
+        Vector2 HUDPosition;
 
 
         public Game1()
@@ -41,6 +43,9 @@ namespace Mario
             graphics.PreferredBackBufferHeight = 272;
             graphics.ApplyChanges();
             map = new Level(this);
+            time = 0;
+            HUDPosition.X = 10;
+            HUDPosition.Y = 10;
             base.Initialize();
         }
 
@@ -49,9 +54,9 @@ namespace Mario
             map.GenerateMap();
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
             kb = new KeyboardInput(map) { GameObj = this };
             gp1 = new GamepadInput(map.Mario) { GameObj = this };
+            HeadsUpDisplay = Content.Load<SpriteFont>("HUD");
         }
 
         protected override void Update(GameTime gameTime)
@@ -62,6 +67,7 @@ namespace Mario
             gp1.UpdateInput();
             kb.UpdateInput();
             map.Update();
+            time += (float)gameTime.ElapsedGameTime.TotalSeconds;
             base.Update(gameTime);
         }
 
@@ -69,6 +75,7 @@ namespace Mario
         {
             GraphicsDevice.Clear(Color.Bisque);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(.2f)));
+            spriteBatch.DrawString(HeadsUpDisplay, "Time: " + ((int)time).ToString(), map.camera.Position, Color.White);
             spriteBatch.End();
             map.Draw(spriteBatch);
             base.Draw(gameTime);
