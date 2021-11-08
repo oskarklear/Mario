@@ -76,6 +76,7 @@ namespace Mario.Sprites.Mario
             delay = 0;
             entities = theatre.map.entities;
             deathTimer = 60;
+            topHeight = 30;
         }
 
         public void MoveLeftCommand()
@@ -298,15 +299,13 @@ namespace Mario.Sprites.Mario
                 animated = true;
                 //hitbox = Rectangle.Empty;
                 MediaPlayer.Stop();
-                topHeight = (int)position.X + 8;
                 deathTimer--;
-                if (deathTimer <= 0 && position.Y > topHeight && !hitTopHeight)
+                if (deathTimer <= 0 && topHeight > 0)
                 {
                     position.Y -= 1;
-                    if (position.Y >= topHeight)
-                        hitTopHeight = true;
+                    topHeight--;
                 }
-                else if (deathTimer <= 0 && hitTopHeight)
+                else if (deathTimer <= 0)
                 {
                     position.Y += 1;
                 }

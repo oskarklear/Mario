@@ -187,7 +187,7 @@ namespace Mario.Map
                                 bgLayerFar.Sprites.Add(new BackgroundHills(Theatre, new Vector2(i * 16, j * 16)));
                                 break;
                             case 41: //Mario
-                                if (!reset)
+                                //if (!reset)
                                     mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext(theatre)) { animated = false };
                                 break;
                             case 99:
@@ -421,14 +421,15 @@ namespace Mario.Map
             {
                 collisionZones[i].Clear();
             }
+            mario = null;
             entities.enemyObjs.Clear();
             entities.entityObjs.Clear();
             entities.fireBallObjs.Clear();
             bgObjects.Clear();
             reset = true;
             GenerateMap();
-            mario.position = new Vector2(100, 230);
-            mario.context.SetPowerUpState(new StandardMarioState());
+            //mario.position = new Vector2(100, 230);
+            //mario.context.SetPowerUpState(new StandardMarioState());
             ResetTimeRemainingCommand.Execute();
         }
     }

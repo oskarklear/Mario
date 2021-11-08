@@ -177,7 +177,7 @@ namespace Mario
 
                     // Mute
                     case (int)Keys.M:
-                        MediaPlayer.IsMuted = true;
+                        MediaPlayer.IsMuted = !MediaPlayer.IsMuted;
                         break;
 
                     // Standard state
