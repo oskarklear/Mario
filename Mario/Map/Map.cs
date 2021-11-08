@@ -32,6 +32,7 @@ namespace Mario.Map
         public List<ISprite> [] collisionZones = new List<ISprite> [14];
         private Game1 theatre;
         public Overlay menu;
+        public SpriteFont font;
         public Game1 Theatre
         {
             get { return theatre; }
@@ -68,7 +69,7 @@ namespace Mario.Map
             camera.Limits = new Rectangle(0, 0, 3584, 272);
             Song OverworldTheme = theatre.Content.Load<Song>("OverworldTheme");
             Song UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
-            menu = new Overlay();
+            menu = new Overlay(font);
             for (int i = 0; i < collisionZones.Length; i++)
             {
                 collisionZones[i] = new List<ISprite>();

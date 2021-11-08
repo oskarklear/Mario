@@ -6,6 +6,7 @@ using Mario.Map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Mario.States;
 
 namespace Mario
 {
@@ -24,7 +25,8 @@ namespace Mario
         IController gp1;
         public Level map;
         public Camera camera;
-
+        public Overlay menu;
+        public SpriteFont font;
 
 
         public Game1()
@@ -33,6 +35,8 @@ namespace Mario
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
+            font = Content.Load <SpriteFont>("HUD");
+            menu = new Overlay(font);
         }
 
         protected override void Initialize()
