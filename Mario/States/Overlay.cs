@@ -12,11 +12,12 @@ namespace Mario.States
     public class Overlay
     {
         OverlayState state;
-        
-        
-        public Overlay()
+        SpriteFont MenuFont;
+
+
+        public Overlay(SpriteFont font)
         {
-            
+            MenuFont = font;
             state = new NoOverlayState();
         }
 

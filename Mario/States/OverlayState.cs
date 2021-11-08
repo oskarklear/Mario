@@ -25,9 +25,14 @@ namespace Mario.States
 
     public class GameOverState : OverlayState
     {
+        SpriteFont MenuFont;
+        public GameOverState(SpriteFont font)
+        {
+            MenuFont = font;
+        }
         public override void Draw(SpriteBatch spritebatch)
         {
-
+            spritebatch.DrawString(MenuFont, "You lost. Press Q to quit, or R to retry", new Vector2(100, 100), Color.Black);
         }
 
         public override bool isActive()
@@ -47,9 +52,14 @@ namespace Mario.States
     }
     public class PauseState : OverlayState
     {
+        SpriteFont MenuFont;
+        public PauseState(SpriteFont font)
+        {
+            MenuFont = font;
+        }
         public override  void Draw(SpriteBatch spritebatch)
         {
-
+            spritebatch.DrawString(MenuFont, "The Game is Paused. Press Q to quit, or P to unpause", new Vector2(100, 100), Color.Black);
         }
 
         public override bool isActive()
@@ -59,7 +69,7 @@ namespace Mario.States
 
         public override void Pause(Overlay context)
         {
-            context.SwitchOverlay(new NoOverlayState());
+            context.SwitchOverlay(new NoOverlayState(MenuFont));
         }
 
         public override string toString()
@@ -69,9 +79,14 @@ namespace Mario.States
     }
     public class WinState : OverlayState
     {
+        SpriteFont MenuFont;
+        public WinState(SpriteFont font)
+        {
+            MenuFont = font;
+        }
         public override void Draw(SpriteBatch spritebatch)
         {
-
+            spritebatch.DrawString(MenuFont, "You Won! Press Q to quit, or R to restart", new Vector2(100, 100), Color.Black);
         }
 
         public override bool isActive()
@@ -91,6 +106,11 @@ namespace Mario.States
     }
     public class NoOverlayState : OverlayState
     {
+        SpriteFont MenuFont;
+        public NoOverlayState(SpriteFont font)
+        {
+            MenuFont = font;
+        }
         public override void Draw(SpriteBatch spritebatch)
         {
             //does nothing
@@ -102,7 +122,7 @@ namespace Mario.States
         }
         public override void Pause(Overlay context)
         {
-            context.SwitchOverlay(new PauseState());
+            context.SwitchOverlay(new PauseState(MenuFont));
         }
 
         public override string toString()
