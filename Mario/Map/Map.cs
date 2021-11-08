@@ -156,7 +156,7 @@ namespace Mario.Map
                             case PIPE: //Pipe
                                 collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
-                            case 118:  //Coin
+                            case 61:  //Coin
                                 entities.entityObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
                                 break;
                             case 111:  //Green Mushroom
@@ -176,6 +176,9 @@ namespace Mario.Map
                                 break;
                             case 31:  //Koopa
                                 entities.enemyObjs.Add(new Koopa(theatre, new Vector2(i * BLOCK, j * BLOCK - 15)));
+                                break;
+                            case 32:  //Piranha
+                                entities.enemyObjs.Add(new Piranha(theatre, new Vector2(i * BLOCK + 5, j * BLOCK - 17)));
                                 break;
                             case 51: //Cloud
                                 bgLayerFar.Sprites.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));
@@ -212,12 +215,13 @@ namespace Mario.Map
             foreach (ISprite obj in bgObjects)
                 obj.Draw(spriteBatch);
             mario.Draw(spriteBatch);
+            entities.Draw(spriteBatch);
             for (int i = 0; i < collisionZones.Length; i++)
             {
                 foreach (ISprite obj in collisionZones[i])
                     obj.Draw(spriteBatch);
             }
-            entities.Draw(spriteBatch);
+            
             spriteBatch.End();
             
             
@@ -228,9 +232,9 @@ namespace Mario.Map
             //entities.Update();
             mario.Update();
             //Zone behind Mario
-            if (mario.position.X > 256)
+            if (mario.Position.X > 256)
             {
-                foreach (ISprite sprite in collisionZones[((int)(mario.position.X / 256)) - 1])
+                foreach (ISprite sprite in collisionZones[((int)(mario.Position.X / 256)) - 1])
                 {
                     mario.Collision(sprite);
 
@@ -244,7 +248,7 @@ namespace Mario.Map
             }
 
             //Zone Mario is in
-            foreach (ISprite sprite in collisionZones[(int)(mario.position.X / 256)])
+            foreach (ISprite sprite in collisionZones[(int)(mario.Position.X / 256)])
             {
                 mario.Collision(sprite);
 
@@ -257,9 +261,9 @@ namespace Mario.Map
             }
 
             //Zone ahead of Mario
-            if (mario.position.X < 3328)
+            if (mario.Position.X < 3328)
             {
-                foreach (ISprite sprite in collisionZones[((int)(mario.position.X / 256)) + 1])
+                foreach (ISprite sprite in collisionZones[((int)(mario.Position.X / 256)) + 1])
                 {
                     mario.Collision(sprite);
 
@@ -277,7 +281,7 @@ namespace Mario.Map
                 foreach (ISprite obj in collisionZones[i])
                     obj.Update();
             }
-            camera.LookAt(mario.position);
+            camera.LookAt(mario.Position);
 
             foreach (ISprite sprite in entities.entityObjs)
             {
@@ -334,7 +338,19 @@ namespace Mario.Map
             for (int i = 0; i < entities.enemyObjs.Count; i++)
             {
                 ISprite sprite = entities.enemyObjs[i];
-                //sprite.Collision(mario);        
+                //sprite.Collision(mario);
+                if (sprite is Piranha)
+                {
+                    if (Math.Abs(sprite.Position.X - mario.Position.X) < 32)
+                    {
+                        (sprite as Piranha).hiding = true;
+                        //System.Diagnostics.Debug.WriteLine("HIDING NOW :OOOOO");
+                    }
+                    else
+                    {
+                        (sprite as Piranha).hiding = false;
+                    }
+                }
                 if (sprite.Position.X < 0 && sprite.Position.Y < 0)
                     entities.enemyObjs.RemoveAt(i);
                 foreach(ISprite fireball in entities.fireBallObjs)
@@ -418,7 +434,7 @@ namespace Mario.Map
             bgObjects.Clear();
             reset = true;
             GenerateMap();
-            mario.position = new Vector2(100, 230);
+            mario.Position = new Vector2(100, 230);
             mario.context.SetPowerUpState(new StandardMarioState());
             ResetTimeRemainingCommand.Execute();
         }

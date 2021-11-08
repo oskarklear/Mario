@@ -30,10 +30,11 @@ namespace Mario.Sprites.Mario
         int delay;
         Texture2D texture;
         Game1 Theatre;
-        public Vector2 position;
+        private Vector2 position;
         public Vector2 Position
         {
             get { return position; }
+            set { position = value; }
         }
         Rectangle hitbox;
         public Kinematics kinematics;

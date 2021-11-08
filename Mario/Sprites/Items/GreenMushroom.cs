@@ -171,7 +171,7 @@ namespace Mario.Sprites.Items
             showHitbox = false;
             obtained = false;
             spawning = true;
-            horizontalDirection = mario.position.X < position.X ? true : false;
+            horizontalDirection = mario.Position.X < position.X ? true : false;
             doesMove = true;
             isAnimated = false;
             useGravity = true;
