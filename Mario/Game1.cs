@@ -74,6 +74,7 @@ namespace Mario
         {
             GraphicsDevice.Clear(Color.Bisque);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(.2f)));
+            //lol
             menu.Draw(spriteBatch);
             spriteBatch.End();
             map.Draw(spriteBatch);
