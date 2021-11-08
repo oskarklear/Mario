@@ -9,7 +9,7 @@ using Mario.States;
 
 namespace Mario.Sprites.Items
 {
-    class FireFlower : ISprite
+    /*class FireFlower : ISprite
     {
         int timeSinceLastFrame;
         int millisecondsPerFrame;
@@ -124,6 +124,70 @@ namespace Mario.Sprites.Items
                 {
                     obtained = true;
                     hitbox = new Rectangle(-1, -1, 0, 0);
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
+
+                if (collider is BlockContext)
+                {
+                    if (hitbox.TouchTopOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
+                        position.Y = hitbox.Y;
+                    }
+
+                    if (hitbox.TouchRightOf(collider.Hitbox))
+                    {
+                        hitbox.X = collider.Hitbox.X + hitbox.Width + 1;
+                        position.X = hitbox.X;
+                    }
+
+                    if (hitbox.TouchLeftOf(collider.Hitbox))
+                    {
+                        hitbox.X = collider.Hitbox.X - hitbox.Width - 1;
+                        position.X = hitbox.X;
+                    }
+
+                    if (hitbox.TouchBottomOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y + hitbox.Height;
+                        position.Y = hitbox.Y;
+                    }
+                }
+            }
+        }
+    }*/
+
+    class FireFlower : SpriteTemplate
+    {
+        public FireFlower(Game1 gameObj, Vector2 location)
+        {
+            texture = gameObj.Content.Load<Texture2D>("items/fire_flower");
+            position = location;
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
+            showHitbox = false;
+            obtained = false;
+            spawning = true;
+            doesMove = false;
+            isAnimated = true;
+            useGravity = false;
+            spawnsFromBlock = true;
+            endPosition = (int)position.Y - 13;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 15;
+            currentFrame = 0;
+            columns = 2;
+        }
+
+        public override void Collision(ISprite collider)
+        {
+            if (!spawning)
+            {
+                if (collider is SuperMario)
+                {
+                    System.Diagnostics.Debug.WriteLine("aditujgnbhetdiou n");
+                    obtained = true;
+                    hitbox = Rectangle.Empty;
                     velocity.X = 0f;
                     velocity.Y = 0f;
                 }

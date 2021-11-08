@@ -9,8 +9,8 @@ using Mario.States;
 
 namespace Mario.Sprites.Items
 {
-    
-    class Star : ISprite
+
+    /*class Star : ISprite
     {
         int timeSinceLastFrame;
         int millisecondsPerFrame;
@@ -45,7 +45,7 @@ namespace Mario.Sprites.Items
             set { hitbox = value; }
         }
         public bool isShell { get; set; }
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }
@@ -160,6 +160,144 @@ namespace Mario.Sprites.Items
         }
 
         public void Collision(ISprite collider)
+        {
+            if (!spawning)
+            {
+                if (collider is SuperMario)
+                {
+                    obtained = true;
+                    hitbox = new Rectangle(-1, -1, 0, 0);
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
+
+                if (collider is BlockContext || collider is Pipe)
+                {
+                    if (hitbox.TouchTopOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
+                        position.Y = hitbox.Y;
+                        verticalDirection = true;
+                    }
+
+                    if (hitbox.TouchRightOf(collider.Hitbox))
+                    {
+                        if (collider is Pipe) hitbox.X = collider.Hitbox.X + hitbox.Width + 10;
+                        else hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
+                        position.X = hitbox.X;
+                        horizontalDirection = !horizontalDirection;
+                    }
+
+                    if (hitbox.TouchLeftOf(collider.Hitbox))
+                    {
+                        if (collider is Pipe) hitbox.X = collider.Hitbox.X - hitbox.Width - 5;
+                        else hitbox.X = collider.Hitbox.X - hitbox.Width - 1;
+                        position.X = hitbox.X;
+                        horizontalDirection = !horizontalDirection;
+                    }
+
+                    if (hitbox.TouchBottomOf(collider.Hitbox))
+                    {
+                        hitbox.Y = collider.Hitbox.Y + hitbox.Height;
+                        position.Y = hitbox.Y;
+                        verticalDirection = false;
+                    }
+                }
+            }
+        }
+    }*/
+
+    class Star : SpriteTemplate
+    {
+        int maxUpwardDistance;
+        int spawnTime;
+        int count;
+
+        public Star(Game1 theatre, Vector2 location, SuperMario mario)
+        {
+            gameObj = theatre;
+            texture = theatre.Content.Load<Texture2D>("items/stars");
+            position = location;
+            velocity.X = 1f;
+            velocity.Y = 1f;
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
+            showHitbox = false;
+            obtained = false;
+            spawning = true;
+            verticalDirection = true;
+            horizontalDirection = mario.position.X < position.X ? true : false;
+            doesMove = true;
+            isAnimated = true;
+            useGravity = true;
+            spawnsFromBlock = true;
+            endPosition = (int)position.Y - 13;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 3;
+            currentFrame = 0;
+            columns = 3;
+
+            maxUpwardDistance = 50;
+            spawnTime = 0;
+        }
+
+        public override void SpawnFromBlock()
+        {
+            if (position.Y > endPosition && spawning)
+            {
+                position.Y -= 2;
+                hitbox.Y -= 2;
+            }
+
+            if (spawnTime > 12)
+            {
+                spawning = false;
+            }
+        }
+
+        public override void Move()
+        {
+            if (horizontalDirection && !spawning)
+            {
+                position.X += 1;
+                hitbox.X += 1;
+            }
+            else if (!horizontalDirection && !spawning)
+            {
+                position.X -= 1;
+                hitbox.X -= 1;
+            }
+
+            if (verticalDirection && !spawning)
+            {
+                position.Y -= 1;
+                hitbox.Y -= 1;
+                count++;
+            }
+            else if (!verticalDirection && !spawning)
+            {
+                position.Y += 1;
+                hitbox.Y += 1;
+            }
+
+            if (count > maxUpwardDistance)
+            {
+                verticalDirection = false;
+                count = 0;
+            }
+        }
+
+        public override void Update()
+        {
+            spawnTime += 1;
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+
+            Animate();
+            SetHitbox();
+            SpawnFromBlock();
+            Move();
+        }
+
+        public override void Collision(ISprite collider)
         {
             if (!spawning)
             {

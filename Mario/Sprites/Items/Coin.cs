@@ -61,7 +61,7 @@ namespace Mario.Sprites.Items
             showHitbox = false;
         }
 
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }
@@ -183,7 +183,7 @@ namespace Mario.Sprites.Items
             AddCoinCommand = new AddCoinCommand(theatre.tracker);
         }
 
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }

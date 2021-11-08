@@ -54,7 +54,7 @@ namespace Mario.States
 			return Theatre;
 		}
 
-		public bool delete()
+		public bool Delete()
 		{
 			return false;
 		}

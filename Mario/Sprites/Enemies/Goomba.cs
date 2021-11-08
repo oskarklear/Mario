@@ -41,7 +41,7 @@ namespace Mario.Sprites.Enemies
             set { hitbox = value; }
         }
         public bool isShell { get; set; }
-        public bool delete()
+        public bool Delete()
         {
             return true;
         }
@@ -183,4 +183,29 @@ namespace Mario.Sprites.Enemies
             showHitbox = !showHitbox;
         }
     }
+
+    /*class Goomba : SpriteTemplate
+    {
+        public Goomba(Game1 theatre, Vector2 location)
+        {
+            textureLeft = theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
+            textureRight = theatre.Content.Load<Texture2D>("enemies/goomba/goombaRight");
+            position = location;
+            velocity.Y = 1f;
+            velocity.X = 0.5f;
+            hitbox = new Rectangle((int)location.X + 5, (int)location.Y, 16, 16);
+            showHitbox = false;
+            obtained = false;
+            horizontalDirection = false;
+            doesMove = true;
+            facingLeft = true;
+            isAnimated = true;
+            useGravity = true;
+            spawnsFromBlock = false;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 15;
+            currentFrame = 0;
+            columns = 2;
+        }
+    }*/
 }

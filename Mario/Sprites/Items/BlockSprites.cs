@@ -82,7 +82,7 @@ namespace Mario.Sprites
             moving = true;
         }
 
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }

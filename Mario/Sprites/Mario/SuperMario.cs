@@ -49,7 +49,7 @@ namespace Mario.Sprites.Mario
         }
 
         public bool isShell { get; set; }
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }

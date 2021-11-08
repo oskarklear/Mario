@@ -66,8 +66,8 @@ namespace Mario
             map.Update();
             base.Update(gameTime);
 
-            //System.Diagnostics.Debug.WriteLine("Coins: " + tracker.coins);
-            //System.Diagnostics.Debug.WriteLine("Lives: " + tracker.lives);
+            System.Diagnostics.Debug.WriteLine("Coins: " + tracker.coins);
+            System.Diagnostics.Debug.WriteLine("Lives: " + tracker.lives);
             if (tracker.timeRemaining % 60 == 0)
                 System.Diagnostics.Debug.WriteLine("Time Remaining: " + tracker.timeRemaining / 60);
             //System.Diagnostics.Debug.WriteLine(tracker.lifeRemovedAfterTimeRemainingIsZero);

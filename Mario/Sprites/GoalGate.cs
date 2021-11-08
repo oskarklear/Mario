@@ -32,7 +32,7 @@ namespace Mario.Sprites
         }
 
         public bool isShell { get; set; }
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }
@@ -92,7 +92,7 @@ namespace Mario.Sprites
             up = true;
         }
 
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }

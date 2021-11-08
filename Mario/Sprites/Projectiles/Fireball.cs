@@ -66,7 +66,7 @@ namespace Mario.Sprites.Projectiles
 
         }
 
-        public bool delete()
+        public bool Delete()
         {
             if (deleted) return true;
             else return false;

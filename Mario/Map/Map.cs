@@ -392,7 +392,7 @@ namespace Mario.Map
                         if (mario.context.ShowHitbox) sprite.ShowHitbox = true;
                         else sprite.ShowHitbox = false;
 
-                        if (sprite.delete())
+                        if (sprite.Delete())
                         {
                             entities.fireBallObjs.Remove(sprite);
                             sprite = null;

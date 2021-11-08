@@ -24,7 +24,7 @@ namespace Mario.Sprites.Items
             get { return hitbox; }
             set { hitbox = value; }
         }
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }

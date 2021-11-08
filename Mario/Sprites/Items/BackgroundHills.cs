@@ -28,7 +28,7 @@ namespace Mario.Sprites.Items
         }
         public bool isShell { get; set; }
 
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }
