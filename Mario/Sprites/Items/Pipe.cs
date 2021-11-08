@@ -8,7 +8,7 @@ using System.Text;
 namespace Mario.Sprites.Items
 {
 
-    class Pipe : ISprite
+    /*class Pipe : ISprite
     {
         Texture2D texture;
         Vector2 position;
@@ -71,5 +71,20 @@ namespace Mario.Sprites.Items
             //TODO
         }
         
+    }*/
+
+    class Pipe : SpriteTemplate
+    {
+        public Pipe(Game1 theatre, Vector2 location)
+        {
+            texture = theatre.Content.Load<Texture2D>("obstacles/pipe");
+            position = location;
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 32, 33);
+            showHitbox = false;
+        }
+
+        public override void SetHitbox()
+        {
+        }
     }
 }

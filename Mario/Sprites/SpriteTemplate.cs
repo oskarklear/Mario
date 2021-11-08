@@ -62,9 +62,9 @@ namespace Mario.Sprites
                 Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
                 Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
                 Color[] dataW = new Color[hitbox.Width];
-                for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Green;
+                for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Blue;
                 Color[] dataH = new Color[hitbox.Height];
-                for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Green;
+                for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Blue;
                 hitboxTextureW.SetData(dataW);
                 hitboxTextureH.SetData(dataH);
                 spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
@@ -94,7 +94,7 @@ namespace Mario.Sprites
             }
         }
 
-        public void SetHitbox()
+        public virtual void SetHitbox()
         {
             if (!obtained) hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
         }
@@ -139,7 +139,13 @@ namespace Mario.Sprites
             Move();
         }
 
-        //public void 
+        public void DrawSprite(SpriteBatch spriteBatch, Rectangle sourceRectangle, int width, int height)
+        {
+            Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+
+            if (facingLeft) spriteBatch.Draw(textureLeft, destinationRectangle, sourceRectangle, Color.White);
+            else spriteBatch.Draw(textureRight, destinationRectangle, sourceRectangle, Color.White);
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -154,9 +160,7 @@ namespace Mario.Sprites
 
                 if (!obtained)
                 {
-                    Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-                    spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
-
+                    DrawSprite(spriteBatch, sourceRectangle, width, height);
                     MakeHitbox(spriteBatch, showHitbox);
                 }
             }
@@ -165,7 +169,6 @@ namespace Mario.Sprites
                 if (!obtained)
                 {
                     spriteBatch.Draw(texture, position, Color.White);
-
                     MakeHitbox(spriteBatch, showHitbox);
                 }
             }

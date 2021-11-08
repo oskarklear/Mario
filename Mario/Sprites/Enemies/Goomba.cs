@@ -7,10 +7,12 @@ using System.Text;
 using Mario.States;
 using Mario.Sprites.Mario;
 using Mario.Sprites.Items;
+//using Mario.Sprites;
+//using Mario;
 
 namespace Mario.Sprites.Enemies
 {
-    class Goomba : ISprite
+    /*class Goomba : ISprite
     {
         int timeSinceLastFrame;
         int millisecondsPerFrame;
@@ -175,21 +177,22 @@ namespace Mario.Sprites.Enemies
                     position.Y = hitbox.Y;
                 }
             }
-        }
+        } 
 
 
         public void ToggleHitbox()
         {
             showHitbox = !showHitbox;
         }
-    }
+    }*/
 
-    /*class Goomba : SpriteTemplate
+    class Goomba : SpriteTemplate
     {
         public Goomba(Game1 theatre, Vector2 location)
         {
             textureLeft = theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
             textureRight = theatre.Content.Load<Texture2D>("enemies/goomba/goombaRight");
+            texture = facingLeft ? textureLeft : textureRight;
             position = location;
             velocity.Y = 1f;
             velocity.X = 0.5f;
@@ -207,5 +210,74 @@ namespace Mario.Sprites.Enemies
             currentFrame = 0;
             columns = 2;
         }
-    }*/
+
+        public override void SetHitbox()
+        {
+            if (!obtained) hitbox = new Rectangle((int)position.X + 5, (int)position.Y, 16, 16);
+        }
+
+        public override void Move()
+        {
+            if (horizontalDirection)
+            {
+                position.X += velocity.X;
+                facingLeft = false;
+            }
+            else
+            {
+                position.X -= velocity.X;
+                facingLeft = true;
+            }
+        }
+
+        public override void Collision(ISprite collider)
+        {
+            if (collider is SuperMario)
+            {
+                obtained = true;
+                velocity.X = 0f;
+                velocity.Y = 0f;
+                hitbox = Rectangle.Empty;
+            }
+
+            if (collider is BlockContext || collider is Pipe)
+            {
+                if (hitbox.TouchTopOf(collider.Hitbox))
+                {
+                    hitbox.Y = collider.Hitbox.Y - hitbox.Height - 2;
+                    position.Y = hitbox.Y;
+                    velocity.Y = 0f;
+                }
+                else
+                {
+                    velocity.Y = 1f;
+                }
+
+                if (hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    if (collider is Pipe) hitbox.X = collider.Hitbox.X + hitbox.Width + 12;
+                    else hitbox.X = collider.Hitbox.X + hitbox.Width + 2;
+                    position.X = hitbox.X;
+                    horizontalDirection = !horizontalDirection;
+                    velocity.Y = 0f;
+                }
+                else
+                    velocity.Y = 1f;
+
+                if (hitbox.TouchLeftOf(collider.Hitbox))
+                {
+                    if (collider is Pipe) hitbox.X = collider.Hitbox.X - hitbox.Width - 10;
+                    else hitbox.X = collider.Hitbox.X - hitbox.Width - 8;
+                    position.X = hitbox.X;
+                    horizontalDirection = !horizontalDirection;
+                }
+
+                if (hitbox.TouchBottomOf(collider.Hitbox))
+                {
+                    hitbox.Y = collider.Hitbox.Y + hitbox.Height;
+                    position.Y = hitbox.Y;
+                }
+            }
+        }
+    }
 }
