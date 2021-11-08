@@ -35,8 +35,7 @@ namespace Mario
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
-            font = Content.Load <SpriteFont>("HUD");
-            menu = new Overlay(font);
+            
         }
 
         protected override void Initialize()
@@ -56,6 +55,8 @@ namespace Mario
             
             kb = new KeyboardInput(map) { GameObj = this };
             gp1 = new GamepadInput(map.Mario) { GameObj = this };
+            font = Content.Load<SpriteFont>("HUD");
+            menu = new Overlay(font);
         }
 
         protected override void Update(GameTime gameTime)
@@ -73,6 +74,7 @@ namespace Mario
         {
             GraphicsDevice.Clear(Color.Bisque);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(.2f)));
+            menu.Draw(spriteBatch);
             spriteBatch.End();
             map.Draw(spriteBatch);
             base.Draw(gameTime);

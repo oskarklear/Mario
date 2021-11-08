@@ -18,7 +18,7 @@ namespace Mario.States
         public Overlay(SpriteFont font)
         {
             MenuFont = font;
-            state = new NoOverlayState();
+            state = new NoOverlayState(font);
         }
 
         public void SwitchOverlay(OverlayState newState)
