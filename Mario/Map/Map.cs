@@ -191,7 +191,7 @@ namespace Mario.Map
                                 GoalGate gg = new GoalGate(theatre, new Vector2(i * BLOCK, j * BLOCK - 99));
                                 GoalGateMovingPart mp = new GoalGateMovingPart(theatre, new Vector2(i * BLOCK + 10, j * BLOCK));
                                 bgObjects.Add(gg);
-                                collisionZones[13].Add(mp);
+                                collisionZones[(i * BLOCK) / 256].Add(mp);
                                 break;
                             
                         }
@@ -420,6 +420,8 @@ namespace Mario.Map
             entities.entityObjs.Clear();
             entities.fireBallObjs.Clear();
             bgObjects.Clear();
+            menu.SwitchOverlay(new NoOverlayState(font));
+            theatre.IsMenuVisible = false;
             
             reset = true;
             GenerateMap();

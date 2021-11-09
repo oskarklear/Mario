@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using Mario.States;
 namespace Mario.Sprites
 {
 
@@ -56,7 +56,7 @@ namespace Mario.Sprites
 
         public void Collision(ISprite collider)
         {
-            //Does nothing
+            Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font));
         }
     }
 
@@ -90,6 +90,7 @@ namespace Mario.Sprites
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("GoalGateMovingPiece");
             up = true;
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 10, 2);
         }
 
         public bool delete()
@@ -106,11 +107,13 @@ namespace Mario.Sprites
             if (up)
             {
                 position.Y = position.Y - 1;
+                hitbox = new Rectangle((int)position.X, (int)position.Y, 10, 2);
                 if (position.Y <= 141)
                     up = false;
             }
             else
             {
+                hitbox = new Rectangle((int)position.X, (int)position.Y, 10, 2);
                 position.Y = position.Y + 1;
                 if (position.Y >= 240)
                     up = true;
@@ -119,6 +122,8 @@ namespace Mario.Sprites
 
         public void Collision(ISprite collider)
         {
+            Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font));
+            Theatre.IsMenuVisible = true;
             //Does nothing
         }
     }

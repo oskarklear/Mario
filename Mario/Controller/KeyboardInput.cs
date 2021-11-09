@@ -194,6 +194,7 @@ namespace Mario
 
                     // Pause
                     case (int)Keys.P:
+                        if(map.menu.toString().Equals("Pause")||map.menu.toString().Equals("NoOverlay"))
                         GameObj.IsMenuVisible = !GameObj.IsMenuVisible;
                         Pause.Execute();
                         break;
