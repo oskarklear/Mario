@@ -9,6 +9,7 @@ using Mario.Sprites.Items;
 using Mario.Entities;
 using Mario.Map;
 using Mario.Trackers;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Mario.States
 {
@@ -34,6 +35,10 @@ namespace Mario.States
 		DynamicEntities entities;
 		Boolean rubbleActive;
 		public Rectangle Hitbox { get; set; }
+		public SoundEffect powerup_appears { get; }
+		public SoundEffect break_block { get; }
+		public SoundEffect coin { get; }
+		public SoundEffect bump { get; }
 
 		public BlockContext(Game1 theatre,Vector2 location)
 		{
@@ -47,6 +52,10 @@ namespace Mario.States
 			Hitbox = new Rectangle((int)Location.X, (int)Location.Y,16,16);
 			showHitbox = false;
 			entities = theatre.map.entities;
+			powerup_appears = theatre.Content.Load<SoundEffect>("SoundEffects/powerup_appears");
+			break_block = theatre.Content.Load<SoundEffect>("SoundEffects/break_block");
+			coin = theatre.Content.Load<SoundEffect>("SoundEffects/coin");
+			bump = theatre.Content.Load<SoundEffect>("SoundEffects/bump");
 		}
 
 		public Game1 GetGame()
@@ -197,11 +206,13 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
+			context.powerup_appears.Play();
 			context.SetState(new UsedBlockState());
 			Vector2 mushroomLocation = sprite.GetLocation();
 			mushroomLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new RedMushroom(context.GetGame(), mushroomLocation, superMario));
 			this.Movement(sprite);
+			
 		}
 
 		public override string ToString()
@@ -214,11 +225,13 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
+			context.powerup_appears.Play();
 			context.SetState(new UsedBlockState());
 			Vector2 mushroomLocation = sprite.GetLocation();
 			mushroomLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new GreenMushroom(context.GetGame(), mushroomLocation, superMario));
 			this.Movement(sprite);
+			
 		}
 
 		public override string ToString()
@@ -231,11 +244,13 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
+			context.powerup_appears.Play();
 			context.SetState(new UsedBlockState());
 			Vector2 flowerLocation = sprite.GetLocation();
 			flowerLocation.Y -= 3;
 			dynamicEntities.entityObjs.Add(new FireFlower(context.GetGame(), flowerLocation));
 			this.Movement(sprite);
+			
 		}
 
 		public override string ToString()
@@ -248,6 +263,7 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
+			context.powerup_appears.Play();
 			context.SetState(new UsedBlockState());
 			Vector2 starLocation = sprite.GetLocation();
 			starLocation.Y -= 3;
@@ -265,6 +281,7 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
+			context.coin.Play();
 			context.SetState(new UsedBlockState());
 			Vector2 coinLocation = sprite.GetLocation();
 			coinLocation.Y -= 3;
@@ -328,11 +345,13 @@ namespace Mario.States
 	{
 		void Destroy(BlockContext context)
 		{
+			context.break_block.Play();
 			context.ToggleRubble();
 		}
 
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
+			context.bump.Play();
 			this.Movement(sprite);
 			if (Mario.GetPowerUpState().ToString().Equals("SuperMario") || Mario.GetPowerUpState().ToString().Equals("FireMario"))
 			{
@@ -350,6 +369,7 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
+			context.coin.Play();
 			this.Movement(sprite);
 			context.SetState(new UsedBlockState());
 			Vector2 coinLocation = sprite.GetLocation();
@@ -372,6 +392,7 @@ namespace Mario.States
 		{
 			if (coins < 10)
 			{
+				context.coin.Play();
 				Vector2 coinLocation = sprite.GetLocation();
 				coinLocation.Y -= 3;
 				dynamicEntities.entityObjs.Add(new BlockCoin(context.GetGame(), coinLocation));

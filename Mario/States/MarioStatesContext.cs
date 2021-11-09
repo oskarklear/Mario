@@ -3,6 +3,8 @@ using Mario.Sprites.Mario;
 using Mario.States;
 using Mario.Sprites;
 using Microsoft.Xna.Framework;
+using Mario;
+using Microsoft.Xna.Framework.Audio;
 
 public class MarioContext
 {
@@ -13,7 +15,6 @@ public class MarioContext
 	public MarioActionState crouchingState;
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
-	public Mario.Game1 Theatre;
 	public Vector2 Velocity;
 	public bool facingLeft;
 	public bool isTouchingLeft { get; set; }
@@ -29,8 +30,18 @@ public class MarioContext
 		get { return showHitbox; }
 		set { showHitbox = value; }
 	}
+	public Game1 Theatre;
+	public int topDeathHeight;
+	public SoundEffect jump { get; }
+	public SoundEffect powerup { get; }
+	public SoundEffect stomp { get; }
+	public SoundEffect coin { get; }
+	public SoundEffect death { get; }
+	public SoundEffect oneup { get; }
+	public SoundEffect powerdown { get; }
+	public SoundEffect fireball { get; }
 
-	public MarioContext(Mario.Game1 theatre)
+	public MarioContext(Game1 theatre)
 	{
 		PowerupState = new StandardMarioState();
 		ActionState = new IdleState(this);
@@ -42,7 +53,15 @@ public class MarioContext
 		crouchingState = new CrouchingState(this);
 		jumpHeight = 0;
 		showHitbox = false;
-		Theatre = theatre; 
+		this.Theatre = theatre;
+		jump = theatre.Content.Load<SoundEffect>("SoundEffects/jump");
+		powerup = theatre.Content.Load<SoundEffect>("SoundEffects/powerup");
+		stomp = theatre.Content.Load<SoundEffect>("SoundEffects/stomp");
+		coin = theatre.Content.Load<SoundEffect>("SoundEffects/coin");
+		death = theatre.Content.Load<SoundEffect>("SoundEffects/death");
+		oneup = theatre.Content.Load<SoundEffect>("SoundEffects/1up");
+		powerdown = theatre.Content.Load<SoundEffect>("SoundEffects/pipe");
+		fireball = theatre.Content.Load<SoundEffect>("SoundEffects/fireball");
 	}
 
 	public MarioActionState GetActionState()

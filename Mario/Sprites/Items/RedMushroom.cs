@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Mario.States;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Mario.Sprites.Items
 {

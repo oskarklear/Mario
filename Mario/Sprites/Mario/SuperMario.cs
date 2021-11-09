@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Mario.Entities;
 using Mario.Sprites.Projectiles;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Mario.Sprites.Mario
 {
@@ -31,6 +33,11 @@ namespace Mario.Sprites.Mario
             get { return context.ShowHitbox; }
             set { context.ShowHitbox = value; }
         }
+        private int deathTimer; //Used for the death animation
+        private int topHeight; //Used for the death animation
+        private bool hitTopHeight; //Used for the death animation
+
+
 
         public SuperMario(Game1 theatre, Vector2 location, MarioContext context)
         {
@@ -47,6 +54,8 @@ namespace Mario.Sprites.Mario
             this.context = context;
             kinematics = new Kinematics();
             delay = 0;
+            deathTimer = 60;
+            topHeight = 30;
         }
 
         public void MoveLeftCommand()
@@ -105,6 +114,7 @@ namespace Mario.Sprites.Mario
         {
             if (context.GetPowerUpState() is FireMarioState && entities.fireBallObjs.Count < 2 && fireballCooldown > 20)
             {
+                context.fireball.Play();
                 entities.fireBallObjs.Add(new Fireball(gameObj, position, this, context.facingLeft));
                 fireballCooldown = 0;
             }
@@ -261,9 +271,23 @@ namespace Mario.Sprites.Mario
 
             if (context.GetPowerUpState().ToString().Equals("DeadMario"))
             {
-                texture = gameObj.Content.Load<Texture2D>("mario/deadMario");
-                columns = 2;
-                isAnimated = true;
+                context.Velocity.X = 0f;
+                context.Velocity.Y = 0f;
+                texture = Theatre.Content.Load<Texture2D>("mario/deadMario");
+                Columns = 2;
+                animated = true;
+                //hitbox = Rectangle.Empty;
+                MediaPlayer.Stop();
+                deathTimer--;
+                if (deathTimer <= 0 && topHeight > 0)
+                {
+                    position.Y -= 1;
+                    topHeight--;
+                }
+                else if (deathTimer <= 0)
+                {
+                    position.Y += 1;
+                }
             }
 
             if (isAnimated)
@@ -316,8 +340,8 @@ namespace Mario.Sprites.Mario
 
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
-            else if (context.GetPowerUpState().ToString().Equals("DeadMario"))
-                hitbox = new Rectangle(-1, -1, 1, 1);
+            //else if (context.GetPowerUpState().ToString().Equals("DeadMario"))
+                //hitbox = Rectangle.Empty;
             else
             {
                 if (context.GetActionState().ToString().Equals("CrouchingState"))
@@ -390,7 +414,8 @@ namespace Mario.Sprites.Mario
                         if (collider is Goomba)
                         {
                             //collider.Collision(this);
-                            context.Velocity.Y = 4f;
+                            context.stomp.Play();
+                            context.Velocity.Y = 4f;                           
                             collider.Collision(this);
                             context.jumpHeight = 0;
                             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
@@ -400,6 +425,7 @@ namespace Mario.Sprites.Mario
                         if (collider is Koopa)
                         {
                             //collider.Collision(this);
+                            context.stomp.Play();
                             collider.Collision(this);
                             context.Velocity.Y = 4f;
                             context.jumpHeight = 0;
@@ -419,7 +445,8 @@ namespace Mario.Sprites.Mario
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
-                                delay = delaytime;
+                                if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                    delay = delaytime;
                             }
                         }
                         if (collider is Koopa)
@@ -431,7 +458,8 @@ namespace Mario.Sprites.Mario
                             else
                             {
                                 context.TakeDamage();
-                                delay = delaytime;
+                                if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                    delay = delaytime;
                             }
                         }
                         context.isTouchingLeft = true;
@@ -450,7 +478,8 @@ namespace Mario.Sprites.Mario
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
-                                delay = delaytime;
+                                if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                    delay = delaytime;
                             }
                         }
                         if (collider is Koopa)
@@ -462,7 +491,8 @@ namespace Mario.Sprites.Mario
                             else
                             {
                                 context.TakeDamage();
-                                delay = delaytime;
+                                if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                    delay = delaytime;
                             }
                         }
                         context.isTouchingRight = true;
@@ -479,7 +509,8 @@ namespace Mario.Sprites.Mario
                                 if (delay <= 0)
                                 {
                                     context.TakeDamage();
-                                    delay = delaytime;
+                                    if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                        delay = delaytime;
                                 }
                             }
                         }
@@ -505,6 +536,7 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is MapCoin)
                     {
+                        context.coin.Play();
                         collider.Collision(this);
                     }
                     else if (collider is BlockCoin)
@@ -513,6 +545,7 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is GreenMushroom)
                     {
+                        context.oneup.Play();
                         collider.Collision(this);
                     }
                     else if (collider is Star)
