@@ -333,7 +333,7 @@ namespace Mario.States
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			context.SetState(new BrickBlockState());
+			context.SetState(new UBrickBlockState());
 		}
 		public override string ToString()
 		{
