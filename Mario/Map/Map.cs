@@ -391,7 +391,6 @@ namespace Mario.Map
                     if (Math.Abs(sprite.Position.X - mario.Position.X) < 32)
                     {
                         (sprite as Piranha).hiding = true;
-                        //System.Diagnostics.Debug.WriteLine("HIDING NOW :OOOOO");
                     }
                     else
                     {

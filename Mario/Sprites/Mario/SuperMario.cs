@@ -386,7 +386,7 @@ namespace Mario.Sprites.Mario
 
         public override void Collision(ISprite collider)
         {
-            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa)
+            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha)
             {
                 if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))
                 {
@@ -405,6 +405,7 @@ namespace Mario.Sprites.Mario
                         context.Velocity.Y = 0f;    
                         if (collider is Piranha)
                         {
+                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
@@ -442,6 +443,7 @@ namespace Mario.Sprites.Mario
 
                         if (collider is Goomba || collider is Piranha)
                         {
+                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
@@ -475,6 +477,7 @@ namespace Mario.Sprites.Mario
 
                         if (collider is Goomba || collider is Piranha)
                         {
+                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
@@ -506,6 +509,7 @@ namespace Mario.Sprites.Mario
                             position.Y = hitbox.Y;
                             if (collider is Goomba || collider is Koopa || collider is Piranha)
                             {
+                                System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                                 if (delay <= 0)
                                 {
                                     context.TakeDamage();
