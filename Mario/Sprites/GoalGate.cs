@@ -87,6 +87,7 @@ namespace Mario.Sprites
         public GoalGateMovingPart(Game1 theatre, Vector2 location)
         {
             position = location;
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 36, 9);
             Theatre = theatre;
             texture = Theatre.Content.Load<Texture2D>("GoalGateMovingPiece");
             up = true;
@@ -106,12 +107,14 @@ namespace Mario.Sprites
             if (up)
             {
                 position.Y = position.Y - 1;
+                hitbox.Y = hitbox.Y - 1;
                 if (position.Y <= 141)
                     up = false;
             }
             else
             {
                 position.Y = position.Y + 1;
+                hitbox.Y = hitbox.Y + 1;
                 if (position.Y >= 240)
                     up = true;
             }
@@ -119,7 +122,9 @@ namespace Mario.Sprites
 
         public void Collision(ISprite collider)
         {
-            //Does nothing
+            if (collider is SuperMario)
+                hitbox = Rectangle.Empty;
+            System.Diagnostics.Debug.WriteLine("Goal Collision");
         }
     }
 }

@@ -60,5 +60,16 @@ namespace Mario.Trackers
             //lifeRemovedAfterTimeRemainingIsZero = false;
             RemoveLifeCommand();
         }
+
+        public void Update()
+        {
+            //System.Diagnostics.Debug.WriteLine("Coins: " + tracker.coins);
+            //System.Diagnostics.Debug.WriteLine("Lives: " + tracker.lives);
+            if (timeRemaining % 60 == 0)
+                System.Diagnostics.Debug.WriteLine("Time Remaining: " + timeRemaining / 60);
+            //System.Diagnostics.Debug.WriteLine(tracker.lifeRemovedAfterTimeRemainingIsZero);
+            DecrementTimeCommand();
+            if (timeRemaining == 0) map.Reset();
+        }
     }
 }

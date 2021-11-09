@@ -59,6 +59,7 @@ namespace Mario.Map
         string[][] underground;
         Song OverworldTheme;
         Song UndergroundTheme;
+        public StatTracker tracker;
         ICommand ResetTimeRemainingCommand { get; set; }
         public Level(Game1 theatre)
         {
@@ -277,7 +278,10 @@ namespace Mario.Map
                 for (int i = 0; i < collisionZones.Length; i++)
                 {
                     foreach (ISprite obj in collisionZones[i])
+                    {
                         obj.Update();
+                        obj.Collision(mario);
+                    }                        
                 }
                 camera.LookAt(mario.position);
 
