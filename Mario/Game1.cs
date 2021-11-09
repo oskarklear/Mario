@@ -70,10 +70,7 @@ namespace Mario
             base.Update(gameTime);
             tracker.Update();
             hud.Update();
-            if (tracker.lives == 0)
-            {
-                map.menu.SwitchOverlay(new GameOverState(HeadsUpDisplay));
-            }
+            
         }
 
         protected override void Draw(GameTime gameTime)

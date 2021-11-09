@@ -28,7 +28,7 @@ namespace Mario.Sprites
 
         public void Collision(ISprite collider)
         {
-            Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font));
+            
         }
     }
 
@@ -36,9 +36,11 @@ namespace Mario.Sprites
     class GoalGateMovingPart : SpriteTemplate
     {
         bool up;
+        Game1 Theatre;
 
         public GoalGateMovingPart(Game1 theatre, Vector2 location)
         {
+            Theatre = theatre;
             texture = theatre.Content.Load<Texture2D>("GoalGateMovingPiece");
             position = location;
             
@@ -69,7 +71,7 @@ namespace Mario.Sprites
             }
         }
 
-        public void Collision(ISprite collider)
+        public override void Collision(ISprite collider)
         {
             Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font));
             Theatre.IsMenuVisible = true;
