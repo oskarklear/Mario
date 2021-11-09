@@ -143,7 +143,7 @@ namespace Mario
                     case (int)Keys.Up:
                         if (GameObj.IsMenuVisible)
                         {
-                            // Do nothing
+                            System.Diagnostics.Debug.WriteLine("Up arrow ignored because of menu");
                         }
                         else
                         {

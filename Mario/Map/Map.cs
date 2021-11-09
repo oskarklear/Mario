@@ -69,6 +69,7 @@ namespace Mario.Map
             camera.Limits = new Rectangle(0, 0, 3584, 272);
             Song OverworldTheme = theatre.Content.Load<Song>("OverworldTheme");
             Song UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
+            font = theatre.Content.Load<SpriteFont>("HUD");
             menu = new Overlay(font);
             for (int i = 0; i < collisionZones.Length; i++)
             {
@@ -204,6 +205,9 @@ namespace Mario.Map
             bgLayerFar.Draw(spriteBatch);
             bgLayerMid.Draw(spriteBatch);
             bgLayerNear.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(0f)));
+            menu.Draw(spriteBatch);
+            spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(1f)));
             foreach (ISprite obj in bgObjects)
                 obj.Draw(spriteBatch);
@@ -221,7 +225,7 @@ namespace Mario.Map
         }
         public void Update()
         {
-            if (theatre.IsMenuVisible)
+            if (!theatre.IsMenuVisible)
             {
                 //entities.Update();
                 mario.Update();
@@ -408,11 +412,15 @@ namespace Mario.Map
 
         public void Reset()
         {
-            if(menu.toString().Equals("Win"))
+            if (menu.toString().Equals("Win"))
+            {
+
+            }
             entities.enemyObjs.Clear();
             entities.entityObjs.Clear();
             entities.fireBallObjs.Clear();
             bgObjects.Clear();
+            
             reset = true;
             GenerateMap();
             mario.position = new Vector2(100, 230);

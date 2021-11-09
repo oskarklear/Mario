@@ -59,6 +59,7 @@ namespace Mario.States
         }
         public override  void Draw(SpriteBatch spritebatch)
         {
+            //System.Diagnostics.Debug.WriteLine("drawing pause menu");
             spritebatch.DrawString(MenuFont, "The Game is Paused. Press Q to quit, or P to unpause", new Vector2(100, 100), Color.Black);
         }
 
@@ -113,6 +114,7 @@ namespace Mario.States
         }
         public override void Draw(SpriteBatch spritebatch)
         {
+            //System.Diagnostics.Debug.WriteLine("drawing no menu");
             //does nothing
         }
 
