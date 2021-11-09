@@ -20,6 +20,7 @@ namespace Mario.Sprites.Items
         SuperMario superMario;
         bool direction;
         bool spawning;
+        Game1 Theatre;
         public Vector2 Position
         {
             get { return position; }
@@ -39,6 +40,7 @@ namespace Mario.Sprites.Items
         public bool isShell { get; set; }
         public GreenMushroom(Game1 theatre, Vector2 location, SuperMario mario)
         {
+            Theatre = theatre;
             position = location;
             endPosition = (int)position.Y - 13;
             texture = theatre.Content.Load<Texture2D>("items/green_mushroom");
@@ -84,7 +86,8 @@ namespace Mario.Sprites.Items
         public void Update()
         {
             position.Y += velocity.Y;
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
+            if (!obtained)
+                hitbox = new Rectangle((int)position.X, (int)position.Y, 16, 16);
 
             if (position.Y > endPosition && spawning)
             {
@@ -112,9 +115,10 @@ namespace Mario.Sprites.Items
                 if (collider is SuperMario)
                 {
                     obtained = true;
-                    hitbox = new Rectangle(-1, -1, 0, 0);
+                    hitbox = Rectangle.Empty;
                     velocity.X = 0f;
                     velocity.Y = 0f;
+                    Theatre.tracker.AddLifeCommand();
                 }
 
                 if (collider is BlockContext || collider is Pipe)

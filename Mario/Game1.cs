@@ -6,6 +6,7 @@ using Mario.Map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Mario.Trackers;
 using Mario.States;
 
 namespace Mario
@@ -25,8 +26,10 @@ namespace Mario
         IController gp1;
         public Level map;
         public Camera camera;
-        //public Overlay menu;
-        //public SpriteFont font;
+        float time;
+        SpriteFont HeadsUpDisplay;
+        Vector2 HUDPosition;
+        public StatTracker tracker;
 
 
         public Game1()
@@ -35,15 +38,18 @@ namespace Mario
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
-            
+            tracker = new StatTracker();
         }
 
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = MAPW;
-            graphics.PreferredBackBufferHeight = MAPH;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 272;
             graphics.ApplyChanges();
             map = new Level(this);
+            time = 0;
+            HUDPosition.X = 10;
+            HUDPosition.Y = 10;
             base.Initialize();
         }
 
@@ -52,11 +58,9 @@ namespace Mario
             map.GenerateMap();
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
             kb = new KeyboardInput(map) { GameObj = this };
             gp1 = new GamepadInput(map.Mario) { GameObj = this };
-            //font = Content.Load<SpriteFont>("HUD");
-            //menu = new Overlay(font);
+            HeadsUpDisplay = Content.Load<SpriteFont>("HUD");
         }
 
         protected override void Update(GameTime gameTime)
@@ -67,15 +71,23 @@ namespace Mario
             gp1.UpdateInput();
             kb.UpdateInput();
             map.Update();
+            time += (float)gameTime.ElapsedGameTime.TotalSeconds;
             base.Update(gameTime);
+
+            //System.Diagnostics.Debug.WriteLine("Coins: " + tracker.coins);
+            //System.Diagnostics.Debug.WriteLine("Lives: " + tracker.lives);
+            if (tracker.timeRemaining % 60 == 0)
+                System.Diagnostics.Debug.WriteLine("Time Remaining: " + tracker.timeRemaining / 60);
+            //System.Diagnostics.Debug.WriteLine(tracker.lifeRemovedAfterTimeRemainingIsZero);
+            tracker.DecrementTimeCommand();
+            if (tracker.timeRemaining == 0) map.Reset();
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Bisque);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(.2f)));
-            //lol
-            //menu.Draw(spriteBatch);
+            spriteBatch.DrawString(HeadsUpDisplay, "Time: " + ((int)time).ToString(), map.camera.Position, Color.White);
             spriteBatch.End();
             map.Draw(spriteBatch);
             base.Draw(gameTime);

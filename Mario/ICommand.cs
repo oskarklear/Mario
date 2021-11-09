@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Mario.Sprites.Mario;
 using Mario.States;
+using Mario.Trackers;
 
 namespace Mario
 {
@@ -46,6 +47,17 @@ namespace Mario
         public abstract void Execute();
     }
 
+    public abstract class TrackerCommand : ICommand
+    {
+        protected StatTracker receiver;
+
+        protected TrackerCommand(StatTracker receiver)
+        {
+            this.receiver = receiver;
+        }
+
+        public abstract void Execute();
+    }
     public abstract class MenuCommand : ICommand
     {
         protected Overlay receiver;

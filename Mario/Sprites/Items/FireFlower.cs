@@ -43,6 +43,7 @@ namespace Mario.Sprites.Items
             set { hitbox = value; }
         }
 
+
         public FireFlower(Game1 theatre, Vector2 location)
         {
             timeSinceLastFrame = 0;
@@ -71,8 +72,8 @@ namespace Mario.Sprites.Items
 
             if (!obtained)
             {
-                Hitbox = new Rectangle((int)position.X, (int)position.Y, width, height);
-                spriteBatch.Draw(texture, Hitbox, sourceRectangle, Color.White);
+                Rectangle DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
 
                 if (showHitbox)
                 {

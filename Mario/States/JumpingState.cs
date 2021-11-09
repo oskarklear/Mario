@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Mario.Movement;
+using Microsoft.Xna.Framework.Media;
 
 namespace Mario.States
 {
@@ -21,6 +22,7 @@ namespace Mario.States
             kinematics.AccelerateUp(marioContext);
             marioContext.isFalling = false;
             marioContext.isTouchingTop = false;
+            marioContext.jump.Play();
         }
 
         public override void Exit()

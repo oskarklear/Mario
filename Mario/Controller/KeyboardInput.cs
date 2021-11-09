@@ -8,6 +8,7 @@ using Mario.States;
 using Mario.Sprites;
 using System.Windows.Input;
 using Mario.Map;
+using Microsoft.Xna.Framework.Media;
 
 namespace Mario
 {
@@ -79,9 +80,8 @@ namespace Mario
                 switch (input.Key)
                 {
                     //Leftward Movement (A key)
-
                     case (int)Keys.A:
-                        if (GameObj.IsMenuVisible)
+                        if (GameObj.IsMenuVisible|| context.GetPowerUpState().ToString().Equals("DeadMario"))
                         {
                             // Do nothing
                         }
@@ -93,7 +93,7 @@ namespace Mario
 
                     // Leftward Movement (Left Arrow)
                     case (int)Keys.Left:
-                        if (GameObj.IsMenuVisible)
+                        if (GameObj.IsMenuVisible|| context.GetPowerUpState().ToString().Equals("DeadMario"))
                         {
                             // Do nothing
                         }
@@ -105,7 +105,7 @@ namespace Mario
 
                     //Rightward Movement(D key)
                     case (int)Keys.D:
-                        if (GameObj.IsMenuVisible)
+                        if (GameObj.IsMenuVisible|| context.GetPowerUpState().ToString().Equals("DeadMario"))
                         {
                             // Do nothing
                         }
@@ -117,7 +117,7 @@ namespace Mario
 
                     // Rightward Movement (Right Arrow)
                     case (int)Keys.Right:
-                        if (GameObj.IsMenuVisible)
+                        if (GameObj.IsMenuVisible|| context.GetPowerUpState().ToString().Equals("DeadMario"))
                         {
                             // Do nothing
                         }
@@ -135,7 +135,8 @@ namespace Mario
                         }
                         else
                         {
-                            JumpCommand.Execute();
+                            if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                JumpCommand.Execute();
                         }
                         break;
 
@@ -147,7 +148,8 @@ namespace Mario
                         }
                         else
                         {
-                            JumpCommand.Execute();
+                            if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                JumpCommand.Execute();
                         }
                         break;
 
@@ -159,7 +161,8 @@ namespace Mario
                         }
                         else
                         {
-                            CrouchCommand.Execute();
+                            if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                CrouchCommand.Execute();
                         }
                         break;
 
@@ -171,7 +174,8 @@ namespace Mario
                         }
                         else
                         {
-                            CrouchCommand.Execute();
+                            if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                CrouchCommand.Execute();
                         }
                         break;
 
@@ -201,7 +205,7 @@ namespace Mario
 
                     // Mute
                     case (int)Keys.M:
-                        //Mute.Execute();
+                        MediaPlayer.IsMuted = true;
                         break;
 
                     // Standard state

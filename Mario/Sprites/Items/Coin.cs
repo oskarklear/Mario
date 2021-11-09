@@ -1,10 +1,12 @@
 ﻿using Mario.Sprites.Mario;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Mario.Trackers;
 
 namespace Mario.Sprites.Items
 {
@@ -58,6 +60,7 @@ namespace Mario.Sprites.Items
             velocity.Y = 1f;
             velocity.X = 1f;
             showHitbox = false;
+            
         }
 
         public bool delete()
@@ -165,9 +168,11 @@ namespace Mario.Sprites.Items
         }
         public bool isShell { get; set; }
         bool obtained;
-
+        Game1 Theatre;
+        ICommand AddCoinCommand { get; set; }
         public MapCoin(Game1 theatre, Vector2 location)
         {
+            Theatre = theatre;
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 5;
             currentFrame = 0;
@@ -177,6 +182,7 @@ namespace Mario.Sprites.Items
             obtained = false;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 12, 16);
             showHitbox = false;
+            AddCoinCommand = new AddCoinCommand(theatre.tracker);
         }
 
         public bool delete()
@@ -212,6 +218,11 @@ namespace Mario.Sprites.Items
                     spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
                 }
             }
+            else
+            {
+                hitbox = Rectangle.Empty;
+                position = new Vector2(-1, -1);
+            }
         }
 
         public void Update()
@@ -228,7 +239,12 @@ namespace Mario.Sprites.Items
 
         public void Collision(ISprite collider)
         {
-            obtained = true;
+            if (collider is SuperMario)
+            {
+                obtained = true;
+                hitbox = new Rectangle(-1, -1, 0, 0);
+                AddCoinCommand.Execute();
+            }
         }
     }
 }
