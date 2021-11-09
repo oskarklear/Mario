@@ -300,7 +300,6 @@ namespace Mario.Map
                     foreach (ISprite obj in collisionZones[i])
                     {
                         obj.Update();
-                        obj.Collision(mario);
                     }                        
                 }
                 camera.LookAt(mario.position);
