@@ -26,6 +26,7 @@ namespace Mario
         public Level map;
         public Camera camera;               
         public StatTracker tracker;
+        public HUD hud;
 
 
         public Game1()
@@ -42,7 +43,9 @@ namespace Mario
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 272;
             graphics.ApplyChanges();
-            map = new Level(this);           
+            tracker = new StatTracker();
+            map = new Level(this);
+            hud = new HUD(this, tracker);
             base.Initialize();
         }
 
@@ -50,8 +53,7 @@ namespace Mario
         {
             map.GenerateMap();
 
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            tracker = new StatTracker(this);
+            spriteBatch = new SpriteBatch(GraphicsDevice);           
             kb = new KeyboardInput(map) { GameObj = this };
             gp1 = new GamepadInput(map.Mario) { GameObj = this };
         }
@@ -66,6 +68,7 @@ namespace Mario
             map.Update();
             base.Update(gameTime);
             tracker.Update();
+            hud.Update();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -74,7 +77,7 @@ namespace Mario
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(.2f)));            
             spriteBatch.End();
             map.Draw(spriteBatch);
-            tracker.Draw(spriteBatch);
+            hud.Draw(spriteBatch);
             base.Draw(gameTime);
         }
 

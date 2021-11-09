@@ -77,7 +77,7 @@ namespace Mario.Map
             UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
             MediaPlayer.IsRepeating = true;
             ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
-            inOverworld = false;
+            inOverworld = true;
             for (int i = 0; i < collisionZones.Length; i++)
             {
                 collisionZones[i] = new List<ISprite>();
