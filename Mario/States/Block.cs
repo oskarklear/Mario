@@ -19,6 +19,7 @@ namespace Mario.States
 		BlockState oldState;
 		BlockSprite sprite;
 		Vector2 Location;
+		public bool deleted;
 		private bool showHitbox;
 		public bool ShowHitbox
 		{
@@ -65,7 +66,8 @@ namespace Mario.States
 
 		public bool delete()
 		{
-			return false;
+			if (deleted) return true;
+			else return false;
 		}
 
 		public void SetState(BlockState NewState)
@@ -147,6 +149,7 @@ namespace Mario.States
 			if (!rubbleActive)
 			{
 				rubbleActive = true;
+				deleted = true;
 				Vector2 rubbleLocation1 = sprite.GetLocation();
 				rubbleLocation1.X -= 10;
 				Vector2 rubbleLocation2 = sprite.GetLocation();
@@ -163,7 +166,7 @@ namespace Mario.States
 				{
 					rubble.ToggleRubble();
 				}
-				Hitbox = new Rectangle(-1, -1, 1, 1);
+				Hitbox = new Rectangle(-1, -1, 0, 0);
 			}
 		}
 

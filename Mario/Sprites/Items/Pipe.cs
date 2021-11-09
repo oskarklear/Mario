@@ -18,6 +18,11 @@ namespace Mario.Sprites.Items
             get { return showHitbox; }
             set { showHitbox = value; }
         }
+        Rectangle warpHitbox;
+        public Rectangle WarpHitbox
+        {
+            get { return warpHitbox; }
+        }
         Rectangle hitbox;
         public Rectangle Hitbox
         {
@@ -38,8 +43,10 @@ namespace Mario.Sprites.Items
             position = location;
             texture = theatre.Content.Load<Texture2D>("obstacles/pipe");
             Hitbox = new Rectangle((int)location.X, (int)location.Y, 32, 33);
+            warpHitbox = new Rectangle((int)location.X+14, (int)location.Y, 1, 0);
             showHitbox = false;
         }
+        
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -58,6 +65,8 @@ namespace Mario.Sprites.Items
                 spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
                 spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
                 spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
+
+                
             }
         }
 

@@ -4,13 +4,21 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Mario.Sprites.Mario;
+using Mario.Sprites.Enemies;
 
 
 namespace Mario.Sprites.Projectiles
 {
     class Fireball : ISprite
     {
+        int poofStart;
+        bool isPoof;
+        int timeSinceLastFrame;
+        int millisecondsPerFrame;
+        int currentFrame;
+        int columns;
         Texture2D texture;
+        Texture2D poofTexture;
         Vector2 initPos;
         public bool ShowHitbox { get; set; }
         public Vector2 position;
@@ -21,6 +29,11 @@ namespace Mario.Sprites.Projectiles
         public Rectangle Hitbox
         {
             get { return hitbox; }
+        }
+
+        public bool Deleted
+        {
+            set { isPoof = value; }
         }
 
         bool upDown;
@@ -37,9 +50,14 @@ namespace Mario.Sprites.Projectiles
 
         public Fireball(Game1 theatre, Vector2 location, SuperMario mario, bool xDirection)
         {
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 5;
+            currentFrame = 0;
+            columns = 4;
             position = location;
             initPos = position;
             texture = theatre.Content.Load<Texture2D>("projectiles/fireball");
+            poofTexture = theatre.Content.Load<Texture2D>("projectiles/poof");
             hitbox = new Rectangle((int)location.X + 5, (int)location.Y + 5, 10, 10);
             showHitbox = false;
             superMario = mario;
@@ -48,6 +66,7 @@ namespace Mario.Sprites.Projectiles
             count = 0;
             leftRight = xDirection;
             maxUpwardLength = 30;
+            poofStart = 0;
 
         }
 
@@ -56,12 +75,14 @@ namespace Mario.Sprites.Projectiles
             
             if (hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchTopOf(collider.Hitbox))
             {
-                upDown = !upDown;
+                if (collider is Goomba || collider is Koopa) isPoof = true;
+                else upDown = !upDown;
             }
 
             if (hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
             {
-                deleted = true;
+                isPoof = true;
+                //deleted = true;
             }
 
         }
@@ -74,42 +95,78 @@ namespace Mario.Sprites.Projectiles
 
         public void Update()
         {
-            if (leftRight)
+
+            if (timeSinceLastFrame > millisecondsPerFrame)
             {
-                position.X -= 2;
+                currentFrame++;
+                timeSinceLastFrame = 0;
+            }
+            if (currentFrame == columns)
+                currentFrame = 0;
+            timeSinceLastFrame++;
+
+            if (!isPoof)
+            {
+                if (leftRight)
+                {
+                    position.X -= 5;
+                }
+                else
+                {
+                    position.X += 5;
+                }
+
+                // if fireball going up+right
+                if (upDown)
+                {
+                    position.Y += 2;
+                }
+                // if fireball going down+right
+                else
+                {
+                    position.Y -= 2;
+                }
+
+                if ((Math.Abs(position.X - initPos.X) > 250)) isPoof = true;
+
+                count += 2;
+                if (count > maxUpwardLength && !upDown)
+                {
+                    upDown = !upDown;
+                    count = 0;
+                }
+
+                hitbox = new Rectangle((int)position.X + 5, (int)position.Y + 5, 10, 10);
             } else
             {
-                position.X += 2;
+                poofStart += 1;
+                if (poofStart > 20)
+                {
+                    deleted = true;
+                }
             }
-            
-            // if fireball going up+right
-            if (upDown)
-            {
-                position.Y += 1;
-            }
-            // if fireball going down+right
-            else
-            {
-                position.Y -= 1;
-            }
-
-            if ((Math.Abs(position.X - initPos.X) > 1000)) deleted = true;
-
-            count += 2;
-            if (count > maxUpwardLength && !upDown)
-            {
-                upDown = !upDown;
-                count = 0;
-            }
-
-            hitbox = new Rectangle((int)position.X + 5, (int)position.Y + 5, 10, 10);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+
+            int width = texture.Width / columns;
+            int height = texture.Height;
+            int row = currentFrame / columns;
+            int column = currentFrame % columns;
+            Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+
             if (!deleted)
             {
-                spriteBatch.Draw(texture, position, Color.White);
+                if (!isPoof)
+                {
+                    Rectangle DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                    spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
+                } else
+                {
+                    Rectangle DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                    spriteBatch.Draw(poofTexture, DestinationRectangle, sourceRectangle, Color.White);
+                }
             }
 
             if (showHitbox)

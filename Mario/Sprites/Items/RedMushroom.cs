@@ -21,6 +21,7 @@ namespace Mario.Sprites.Items
         SuperMario superMario;
         bool direction;
         bool spawning;
+        bool deleted;
         Rectangle hitbox;
         public Rectangle Hitbox 
         {
@@ -40,7 +41,8 @@ namespace Mario.Sprites.Items
         public bool isShell { get; set; }
         public bool delete()
         {
-            return false;
+            if (deleted) return true;
+            else return false;
         }
 
         public RedMushroom(Game1 theatre, Vector2 location, SuperMario mario)
@@ -56,6 +58,7 @@ namespace Mario.Sprites.Items
             velocity.Y = 1f;
             velocity.X = 1f;
             spawning = true;
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -114,6 +117,7 @@ namespace Mario.Sprites.Items
                 if (collider is SuperMario)
                 {
                     obtained = true;
+                    deleted = true;
                     hitbox = Rectangle.Empty;
                     velocity.X = 0f;
                     velocity.Y = 0f;

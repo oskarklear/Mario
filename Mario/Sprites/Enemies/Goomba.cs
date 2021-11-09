@@ -7,6 +7,7 @@ using System.Text;
 using Mario.States;
 using Mario.Sprites.Mario;
 using Mario.Sprites.Items;
+using Mario.Sprites.Projectiles;
 
 namespace Mario.Sprites.Enemies
 {
@@ -22,6 +23,7 @@ namespace Mario.Sprites.Enemies
         Vector2 velocity;
         bool direction;
         bool facingLeft;
+        bool deleted;
         Game1 Theatre;
         bool dead;
         public Vector2 Position
@@ -43,7 +45,8 @@ namespace Mario.Sprites.Enemies
         public bool isShell { get; set; }
         public bool delete()
         {
-            return true;
+            if (deleted) return true;
+            else return false;
         }
 
         public Goomba(Game1 theatre, Vector2 location)
@@ -135,6 +138,18 @@ namespace Mario.Sprites.Enemies
                 dead = true;
                 velocity.X = 0f;
                 velocity.Y = 0f;
+            }
+
+            if (collider is Fireball)
+            {
+                if (hitbox.TouchTopOf(collider.Hitbox) || hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    dead = true;
+                    (collider as Fireball).Deleted = true;
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
+                    
             }
 
             if (collider is BlockContext || collider is Pipe)

@@ -290,14 +290,25 @@ namespace Mario.Map
                         sprite.ShowHitbox = false;
                 }
 
-                foreach (ISprite sprite in entities.entityObjs)
+                for (int i = 0; i < entities.entityObjs.Count; i++)
                 {
+                    ISprite sprite = entities.entityObjs[i];
+
+                    if (sprite.delete())
+                    {
+                        entities.entityObjs.Remove(sprite);
+                        sprite = null;
+                        break;
+                    }
+
                     if (!(sprite is MapCoin))
                     {
                         if (sprite.Position.X > 256)
                         {
-                            foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) - 1])
+                            for (int i1 = 0; i1 < collisionZones[((int)(sprite.Position.X / 256)) - 1].Count; i1++)
                             {
+                                ISprite block = collisionZones[((int)(sprite.Position.X / 256)) - 1][i1];
+
                                 if (block is BlockContext || block is Pipe)
                                 {
                                     sprite.Collision(block);
@@ -337,6 +348,14 @@ namespace Mario.Map
                 {
                     ISprite sprite = entities.enemyObjs[i];
                     //sprite.Collision(mario);        
+
+                    if (sprite.delete())
+                    {
+                        entities.enemyObjs.Remove(sprite);
+                        sprite = null;
+                        break;
+                    }
+
                     if (sprite.Position.X < 0 && sprite.Position.Y < 0)
                         entities.enemyObjs.RemoveAt(i);
                     foreach (ISprite fireball in entities.fireBallObjs)
@@ -428,6 +447,9 @@ namespace Mario.Map
             reset = true;
             GenerateMap();
             mario.position = new Vector2(100, 230);
+            mario.isWarpable = false;
+            mario.warp = false;
+            mario.warped = false;
             mario.context.SetPowerUpState(new StandardMarioState());
             ResetTimeRemainingCommand.Execute();
         }

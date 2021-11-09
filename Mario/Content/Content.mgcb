@@ -799,6 +799,18 @@
 /processorParam:TextureFormat=Color
 /build:projectiles/fireball.png
 
+#begin projectiles/poof.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:projectiles/poof.png
+
 #begin SoundEffects/8d82b5_Super_Mario_Bros_Warning_Sound_Effect.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

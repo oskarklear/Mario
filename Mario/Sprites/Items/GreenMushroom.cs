@@ -21,6 +21,7 @@ namespace Mario.Sprites.Items
         bool direction;
         bool spawning;
         Game1 Theatre;
+        bool deleted;
         public Vector2 Position
         {
             get { return position; }
@@ -56,7 +57,8 @@ namespace Mario.Sprites.Items
 
         public bool delete()
         {
-            return false;
+            if (deleted) return true;
+            else return false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -115,6 +117,7 @@ namespace Mario.Sprites.Items
                 if (collider is SuperMario)
                 {
                     obtained = true;
+                    deleted = true;
                     hitbox = Rectangle.Empty;
                     velocity.X = 0f;
                     velocity.Y = 0f;
