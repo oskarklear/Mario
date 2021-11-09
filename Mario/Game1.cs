@@ -24,9 +24,7 @@ namespace Mario
         IController kb;
         IController gp1;
         public Level map;
-        public Camera camera;
-        SpriteFont HeadsUpDisplay;
-        Vector2 HUDPosition;
+        public Camera camera;               
         public StatTracker tracker;
 
 
@@ -36,7 +34,7 @@ namespace Mario
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
-            tracker = new StatTracker();
+           
         }
 
         protected override void Initialize()
@@ -44,9 +42,7 @@ namespace Mario
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 272;
             graphics.ApplyChanges();
-            map = new Level(this);
-            HUDPosition.X = 10;
-            HUDPosition.Y = 10;
+            map = new Level(this);           
             base.Initialize();
         }
 
@@ -55,9 +51,9 @@ namespace Mario
             map.GenerateMap();
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            tracker = new StatTracker(this);
             kb = new KeyboardInput(map) { GameObj = this };
             gp1 = new GamepadInput(map.Mario) { GameObj = this };
-            HeadsUpDisplay = Content.Load<SpriteFont>("HUD");
         }
 
         protected override void Update(GameTime gameTime)
@@ -77,10 +73,8 @@ namespace Mario
             GraphicsDevice.Clear(Color.Bisque);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(.2f)));            
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(1f)));
-            spriteBatch.DrawString(HeadsUpDisplay, "Time: " + (tracker.timeRemaining / 60).ToString(), map.camera.Position, Color.Blue);
-            spriteBatch.End();
             map.Draw(spriteBatch);
+            tracker.Draw(spriteBatch);
             base.Draw(gameTime);
         }
 

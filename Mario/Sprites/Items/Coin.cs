@@ -153,6 +153,7 @@ namespace Mario.Sprites.Items
         public Vector2 Position
         {
             get { return position; }
+            set { position = value; }
         }
         Rectangle hitbox;
         public Rectangle Hitbox
