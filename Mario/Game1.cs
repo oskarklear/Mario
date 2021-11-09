@@ -24,7 +24,7 @@ namespace Mario
         IController kb;
         IController gp1;
         public Level map;
-        public Camera camera;
+        public Camera camera;               
         public StatTracker tracker;
 
 
@@ -34,7 +34,7 @@ namespace Mario
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             IsMenuVisible = false;
-            tracker = new StatTracker();
+           
         }
 
         protected override void Initialize()
@@ -42,7 +42,7 @@ namespace Mario
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 272;
             graphics.ApplyChanges();
-            map = new Level(this);
+            map = new Level(this);           
             base.Initialize();
         }
 
@@ -51,7 +51,7 @@ namespace Mario
             map.GenerateMap();
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+            tracker = new StatTracker(this);
             kb = new KeyboardInput(map) { GameObj = this };
             gp1 = new GamepadInput(map.Mario) { GameObj = this };
         }
@@ -65,23 +65,16 @@ namespace Mario
             kb.UpdateInput();
             map.Update();
             base.Update(gameTime);
-
-            
-            System.Diagnostics.Debug.WriteLine("Coins: " + tracker.coins);
-            System.Diagnostics.Debug.WriteLine("Lives: " + tracker.lives);
-            if (tracker.timeRemaining % 60 == 0)
-                System.Diagnostics.Debug.WriteLine("Time Remaining: " + tracker.timeRemaining / 60);
-            //System.Diagnostics.Debug.WriteLine(tracker.lifeRemovedAfterTimeRemainingIsZero);
-            tracker.DecrementTimeCommand();
-            if (tracker.timeRemaining == 0) map.Reset();
+            tracker.Update();
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Bisque);
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(.2f)));
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, map.camera.GetViewMatrix(new Vector2(.2f)));            
             spriteBatch.End();
             map.Draw(spriteBatch);
+            tracker.Draw(spriteBatch);
             base.Draw(gameTime);
         }
 

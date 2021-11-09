@@ -45,12 +45,14 @@ namespace Mario.Sprites
             if (up)
             {
                 position.Y = position.Y - 1;
+                hitbox.Y = hitbox.Y - 1;
                 if (position.Y <= 141)
                     up = false;
             }
             else
             {
                 position.Y = position.Y + 1;
+                hitbox.Y = hitbox.Y + 1;
                 if (position.Y >= 240)
                     up = true;
             }

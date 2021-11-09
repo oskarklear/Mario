@@ -134,12 +134,12 @@ namespace Mario.Sprites.Enemies
                 {
                     //isShell = true;
                 }
-                if (hitbox.Top <= collider.Hitbox.Bottom + 1 &&
+                if (hitbox.Top <= collider.Hitbox.Bottom &&
                 hitbox.Top >= collider.Hitbox.Bottom - 2 &&
                 hitbox.Right >= collider.Hitbox.Left + (collider.Hitbox.Width / 5) &&
                 hitbox.Left <= collider.Hitbox.Right - (collider.Hitbox.Width / 5))
                 {
-                    System.Diagnostics.Debug.WriteLine("FUCK");
+                    System.Diagnostics.Debug.WriteLine("");
                     velocity.X = 0f;
                     velocity.Y = 0f;
                     isShell = true;
@@ -149,7 +149,7 @@ namespace Mario.Sprites.Enemies
                 hitbox.Top <= collider.Hitbox.Bottom - (collider.Hitbox.Width / 4) &&
                 hitbox.Bottom >= collider.Hitbox.Top + (collider.Hitbox.Width / 4))
                 {
-                    System.Diagnostics.Debug.WriteLine("FUCK");
+                    System.Diagnostics.Debug.WriteLine("");
                     isMoving = true;
                     shellDirection = -1;
                 }
@@ -158,7 +158,7 @@ namespace Mario.Sprites.Enemies
                 hitbox.Top <= collider.Hitbox.Bottom - (collider.Hitbox.Width / 4) &&
                 hitbox.Bottom >= collider.Hitbox.Top + (collider.Hitbox.Width / 4))
                 {
-                    System.Diagnostics.Debug.WriteLine("FUCK");
+                    System.Diagnostics.Debug.WriteLine("");
                     isMoving = true;
                     shellDirection = 1;
                 }
