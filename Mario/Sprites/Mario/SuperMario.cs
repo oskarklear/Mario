@@ -378,7 +378,15 @@ namespace Mario.Sprites.Mario
                     {
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                         position.Y = hitbox.Y;
-                        context.Velocity.Y = 0f;
+                        context.Velocity.Y = 0f;    
+                        if (collider is Piranha)
+                        {
+                            if (delay <= 0)
+                            {
+                                context.TakeDamage();
+                                delay = delaytime;
+                            }
+                        }
                         if (collider is Goomba)
                         {
                             //collider.Collision(this);
@@ -406,7 +414,7 @@ namespace Mario.Sprites.Mario
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba)
+                        if (collider is Goomba || collider is Piranha)
                         {
                             if (delay <= 0)
                             {
@@ -437,7 +445,7 @@ namespace Mario.Sprites.Mario
                             hitbox.X = collider.Hitbox.X + hitbox.Width + 18;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba)
+                        if (collider is Goomba || collider is Piranha)
                         {
                             if (delay <= 0)
                             {
@@ -466,7 +474,7 @@ namespace Mario.Sprites.Mario
                         {
                             hitbox.Y = collider.Hitbox.Y + hitbox.Height;
                             position.Y = hitbox.Y;
-                            if (collider is Goomba || collider is Koopa)
+                            if (collider is Goomba || collider is Koopa || collider is Piranha)
                             {
                                 if (delay <= 0)
                                 {

@@ -27,7 +27,7 @@ namespace Mario.Sprites.Items
             obtained = false;
             spawning = true;
             verticalDirection = true;
-            horizontalDirection = mario.position.X < position.X ? true : false;
+            horizontalDirection = mario.Position.X < position.X ? true : false;
             doesMove = true;
             isAnimated = true;
             useGravity = true;
