@@ -457,7 +457,6 @@ namespace Mario.Map
             {
                 collisionZones[i].Clear();
             }
-            mario = null;
             entities.enemyObjs.Clear();
             entities.entityObjs.Clear();
             entities.fireBallObjs.Clear();
