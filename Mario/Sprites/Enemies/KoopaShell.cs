@@ -79,7 +79,7 @@ namespace Mario.Sprites.Enemies
 
         }
 
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }

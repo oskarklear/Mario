@@ -7,69 +7,48 @@ using System.Text;
 
 namespace Mario.Sprites.Items
 {
-
-    class Pipe : ISprite
+    class Pipe : SpriteTemplate
     {
-        Texture2D texture;
-        Vector2 position;
-        bool showHitbox;
-        public bool ShowHitbox
-        {
-            get { return showHitbox; }
-            set { showHitbox = value; }
-        }
-        Rectangle hitbox;
-        public Rectangle Hitbox
-        {
-            get { return hitbox; }
-            set { hitbox = value; }
-        }
-        public bool delete()
-        {
-            return false;
-        }
-        public Vector2 Position
-        {
-            get { return position; }
-        }
-        public bool isShell { get; set; }
         public Pipe(Game1 theatre, Vector2 location)
         {
-            position = location;
             texture = theatre.Content.Load<Texture2D>("obstacles/pipe");
-            Hitbox = new Rectangle((int)location.X, (int)location.Y, 32, 33);
+            position = location;
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 32, 33);
             showHitbox = false;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void SetHitbox()
         {
-            spriteBatch.Draw(texture, position, Color.White);
-            if (showHitbox)
-            {
-                Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
-                Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
-                Color[] dataW = new Color[hitbox.Width];
-                for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Blue;
-                Color[] dataH = new Color[hitbox.Height];
-                for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Blue;
-                hitboxTextureW.SetData(dataW);
-                hitboxTextureH.SetData(dataH);
-                spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
-                spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
-            }
+        }
+    }
+
+    class SidePipe : SpriteTemplate
+    {
+        public SidePipe(Game1 theatre, Vector2 location)
+        {
+            texture = theatre.Content.Load<Texture2D>("obstacles/sidepipe");
+            position = location;
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 33, 32);
+            showHitbox = false;
         }
 
-        public void Update()
+        public override void SetHitbox()
         {
+        }
+    }
 
+    class LongPipe : SpriteTemplate
+    {
+        public LongPipe(Game1 theatre, Vector2 location)
+        {
+            texture = theatre.Content.Load<Texture2D>("obstacles/longpipe");
+            position = location;
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 33, 272);
+            showHitbox = false;
         }
 
-        public void Collision(ISprite collider)
+        public override void SetHitbox()
         {
-            //TODO
         }
-        
     }
 }

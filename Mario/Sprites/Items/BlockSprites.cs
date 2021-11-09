@@ -82,7 +82,7 @@ namespace Mario.Sprites
             moving = true;
         }
 
-        public bool delete()
+        public bool Delete()
         {
             return false;
         }
@@ -240,6 +240,71 @@ namespace Mario.Sprites
         {
 
         }
+    }
+    public class UGroundBlockSprite : BlockSprite
+    {
+        public UGroundBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
+        {
+
+            Texture = theatre.Content.Load<Texture2D>("obstacles/UGroundBlock");
+            ShowHitbox = false;
+            Location = location;
+            moveDistance = 0;
+            moveRange = 0;
+            Rows = 1;
+            Columns = 1;
+            currentFrame = 0;
+            totalFrames = 1;
+            width = Texture.Width;
+            height = Texture.Height;
+            Context = context;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
+        }
+
+    }
+    public class HardBlockSprite : BlockSprite
+    {
+        public HardBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
+        {
+
+            Texture = theatre.Content.Load<Texture2D>("obstacles/HardBlock");
+            ShowHitbox = false;
+            Location = location;
+            moveDistance = 0;
+            moveRange = 0;
+            Rows = 1;
+            Columns = 1;
+            currentFrame = 0;
+            totalFrames = 1;
+            width = Texture.Width;
+            height = Texture.Height;
+            Context = context;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
+        }
+
+    }
+    public class UBrickBlockSprite : BlockSprite
+    {
+        public UBrickBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
+        {
+            Texture = theatre.Content.Load<Texture2D>("obstacles/UBrickBlock");
+            ShowHitbox = false;
+            Location = location;
+            moveDistance = 0;
+            moveRange = 0;
+            Rows = 1;
+            Columns = 1;
+            currentFrame = 0;
+            totalFrames = 1;
+            width = Texture.Width;
+            height = Texture.Height;
+            Context = context;
+            timeSinceLastFrame = 0;
+            millisecondsPerFrame = 10;
+        }
+
     }
 
     public class BrokenBlockSprite : BlockSprite

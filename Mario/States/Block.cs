@@ -63,7 +63,7 @@ namespace Mario.States
 			return Theatre;
 		}
 
-		public bool delete()
+		public bool Delete()
 		{
 			return false;
 		}
@@ -89,6 +89,15 @@ namespace Mario.States
 					break;
 				case "GroundBlock":
 					sprite = new GroundBlockSprite(Theatre, Location, this);
+					break;
+				case "UBrickBlock":
+					sprite = new UBrickBlockSprite(Theatre, Location, this);
+					break;
+				case "HardBlock":
+					sprite = new HardBlockSprite(Theatre, Location, this);
+					break;
+				case "UGroundBlock":
+					sprite = new UGroundBlockSprite(Theatre, Location, this);
 					break;
 			}
 		}
@@ -296,6 +305,39 @@ namespace Mario.States
 		public override string ToString()
 		{
 			return "HiddenBlock";
+		}
+	}
+	class UGroundBlockState : BlockState
+	{
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
+		{
+			//context.SetState(new BrickBlockState());
+		}
+		public override string ToString()
+		{
+			return "UGroundBlock";
+		}
+	}
+	class HardBlockState : BlockState
+	{
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
+		{
+			//context.SetState(new BrickBlockState());
+		}
+		public override string ToString()
+		{
+			return "HardBlock";
+		}
+	}
+	class UBrickBlockState : BlockState
+	{
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
+		{
+			context.SetState(new UBrickBlockState());
+		}
+		public override string ToString()
+		{
+			return "UBrickBlock";
 		}
 	}
 

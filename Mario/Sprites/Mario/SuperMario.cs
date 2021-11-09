@@ -15,67 +15,47 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace Mario.Sprites.Mario
 {
-    public class SuperMario : ISprite
+    public class SuperMario : SpriteTemplate
     {
         protected const int MAPW = 3584;
         protected const int MAPH = 272;
         protected const int delaytime = 100;
-        int fireballCooldown;
+
         DynamicEntities entities;
-        public MarioContext context { get; set; }
-        public bool animated { get; set; }
-        public int Rows { get; set; }
-        public int Columns { get; set; }
-        private int currentFrame;
-        private int timeSinceLastFrame;
-        private int millisecondsPerFrame;
+        Kinematics kinematics;
+        int fireballCooldown;
         int delay;
-        Texture2D texture;
-        Game1 Theatre;
-        public Vector2 position;
-        public Vector2 Position
-        {
-            get { return position; }
-        }
-        Rectangle hitbox;
-        public Kinematics kinematics;
-        public bool ShowHitbox
+
+        public MarioContext context { get; set; }
+
+        public override bool ShowHitbox
         {
             get { return context.ShowHitbox; }
             set { context.ShowHitbox = value; }
-        }
-        public Rectangle Hitbox 
-        {
-            get { return hitbox; }
-            set { hitbox = value; }
-        }
-
-        public bool isShell { get; set; }
-        public bool delete()
-        {
-            return false;
         }
         private int deathTimer; //Used for the death animation
         private int topHeight; //Used for the death animation
         private bool hitTopHeight; //Used for the death animation
 
 
+
         public SuperMario(Game1 theatre, Vector2 location, MarioContext context)
         {
-            this.context = context;
-            Rows = 1;
-            Columns = 1;
-            currentFrame = 0;
+            gameObj = theatre;
+            texture = theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
+            position = location;
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 6;
-            position = location;
-            Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
+            rows = 1;
+            columns = 1;
+
+            entities = theatre.map.entities;
+            this.context = context;
             kinematics = new Kinematics();
             delay = 0;
-            entities = theatre.map.entities;
             deathTimer = 60;
+            topHeight = 30;
         }
 
         public void MoveLeftCommand()
@@ -83,7 +63,7 @@ namespace Mario.Sprites.Mario
             if (!(context.GetPowerUpState() is DeadMarioState))
             {
                 context.GetActionState().FaceLeftTransition();
-            }           
+            }
         }
 
         public void MoveRightCommand()
@@ -103,7 +83,7 @@ namespace Mario.Sprites.Mario
         }
 
         public void CrouchCommand()
-        {          
+        {
             if (!(context.GetPowerUpState() is DeadMarioState))
             {
                 context.GetActionState().FallingTransition();
@@ -135,7 +115,7 @@ namespace Mario.Sprites.Mario
             if (context.GetPowerUpState() is FireMarioState && entities.fireBallObjs.Count < 2 && fireballCooldown > 20)
             {
                 context.fireball.Play();
-                entities.fireBallObjs.Add(new Fireball(Theatre, position, this, context.facingLeft));
+                entities.fireBallObjs.Add(new Fireball(gameObj, position, this, context.facingLeft));
                 fireballCooldown = 0;
             }
         }
@@ -145,7 +125,7 @@ namespace Mario.Sprites.Mario
 
         }
 
-        public void Update()
+        public override void Update()
         {
             fireballCooldown += 1;
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
@@ -154,43 +134,43 @@ namespace Mario.Sprites.Mario
                 {
                     case "IdleState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/smallIdleMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/smallIdleMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "CrouchingState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/smallCrouchingMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/smallCrouchingMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/smallCrouchingMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/smallCrouchingMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "JumpingState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/smallJumpingMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/smallJumpingMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/smallJumpingMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/smallJumpingMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "FallingState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/smallFallingMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/smallFallingMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/smallFallingMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/smallFallingMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "RunningState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/smallRunningMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/smallRunningMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/smallRunningMarioR");
-                        Columns = 3;
-                        animated = true;
+                            texture = gameObj.Content.Load<Texture2D>("mario/smallRunningMarioR");
+                        columns = 3;
+                        isAnimated = true;
                         break;
                 }
             }
@@ -201,43 +181,43 @@ namespace Mario.Sprites.Mario
                 {
                     case "IdleState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/bigIdleMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/bigIdleMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/bigIdleMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/bigIdleMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "CrouchingState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/bigCrouchingMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/bigCrouchingMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/bigCrouchingMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/bigCrouchingMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "JumpingState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/bigJumpingMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/bigJumpingMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/bigJumpingMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/bigJumpingMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "FallingState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/bigFallingMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/bigFallingMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/bigFallingMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/bigFallingMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "RunningState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/bigRunningMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/bigRunningMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/bigRunningMarioR");
-                        Columns = 3;
-                        animated = true;
+                            texture = gameObj.Content.Load<Texture2D>("mario/bigRunningMarioR");
+                        columns = 3;
+                        isAnimated = true;
                         break;
                 }
             }
@@ -248,43 +228,43 @@ namespace Mario.Sprites.Mario
                 {
                     case "IdleState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/fireIdleMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/fireIdleMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/fireIdleMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/fireIdleMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "CrouchingState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/fireCrouchingMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/fireCrouchingMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/fireCrouchingMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/fireCrouchingMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "JumpingState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/fireJumpingMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/fireJumpingMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/fireJumpingMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/fireJumpingMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "FallingState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/fireFallingMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/fireFallingMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/fireFallingMarioR");
-                        Columns = 1;
-                        animated = false;
+                            texture = gameObj.Content.Load<Texture2D>("mario/fireFallingMarioR");
+                        columns = 1;
+                        isAnimated = false;
                         break;
                     case "RunningState":
                         if (context.facingLeft)
-                            texture = Theatre.Content.Load<Texture2D>("mario/fireRunningMarioL");
+                            texture = gameObj.Content.Load<Texture2D>("mario/fireRunningMarioL");
                         else
-                            texture = Theatre.Content.Load<Texture2D>("mario/fireRunningMarioR");
-                        Columns = 3;
-                        animated = true;
+                            texture = gameObj.Content.Load<Texture2D>("mario/fireRunningMarioR");
+                        columns = 3;
+                        isAnimated = true;
                         break;
                 }
             }
@@ -293,33 +273,31 @@ namespace Mario.Sprites.Mario
             {
                 context.Velocity.X = 0f;
                 context.Velocity.Y = 0f;
-                texture = Theatre.Content.Load<Texture2D>("mario/deadMario");
-                Columns = 2;
-                animated = true;
+                texture = gameObj.Content.Load<Texture2D>("mario/deadMario");
+                columns = 2;
+                isAnimated = true;
                 //hitbox = Rectangle.Empty;
                 MediaPlayer.Stop();
-                topHeight = (int)position.X + 8;
                 deathTimer--;
-                if (deathTimer <= 0 && position.Y > topHeight && !hitTopHeight)
+                if (deathTimer <= 0 && topHeight > 0)
                 {
                     position.Y -= 1;
-                    if (position.Y >= topHeight)
-                        hitTopHeight = true;
+                    topHeight--;
                 }
-                else if (deathTimer <= 0 && hitTopHeight)
+                else if (deathTimer <= 0)
                 {
                     position.Y += 1;
                 }
             }
 
-            if (animated)
+            if (isAnimated)
             {
                 if (timeSinceLastFrame > millisecondsPerFrame)
                 {
                     currentFrame++;
                     timeSinceLastFrame = 0;
                 }
-                if (currentFrame == Columns)
+                if (currentFrame == columns)
                     currentFrame = 0;
                 timeSinceLastFrame++;
             }
@@ -347,7 +325,7 @@ namespace Mario.Sprites.Mario
                 {
                     if (context.isFalling)
                         context.GetActionState().FallingTransition();
-                }                
+                }
                 if (context.Velocity.Y < 0)
                 {
                     context.isFalling = true;
@@ -377,16 +355,16 @@ namespace Mario.Sprites.Mario
             context.isTouchingBottom = false;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             if (delay % 10 == 0)
             {
-                if (animated)
+                if (isAnimated)
                 {
-                    int width = texture.Width / Columns;
-                    int height = texture.Height / Rows;
-                    int row = currentFrame / Columns;
-                    int column = currentFrame % Columns;
+                    int width = texture.Width / columns;
+                    int height = texture.Height / rows;
+                    int row = currentFrame / columns;
+                    int column = currentFrame % columns;
 
                     Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
                     Rectangle destinationRectangle = new Rectangle((int)position.X - 7, (int)position.Y, width, height);
@@ -398,21 +376,7 @@ namespace Mario.Sprites.Mario
                 }
             }
 
-            if (ShowHitbox)
-            {
-                Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
-                Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
-                Color[] dataW = new Color[hitbox.Width];
-                for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Yellow;
-                Color[] dataH = new Color[hitbox.Height];
-                for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Yellow;
-                hitboxTextureW.SetData(dataW);
-                hitboxTextureH.SetData(dataH);
-                spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
-                spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
-            }
+            MakeHitbox(spriteBatch, showHitbox);
 
             if (delay > 0)
             {
@@ -420,9 +384,9 @@ namespace Mario.Sprites.Mario
             }
         }
 
-        public void Collision(ISprite collider)
+        public override void Collision(ISprite collider)
         {
-            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa)
+            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha)
             {
                 if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))
                 {
@@ -438,7 +402,16 @@ namespace Mario.Sprites.Mario
                     {
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                         position.Y = hitbox.Y;
-                        context.Velocity.Y = 0f;                        
+                        context.Velocity.Y = 0f;    
+                        if (collider is Piranha)
+                        {
+                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
+                            if (delay <= 0)
+                            {
+                                context.TakeDamage();
+                                delay = delaytime;
+                            }
+                        }
                         if (collider is Goomba)
                         {
                             //collider.Collision(this);
@@ -468,8 +441,9 @@ namespace Mario.Sprites.Mario
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba)
+                        if (collider is Goomba || collider is Piranha)
                         {
+                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
@@ -501,8 +475,9 @@ namespace Mario.Sprites.Mario
                             hitbox.X = collider.Hitbox.X + hitbox.Width + 18;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba)
+                        if (collider is Goomba || collider is Piranha)
                         {
+                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
@@ -532,8 +507,9 @@ namespace Mario.Sprites.Mario
                         {
                             hitbox.Y = collider.Hitbox.Y + hitbox.Height;
                             position.Y = hitbox.Y;
-                            if (collider is Goomba || collider is Koopa)
+                            if (collider is Goomba || collider is Koopa || collider is Piranha)
                             {
+                                System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                                 if (delay <= 0)
                                 {
                                     context.TakeDamage();
@@ -541,8 +517,8 @@ namespace Mario.Sprites.Mario
                                         delay = delaytime;
                                 }
                             }
-                        }                      
-                        context.GetActionState().FallingTransition();                   
+                        }
+                        context.GetActionState().FallingTransition();
                     }
                 }
             }

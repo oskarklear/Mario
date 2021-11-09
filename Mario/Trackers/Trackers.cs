@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Mario.Sprites.Items;
 
 namespace Mario.Trackers
 {
@@ -15,7 +18,7 @@ namespace Mario.Trackers
         //public bool lifeRemovedAfterTimeRemainingIsZero;
 
         public StatTracker()
-        {
+        {                  
             lives = 3;
             coins = 0;
             points = 0;
@@ -59,6 +62,17 @@ namespace Mario.Trackers
             timeRemaining = FRAMESPERSECOND * 400;
             //lifeRemovedAfterTimeRemainingIsZero = false;
             RemoveLifeCommand();
+        }
+
+        public void Update()
+        {          
+            //System.Diagnostics.Debug.WriteLine("Coins: " + tracker.coins);
+            //System.Diagnostics.Debug.WriteLine("Lives: " + tracker.lives);
+            if (timeRemaining % 60 == 0)
+                System.Diagnostics.Debug.WriteLine("Time Remaining: " + timeRemaining / 60);
+            //System.Diagnostics.Debug.WriteLine(tracker.lifeRemovedAfterTimeRemainingIsZero);
+            DecrementTimeCommand();
+            //if (timeRemaining == 0) map.Reset();
         }
     }
 }

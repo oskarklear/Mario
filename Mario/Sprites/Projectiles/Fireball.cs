@@ -8,80 +8,48 @@ using Mario.Sprites.Mario;
 
 namespace Mario.Sprites.Projectiles
 {
-    class Fireball : ISprite
+    class Fireball : SpriteTemplate
     {
-        Texture2D texture;
-        Vector2 initPos;
-        public bool ShowHitbox { get; set; }
-        public Vector2 position;
-        Rectangle hitbox;
-        SuperMario superMario;
-        int maxUpwardLength;
-        int count;
-        public Rectangle Hitbox
-        {
-            get { return hitbox; }
-        }
-
         bool upDown;
-        bool leftRight;
-        bool deleted;
-        public Vector2 Position
-        {
-            get { return position; }
-        }
-        public bool isShell { get; set; }
-        private bool showHitbox;
-
-
+        int count;
+        int maxUpwardLength;
+        Vector2 initPos;
 
         public Fireball(Game1 theatre, Vector2 location, SuperMario mario, bool xDirection)
         {
-            position = location;
-            initPos = position;
             texture = theatre.Content.Load<Texture2D>("projectiles/fireball");
+            position = location;
             hitbox = new Rectangle((int)location.X + 5, (int)location.Y + 5, 10, 10);
             showHitbox = false;
-            superMario = mario;
+            obtained = false;
+            spawning = false;
+            horizontalDirection = xDirection;
+            doesMove = true;
+            useGravity = false;
+
             upDown = true;
-            deleted = false;
             count = 0;
-            leftRight = xDirection;
             maxUpwardLength = 30;
-
+            initPos = position;
         }
 
-        public void Collision(ISprite collider)
+        public override bool Delete()
         {
-            
-            if (hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchTopOf(collider.Hitbox))
-            {
-                upDown = !upDown;
-            }
-
-            if (hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
-            {
-                deleted = true;
-            }
-
-        }
-
-        public bool delete()
-        {
-            if (deleted) return true;
+            if (obtained) return true;
             else return false;
         }
 
-        public void Update()
+        public override void Move()
         {
-            if (leftRight)
+            if (horizontalDirection)
             {
                 position.X -= 2;
-            } else
+            }
+            else
             {
                 position.X += 2;
             }
-            
+
             // if fireball going up+right
             if (upDown)
             {
@@ -93,7 +61,7 @@ namespace Mario.Sprites.Projectiles
                 position.Y -= 1;
             }
 
-            if ((Math.Abs(position.X - initPos.X) > 1000)) deleted = true;
+            if ((Math.Abs(position.X - initPos.X) > 1000)) obtained = true;
 
             count += 2;
             if (count > maxUpwardLength && !upDown)
@@ -105,27 +73,16 @@ namespace Mario.Sprites.Projectiles
             hitbox = new Rectangle((int)position.X + 5, (int)position.Y + 5, 10, 10);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Collision(ISprite collider)
         {
-            if (!deleted)
+            if (hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchTopOf(collider.Hitbox))
             {
-                spriteBatch.Draw(texture, position, Color.White);
+                upDown = !upDown;
             }
 
-            if (showHitbox)
+            if (hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
             {
-                Texture2D hitboxTextureW = new Texture2D(spriteBatch.GraphicsDevice, hitbox.Width, 1);
-                Texture2D hitboxTextureH = new Texture2D(spriteBatch.GraphicsDevice, 1, hitbox.Height);
-                Color[] dataW = new Color[hitbox.Width];
-                for (int i = 0; i < dataW.Length; i++) dataW[i] = Color.Red;
-                Color[] dataH = new Color[hitbox.Height];
-                for (int i = 0; i < dataH.Length; i++) dataH[i] = Color.Red;
-                hitboxTextureW.SetData(dataW);
-                hitboxTextureH.SetData(dataH);
-                spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                spriteBatch.Draw(hitboxTextureW, new Vector2((int)hitbox.X, (int)hitbox.Y + (int)hitbox.Height), Color.White);
-                spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X, (int)hitbox.Y), Color.White);
-                spriteBatch.Draw(hitboxTextureH, new Vector2((int)hitbox.X + (int)hitbox.Width, (int)hitbox.Y), Color.White);
+                obtained = true;
             }
         }
     }

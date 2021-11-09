@@ -31,6 +31,7 @@ public class MarioContext
 		set { showHitbox = value; }
 	}
 	public Game1 Theatre;
+	public int topDeathHeight;
 	public SoundEffect jump { get; }
 	public SoundEffect powerup { get; }
 	public SoundEffect stomp { get; }

@@ -8,43 +8,15 @@ using System.Text;
 using Mario.States;
 namespace Mario.Sprites
 {
-
-    class GoalGate : ISprite
+    class GoalGate : SpriteTemplate
     {
-
-        Game1 Theatre;
-        Texture2D texture;
-        Vector2 position;
-        public Vector2 Position
-        {
-            get { return position; }
-        }
-        Rectangle hitbox;
-        public Rectangle Hitbox
-        {
-            get { return hitbox; }
-        }
-        private bool showHitbox;
-        public bool ShowHitbox
-        {
-            get { return showHitbox; }
-            set { showHitbox = value; }
-        }
-
-        public bool isShell { get; set; }
-        public bool delete()
-        {
-            return false;
-        }
-
         public GoalGate(Game1 theatre, Vector2 location)
         {
+            texture = theatre.Content.Load<Texture2D>("GoalGate");
             position = location;
-            Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("GoalGate");
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
         }
@@ -60,61 +32,38 @@ namespace Mario.Sprites
         }
     }
 
-    class GoalGateMovingPart : ISprite
-    {
-        Game1 Theatre;
-        Texture2D texture;
-        Vector2 position;
 
-        public Vector2 Position
-        {
-            get { return position; }
-        }
-        Rectangle hitbox;
-        public Rectangle Hitbox
-        {
-            get { return hitbox; }
-        }
-        private bool showHitbox;
-        public bool ShowHitbox
-        {
-            get { return showHitbox; }
-            set { showHitbox = value; }
-        }
-        public bool isShell { get; set; }
+    class GoalGateMovingPart : SpriteTemplate
+    {
         bool up;
 
         public GoalGateMovingPart(Game1 theatre, Vector2 location)
         {
+            texture = theatre.Content.Load<Texture2D>("GoalGateMovingPiece");
             position = location;
-            Theatre = theatre;
-            texture = Theatre.Content.Load<Texture2D>("GoalGateMovingPiece");
+            
             up = true;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 10, 2);
         }
 
-        public bool delete()
-        {
-            return false;
-        }
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
         }
 
-        public void Update()
+        public override void Update()
         {
             if (up)
             {
                 position.Y = position.Y - 1;
-                hitbox = new Rectangle((int)position.X, (int)position.Y, 10, 2);
+                hitbox.Y = hitbox.Y - 1;
                 if (position.Y <= 141)
                     up = false;
             }
             else
             {
-                hitbox = new Rectangle((int)position.X, (int)position.Y, 10, 2);
                 position.Y = position.Y + 1;
+                hitbox.Y = hitbox.Y + 1;
                 if (position.Y >= 240)
                     up = true;
             }

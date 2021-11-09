@@ -27,7 +27,7 @@ namespace Mario.Sprites
         public void Collision(ISprite collider);
         public bool isShell { get; set; }
 
-        public bool delete();
+        public bool Delete();
 
     }
 }
