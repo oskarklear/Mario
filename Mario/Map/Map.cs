@@ -82,18 +82,18 @@ namespace Mario.Map
 
         public void GenerateMap()
         {
-            MediaPlayer.Play(UndergroundTheme);
+            MediaPlayer.Play(OverworldTheme);
             bgLayerNear = new Layer(camera);
             bgLayerNear.Parallax=new Vector2(.8f);
             bgLayerMid = new Layer(camera);
             bgLayerMid.Parallax = new Vector2(.5f);
             bgLayerFar = new Layer(camera);
             bgLayerFar.Parallax = new Vector2(.2f);
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 224; i++)
             {
                 for (int j = 0; j < 17; j++)
                 {
-                    int number = Int32.Parse(underground[j][i]);
+                    int number = Int32.Parse(overworld[j][i]);
 
                     if (number > 0)
                     {

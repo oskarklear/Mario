@@ -273,9 +273,9 @@ namespace Mario.Sprites.Mario
             {
                 context.Velocity.X = 0f;
                 context.Velocity.Y = 0f;
-                texture = Theatre.Content.Load<Texture2D>("mario/deadMario");
-                Columns = 2;
-                animated = true;
+                texture = gameObj.Content.Load<Texture2D>("mario/deadMario");
+                columns = 2;
+                isAnimated = true;
                 //hitbox = Rectangle.Empty;
                 MediaPlayer.Stop();
                 deathTimer--;
