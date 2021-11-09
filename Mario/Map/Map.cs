@@ -421,6 +421,7 @@ namespace Mario.Map
                 }
                 if (mario.Position.Y > 400)
                     Reset();
+                
             }
         }
 

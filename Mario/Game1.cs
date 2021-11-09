@@ -81,6 +81,10 @@ namespace Mario
             //System.Diagnostics.Debug.WriteLine(tracker.lifeRemovedAfterTimeRemainingIsZero);
             tracker.DecrementTimeCommand();
             if (tracker.timeRemaining == 0) map.Reset();
+            if (tracker.lives == 0)
+            {
+                map.menu.SwitchOverlay(new GameOverState(HeadsUpDisplay));
+            }
         }
 
         protected override void Draw(GameTime gameTime)
