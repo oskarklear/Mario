@@ -65,6 +65,7 @@ namespace Mario.Map
             this.theatre = theatre;
             entities = new DynamicEntities();
             overworld = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
+            underground = File.ReadLines("1-1Sub.csv").Select(x => x.Split(',')).ToArray();
             reset = false;
             camera = new Camera(theatre.Graphics.GraphicsDevice.Viewport);
             camera.Limits = new Rectangle(0, 0, 3584, 272);
@@ -81,18 +82,18 @@ namespace Mario.Map
 
         public void GenerateMap()
         {
-            MediaPlayer.Play(OverworldTheme);
+            MediaPlayer.Play(UndergroundTheme);
             bgLayerNear = new Layer(camera);
             bgLayerNear.Parallax=new Vector2(.8f);
             bgLayerMid = new Layer(camera);
             bgLayerMid.Parallax = new Vector2(.5f);
             bgLayerFar = new Layer(camera);
             bgLayerFar.Parallax = new Vector2(.2f);
-            for (int i = 0; i < 224; i++)
+            for (int i = 0; i < 50; i++)
             {
                 for (int j = 0; j < 17; j++)
                 {
-                    int number = Int32.Parse(overworld[j][i]);
+                    int number = Int32.Parse(underground[j][i]);
 
                     if (number > 0)
                     {
@@ -147,6 +148,21 @@ namespace Mario.Map
                                 BlockContext hblock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 hblock.SetState(new HiddenBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(hblock);
+                                break;
+                            case 81:  //Underground Ground Block
+                                BlockContext uGroundBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                uGroundBlock.SetState(new UGroundBlockState());
+                                collisionZones[(i * BLOCK) / 256].Add(uGroundBlock);
+                                break;
+                            case 82:  //Underground Brick Block
+                                BlockContext uBrickBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                uBrickBlock.SetState(new UBrickBlockState());
+                                collisionZones[(i * BLOCK) / 256].Add(uBrickBlock);
+                                break;
+                            case 83:  //Hard Block
+                                BlockContext hardblock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                hardblock.SetState(new HardBlockState());
+                                collisionZones[(i * BLOCK) / 256].Add(hardblock);
                                 break;
                             case 20:  //Used Block
                                 BlockContext ublock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));

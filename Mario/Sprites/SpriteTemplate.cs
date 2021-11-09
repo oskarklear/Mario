@@ -176,7 +176,7 @@ namespace Mario.Sprites
 
         public virtual void Collision(ISprite collider)
         {
-
+            //if (collider is fireball)
         }
 
         

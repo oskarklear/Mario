@@ -34,7 +34,7 @@ namespace Mario.Sprites.Enemies
         }
         public override void Move()
         {
-            if (hiding)
+            if (hiding && timer <= 0)
             {
                 if ((int)position.Y < bPosition)
                     position.Y++;
@@ -61,6 +61,10 @@ namespace Mario.Sprites.Enemies
                 }
             }
             timer--;
+        }
+        public override void SetHitbox()
+        {
+            hitbox = new Rectangle((int)position.X + 2, (int)position.Y, 16, 21);
         }
 
     }

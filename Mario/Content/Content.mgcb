@@ -757,6 +757,18 @@
 /processorParam:TextureFormat=Color
 /build:obstacles/GroundBlock.png
 
+#begin obstacles/HardBlock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:obstacles/HardBlock.png
+
 #begin obstacles/Item Block.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -780,6 +792,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:obstacles/pipe.png
+
+#begin obstacles/UBrickBlock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:obstacles/UBrickBlock.png
+
+#begin obstacles/UGroundBlock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:obstacles/UGroundBlock.png
 
 #begin obstacles/Used Item Block.png
 /importer:TextureImporter
