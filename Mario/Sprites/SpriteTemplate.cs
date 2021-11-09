@@ -4,11 +4,12 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mario.Sprites.Mario;
+using Mario.Sprites.Items;
 using Mario.States;
 
 namespace Mario.Sprites
 {
-    class SpriteTemplate : ISprite
+    public class SpriteTemplate : ISprite
     {
         public Game1 gameObj;
         public Texture2D texture;
@@ -31,7 +32,14 @@ namespace Mario.Sprites
         public int timeSinceLastFrame;
         public int millisecondsPerFrame;
         public int currentFrame;
+        public int rows;
         public int columns;
+        public int topCollisionOffset;
+        public int rightCollisionOffset;
+        public int leftCollisionOffset;
+        public int bottomCollisionOffset;
+        public int pipeRightCollisionOffset;
+        public int pipeLeftCollisionOffset;
 
         public bool isShell { get; set; }
 
@@ -44,18 +52,18 @@ namespace Mario.Sprites
             get { return hitbox; }
             set { hitbox = value; }
         }
-        public bool ShowHitbox
+        public virtual bool ShowHitbox
         {
             get { return showHitbox; }
             set { showHitbox = value; }
         }
 
-        public bool Delete()
+        public virtual bool Delete()
         {
             return false;
         }
 
-        private void MakeHitbox(SpriteBatch spriteBatch, bool showHitbox)
+        public void MakeHitbox(SpriteBatch spriteBatch, bool showHitbox)
         {
             if (showHitbox)
             {
@@ -139,15 +147,16 @@ namespace Mario.Sprites
             Move();
         }
 
-        public void DrawSprite(SpriteBatch spriteBatch, Rectangle sourceRectangle, int width, int height)
+        public virtual void DrawSprite(SpriteBatch spriteBatch, Rectangle sourceRectangle, int width, int height)
         {
             Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
 
             if (facingLeft) spriteBatch.Draw(textureLeft, destinationRectangle, sourceRectangle, Color.White);
-            else spriteBatch.Draw(textureRight, destinationRectangle, sourceRectangle, Color.White);
+            else if (!facingLeft && textureRight != null) spriteBatch.Draw(textureRight, destinationRectangle, sourceRectangle, Color.White);
+            else spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (isAnimated)
             {
@@ -174,9 +183,65 @@ namespace Mario.Sprites
             }
         }
 
+        public virtual void MarioCollision(ISprite collider)
+        {
+            if (collider is SuperMario)
+            {
+                obtained = true;
+                hitbox = Rectangle.Empty;
+                velocity.X = 0f;
+                velocity.Y = 0f;
+            }
+        }
+
+        public virtual void TopCollide(ISprite collider)
+        {
+            if (hitbox.TouchTopOf(collider.Hitbox))
+            {
+                hitbox.Y = collider.Hitbox.Y - hitbox.Height - topCollisionOffset;
+                position.Y = hitbox.Y;
+            }
+        }
+
+        public virtual void RightCollide(ISprite collider)
+        {
+            if (hitbox.TouchRightOf(collider.Hitbox))
+            {
+                hitbox.X = collider.Hitbox.X + hitbox.Width + rightCollisionOffset;
+                position.X = hitbox.X;
+                if (doesMove) horizontalDirection = !horizontalDirection;
+            }
+        }
+
+        public virtual void LeftCollide(ISprite collider)
+        {
+            if (hitbox.TouchLeftOf(collider.Hitbox))
+            {
+                hitbox.X = collider.Hitbox.X - hitbox.Width - leftCollisionOffset;
+                position.X = hitbox.X;
+                if (doesMove) horizontalDirection = !horizontalDirection;
+            }
+        }
+
+        public virtual void BottomCollide(ISprite collider)
+        {
+            if (hitbox.TouchBottomOf(collider.Hitbox))
+            {
+                hitbox.Y = collider.Hitbox.Y + hitbox.Height + bottomCollisionOffset;
+                position.Y = hitbox.Y;
+            }
+        }
+
         public virtual void Collision(ISprite collider)
         {
-
+            if (!spawning)
+            {
+                MarioCollision(collider);
+                TopCollide(collider);
+                RightCollide(collider);
+                LeftCollide(collider);
+                BottomCollide(collider);
+            }
         }
 
         

@@ -188,7 +188,7 @@ namespace Mario.Map
                                 break;
                             case 41: //Mario
                                 if (!reset)
-                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext(theatre)) { animated = false };
+                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext(theatre)) { isAnimated = false };
                                 break;
                             case 99:
                                 GoalGate gg = new GoalGate(theatre, new Vector2(i * BLOCK, j * BLOCK - 99));
