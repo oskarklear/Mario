@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:BackgroundEntities/cloudBoi.png
 
+#begin BackgroundEntities/UndergroundBG.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:BackgroundEntities/UndergroundBG.png
+
 #begin bg.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -788,6 +800,18 @@
 /processorParam:TextureFormat=Color
 /build:obstacles/Item Block.png
 
+#begin obstacles/longpipe.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:obstacles/longpipe.png
+
 #begin obstacles/pipe.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -799,6 +823,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:obstacles/pipe.png
+
+#begin obstacles/sidepipe.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:obstacles/sidepipe.png
 
 #begin obstacles/UBrickBlock.png
 /importer:TextureImporter

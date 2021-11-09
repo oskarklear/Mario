@@ -18,6 +18,8 @@ namespace Mario.Map
 {
     public class Level
     {
+        protected const int OVERWORLDWIDTH = 224; //In columns
+        protected const int UNDERGROUNDWIDTH = 50; //In columns
         protected const int GROUNDBLOCK = 10;
         protected const int BRICKBLOCK = 11;
         protected const int RMQBLOCK = 12;
@@ -57,6 +59,7 @@ namespace Mario.Map
         private const int BLOCK = 16;
         string[][] overworld;
         string[][] underground;
+        bool inOverworld;
         Song OverworldTheme;
         Song UndergroundTheme;
         public StatTracker tracker;
@@ -74,7 +77,7 @@ namespace Mario.Map
             UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
             MediaPlayer.IsRepeating = true;
             ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
-            
+            inOverworld = false;
             for (int i = 0; i < collisionZones.Length; i++)
             {
                 collisionZones[i] = new List<ISprite>();
@@ -83,18 +86,31 @@ namespace Mario.Map
 
         public void GenerateMap()
         {
-            MediaPlayer.Play(OverworldTheme);
+            int width;
+            string[][] map;
+            if (inOverworld)
+            {
+                MediaPlayer.Play(OverworldTheme);
+                width = OVERWORLDWIDTH;
+                map = overworld;
+            }
+            else
+            {
+                MediaPlayer.Play(UndergroundTheme);
+                width = UNDERGROUNDWIDTH;
+                map = underground;
+            }
             bgLayerNear = new Layer(camera);
             bgLayerNear.Parallax=new Vector2(.8f);
             bgLayerMid = new Layer(camera);
             bgLayerMid.Parallax = new Vector2(.5f);
             bgLayerFar = new Layer(camera);
             bgLayerFar.Parallax = new Vector2(.2f);
-            for (int i = 0; i < 224; i++)
+            for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < 17; j++)
                 {
-                    int number = Int32.Parse(overworld[j][i]);
+                    int number = Int32.Parse(map[j][i]);
 
                     if (number > 0)
                     {
@@ -173,6 +189,12 @@ namespace Mario.Map
                             case PIPE: //Pipe
                                 collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
+                            case 7:
+                                collisionZones[(i * 15 + 32) / 256].Add(new LongPipe(theatre, new Vector2(i * 16, j * 15)));
+                                break;
+                            case 8:
+                                collisionZones[(i * 15 + 32) / 256].Add(new SidePipe(theatre, new Vector2(i * 16, j * 15)));
+                                break;
                             case 61:  //Coin
                                 entities.entityObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
                                 break;
@@ -205,6 +227,9 @@ namespace Mario.Map
                                 break;
                             case 53: //Background Hills
                                 bgLayerFar.Sprites.Add(new BackgroundHills(Theatre, new Vector2(i * 16, j * 16)));
+                                break;
+                            case 54: //Underground Background
+                                bgLayerFar.Sprites.Add(new CaveBG(Theatre, new Vector2(i * 15 - 16, j * 16)));
                                 break;
                             case 41: //Mario
                                 if (!reset)
@@ -302,7 +327,8 @@ namespace Mario.Map
                         obj.Update();
                     }                        
                 }
-                camera.LookAt(mario.position);
+                if (inOverworld)
+                    camera.LookAt(mario.position);
 
                 foreach (ISprite sprite in entities.entityObjs)
                 {
