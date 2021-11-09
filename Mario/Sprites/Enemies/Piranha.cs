@@ -66,6 +66,10 @@ namespace Mario.Sprites.Enemies
         {
             hitbox = new Rectangle((int)position.X + 2, (int)position.Y, 16, 21);
         }
+        public override void Collision(ISprite collider)
+        {
+            //No collision response
+        }
 
     }
 }
