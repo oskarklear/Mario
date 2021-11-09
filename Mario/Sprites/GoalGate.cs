@@ -73,7 +73,7 @@ namespace Mario.Sprites
 
         public override void Collision(ISprite collider)
         {
-            Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font));
+            Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font,Theatre.map.menu));
             Theatre.IsMenuVisible = true;
             //Does nothing
         }

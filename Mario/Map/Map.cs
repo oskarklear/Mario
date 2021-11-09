@@ -80,7 +80,7 @@ namespace Mario.Map
             MediaPlayer.IsRepeating = true;
             ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
             font = theatre.Content.Load<SpriteFont>("HUD");
-            menu = new Overlay(font);
+            menu = new Overlay(font,theatre.tracker);
             inOverworld = true;
             for (int i = 0; i < collisionZones.Length; i++)
             {
@@ -496,7 +496,7 @@ namespace Mario.Map
             entities.entityObjs.Clear();
             entities.fireBallObjs.Clear();
             bgObjects.Clear();
-            menu.SwitchOverlay(new NoOverlayState(font));
+            menu.SwitchOverlay(new NoOverlayState(font,menu));
             theatre.IsMenuVisible = false;
             
             reset = true;

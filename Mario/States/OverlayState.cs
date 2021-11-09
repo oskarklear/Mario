@@ -26,13 +26,15 @@ namespace Mario.States
     public class GameOverState : OverlayState
     {
         SpriteFont MenuFont;
-        public GameOverState(SpriteFont font)
+        Overlay context;
+        public GameOverState(SpriteFont font,Overlay Context)
         {
+            context = Context;
             MenuFont = font;
         }
         public override void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.DrawString(MenuFont, "You lost. Press Q to quit, or R to retry", new Vector2(100, 100), Color.Black);
+            spritebatch.DrawString(MenuFont, "You lost. Press Q to quit, or R to retry\n Score: "+context.Stats.points, new Vector2(100, 100), Color.Black);
         }
 
         public override bool isActive()
@@ -53,8 +55,10 @@ namespace Mario.States
     public class PauseState : OverlayState
     {
         SpriteFont MenuFont;
-        public PauseState(SpriteFont font)
+        Overlay context;
+        public PauseState(SpriteFont font, Overlay Context)
         {
+            context = Context;
             MenuFont = font;
         }
         public override  void Draw(SpriteBatch spritebatch)
@@ -70,7 +74,7 @@ namespace Mario.States
 
         public override void Pause(Overlay context)
         {
-            context.SwitchOverlay(new NoOverlayState(MenuFont));
+            context.SwitchOverlay(new NoOverlayState(MenuFont,context));
         }
 
         public override string toString()
@@ -81,13 +85,15 @@ namespace Mario.States
     public class WinState : OverlayState
     {
         SpriteFont MenuFont;
-        public WinState(SpriteFont font)
+        Overlay context;
+        public WinState(SpriteFont font, Overlay Context)
         {
+            context = Context;
             MenuFont = font;
         }
         public override void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.DrawString(MenuFont, "You Won! Press Q to quit, or R to restart", new Vector2(100, 100), Color.Black);
+            spritebatch.DrawString(MenuFont, "You Won! Press Q to quit, or R to restart. \nScore:"+context.Stats.points, new Vector2(100, 100), Color.Black);
         }
 
         public override bool isActive()
@@ -108,8 +114,10 @@ namespace Mario.States
     public class NoOverlayState : OverlayState
     {
         SpriteFont MenuFont;
-        public NoOverlayState(SpriteFont font)
+        Overlay context;
+        public NoOverlayState(SpriteFont font, Overlay Context)
         {
+            context = Context;
             MenuFont = font;
         }
         public override void Draw(SpriteBatch spritebatch)
@@ -124,7 +132,7 @@ namespace Mario.States
         }
         public override void Pause(Overlay context)
         {
-            context.SwitchOverlay(new PauseState(MenuFont));
+            context.SwitchOverlay(new PauseState(MenuFont,context));
         }
 
         public override string toString()

@@ -7,18 +7,21 @@ using Mario.Map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Mario.Trackers;
 namespace Mario.States
 {
     public class Overlay
     {
         OverlayState state;
         SpriteFont MenuFont;
+        public StatTracker Stats;
 
 
-        public Overlay(SpriteFont font)
+        public Overlay(SpriteFont font,StatTracker stats)
         {
+            Stats = stats;
             MenuFont = font;
-            state = new NoOverlayState(font);
+            state = new NoOverlayState(font,this);
         }
 
         public void SwitchOverlay(OverlayState newState)
