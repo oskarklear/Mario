@@ -18,6 +18,8 @@ Comments:
 - All that aside, the code looks very clean, low cyclomatic complexity, and not very smelly. I do think some of these
 	methods should be consolidated back into their standard functions like Collision
 
+- magic numbers
 
 
-Mins taken: 
+
+Mins taken: 10 mins

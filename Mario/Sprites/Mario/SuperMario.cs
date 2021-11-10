@@ -21,6 +21,9 @@ namespace Mario.Sprites.Mario
         protected const int MAPH = 272;
         protected const int delaytime = 100;
 
+        public bool spawning;
+        public bool spawned;
+
         DynamicEntities entities;
         Kinematics kinematics;
         int fireballCooldown;
