@@ -241,8 +241,8 @@ namespace Mario.Map
                             case 41: //Mario
                                 if (!reset)
                                 {
-                                    spawnPos = new Vector2(i * 10, j * 16 + 20);
-                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16 + 20), new MarioContext(theatre)) { isAnimated = false };
+                                    spawnPos = new Vector2(i * 10, j * 16 + 1);
+                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16 + 1), new MarioContext(theatre)) { isAnimated = false };
                                 }
                                 break;
                             case 99:
