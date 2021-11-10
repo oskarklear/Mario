@@ -14,13 +14,19 @@ namespace Mario.Sprites.Items
         {
             get { return warpHitbox; }
         }
-        public Pipe(Game1 theatre, Vector2 location)
+        private bool warpable;
+        public bool Warpable
+        {
+            get { return warpable; }
+        }
+        public Pipe(Game1 theatre, Vector2 location, bool warpable)
         {
             texture = theatre.Content.Load<Texture2D>("obstacles/pipe");
             position = location;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 32, 33);
             warpHitbox = new Rectangle((int)location.X + 14, (int)location.Y, 1, 0);
             showHitbox = false;
+            this.warpable = warpable;
         }
 
         public override void SetHitbox()

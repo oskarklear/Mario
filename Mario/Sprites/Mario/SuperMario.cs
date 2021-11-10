@@ -29,6 +29,7 @@ namespace Mario.Sprites.Mario
         public bool isWarpable;
         public bool overworld;
         int delay;
+        public Vector2 spawn;
 
         public MarioContext context { get; set; }
 
@@ -47,6 +48,7 @@ namespace Mario.Sprites.Mario
             gameObj = theatre;
             texture = theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
             position = location;
+            spawn = location;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 6;
@@ -443,6 +445,7 @@ namespace Mario.Sprites.Mario
                     else
                     {
                         warped = true;
+                        overworld = !overworld;
                         //System.Diagnostics.Debug.WriteLine("BIG ASS");
                     }
                 }
@@ -457,6 +460,7 @@ namespace Mario.Sprites.Mario
                     else
                     {
                         warped = true;
+                        overworld = !overworld;
                         //System.Diagnostics.Debug.WriteLine("BIG ASS");
                     }
                 }
@@ -509,7 +513,7 @@ namespace Mario.Sprites.Mario
             {
                 if (collider is Pipe)
                 {
-                    if (hitbox.TouchTopOf((collider as Pipe).WarpHitbox))
+                    if (hitbox.TouchTopOf((collider as Pipe).WarpHitbox) && (collider as Pipe).Warpable)
                     {
                         isWarpable = true;
                         System.Diagnostics.Debug.WriteLine("big farty");

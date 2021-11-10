@@ -193,8 +193,11 @@ namespace Mario.Map
                                 ublock.SetState(new UsedBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(ublock);
                                 break;
+                            case 5: //Warpable pipe
+                                collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 16, j * 15), true));
+                                break;
                             case PIPE: //Pipe
-                                collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 16, j * 15)));
+                                collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 16, j * 15), false));
                                 break;
                             case 7: //Long pipe
                                 collisionZones[(i * 15 + 32) / 256].Add(new LongPipe(theatre, new Vector2(i * 16, j * 15)));
@@ -504,9 +507,18 @@ namespace Mario.Map
                     Reset();
                 if (mario.warped)
                 {
-                    inOverworld = false;
-                    mario.overworld = false;
-                    Reset();
+                    if (mario.overworld)
+                    {
+                        inOverworld = true;
+                        spawnPos = new Vector2(2624, 220);
+                        Reset();
+                    }
+                    else
+                    {
+                        inOverworld = false;
+                        Reset();
+                    }
+                    
                 }
                 resetCooldown--;
             }
@@ -531,7 +543,7 @@ namespace Mario.Map
             mario.warp = false;
             mario.warped = false;
             mario.isWarpable = false;
-            mario.Position = new Vector2(100, 230);
+            mario.Position = spawnPos;
             mario.context.SetPowerUpState(new StandardMarioState());
             
         }
