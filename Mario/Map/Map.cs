@@ -69,10 +69,12 @@ namespace Mario.Map
         Vector2 spawnPos;
         ICommand ResetTimeRemainingCommand { get; set; }
         ICommand ResetPointsCommand { get; set; }
+        ICommand ResetLivesCommand { get; set; }
         int resetCooldown;
         public Level(Game1 theatre)
         {
             this.theatre = theatre;
+            tracker = this.theatre.tracker;
             entities = new DynamicEntities();
             overworld = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
             underground = File.ReadLines("1-1Sub.csv").Select(x => x.Split(',')).ToArray();
@@ -84,6 +86,7 @@ namespace Mario.Map
             MediaPlayer.IsRepeating = true;
             ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
             ResetPointsCommand = new ResetPointsCommand(theatre.tracker);
+            ResetLivesCommand = new ResetLivesCommand(theatre.tracker);
             font = theatre.Content.Load<SpriteFont>("HUD");
             menu = new Overlay(font, theatre.tracker);
             inOverworld = true;
@@ -425,6 +428,14 @@ namespace Mario.Map
                     {
                         ISprite sprite = entities.enemyObjs[i];
                         //sprite.Collision(mario);
+
+                        if (sprite.Delete())
+                        {
+                            entities.entityObjs.Remove(sprite);
+                            sprite = null;
+                            break;
+                        }
+
                         if (sprite is Piranha)
                         {
                             if (Math.Abs(sprite.Position.X - mario.Position.X) < 32)
@@ -527,7 +538,8 @@ namespace Mario.Map
                     }
                     
                 }
-                resetCooldown--;
+                if (tracker.timeRemaining == 0)
+                    mario.context.DieInPit();
             }
         }
 
@@ -572,7 +584,7 @@ namespace Mario.Map
             mario.Position = new Vector2(100, 230);
             mario.context.SetPowerUpState(new StandardMarioState());
             ResetTimeRemainingCommand.Execute();
-            theatre.tracker.lives = 3;
+            ResetLivesCommand.Execute();
             ResetPointsCommand.Execute();
         }
     }

@@ -16,6 +16,7 @@ namespace Mario.Trackers
         public int coins;
         public int points;
         public int timeRemaining;
+        public bool levelComplete;
         public SoundEffect win { get; }
 
         public StatTracker()
@@ -24,6 +25,7 @@ namespace Mario.Trackers
             coins = 0;
             points = 0;
             timeRemaining = FRAMESPERSECOND * 400;
+            levelComplete = false;
             //win = theatre.Content.Load<SoundEffect>("SoundEffects/course_clear");
             //lifeRemovedAfterTimeRemainingIsZero = false;
         }
@@ -66,10 +68,20 @@ namespace Mario.Trackers
             //lifeRemovedAfterTimeRemainingIsZero = false;
             //RemoveLifeCommand();
         }
+        public void ConvertTimeToPoints()
+        {
+            points += timeRemaining / 60 * 50;
+            timeRemaining = 0;
+        }
 
         public void ResetPointsCommand()
         {
             points = 0;
+        }
+
+        public void ResetLivesCommand()
+        {
+            lives = 3;
         }
 
         public void Update()
@@ -79,7 +91,14 @@ namespace Mario.Trackers
             if (timeRemaining % 60 == 0)
                 System.Diagnostics.Debug.WriteLine("Time Remaining: " + timeRemaining / 60);
             //System.Diagnostics.Debug.WriteLine(tracker.lifeRemovedAfterTimeRemainingIsZero);
-            DecrementTimeCommand();
+            if (!levelComplete)
+            {
+                DecrementTimeCommand();
+            }
+            else
+            {
+                timeRemaining = 0;
+            }
 
             //if (timeRemaining == 0) map.Reset();
         }

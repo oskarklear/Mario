@@ -45,7 +45,7 @@ namespace Mario.Sprites
             position = location;
             
             up = true;
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 10, 2);
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 20, 2);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -97,6 +97,7 @@ namespace Mario.Sprites
             {
                 Theatre.tracker.AddLifeCommand();
             }
+            Theatre.tracker.ConvertTimeToPoints();
             Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font,Theatre.map.menu));
             Theatre.IsMenuVisible = true;
             //Does nothing
