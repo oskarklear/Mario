@@ -530,7 +530,7 @@ namespace Mario.Map
             GenerateMap();
             mario.warp = false;
             mario.warped = false;
-            mario.isWarpable = false;
+            mario.isWarpableHorizontal = false;
             mario.Position = new Vector2(100, 230);
             mario.context.SetPowerUpState(new StandardMarioState());
             
