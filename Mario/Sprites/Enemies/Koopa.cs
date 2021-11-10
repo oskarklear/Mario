@@ -23,6 +23,7 @@ namespace Mario.Sprites.Enemies
 
         public Koopa(Game1 theatre, Vector2 location)
         {
+            gameObj = theatre;
             textureLeft = theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_leftWalking");
             textureRight = theatre.Content.Load<Texture2D>("enemies/koopa/koopa_green_rightWalking");
             shellTexture = theatre.Content.Load<Texture2D>("enemies/koopa/koopa_shell_green_init");
@@ -128,6 +129,7 @@ namespace Mario.Sprites.Enemies
             {
                 //dead = true;
                 //hitbox = new Rectangle(-1, -1, 0, 0);
+                gameObj.tracker.AddPointsCommand(100);
                 System.Diagnostics.Debug.WriteLine("KOOPA TOP: " + hitbox.Top);
                 System.Diagnostics.Debug.WriteLine("MARIO BOTTOM: " + collider.Hitbox.Bottom);
                 System.Diagnostics.Debug.WriteLine("KOOPA RIGHT: " + hitbox.Right);

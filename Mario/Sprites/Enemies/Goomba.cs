@@ -15,6 +15,7 @@ namespace Mario.Sprites.Enemies
     {
         public Goomba(Game1 theatre, Vector2 location)
         {
+            gameObj = theatre;
             textureLeft = theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
             textureRight = theatre.Content.Load<Texture2D>("enemies/goomba/goombaRight");
             texture = facingLeft ? textureLeft : textureRight;
@@ -58,6 +59,18 @@ namespace Mario.Sprites.Enemies
             {
                 position.X -= velocity.X;
                 facingLeft = true;
+            }
+        }
+
+        public override void MarioCollision(ISprite collider)
+        {
+            if (collider is SuperMario)
+            {
+                obtained = true;
+                hitbox = Rectangle.Empty;
+                velocity.X = 0f;
+                velocity.Y = 0f;
+                gameObj.tracker.AddPointsCommand(100);
             }
         }
 
