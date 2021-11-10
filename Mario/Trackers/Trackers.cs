@@ -70,7 +70,7 @@ namespace Mario.Trackers
         }
         public void ConvertTimeToPoints()
         {
-            points += timeRemaining * 50;
+            points += timeRemaining / 60 * 50;
             timeRemaining = 0;
         }
 
