@@ -512,31 +512,45 @@ namespace Mario.Map
             }
         }
 
-            public void Reset()
+        public void Reset()
+        {
+            for (int i = 0; i < collisionZones.Length; i++)
             {
-                if (resetCooldown <= 0)
-                {
-                    for (int i = 0; i < collisionZones.Length; i++)
-                    {
-                        collisionZones[i].Clear();
-                    }
-                    entities.enemyObjs.Clear();
-                    entities.entityObjs.Clear();
-                    entities.fireBallObjs.Clear();
-                    bgObjects.Clear();
-                    reset = true;    
-                    if (!mario.warped)
-                        ResetTimeRemainingCommand.Execute();
-                    GenerateMap();
-                    mario.warped = false;
-                    mario.warp = false;
-                    mario.isWarpable = false;
-                    mario.Position = spawnPos;
-                    mario.context.SetActionState(new IdleState(mario.context));
-                    mario.context.SetPowerUpState(new StandardMarioState());
-                    
-                    resetCooldown = 30;
-                }
+                collisionZones[i].Clear();
             }
-        } 
-    } 
+            entities.enemyObjs.Clear();
+            entities.entityObjs.Clear();
+            entities.fireBallObjs.Clear();
+            bgObjects.Clear();
+            menu.SwitchOverlay(new NoOverlayState(font,menu));
+            theatre.IsMenuVisible = false;
+            
+            reset = true;
+            GenerateMap();
+            mario.Position = new Vector2(100, 230);
+            mario.context.SetPowerUpState(new StandardMarioState());
+            ResetTimeRemainingCommand.Execute();
+        }
+        public void HardReset()
+        {
+            for (int i = 0; i < collisionZones.Length; i++)
+            {
+                collisionZones[i].Clear();
+            }
+            entities.enemyObjs.Clear();
+            entities.entityObjs.Clear();
+            entities.fireBallObjs.Clear();
+            bgObjects.Clear();
+            menu.SwitchOverlay(new NoOverlayState(font, menu));
+            theatre.IsMenuVisible = false;
+
+            reset = true;
+            GenerateMap();
+            mario.Position = new Vector2(100, 230);
+            mario.context.SetPowerUpState(new StandardMarioState());
+            ResetTimeRemainingCommand.Execute();
+            theatre.tracker.lives = 3;
+            theatre.tracker.points = 0;
+        }
+    }
+}
