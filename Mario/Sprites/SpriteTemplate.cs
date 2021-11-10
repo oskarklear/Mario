@@ -62,7 +62,8 @@ namespace Mario.Sprites
 
         public virtual bool Delete()
         {
-            return false;
+            if (obtained) return true;
+            else return false;
         }
 
         public void MakeHitbox(SpriteBatch spriteBatch, bool showHitbox)

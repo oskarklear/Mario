@@ -72,6 +72,7 @@ namespace Mario.Trackers
                 System.Diagnostics.Debug.WriteLine("Time Remaining: " + timeRemaining / 60);
             //System.Diagnostics.Debug.WriteLine(tracker.lifeRemovedAfterTimeRemainingIsZero);
             DecrementTimeCommand();
+
             //if (timeRemaining == 0) map.Reset();
         }
     }

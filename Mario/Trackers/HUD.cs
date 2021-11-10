@@ -65,6 +65,10 @@ namespace Mario.Trackers
             Marioicon.Position = MarioIconPos;
             TimeHUDPos.X = Theatre.map.camera.Position.X + 163;
             TimeHUDPos.Y = Theatre.map.camera.Position.Y + 5;
+            if (Tracker.lives == 0)
+            {
+                Theatre.map.menu.SwitchOverlay(new GameOverState(HeadsUpDisplay,Theatre.map.menu));
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {

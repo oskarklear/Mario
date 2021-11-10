@@ -8,6 +8,7 @@ using Mario.States;
 using Mario.Sprites.Mario;
 using Mario.Sprites.Items;
 using Mario.Map;
+using Mario.Sprites.Projectiles;
 
 namespace Mario.Sprites.Enemies
 {
@@ -18,6 +19,7 @@ namespace Mario.Sprites.Enemies
         bool falling;
         int shellDirection;
         int shellSpeed;
+        bool dead;
 
         public Koopa(Game1 theatre, Vector2 location)
         {
@@ -42,7 +44,7 @@ namespace Mario.Sprites.Enemies
             currentFrame = 0;
             columns = 2;
             isShell = false;
-
+            dead = false;
             shellDirection = 1;
             shellSpeed = 2;
         }
@@ -161,6 +163,19 @@ namespace Mario.Sprites.Enemies
                     System.Diagnostics.Debug.WriteLine("");
                     isMoving = true;
                     shellDirection = 1;
+                }
+
+            }
+
+            if (collider is Fireball)
+            {
+                if (hitbox.TouchTopOf(collider.Hitbox) || hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    dead = true;
+                    obtained = true;
+                    (collider as Fireball).Deleted = true;
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
                 }
 
             }
