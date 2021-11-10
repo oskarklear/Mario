@@ -18,7 +18,7 @@ namespace Mario.Map
 {
     public class Level
     {
-        protected Vector2 CHECKPOINT = new Vector2(1792, 200);
+        protected Vector2 CHECKPOINT = new Vector2(2624, 220);
         protected const int OVERWORLDWIDTH = 224; //In columns
         protected const int UNDERGROUNDWIDTH = 50; //In columns
         protected const int GROUNDBLOCK = 10;
@@ -198,6 +198,9 @@ namespace Mario.Map
                                 ublock.SetState(new UsedBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(ublock);
                                 break;
+                            case 4: //Upside down pipe
+                                collisionZones[(i * 15 + 32) / 256].Add(new UpsidedownPipe(theatre, new Vector2(i * 16, j * 15)));
+                                break;
                             case 5: //Warpable pipe
                                 collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 16, j * 15), true));
                                 break;
@@ -252,6 +255,8 @@ namespace Mario.Map
                                     spawnPos = new Vector2(i * 10, j * 16 + 1);
                                     mario = new SuperMario(theatre, new Vector2(i * 10, j * 16 + 1), new MarioContext(theatre)) { isAnimated = false };
                                 }
+                                else if (!inOverworld)
+                                    spawnPos = new Vector2(i * 10 + 6, j * 16);
                                 break;
                             case 99:
                                 GoalGate gg = new GoalGate(theatre, new Vector2(i * BLOCK, j * BLOCK - 99));
@@ -423,6 +428,14 @@ namespace Mario.Map
                     {
                         ISprite sprite = entities.enemyObjs[i];
                         //sprite.Collision(mario);
+
+                        if (sprite.Delete())
+                        {
+                            entities.entityObjs.Remove(sprite);
+                            sprite = null;
+                            break;
+                        }
+
                         if (sprite is Piranha)
                         {
                             if (Math.Abs(sprite.Position.X - mario.Position.X) < 32)
@@ -550,7 +563,6 @@ namespace Mario.Map
             mario.warped = false;
             mario.isWarpableHorizontal = false;
             mario.Position = spawnPos;
-            mario.context.SetPowerUpState(new StandardMarioState());
             ResetPointsCommand.Execute();
         }
 
@@ -566,7 +578,7 @@ namespace Mario.Map
             bgObjects.Clear();
             menu.SwitchOverlay(new NoOverlayState(font, menu));
             theatre.IsMenuVisible = false;
-
+            inOverworld = true;
             reset = true;
             GenerateMap();
             mario.Position = new Vector2(100, 230);
