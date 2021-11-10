@@ -26,7 +26,8 @@ namespace Mario.Sprites.Mario
         int fireballCooldown;
         public bool warp;
         public bool warped;
-        public bool isWarpable;
+        public bool isWarpableHorizontal;
+        public bool isWarpableVertical;
         public bool overworld;
         int delay;
         public Vector2 spawn;
@@ -75,15 +76,17 @@ namespace Mario.Sprites.Mario
         {
             if (!(context.GetPowerUpState() is DeadMarioState))
             {
-                if (!isWarpable)
+                if (!isWarpableVertical)
                 {
                     context.GetActionState().FaceRightTransition();
-                }
-                else if (!warped && !overworld)
+                } else if (!warped)
                 {
                     initiateWarp();
                 }
+                
+
             }
+
         }
 
         public void JumpCommand()
@@ -98,7 +101,7 @@ namespace Mario.Sprites.Mario
         {
             if (!(context.GetPowerUpState() is DeadMarioState))
             {
-                if (!isWarpable)
+                if (!isWarpableHorizontal)
                 {
                     context.GetActionState().FallingTransition();
                 }
@@ -467,8 +470,9 @@ namespace Mario.Sprites.Mario
                 
 
             }
-            isWarpable = false;
-        }
+            isWarpableHorizontal = false;
+            isWarpableVertical = false;
+    }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -515,7 +519,7 @@ namespace Mario.Sprites.Mario
                 {
                     if (hitbox.TouchTopOf((collider as Pipe).WarpHitbox) && (collider as Pipe).Warpable)
                     {
-                        isWarpable = true;
+                        isWarpableHorizontal = true;
                         System.Diagnostics.Debug.WriteLine("big farty");
                     }
                 }
@@ -523,7 +527,8 @@ namespace Mario.Sprites.Mario
                 {
                     if (hitbox.TouchLeftOf((collider as SidePipe).hitbox))
                     {
-                        isWarpable = true;
+                        isWarpableVertical = true;
+                        System.Diagnostics.Debug.Write("big farty left");
                     }
                 }
                 if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))

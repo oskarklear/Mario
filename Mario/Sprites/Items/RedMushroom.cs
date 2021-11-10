@@ -37,11 +37,23 @@ namespace Mario.Sprites.Items
             pipeLeftCollisionOffset = 5;
         }
 
-/*        public bool delete()
+        /*        public bool delete()
+                {
+                    if (obtained) return true;
+                    else return false;
+                }*/
+
+        public override void MarioCollision(ISprite collider)
         {
-            if (obtained) return true;
-            else return false;
-        }*/
+            if (collider is SuperMario)
+            {
+                obtained = true;
+                hitbox = Rectangle.Empty;
+                velocity.X = 0f;
+                velocity.Y = 0f;
+                gameObj.tracker.AddPointsCommand(1000);
+            }
+        }
 
         public override void RightCollide(ISprite collider)
         {

@@ -23,7 +23,7 @@ namespace Mario.Movement
 
         public void AccelerateRight(MarioContext context)
         {
-            float marioTopRightSpeed = (float)3.0;
+            float marioTopRightSpeed = (float)10.0;
             if (context.Velocity.X < marioTopRightSpeed)
             {
                 context.Velocity.X += (float)0.2;

@@ -105,6 +105,17 @@ namespace Mario.Sprites.Items
             Move();
         }
 
+        public override void MarioCollision(ISprite collider)
+        {
+            if (collider is SuperMario)
+            {
+                obtained = true;
+                hitbox = Rectangle.Empty;
+                velocity.X = 0f;
+                velocity.Y = 0f;
+                gameObj.tracker.AddPointsCommand(1000);
+            }
+        }
         public override void TopCollide(ISprite collider)
         {
             if (hitbox.TouchTopOf(collider.Hitbox))

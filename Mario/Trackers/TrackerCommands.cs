@@ -65,6 +65,18 @@ namespace Mario.Trackers
         }
     }
 
+    class ResetPointsCommand : TrackerCommand
+    {
+        public ResetPointsCommand(StatTracker receiver) : base(receiver)
+        {
+        }
+
+        public override void Execute()
+        {
+            receiver.ResetPointsCommand();
+        }
+    }
+
 /*    class AddPointsCommand : TrackerCommand
     {
         public AddPointsCommand(StatTracker receiver) : base(receiver)

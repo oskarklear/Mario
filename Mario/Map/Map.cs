@@ -68,6 +68,7 @@ namespace Mario.Map
         public StatTracker tracker;
         Vector2 spawnPos;
         ICommand ResetTimeRemainingCommand { get; set; }
+        ICommand ResetPointsCommand { get; set; }
         int resetCooldown;
         public Level(Game1 theatre)
         {
@@ -82,6 +83,7 @@ namespace Mario.Map
             UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
             MediaPlayer.IsRepeating = true;
             ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
+            ResetPointsCommand = new ResetPointsCommand(theatre.tracker);
             font = theatre.Content.Load<SpriteFont>("HUD");
             menu = new Overlay(font, theatre.tracker);
             inOverworld = true;
@@ -244,8 +246,8 @@ namespace Mario.Map
                             case 41: //Mario
                                 if (!reset)
                                 {
-                                    spawnPos = new Vector2(i * 10, j * 16);
-                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext(theatre)) { isAnimated = false };
+                                    spawnPos = new Vector2(i * 10, j * 16 + 1);
+                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16 + 1), new MarioContext(theatre)) { isAnimated = false };
                                 }
                                 break;
                             case 99:
@@ -542,11 +544,12 @@ namespace Mario.Map
             GenerateMap();
             mario.warp = false;
             mario.warped = false;
-            mario.isWarpable = false;
+            mario.isWarpableHorizontal
             mario.Position = spawnPos;
             mario.context.SetPowerUpState(new StandardMarioState());
-            
+            ResetPointsCommand.Execute();
         }
+
         public void HardReset()
         {
             for (int i = 0; i < collisionZones.Length; i++)
@@ -566,7 +569,7 @@ namespace Mario.Map
             mario.context.SetPowerUpState(new StandardMarioState());
             ResetTimeRemainingCommand.Execute();
             theatre.tracker.lives = 3;
-            theatre.tracker.points = 0;
+            ResetPointsCommand.Execute();
         }
     }
 }

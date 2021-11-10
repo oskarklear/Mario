@@ -73,6 +73,30 @@ namespace Mario.Sprites
 
         public override void Collision(ISprite collider)
         {
+            if (position.Y > 228 && position.Y <= 240)
+            {
+                Theatre.tracker.AddPointsCommand(100);
+            }
+            else if (position.Y > 204 && position.Y <= 228)
+            {
+                Theatre.tracker.AddPointsCommand(400);
+            }
+            else if (position.Y > 189 && position.Y <= 204)
+            {
+                Theatre.tracker.AddPointsCommand(800);
+            }
+            else if (position.Y > 159 && position.Y <= 189)
+            {
+                Theatre.tracker.AddPointsCommand(2000);
+            }
+            else if (position.Y > 145 && position.Y <= 159)
+            {
+                Theatre.tracker.AddPointsCommand(4000);
+            }
+            else if (position.Y > 141 && position.Y <= 145)
+            {
+                Theatre.tracker.AddLifeCommand();
+            }
             Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font,Theatre.map.menu));
             Theatre.IsMenuVisible = true;
             //Does nothing
