@@ -214,7 +214,7 @@ namespace Mario.Map
                                 collisionZones[(i * 15 + 32) / 256].Add(new SidePipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
                             case 61:  //Coin
-                                entities.entityObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
+                                entities.entityObjs.Add(new MapCoin(theatre, new Vector2(i * 16, j * COINH)));
                                 break;
                             case 111:  //Green Mushroom
                                 entities.entityObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
@@ -528,7 +528,7 @@ namespace Mario.Map
                     if (mario.overworld)
                     {
                         inOverworld = true;
-                        spawnPos = new Vector2(2624, 220);
+                        spawnPos = new Vector2(2624, 210);
                         Reset();
                     }
                     else
@@ -557,12 +557,16 @@ namespace Mario.Map
             theatre.IsMenuVisible = false;
             reset = true;
             if (!mario.warped)
-                    ResetTimeRemainingCommand.Execute();
+            {
+                ResetTimeRemainingCommand.Execute();
+                mario.context.SetPowerUpState(new StandardMarioState());
+            }
             GenerateMap();
             mario.warp = false;
             mario.warped = false;
             mario.isWarpableHorizontal = false;
             mario.Position = spawnPos;
+            mario.context.SetActionState(new IdleState(mario.context));
             ResetPointsCommand.Execute();
         }
 

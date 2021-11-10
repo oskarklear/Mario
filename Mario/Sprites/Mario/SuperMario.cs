@@ -620,7 +620,6 @@ namespace Mario.Sprites.Mario
 
                         if (collider is Goomba || collider is Piranha)
                         {
-                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
@@ -700,7 +699,6 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is GoalGateMovingPart)
                     {
-                        System.Diagnostics.Debug.WriteLine("collided with gate");
                         collider.Collision(this);
                     }
                 }

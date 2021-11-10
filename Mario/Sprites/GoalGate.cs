@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Mario.States;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
+
 namespace Mario.Sprites
 {
     class GoalGate : SpriteTemplate
@@ -37,7 +40,7 @@ namespace Mario.Sprites
     {
         bool up;
         Game1 Theatre;
-
+        public SoundEffect win { get; }
         public GoalGateMovingPart(Game1 theatre, Vector2 location)
         {
             Theatre = theatre;
@@ -46,6 +49,7 @@ namespace Mario.Sprites
             
             up = true;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 20, 2);
+            win = theatre.Content.Load<SoundEffect>("SoundEffects/course_clear");
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -97,6 +101,8 @@ namespace Mario.Sprites
             {
                 Theatre.tracker.AddLifeCommand();
             }
+            MediaPlayer.Stop();
+            win.Play();
             Theatre.tracker.ConvertTimeToPoints();
             Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font,Theatre.map.menu));
             Theatre.IsMenuVisible = true;
