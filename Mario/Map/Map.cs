@@ -544,7 +544,7 @@ namespace Mario.Map
             GenerateMap();
             mario.warp = false;
             mario.warped = false;
-            mario.isWarpableHorizontal
+            mario.isWarpableHorizontal = false;
             mario.Position = spawnPos;
             mario.context.SetPowerUpState(new StandardMarioState());
             ResetPointsCommand.Execute();
