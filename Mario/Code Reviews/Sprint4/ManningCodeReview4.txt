@@ -1,0 +1,25 @@
+﻿Reviewer: Matthew Manning
+
+Date: 11/9/2021
+
+Sprint 4
+
+File: HUD.cs
+
+File Author: Kyle Shin
+
+Comments:
+
+- In the constructor and in Update(), there are loads of magic numbers. Most of the lines from the constructor and Update() 
+  methods are quite literally identical.
+
+- In the constructor, coinSprite is initalized with "Theatre", which is the variable created before the constructor, while Marioicon
+  uses "theatre", which is a parameter of the constructor.
+
+- None of the variables created before the constructor are in the proper naming convention except coinSprite. They should be in camel case.
+
+Minute taken: 10 minutes
+
+Hypothetically we could not use arbitrary numbers. We could define the numbers before they are used. We could also maybe hypothetically not
+repeat all of the same lines in both the constructor and the Update() method. We could possibly make a function that has all those lines in
+it and just call that in the constructor and Update() method.
