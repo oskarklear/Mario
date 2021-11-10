@@ -357,7 +357,7 @@ namespace Mario.Map
                 {
                     ISprite sprite = entities.entityObjs[i];
 
-                    if (sprite.delete())
+                    if (sprite.Delete())
                     {
                         entities.entityObjs.Remove(sprite);
                         sprite = null;

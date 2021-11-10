@@ -14,7 +14,13 @@ namespace Mario.Sprites.Projectiles
         bool upDown;
         int count;
         int maxUpwardLength;
+        int poofStart;
+        bool isPoof;
         Vector2 initPos;
+        public bool Deleted
+        {
+            set { obtained = value; }
+        }
 
         public Fireball(Game1 theatre, Vector2 location, SuperMario mario, bool xDirection)
         {
@@ -28,25 +34,18 @@ namespace Mario.Sprites.Projectiles
             horizontalDirection = xDirection;
             doesMove = true;
             useGravity = false;
-
             upDown = true;
             count = 0;
             maxUpwardLength = 30;
             showHitbox = false;
-            superMario = mario;
             initPos = position;
+            maxUpwardLength = 30;
+            poofStart = 0;
         }
 
         public override void Collision(ISprite collider)
         {
-            maxUpwardLength = 30;
-            poofStart = 0;
 
-        }
-
-        public void Collision(ISprite collider)
-        {
-            
             if (hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchTopOf(collider.Hitbox))
             {
                 if (collider is Goomba || collider is Koopa) isPoof = true;
@@ -56,34 +55,43 @@ namespace Mario.Sprites.Projectiles
             if (hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
             {
                 isPoof = true;
-                //deleted = true;
-            if (obtained) return true;
-            else return false;
+            }
         }
 
         public override void Move()
         {
-            if (horizontalDirection)
+            if (timeSinceLastFrame > millisecondsPerFrame)
             {
-                position.X -= 2;
+                currentFrame++;
+                timeSinceLastFrame = 0;
             }
-            else
-            {
-                position.X += 2;
-            }
+            if (currentFrame == columns)
+                currentFrame = 0;
+            timeSinceLastFrame++;
 
-            // if fireball going up+right
-            if (upDown)
+            if (!isPoof)
             {
-                position.Y += 1;
-            }
-            // if fireball going down+right
-            else
-            {
-                position.Y -= 1;
-            }
+                if (horizontalDirection)
+                {
+                    position.X -= 5;
+                }
+                else
+                {
+                    position.X += 5;
+                }
 
-            if ((Math.Abs(position.X - initPos.X) > 1000)) obtained = true;
+                // if fireball going up+right
+                if (upDown)
+                {
+                    position.Y += 2;
+                }
+                // if fireball going down+right
+                else
+                {
+                    position.Y -= 2;
+                }
+
+                if ((Math.Abs(position.X - initPos.X) > 250)) isPoof = true;
 
                 count += 2;
                 if (count > maxUpwardLength && !upDown)
@@ -93,27 +101,16 @@ namespace Mario.Sprites.Projectiles
                 }
 
                 hitbox = new Rectangle((int)position.X + 5, (int)position.Y + 5, 10, 10);
-            } else
+            }
+            else
             {
                 poofStart += 1;
                 if (poofStart > 20)
                 {
-                    deleted = true;
+                    obtained = true;
                 }
-            }
-        }
-
-        public override void Collision(ISprite collider)
-        {
-            if (hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchTopOf(collider.Hitbox))
-            {
-                upDown = !upDown;
-            }
-
-            if (hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
-            {
-                obtained = true;
             }
         }
     }
 }
+
