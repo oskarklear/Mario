@@ -7,8 +7,7 @@ using System.Text;
 using Mario.States;
 using Mario.Sprites.Mario;
 using Mario.Sprites.Items;
-//using Mario.Sprites;
-//using Mario;
+using Mario.Sprites.Projectiles;
 
 namespace Mario.Sprites.Enemies
 {
@@ -101,6 +100,27 @@ namespace Mario.Sprites.Enemies
                 position.X = hitbox.X;
                 horizontalDirection = !horizontalDirection;
             }
+        }
+
+        public override void Collision(ISprite collider)
+        {
+            MarioCollision(collider);
+
+            if (collider is Fireball)
+            {
+                if (hitbox.TouchTopOf(collider.Hitbox) || hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    obtained = true;
+                    (collider as Fireball).Deleted = true;
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
+            }
+
+            TopCollide(collider);
+            RightCollide(collider);
+            LeftCollide(collider);
+            BottomCollide(collider);
         }
     }
 }
