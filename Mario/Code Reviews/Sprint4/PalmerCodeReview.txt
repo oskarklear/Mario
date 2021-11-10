@@ -1,0 +1,10 @@
+Bennett Palmer Code Review
+11/9/2021
+Sprint 4
+Class:GoalGate.cs
+Class written by:Oskar Klear
+Comments on code quality: there were a lot of magic numbers in it, which made it hard to read at times.
+For the most part, it was a pretty simple class. The ranges of the gate that give different points are
+all hard coded magic numbers, which might make it more tedious to alter the amount of points that are gained than it 
+Also, the way the moving part moves up and down isn't entirely obvious.
+Code Review Time: 5 minutes

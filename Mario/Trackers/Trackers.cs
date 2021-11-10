@@ -17,7 +17,6 @@ namespace Mario.Trackers
         public int points;
         public int timeRemaining;
         public bool levelComplete;
-        public SoundEffect win { get; }
 
         public StatTracker()
         {                  
@@ -26,7 +25,6 @@ namespace Mario.Trackers
             points = 0;
             timeRemaining = FRAMESPERSECOND * 400;
             levelComplete = false;
-            //win = theatre.Content.Load<SoundEffect>("SoundEffects/course_clear");
             //lifeRemovedAfterTimeRemainingIsZero = false;
         }
 
