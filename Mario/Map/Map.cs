@@ -18,6 +18,7 @@ namespace Mario.Map
 {
     public class Level
     {
+        protected Vector2 CHECKPOINT = new Vector2(1792, 200);
         protected const int OVERWORLDWIDTH = 224; //In columns
         protected const int UNDERGROUNDWIDTH = 50; //In columns
         protected const int GROUNDBLOCK = 10;
@@ -65,7 +66,9 @@ namespace Mario.Map
         Song OverworldTheme;
         Song UndergroundTheme;
         public StatTracker tracker;
+        Vector2 spawnPos;
         ICommand ResetTimeRemainingCommand { get; set; }
+        int resetCooldown;
         public Level(Game1 theatre)
         {
             this.theatre = theatre;
@@ -282,6 +285,8 @@ namespace Mario.Map
             {
                 //entities.Update();
                 mario.Update();
+                if ((int)mario.Position.X == 1792)
+                    spawnPos = CHECKPOINT;
                 if (!mario.context.GetPowerUpState().ToString().Equals("DeadMario"))
                 {
                     //Zone behind Mario
@@ -425,7 +430,7 @@ namespace Mario.Map
                         (sprite as Piranha).hiding = false;
                     }
                 }
-                if (sprite.Position.X < 0 && sprite.Position.Y < 0)
+                if (sprite.Position.X <= 0 && sprite.Position.Y <= 0)
                     entities.enemyObjs.RemoveAt(i);
                 foreach(ISprite fireball in entities.fireBallObjs)
                 {
@@ -489,43 +494,40 @@ namespace Mario.Map
                             break;
                         }
 
-                            }
-                        }
-                        else
-                        {
-                            entities.fireBallObjs.Remove(sprite);
-                            sprite = null;
                         }
                     }
-                    entities.Update();
+                    else
+                    {
+                        entities.fireBallObjs.Remove(sprite);
+                        sprite = null;
+                    }
                 }
-                if (mario.Position.Y > 400)
-                    Reset();
-                
+                entities.Update();
             }
+            if (mario.Position.Y > 400)
+                Reset();
+            resetCooldown--;
         }
 
         public void Reset()
         {
-            for (int i = 0; i < collisionZones.Length; i++)
+            if (resetCooldown <= 0)
             {
-                collisionZones[i].Clear();
+                for (int i = 0; i < collisionZones.Length; i++)
+                {
+                    collisionZones[i].Clear();
+                }
+                entities.enemyObjs.Clear();
+                entities.entityObjs.Clear();
+                entities.fireBallObjs.Clear();
+                bgObjects.Clear();
+                reset = true;
+                GenerateMap();
+                mario.Position = spawnPos;
+                mario.context.SetPowerUpState(new StandardMarioState());
+                ResetTimeRemainingCommand.Execute();
+                resetCooldown = 30;
             }
-            entities.enemyObjs.Clear();
-            entities.entityObjs.Clear();
-            entities.fireBallObjs.Clear();
-            bgObjects.Clear();
-            menu.SwitchOverlay(new NoOverlayState(font,menu));
-            theatre.IsMenuVisible = false;
-            
-            reset = true;
-            GenerateMap();
-            mario.position = new Vector2(100, 230);
-            mario.isWarpable = false;
-            mario.warp = false;
-            mario.warped = false;
-            mario.context.SetPowerUpState(new StandardMarioState());
-            ResetTimeRemainingCommand.Execute();
         }
     }
 }
