@@ -48,6 +48,20 @@ namespace Mario.Sprites.Items
         {
         }
     }
+    class UpsidedownPipe : SpriteTemplate
+    {
+        public UpsidedownPipe(Game1 theatre, Vector2 location)
+        {
+            texture = theatre.Content.Load<Texture2D>("obstacles/upsidedownpipe");
+            position = location;
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 32, 33);
+            showHitbox = false;
+        }
+
+        public override void SetHitbox()
+        {
+        }
+    }
 
     class LongPipe : SpriteTemplate
     {
