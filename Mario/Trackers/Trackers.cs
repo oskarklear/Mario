@@ -79,6 +79,11 @@ namespace Mario.Trackers
             points = 0;
         }
 
+        public void ResetLivesCommand()
+        {
+            lives = 3;
+        }
+
         public void Update()
         {          
             //System.Diagnostics.Debug.WriteLine("Coins: " + tracker.coins);

@@ -69,6 +69,7 @@ namespace Mario.Map
         Vector2 spawnPos;
         ICommand ResetTimeRemainingCommand { get; set; }
         ICommand ResetPointsCommand { get; set; }
+        ICommand ResetLivesCommand { get; set; }
         int resetCooldown;
         public Level(Game1 theatre)
         {
@@ -84,6 +85,7 @@ namespace Mario.Map
             MediaPlayer.IsRepeating = true;
             ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
             ResetPointsCommand = new ResetPointsCommand(theatre.tracker);
+            ResetLivesCommand = new ResetLivesCommand(theatre.tracker);
             font = theatre.Content.Load<SpriteFont>("HUD");
             menu = new Overlay(font, theatre.tracker);
             inOverworld = true;
@@ -568,7 +570,7 @@ namespace Mario.Map
             mario.Position = new Vector2(100, 230);
             mario.context.SetPowerUpState(new StandardMarioState());
             ResetTimeRemainingCommand.Execute();
-            theatre.tracker.lives = 3;
+            ResetLivesCommand.Execute();
             ResetPointsCommand.Execute();
         }
     }
