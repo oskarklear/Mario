@@ -73,6 +73,7 @@ namespace Mario.Map
         public Level(Game1 theatre)
         {
             this.theatre = theatre;
+            tracker = this.theatre.tracker;
             entities = new DynamicEntities();
             overworld = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
             underground = File.ReadLines("1-1Sub.csv").Select(x => x.Split(',')).ToArray();
@@ -522,7 +523,8 @@ namespace Mario.Map
                     }
                     
                 }
-                resetCooldown--;
+                if (tracker.timeRemaining == 0)
+                    mario.context.DieInPit();
             }
         }
 
