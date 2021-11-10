@@ -214,7 +214,7 @@ namespace Mario.Map
                                 collisionZones[(i * 15 + 32) / 256].Add(new SidePipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
                             case 61:  //Coin
-                                entities.entityObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
+                                entities.entityObjs.Add(new MapCoin(theatre, new Vector2(i * 16, j * COINH)));
                                 break;
                             case 111:  //Green Mushroom
                                 entities.entityObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
