@@ -15,7 +15,7 @@ namespace Mario
     class KeyboardInput : IController
     {
         private KeyboardState previousKeyboardState;
-        private bool mPressed;
+        int count;
         private ActivateIdle ActivateIdle { get; set; }
         public Game1 GameObj { get; set; }
         public ICommand MoveLeftCommand { get; set; }
@@ -46,7 +46,7 @@ namespace Mario
             Pause = new Pause(map.menu);
             context = map.Mario.context;
             this.map = map;
-            mPressed = false;
+            count = 0;
         }
         private List<Input> GetInput()
         {
@@ -76,7 +76,7 @@ namespace Mario
             ActivateIdle.ActivateIdleCommand();
 
             List<Input> inputs = GetInput();
-
+            count++;
             foreach (Input input in inputs) {
 
                 switch (input.Key)
@@ -200,14 +200,22 @@ namespace Mario
 
                     // Pause
                     case (int)Keys.P:
-                        if(map.menu.toString().Equals("Pause")||map.menu.toString().Equals("NoOverlay"))
-                        GameObj.IsMenuVisible = !GameObj.IsMenuVisible;
-                        Pause.Execute();
+                        if (count > 10)
+                        {
+                            if (map.menu.toString().Equals("Pause") || map.menu.toString().Equals("NoOverlay"))
+                                GameObj.IsMenuVisible = !GameObj.IsMenuVisible;
+                            Pause.Execute();
+                            count = 0;
+                        }
                         break;
 
                     // Mute
                     case (int)Keys.M:
-                        MediaPlayer.IsMuted = !MediaPlayer.IsMuted;
+                        if (count > 10)
+                        {
+                            MediaPlayer.IsMuted = !MediaPlayer.IsMuted;
+                            count = 0;
+                        }
                         break;
 
                     // Standard state
