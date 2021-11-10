@@ -32,17 +32,17 @@ namespace Mario.Trackers
             PlayerHUDPos.Y = Theatre.map.camera.Position.Y + 5;
             ScoreHUDPos.X = Theatre.map.camera.Position.X + 5;
             ScoreHUDPos.Y = Theatre.map.camera.Position.Y + 23;
-            LivesHUDPos.X = Theatre.map.camera.Position.X + 100;
+            LivesHUDPos.X = Theatre.map.camera.Position.X + 150;
             LivesHUDPos.Y = Theatre.map.camera.Position.Y + 23;        
-            CoinHUDPos.X = Theatre.map.camera.Position.X + 50;
+            CoinHUDPos.X = Theatre.map.camera.Position.X + 100;
             CoinHUDPos.Y = Theatre.map.camera.Position.Y + 23;
-            CoinSpritePos.X = Theatre.map.camera.Position.X + 35;
+            CoinSpritePos.X = Theatre.map.camera.Position.X + 85;
             CoinSpritePos.Y = Theatre.map.camera.Position.Y + 21;
             coinSprite = new MapCoin(Theatre, CoinSpritePos);
-            MarioIconPos.X = Theatre.map.camera.Position.X + 83;
+            MarioIconPos.X = Theatre.map.camera.Position.X + 133;
             MarioIconPos.Y = Theatre.map.camera.Position.Y + 19;
             Marioicon = new MarioIcon(theatre, MarioIconPos);
-            TimeHUDPos.X = Theatre.map.camera.Position.X + 163;
+            TimeHUDPos.X = Theatre.map.camera.Position.X + 213;
             TimeHUDPos.Y = Theatre.map.camera.Position.Y + 5;
             HeadsUpDisplay = Theatre.Content.Load<SpriteFont>("HUD");
         }
@@ -53,18 +53,18 @@ namespace Mario.Trackers
             PlayerHUDPos.Y = Theatre.map.camera.Position.Y + 5;
             ScoreHUDPos.X = Theatre.map.camera.Position.X + 5;
             ScoreHUDPos.Y = Theatre.map.camera.Position.Y + 23;
-            LivesHUDPos.X = Theatre.map.camera.Position.X + 100;
+            LivesHUDPos.X = Theatre.map.camera.Position.X + 150;
             LivesHUDPos.Y = Theatre.map.camera.Position.Y + 23;
-            CoinHUDPos.X = Theatre.map.camera.Position.X + 50;
+            CoinHUDPos.X = Theatre.map.camera.Position.X + 100;
             CoinHUDPos.Y = Theatre.map.camera.Position.Y + 23;
-            CoinSpritePos.X = Theatre.map.camera.Position.X + 35;
+            CoinSpritePos.X = Theatre.map.camera.Position.X + 85;
             CoinSpritePos.Y = Theatre.map.camera.Position.Y + 21;
             coinSprite.Position = CoinSpritePos;
             coinSprite.Update();
-            MarioIconPos.X = Theatre.map.camera.Position.X + 83;
+            MarioIconPos.X = Theatre.map.camera.Position.X + 133;
             MarioIconPos.Y = Theatre.map.camera.Position.Y + 19;
             Marioicon.Position = MarioIconPos;
-            TimeHUDPos.X = Theatre.map.camera.Position.X + 163;
+            TimeHUDPos.X = Theatre.map.camera.Position.X + 213;
             TimeHUDPos.Y = Theatre.map.camera.Position.Y + 5;
             if (Tracker.lives == 0)
             {

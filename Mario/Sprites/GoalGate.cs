@@ -97,6 +97,7 @@ namespace Mario.Sprites
             {
                 Theatre.tracker.AddLifeCommand();
             }
+            Theatre.tracker.ConvertTimeToPoints();
             Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font,Theatre.map.menu));
             Theatre.IsMenuVisible = true;
             //Does nothing
