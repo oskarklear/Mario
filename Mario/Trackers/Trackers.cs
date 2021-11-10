@@ -61,7 +61,7 @@ namespace Mario.Trackers
         {
             timeRemaining = FRAMESPERSECOND * 400;
             //lifeRemovedAfterTimeRemainingIsZero = false;
-            RemoveLifeCommand();
+            //RemoveLifeCommand();
         }
 
         public void Update()

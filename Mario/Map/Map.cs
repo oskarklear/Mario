@@ -240,7 +240,10 @@ namespace Mario.Map
                                 break;
                             case 41: //Mario
                                 if (!reset)
-                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext(theatre)) { isAnimated = false };
+                                {
+                                    spawnPos = new Vector2(i * 10, j * 16 + 20);
+                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16 + 20), new MarioContext(theatre)) { isAnimated = false };
+                                }
                                 break;
                             case 99:
                                 GoalGate gg = new GoalGate(theatre, new Vector2(i * BLOCK, j * BLOCK - 99));
@@ -514,9 +517,10 @@ namespace Mario.Map
                     entities.entityObjs.Clear();
                     entities.fireBallObjs.Clear();
                     bgObjects.Clear();
-                    reset = true;
+                    reset = true;               
                     GenerateMap();
                     mario.Position = spawnPos;
+                    mario.context.SetActionState(new IdleState(mario.context));
                     mario.context.SetPowerUpState(new StandardMarioState());
                     ResetTimeRemainingCommand.Execute();
                     resetCooldown = 30;
