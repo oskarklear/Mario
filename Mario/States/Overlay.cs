@@ -28,12 +28,10 @@ namespace Mario.States
         {
             
             state = newState;
-            //System.Diagnostics.Debug.WriteLine("changed menu state to" + state.toString());
         }
 
         public void Draw(SpriteBatch spritebatch)
         {
-            //System.Diagnostics.Debug.WriteLine(state.toString());
             state.Draw(spritebatch);
         }
         public String toString()

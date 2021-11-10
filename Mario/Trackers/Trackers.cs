@@ -25,7 +25,6 @@ namespace Mario.Trackers
             points = 0;
             timeRemaining = FRAMESPERSECOND * 400;
             levelComplete = false;
-            //lifeRemovedAfterTimeRemainingIsZero = false;
         }
 
         public void AddCoinCommand()
@@ -53,18 +52,11 @@ namespace Mario.Trackers
         public void DecrementTimeCommand()
         {
             if (timeRemaining > 0) timeRemaining--;
-/*            else if (timeRemaining == 0 && !lifeRemovedAfterTimeRemainingIsZero)
-            {
-                lifeRemovedAfterTimeRemainingIsZero = true;
-                
-            }*/
         }
 
         public void ResetTimeRemainingCommand()
         {
             timeRemaining = FRAMESPERSECOND * 400;
-            //lifeRemovedAfterTimeRemainingIsZero = false;
-            //RemoveLifeCommand();
         }
         public void ConvertTimeToPoints()
         {
@@ -84,11 +76,8 @@ namespace Mario.Trackers
 
         public void Update()
         {          
-            //System.Diagnostics.Debug.WriteLine("Coins: " + tracker.coins);
-            //System.Diagnostics.Debug.WriteLine("Lives: " + tracker.lives);
             if (timeRemaining % 60 == 0)
                 System.Diagnostics.Debug.WriteLine("Time Remaining: " + timeRemaining / 60);
-            //System.Diagnostics.Debug.WriteLine(tracker.lifeRemovedAfterTimeRemainingIsZero);
             if (!levelComplete)
             {
                 DecrementTimeCommand();
@@ -97,8 +86,6 @@ namespace Mario.Trackers
             {
                 timeRemaining = 0;
             }
-
-            //if (timeRemaining == 0) map.Reset();
         }
     }
 }
