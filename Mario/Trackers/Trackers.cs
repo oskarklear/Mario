@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mario.Sprites.Items;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Mario.Trackers
 {
@@ -15,7 +16,7 @@ namespace Mario.Trackers
         public int coins;
         public int points;
         public int timeRemaining;
-        //public bool lifeRemovedAfterTimeRemainingIsZero;
+        public SoundEffect win { get; }
 
         public StatTracker()
         {                  
@@ -23,6 +24,7 @@ namespace Mario.Trackers
             coins = 0;
             points = 0;
             timeRemaining = FRAMESPERSECOND * 400;
+            //win = theatre.Content.Load<SoundEffect>("SoundEffects/course_clear");
             //lifeRemovedAfterTimeRemainingIsZero = false;
         }
 

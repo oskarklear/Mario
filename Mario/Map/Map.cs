@@ -196,10 +196,10 @@ namespace Mario.Map
                             case PIPE: //Pipe
                                 collisionZones[(i * 15 + 32) / 256].Add(new Pipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
-                            case 7:
+                            case 7: //Long pipe
                                 collisionZones[(i * 15 + 32) / 256].Add(new LongPipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
-                            case 8:
+                            case 8: //Side Pipe
                                 collisionZones[(i * 15 + 32) / 256].Add(new SidePipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
                             case 61:  //Coin
@@ -241,8 +241,8 @@ namespace Mario.Map
                             case 41: //Mario
                                 if (!reset)
                                 {
-                                    spawnPos = new Vector2(i * 10, j * 16 + 20);
-                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16 + 20), new MarioContext(theatre)) { isAnimated = false };
+                                    spawnPos = new Vector2(i * 10, j * 16);
+                                    mario = new SuperMario(theatre, new Vector2(i * 10, j * 16), new MarioContext(theatre)) { isAnimated = false };
                                 }
                                 break;
                             case 99:
@@ -344,8 +344,9 @@ namespace Mario.Map
                             obj.Update();
                         }
                     }
-                    if (inOverworld)
+                    //if (inOverworld)
                         camera.LookAt(mario.position);
+
 
                     foreach (ISprite sprite in entities.entityObjs)
                     {
@@ -501,6 +502,12 @@ namespace Mario.Map
                 }
                 if (mario.Position.Y > 400)
                     Reset();
+                if (mario.warped)
+                {
+                    inOverworld = false;
+                    mario.overworld = false;
+                    Reset();
+                }
                 resetCooldown--;
             }
         }
@@ -517,12 +524,17 @@ namespace Mario.Map
                     entities.entityObjs.Clear();
                     entities.fireBallObjs.Clear();
                     bgObjects.Clear();
-                    reset = true;               
+                    reset = true;    
+                    if (!mario.warped)
+                        ResetTimeRemainingCommand.Execute();
                     GenerateMap();
+                    mario.warped = false;
+                    mario.warp = false;
+                    mario.isWarpable = false;
                     mario.Position = spawnPos;
                     mario.context.SetActionState(new IdleState(mario.context));
                     mario.context.SetPowerUpState(new StandardMarioState());
-                    ResetTimeRemainingCommand.Execute();
+                    
                     resetCooldown = 30;
                 }
             }

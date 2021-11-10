@@ -27,6 +27,7 @@ namespace Mario.Sprites.Mario
         public bool warp;
         public bool warped;
         public bool isWarpable;
+        public bool overworld;
         int delay;
 
         public MarioContext context { get; set; }
@@ -38,7 +39,6 @@ namespace Mario.Sprites.Mario
         }
         private int deathTimer; //Used for the death animation
         private int topHeight; //Used for the death animation
-        private bool hitTopHeight; //Used for the death animation
 
 
 
@@ -52,7 +52,7 @@ namespace Mario.Sprites.Mario
             millisecondsPerFrame = 6;
             rows = 1;
             columns = 1;
-
+            overworld = true;
             entities = theatre.map.entities;
             this.context = context;
             kinematics = new Kinematics();
@@ -73,7 +73,14 @@ namespace Mario.Sprites.Mario
         {
             if (!(context.GetPowerUpState() is DeadMarioState))
             {
-                context.GetActionState().FaceRightTransition();
+                if (!isWarpable)
+                {
+                    context.GetActionState().FaceRightTransition();
+                }
+                else if (!warped && !overworld)
+                {
+                    initiateWarp();
+                }
             }
         }
 
@@ -92,7 +99,8 @@ namespace Mario.Sprites.Mario
                 if (!isWarpable)
                 {
                     context.GetActionState().FallingTransition();
-                } else if (!warped)
+                }
+                else if (!warped && overworld)
                 {
                     initiateWarp();
                 }
@@ -137,7 +145,7 @@ namespace Mario.Sprites.Mario
 
         int warpAnimCount = 0;
 
-        public void Update()
+        public override void Update()
         {
             if (!warp)
             {
@@ -424,20 +432,38 @@ namespace Mario.Sprites.Mario
             {
                 // if warping
                 hitbox = Rectangle.Empty;
-
-                if (warpAnimCount < 30)
+                if (overworld)
                 {
-                    position.Y += 1;
-                    //position.X += 10;
-                    warpAnimCount++;
-                } else
+                    if (warpAnimCount < 30)
+                    {
+                        position.Y += 1;
+                        //position.X += 10;
+                        warpAnimCount++;
+                    }
+                    else
+                    {
+                        warped = true;
+                        //System.Diagnostics.Debug.WriteLine("BIG ASS");
+                    }
+                }
+                else
                 {
-                    warped = true;
-                    //System.Diagnostics.Debug.WriteLine("BIG ASS");
+                    if (warpAnimCount < 30)
+                    {
+                        position.X += 1;
+                        //position.X += 10;
+                        warpAnimCount++;
+                    }
+                    else
+                    {
+                        warped = true;
+                        //System.Diagnostics.Debug.WriteLine("BIG ASS");
+                    }
                 }
                 
 
             }
+            isWarpable = false;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -479,7 +505,7 @@ namespace Mario.Sprites.Mario
 
         public override void Collision(ISprite collider)
         {
-            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha)
+            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha || collider is SidePipe || collider is LongPipe)
             {
                 if (collider is Pipe)
                 {
@@ -489,7 +515,13 @@ namespace Mario.Sprites.Mario
                         System.Diagnostics.Debug.WriteLine("big farty");
                     }
                 }
-                     
+                if (collider is SidePipe)
+                {
+                    if (hitbox.TouchLeftOf((collider as SidePipe).hitbox))
+                    {
+                        isWarpable = true;
+                    }
+                }
                 if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))
                 {
                     if (hitbox.TouchBottomOf(collider.Hitbox))
@@ -624,7 +656,6 @@ namespace Mario.Sprites.Mario
                     }
                 }
             }
-            //Pickups
             else
             {
                 if (hitbox.TouchTopOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox)
