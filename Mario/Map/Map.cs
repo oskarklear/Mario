@@ -32,7 +32,7 @@ namespace Mario.Map
         protected const int TENCOINBRICKBLOCK = 18;
         protected const int PIPE = 6;
         public List<ISprite> bgObjects = new List<ISprite>();
-        public List<ISprite> [] collisionZones = new List<ISprite> [14];
+        public List<ISprite>[] collisionZones = new List<ISprite>[14];
         private Game1 theatre;
         public Overlay menu;
         public SpriteFont font;
@@ -83,7 +83,7 @@ namespace Mario.Map
             MediaPlayer.IsRepeating = true;
             ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
             font = theatre.Content.Load<SpriteFont>("HUD");
-            menu = new Overlay(font,theatre.tracker);
+            menu = new Overlay(font, theatre.tracker);
             inOverworld = true;
             for (int i = 0; i < collisionZones.Length; i++)
             {
@@ -108,7 +108,7 @@ namespace Mario.Map
                 map = underground;
             }
             bgLayerNear = new Layer(camera);
-            bgLayerNear.Parallax=new Vector2(.8f);
+            bgLayerNear.Parallax = new Vector2(.8f);
             bgLayerMid = new Layer(camera);
             bgLayerMid.Parallax = new Vector2(.5f);
             bgLayerFar = new Layer(camera);
@@ -248,7 +248,7 @@ namespace Mario.Map
                                 bgObjects.Add(gg);
                                 collisionZones[(i * BLOCK) / 256].Add(mp);
                                 break;
-                            
+
                         }
                     }
                 }
@@ -273,10 +273,10 @@ namespace Mario.Map
                 foreach (ISprite obj in collisionZones[i])
                     obj.Draw(spriteBatch);
             }
-            
+
             spriteBatch.End();
-            
-            
+
+
 
         }
         public void Update()
@@ -334,15 +334,15 @@ namespace Mario.Map
                         }
                     }
 
-                for (int i = 0; i < collisionZones.Length; i++)
-                {
-                    foreach (ISprite obj in collisionZones[i])
+                    for (int i = 0; i < collisionZones.Length; i++)
                     {
-                        obj.Update();
-                    }                        
-                }
-                if (inOverworld)
-                    camera.LookAt(mario.position);
+                        foreach (ISprite obj in collisionZones[i])
+                        {
+                            obj.Update();
+                        }
+                    }
+                    if (inOverworld)
+                        camera.LookAt(mario.position);
 
                     foreach (ISprite sprite in entities.entityObjs)
                     {
@@ -396,66 +396,66 @@ namespace Mario.Map
                         }
                     }
 
-            for (int i = 0; i < entities.enemyObjs.Count; i++)
-            {
-                ISprite sprite = entities.enemyObjs[i];
-                //sprite.Collision(mario);
-                if (sprite is Piranha)
-                {
-                    if (Math.Abs(sprite.Position.X - mario.Position.X) < 32)
+                    for (int i = 0; i < entities.enemyObjs.Count; i++)
                     {
-                        (sprite as Piranha).hiding = true;
-                    }
-                    else
-                    {
-                        (sprite as Piranha).hiding = false;
-                    }
-                }
-                if (sprite.Position.X <= 0 && sprite.Position.Y <= 0)
-                    entities.enemyObjs.RemoveAt(i);
-                foreach(ISprite fireball in entities.fireBallObjs)
-                {
-                    sprite.Collision(fireball);
-                }
-                //World collision
-                if (sprite.Position.X > 256)
-                {
-                    foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) - 1])
-                    {
-                        if (block is BlockContext || block is Pipe)
+                        ISprite sprite = entities.enemyObjs[i];
+                        //sprite.Collision(mario);
+                        if (sprite is Piranha)
                         {
-                            sprite.Collision(block);
-                            if (mario.context.ShowHitbox)
-                                sprite.ShowHitbox = true;
-                            else sprite.ShowHitbox = false;
+                            if (Math.Abs(sprite.Position.X - mario.Position.X) < 32)
+                            {
+                                (sprite as Piranha).hiding = true;
+                            }
+                            else
+                            {
+                                (sprite as Piranha).hiding = false;
+                            }
                         }
-                    }
-                }
-                foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
-                {
-                    if (block is BlockContext || block is Pipe)
-                    {
-                        sprite.Collision(block);
-                        if (mario.context.ShowHitbox)
-                            sprite.ShowHitbox = true;
-                        else sprite.ShowHitbox = false;
-                    }
-                }
-                if (sprite.Position.X < 3328)
-                {
-                    foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) + 1])
-                    {
-                        if (block is BlockContext || block is Pipe)
+                        if (sprite.Position.X <= 0 && sprite.Position.Y <= 0)
+                            entities.enemyObjs.RemoveAt(i);
+                        foreach (ISprite fireball in entities.fireBallObjs)
                         {
-                            sprite.Collision(block);
-                            if (mario.context.ShowHitbox)
-                                sprite.ShowHitbox = true;
-                            else sprite.ShowHitbox = false;
+                            sprite.Collision(fireball);
                         }
+                        //World collision
+                        if (sprite.Position.X > 256)
+                        {
+                            foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) - 1])
+                            {
+                                if (block is BlockContext || block is Pipe)
+                                {
+                                    sprite.Collision(block);
+                                    if (mario.context.ShowHitbox)
+                                        sprite.ShowHitbox = true;
+                                    else sprite.ShowHitbox = false;
+                                }
+                            }
+                        }
+                        foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
+                        {
+                            if (block is BlockContext || block is Pipe)
+                            {
+                                sprite.Collision(block);
+                                if (mario.context.ShowHitbox)
+                                    sprite.ShowHitbox = true;
+                                else sprite.ShowHitbox = false;
+                            }
+                        }
+                        if (sprite.Position.X < 3328)
+                        {
+                            foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) + 1])
+                            {
+                                if (block is BlockContext || block is Pipe)
+                                {
+                                    sprite.Collision(block);
+                                    if (mario.context.ShowHitbox)
+                                        sprite.ShowHitbox = true;
+                                    else sprite.ShowHitbox = false;
+                                }
+                            }
+                        }
+                        mario.Collision(sprite);
                     }
-                }
-                mario.Collision(sprite);
-            }
 
                     for (int i = 0; i < entities.fireBallObjs.Count; i++)
                     {
@@ -468,47 +468,48 @@ namespace Mario.Map
                                 if (mario.context.ShowHitbox) sprite.ShowHitbox = true;
                                 else sprite.ShowHitbox = false;
 
-                        if (sprite.Delete())
+                                if (sprite.Delete())
+                                {
+                                    entities.fireBallObjs.Remove(sprite);
+                                    sprite = null;
+                                    break;
+                                }
+
+                            }
+                        }
+                        else
                         {
                             entities.fireBallObjs.Remove(sprite);
                             sprite = null;
-                            break;
-                        }
-
                         }
                     }
-                    else
-                    {
-                        entities.fireBallObjs.Remove(sprite);
-                        sprite = null;
-                    }
+                    entities.Update();
                 }
-                entities.Update();
+                if (mario.Position.Y > 400)
+                    Reset();
+                resetCooldown--;
             }
-            if (mario.Position.Y > 400)
-                Reset();
-            resetCooldown--;
         }
 
-        public void Reset()
-        {
-            if (resetCooldown <= 0)
+            public void Reset()
             {
-                for (int i = 0; i < collisionZones.Length; i++)
+                if (resetCooldown <= 0)
                 {
-                    collisionZones[i].Clear();
+                    for (int i = 0; i < collisionZones.Length; i++)
+                    {
+                        collisionZones[i].Clear();
+                    }
+                    entities.enemyObjs.Clear();
+                    entities.entityObjs.Clear();
+                    entities.fireBallObjs.Clear();
+                    bgObjects.Clear();
+                    reset = true;
+                    GenerateMap();
+                    mario.Position = spawnPos;
+                    mario.context.SetPowerUpState(new StandardMarioState());
+                    ResetTimeRemainingCommand.Execute();
+                    resetCooldown = 30;
                 }
-                entities.enemyObjs.Clear();
-                entities.entityObjs.Clear();
-                entities.fireBallObjs.Clear();
-                bgObjects.Clear();
-                reset = true;
-                GenerateMap();
-                mario.Position = spawnPos;
-                mario.context.SetPowerUpState(new StandardMarioState());
-                ResetTimeRemainingCommand.Execute();
-                resetCooldown = 30;
             }
-        }
-    }
-}
+        } 
+    } 
