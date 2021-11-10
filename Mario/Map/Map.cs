@@ -528,7 +528,7 @@ namespace Mario.Map
                     if (mario.overworld)
                     {
                         inOverworld = true;
-                        spawnPos = new Vector2(2624, 220);
+                        spawnPos = new Vector2(2624, 210);
                         Reset();
                     }
                     else
@@ -557,12 +557,16 @@ namespace Mario.Map
             theatre.IsMenuVisible = false;
             reset = true;
             if (!mario.warped)
-                    ResetTimeRemainingCommand.Execute();
+            {
+                ResetTimeRemainingCommand.Execute();
+                mario.context.SetPowerUpState(new StandardMarioState());
+            }
             GenerateMap();
             mario.warp = false;
             mario.warped = false;
             mario.isWarpableHorizontal = false;
             mario.Position = spawnPos;
+            mario.context.SetActionState(new IdleState(mario.context));
             ResetPointsCommand.Execute();
         }
 
