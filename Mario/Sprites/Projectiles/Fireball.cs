@@ -21,11 +21,17 @@ namespace Mario.Sprites.Projectiles
         {
             set { obtained = value; }
         }
+        Texture2D poofTexture;
 
         public Fireball(Game1 theatre, Vector2 location, SuperMario mario, bool xDirection)
         {
             texture = theatre.Content.Load<Texture2D>("projectiles/fireball");
+            poofTexture = theatre.Content.Load<Texture2D>("projectiles/poof");
             timeSinceLastFrame = 0;
+            millisecondsPerFrame = 15;
+            currentFrame = 0;
+            columns = 4;
+            isAnimated = true;
             position = location;
             hitbox = new Rectangle((int)location.X + 5, (int)location.Y + 5, 10, 10);
             showHitbox = false;
@@ -55,6 +61,42 @@ namespace Mario.Sprites.Projectiles
             if (hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
             {
                 isPoof = true;
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (isAnimated)
+            {
+                int width = texture.Width / columns;
+                int height = texture.Height;
+                int row = currentFrame / columns;
+                int column = currentFrame % columns;
+
+                Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+
+                if (!obtained)
+                {
+                    if (!isPoof)
+                    {
+                        Rectangle DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                        spriteBatch.Draw(texture, DestinationRectangle, sourceRectangle, Color.White);
+                    }
+                    else
+                    {
+                        Rectangle DestinationRectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+                        spriteBatch.Draw(poofTexture, DestinationRectangle, sourceRectangle, Color.White);
+                    }
+                    MakeHitbox(spriteBatch, showHitbox);
+                }
+            }
+            else
+            {
+                if (!obtained)
+                {
+                    spriteBatch.Draw(texture, position, Color.White);
+                    MakeHitbox(spriteBatch, showHitbox);
+                }
             }
         }
 
