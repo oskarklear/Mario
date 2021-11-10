@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework.Media;
 using Mario.Trackers;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Mario.Map
 {
@@ -65,6 +66,7 @@ namespace Mario.Map
         bool inOverworld;
         Song OverworldTheme;
         Song UndergroundTheme;
+        SoundEffect TimeWarning;
         public StatTracker tracker;
         Vector2 spawnPos;
         ICommand ResetTimeRemainingCommand { get; set; }
@@ -83,6 +85,7 @@ namespace Mario.Map
             camera.Limits = new Rectangle(0, 0, 3584, 272);
             OverworldTheme = theatre.Content.Load<Song>("OverworldTheme");
             UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
+            TimeWarning = theatre.Content.Load<SoundEffect>("SoundEffects/time_warning");
             MediaPlayer.IsRepeating = true;
             ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
             ResetPointsCommand = new ResetPointsCommand(theatre.tracker);
@@ -537,6 +540,10 @@ namespace Mario.Map
                         Reset();
                     }
                     
+                }
+                if (tracker.timeRemaining == 6000)
+                {
+                    TimeWarning.Play();
                 }
                 if (tracker.timeRemaining == 0)
                     mario.context.DieInPit();
