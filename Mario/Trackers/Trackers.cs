@@ -70,13 +70,18 @@ namespace Mario.Trackers
         }
         public void ConvertTimeToPoints()
         {
-            points += timeRemaining * 50;
+            points += timeRemaining / 60 * 50;
             timeRemaining = 0;
         }
 
         public void ResetPointsCommand()
         {
             points = 0;
+        }
+
+        public void ResetLivesCommand()
+        {
+            lives = 3;
         }
 
         public void Update()
