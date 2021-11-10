@@ -420,6 +420,14 @@ namespace Mario.Map
                     {
                         ISprite sprite = entities.enemyObjs[i];
                         //sprite.Collision(mario);
+
+                        if (sprite.Delete())
+                        {
+                            entities.entityObjs.Remove(sprite);
+                            sprite = null;
+                            break;
+                        }
+
                         if (sprite is Piranha)
                         {
                             if (Math.Abs(sprite.Position.X - mario.Position.X) < 32)
