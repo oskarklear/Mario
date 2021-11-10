@@ -939,6 +939,12 @@
 /processorParam:Quality=Best
 /build:SoundEffects/smw_coin.wav;SoundEffects/coin.wav
 
+#begin SoundEffects/smw_course_clear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_course_clear.wav;SoundEffects/course_clear.wav
+
 #begin SoundEffects/smw_fireball.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

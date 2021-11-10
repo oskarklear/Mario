@@ -35,6 +35,7 @@ namespace Mario.States
         {
             context.death.Play();
             context.SetPowerUpState(new DeadMarioState());
+            context.Theatre.tracker.RemoveLifeCommand();
         }
 
         public override string ToString()

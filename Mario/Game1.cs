@@ -68,6 +68,7 @@ namespace Mario
             kb.UpdateInput();
             map.Update();
             base.Update(gameTime);
+            if(!IsMenuVisible)
             tracker.Update();
             hud.Update();
             

@@ -272,7 +272,7 @@ namespace Mario
 
                     //Reset
                     case (int)Keys.R:
-                        map.Reset();
+                        map.HardReset();
                         break;
                 }
             }

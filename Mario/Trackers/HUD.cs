@@ -68,6 +68,7 @@ namespace Mario.Trackers
             TimeHUDPos.Y = Theatre.map.camera.Position.Y + 5;
             if (Tracker.lives == 0)
             {
+                Theatre.IsMenuVisible = true;
                 Theatre.map.menu.SwitchOverlay(new GameOverState(HeadsUpDisplay,Theatre.map.menu));
             }
         }
