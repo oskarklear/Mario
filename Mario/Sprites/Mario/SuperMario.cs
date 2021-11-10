@@ -556,6 +556,11 @@ namespace Mario.Sprites.Mario
                     {
                         collider.Collision(this);
                     }
+                    else if (collider is GoalGateMovingPart)
+                    {
+                        System.Diagnostics.Debug.WriteLine("collided with gate");
+                        collider.Collision(this);
+                    }
                 }
             }
 

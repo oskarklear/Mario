@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mario.Sprites.Items;
+using Mario.States;
 
 namespace Mario.Trackers
 {
@@ -51,6 +52,10 @@ namespace Mario.Trackers
             CoinSpritePos.Y = Theatre.map.camera.Position.Y + 13;
             coinSprite.Position = CoinSpritePos;
             coinSprite.Update();
+            if (Tracker.lives == 0)
+            {
+                Theatre.map.menu.SwitchOverlay(new GameOverState(HeadsUpDisplay,Theatre.map.menu));
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {

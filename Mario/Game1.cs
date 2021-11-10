@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Mario.Trackers;
+using Mario.States;
 
 namespace Mario
 {
@@ -69,6 +70,7 @@ namespace Mario
             base.Update(gameTime);
             tracker.Update();
             hud.Update();
+            
         }
 
         protected override void Draw(GameTime gameTime)
