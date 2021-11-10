@@ -37,6 +37,12 @@ namespace Mario.Sprites.Items
             pipeLeftCollisionOffset = 5;
         }
 
+/*        public bool delete()
+        {
+            if (obtained) return true;
+            else return false;
+        }*/
+
         public override void RightCollide(ISprite collider)
         {
             if (hitbox.TouchRightOf(collider.Hitbox))

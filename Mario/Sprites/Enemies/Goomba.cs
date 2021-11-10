@@ -13,40 +13,6 @@ namespace Mario.Sprites.Enemies
 {
     class Goomba : SpriteTemplate
     {
-        int timeSinceLastFrame;
-        int millisecondsPerFrame;
-        int currentFrame;
-        int Columns;
-        Texture2D textureLeft;
-        Texture2D textureRight;
-        Vector2 position;
-        Vector2 velocity;
-        bool direction;
-        bool facingLeft;
-        Game1 Theatre;
-        bool dead;
-        public Vector2 Position
-        {
-            get { return position; }
-        }
-        private bool showHitbox;
-        public bool ShowHitbox
-        {
-            get { return showHitbox; }
-            set { showHitbox = value; }
-        }
-        Rectangle hitbox;
-        public Rectangle Hitbox
-        {
-            get { return hitbox; }
-            set { hitbox = value; }
-        }
-        public bool isShell { get; set; }
-        public bool delete()
-        {
-            return true;
-        }
-
         public Goomba(Game1 theatre, Vector2 location)
         {
             textureLeft = theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
@@ -134,6 +100,27 @@ namespace Mario.Sprites.Enemies
                 position.X = hitbox.X;
                 horizontalDirection = !horizontalDirection;
             }
+        }
+
+        public override void Collision(ISprite collider)
+        {
+            MarioCollision(collider);
+
+            if (collider is Fireball)
+            {
+                if (hitbox.TouchTopOf(collider.Hitbox) || hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    obtained = true;
+                    (collider as Fireball).Deleted = true;
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
+            }
+
+            TopCollide(collider);
+            RightCollide(collider);
+            LeftCollide(collider);
+            BottomCollide(collider);
         }
     }
 }
