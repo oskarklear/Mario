@@ -7,6 +7,7 @@ using Mario.Map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Mario.States
 {
@@ -74,6 +75,7 @@ namespace Mario.States
 
         public override void Pause(Overlay context)
         {
+            MediaPlayer.Resume();
             context.SwitchOverlay(new NoOverlayState(MenuFont,context));
         }
 
@@ -132,6 +134,7 @@ namespace Mario.States
         }
         public override void Pause(Overlay context)
         {
+            MediaPlayer.Pause();
             context.SwitchOverlay(new PauseState(MenuFont,context));
         }
 
