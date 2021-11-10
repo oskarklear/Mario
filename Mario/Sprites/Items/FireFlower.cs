@@ -11,8 +11,9 @@ namespace Mario.Sprites.Items
 {
     class FireFlower : SpriteTemplate
     {
-        public FireFlower(Game1 gameObj, Vector2 location)
+        public FireFlower(Game1 theatre, Vector2 location)
         {
+            gameObj = theatre;
             texture = gameObj.Content.Load<Texture2D>("items/fire_flower");
             position = location;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
@@ -32,6 +33,15 @@ namespace Mario.Sprites.Items
             rightCollisionOffset = 1;
             leftCollisionOffset = 1;
             bottomCollisionOffset = 0;
+        }
+        public override void MarioCollision(ISprite collider)
+        {
+            if (collider is SuperMario)
+            {
+                obtained = true;
+                hitbox = Rectangle.Empty;
+                gameObj.tracker.AddPointsCommand(1000);
+            }
         }
     }
 }

@@ -30,6 +30,7 @@ namespace Mario.Trackers
         {
             coins++;
             if (coins % 100 == 0) AddLifeCommand();
+            AddPointsCommand(200);
         }
 
         public void AddLifeCommand()
@@ -62,6 +63,11 @@ namespace Mario.Trackers
             timeRemaining = FRAMESPERSECOND * 400;
             //lifeRemovedAfterTimeRemainingIsZero = false;
             RemoveLifeCommand();
+        }
+
+        public void ResetPointsCommand()
+        {
+            points = 0;
         }
 
         public void Update()
