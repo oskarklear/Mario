@@ -44,7 +44,7 @@ namespace Mario.Sprites.Mario
         }
         private int deathTimer; //Used for the death animation
         private int topHeight; //Used for the death animation
-
+        private SoundEffect warpsound;
 
 
         public SuperMario(Game1 theatre, Vector2 location, MarioContext context)
@@ -65,6 +65,7 @@ namespace Mario.Sprites.Mario
             delay = 0;
             deathTimer = 60;
             topHeight = 30;
+            warpsound = theatre.Content.Load<SoundEffect>("SoundEffects/pipe");
         }
 
         public void MoveLeftCommand()
@@ -440,6 +441,7 @@ namespace Mario.Sprites.Mario
             {
                 // if warping
                 hitbox = Rectangle.Empty;
+                
                 if (overworld)
                 {
                     if (warpAnimCount < 30)
@@ -508,7 +510,7 @@ namespace Mario.Sprites.Mario
        
         private void initiateWarp()
         {
-
+            warpsound.Play();
             warp = true;
             warpAnimCount = 0;
             //System.Diagnostics.Debug.WriteLine("fuck");
@@ -530,6 +532,7 @@ namespace Mario.Sprites.Mario
                 {
                     if (hitbox.TouchLeftOf((collider as SidePipe).hitbox))
                     {
+
                         isWarpableVertical = true;
                         System.Diagnostics.Debug.Write("big farty left");
                     }
@@ -623,7 +626,6 @@ namespace Mario.Sprites.Mario
 
                         if (collider is Goomba || collider is Piranha)
                         {
-                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
@@ -703,7 +705,6 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is GoalGateMovingPart)
                     {
-                        System.Diagnostics.Debug.WriteLine("collided with gate");
                         collider.Collision(this);
                     }
                 }

@@ -1,0 +1,13 @@
+﻿Author: Kyle Shin
+Date: 11/9/21
+Sprint: 4
+Name of the file being reviewed: OverlayState.cs
+Author: Bennett Palmer
+Comments:
+- Good reusability. 
+- Low cyclomatic complexity
+- All variables are public. 
+
+Minutes taken: 5
+
+Hypothetical Change: Change permissions for variables (private/protected) so not all variables are public.

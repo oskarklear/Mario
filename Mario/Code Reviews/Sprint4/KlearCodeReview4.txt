@@ -1,0 +1,12 @@
+Oskar Klear
+11/9/2021
+Sprint 4
+Tracker.cs
+Matt
+- Lots of magic numbers
+- System diagnostic line leftovers, bad for performance
+- High coupling
+- All variables are public
+
+2 Minutes
+- I would rework the class to implement TrackerCommands; command design pattern seems unnecessary here. I'd rework to make it a static class in order to provide better usability and less coupling throughout the project.

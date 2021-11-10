@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework.Media;
 using Mario.Trackers;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Mario.Map
 {
@@ -65,6 +66,7 @@ namespace Mario.Map
         bool inOverworld;
         Song OverworldTheme;
         Song UndergroundTheme;
+        SoundEffect TimeWarning;
         public StatTracker tracker;
         Vector2 spawnPos;
         ICommand ResetTimeRemainingCommand { get; set; }
@@ -83,6 +85,7 @@ namespace Mario.Map
             camera.Limits = new Rectangle(0, 0, 3584, 272);
             OverworldTheme = theatre.Content.Load<Song>("OverworldTheme");
             UndergroundTheme = theatre.Content.Load<Song>("UndergroundTheme");
+            TimeWarning = theatre.Content.Load<SoundEffect>("SoundEffects/time_warning");
             MediaPlayer.IsRepeating = true;
             ResetTimeRemainingCommand = new ResetTimeRemainingCommand(theatre.tracker);
             ResetPointsCommand = new ResetPointsCommand(theatre.tracker);
@@ -214,7 +217,7 @@ namespace Mario.Map
                                 collisionZones[(i * 15 + 32) / 256].Add(new SidePipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;
                             case 61:  //Coin
-                                entities.entityObjs.Add(new MapCoin(theatre, new Vector2(i * COINW, j * COINH)));
+                                entities.entityObjs.Add(new MapCoin(theatre, new Vector2(i * 16, j * COINH)));
                                 break;
                             case 111:  //Green Mushroom
                                 entities.entityObjs.Add(new GreenMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
@@ -528,7 +531,7 @@ namespace Mario.Map
                     if (mario.overworld)
                     {
                         inOverworld = true;
-                        spawnPos = new Vector2(2624, 220);
+                        spawnPos = new Vector2(2624, 210);
                         Reset();
                     }
                     else
@@ -537,6 +540,10 @@ namespace Mario.Map
                         Reset();
                     }
                     
+                }
+                if (tracker.timeRemaining == 6000)
+                {
+                    TimeWarning.Play();
                 }
                 if (tracker.timeRemaining == 0)
                     mario.context.DieInPit();
@@ -557,12 +564,16 @@ namespace Mario.Map
             theatre.IsMenuVisible = false;
             reset = true;
             if (!mario.warped)
-                    ResetTimeRemainingCommand.Execute();
+            {
+                ResetTimeRemainingCommand.Execute();
+                mario.context.SetPowerUpState(new StandardMarioState());
+            }
             GenerateMap();
             mario.warp = false;
             mario.warped = false;
             mario.isWarpableHorizontal = false;
             mario.Position = spawnPos;
+            mario.context.SetActionState(new IdleState(mario.context));
             ResetPointsCommand.Execute();
         }
 
