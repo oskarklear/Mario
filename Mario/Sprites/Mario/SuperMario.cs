@@ -24,6 +24,9 @@ namespace Mario.Sprites.Mario
         DynamicEntities entities;
         Kinematics kinematics;
         int fireballCooldown;
+        public bool warp;
+        public bool warped;
+        public bool isWarpable;
         int delay;
 
         public MarioContext context { get; set; }
@@ -86,7 +89,14 @@ namespace Mario.Sprites.Mario
         {
             if (!(context.GetPowerUpState() is DeadMarioState))
             {
-                context.GetActionState().FallingTransition();
+                if (!isWarpable)
+                {
+                    context.GetActionState().FallingTransition();
+                } else if (!warped)
+                {
+                    initiateWarp();
+                }
+                
             }
         }
 
@@ -125,8 +135,60 @@ namespace Mario.Sprites.Mario
 
         }
 
-        public override void Update()
+        int warpAnimCount = 0;
+
+        public void Update()
         {
+            if (!warp)
+            {
+
+                fireballCooldown += 1;
+                if (context.GetPowerUpState().ToString().Equals("StandardMario"))
+                {
+                    switch (context.GetActionState().ToString())
+                    {
+                        case "IdleState":
+                            if (context.facingLeft)
+                                texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioL");
+                            else
+                                texture = Theatre.Content.Load<Texture2D>("mario/smallIdleMarioR");
+                            Columns = 1;
+                            animated = false;
+                            break;
+                        case "CrouchingState":
+                            if (context.facingLeft)
+                                texture = Theatre.Content.Load<Texture2D>("mario/smallCrouchingMarioL");
+                            else
+                                texture = Theatre.Content.Load<Texture2D>("mario/smallCrouchingMarioR");
+                            Columns = 1;
+                            animated = false;
+                            break;
+                        case "JumpingState":
+                            if (context.facingLeft)
+                                texture = Theatre.Content.Load<Texture2D>("mario/smallJumpingMarioL");
+                            else
+                                texture = Theatre.Content.Load<Texture2D>("mario/smallJumpingMarioR");
+                            Columns = 1;
+                            animated = false;
+                            break;
+                        case "FallingState":
+                            if (context.facingLeft)
+                                texture = Theatre.Content.Load<Texture2D>("mario/smallFallingMarioL");
+                            else
+                                texture = Theatre.Content.Load<Texture2D>("mario/smallFallingMarioR");
+                            Columns = 1;
+                            animated = false;
+                            break;
+                        case "RunningState":
+                            if (context.facingLeft)
+                                texture = Theatre.Content.Load<Texture2D>("mario/smallRunningMarioL");
+                            else
+                                texture = Theatre.Content.Load<Texture2D>("mario/smallRunningMarioR");
+                            Columns = 3;
+                            animated = true;
+                            break;
+                    }
+                }
             fireballCooldown += 1;
             if (context.GetPowerUpState().ToString().Equals("StandardMario"))
             {
@@ -302,16 +364,16 @@ namespace Mario.Sprites.Mario
                 timeSinceLastFrame++;
             }
 
-            //set mario's new pos
-            position.X += context.Velocity.X;
-            position.Y -= context.Velocity.Y;
+                //set mario's new pos
+                position.X += context.Velocity.X;
+                position.Y -= context.Velocity.Y;
 
-            //If mario moves to the right or left, he cannot be touching anything
-            if (Math.Abs(context.Velocity.X) > 0 || Math.Abs(context.Velocity.Y) > 0)
-            {
-                context.isTouchingLeft = false;
-                context.isTouchingRight = false;
-            }
+                //If mario moves to the right or left, he cannot be touching anything
+                if (Math.Abs(context.Velocity.X) > 0 || Math.Abs(context.Velocity.Y) > 0)
+                {
+                    context.isTouchingLeft = false;
+                    context.isTouchingRight = false;
+                }
 
             //If mario is not touching ground, GRAVITY
             if (!context.isTouchingTop)
@@ -338,21 +400,44 @@ namespace Mario.Sprites.Mario
                 context.isFalling = false;
             }
 
-            if (context.GetPowerUpState().ToString().Equals("StandardMario"))
-                hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
-            //else if (context.GetPowerUpState().ToString().Equals("DeadMario"))
-                //hitbox = Rectangle.Empty;
-            else
-            {
-                if (context.GetActionState().ToString().Equals("CrouchingState"))
-                    hitbox = new Rectangle((int)position.X, (int)position.Y + 12, 15, 15);
-                else
-                    hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 28);
-            }
+                if (context.GetPowerUpState().ToString().Equals("StandardMario"))
 
-            //Reset collision
-            context.isTouchingTop = false;
-            context.isTouchingBottom = false;
+                    hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
+
+
+                //else if (context.GetPowerUpState().ToString().Equals("DeadMario"))
+                //hitbox = Rectangle.Empty;
+                else
+                {
+
+                    if (context.GetActionState().ToString().Equals("CrouchingState"))
+                        hitbox = new Rectangle((int)position.X, (int)position.Y + 12, 15, 15);
+                    else
+                        hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 28);
+
+                }
+
+                //Reset collision
+                context.isTouchingTop = false;
+                context.isTouchingBottom = false;
+            } else
+            {
+                // if warping
+                hitbox = Rectangle.Empty;
+
+                if (warpAnimCount < 30)
+                {
+                    position.Y += 1;
+                    //position.X += 10;
+                    warpAnimCount++;
+                } else
+                {
+                    warped = true;
+                    //System.Diagnostics.Debug.WriteLine("BIG ASS");
+                }
+                
+
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -383,11 +468,28 @@ namespace Mario.Sprites.Mario
                 delay--;
             }
         }
+       
+        private void initiateWarp()
+        {
+
+            warp = true;
+            warpAnimCount = 0;
+            //System.Diagnostics.Debug.WriteLine("fuck");
+        }
 
         public override void Collision(ISprite collider)
         {
             if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha)
             {
+                if (collider is Pipe)
+                {
+                    if (hitbox.TouchTopOf((collider as Pipe).WarpHitbox))
+                    {
+                        isWarpable = true;
+                        System.Diagnostics.Debug.WriteLine("big farty");
+                    }
+                }
+                     
                 if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))
                 {
                     if (hitbox.TouchBottomOf(collider.Hitbox))

@@ -353,24 +353,47 @@ namespace Mario.Map
                             sprite.ShowHitbox = false;
                     }
 
-                    foreach (ISprite sprite in entities.entityObjs)
+                for (int i = 0; i < entities.entityObjs.Count; i++)
+                {
+                    ISprite sprite = entities.entityObjs[i];
+
+                    if (sprite.delete())
                     {
-                        if (!(sprite is MapCoin))
+                        entities.entityObjs.Remove(sprite);
+                        sprite = null;
+                        break;
+                    }
+
+                    if (!(sprite is MapCoin))
+                    {
+                        if (sprite.Position.X > 256)
                         {
-                            if (sprite.Position.X > 256)
+                            for (int i1 = 0; i1 < collisionZones[((int)(sprite.Position.X / 256)) - 1].Count; i1++)
                             {
-                                foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) - 1])
+                                ISprite block = collisionZones[((int)(sprite.Position.X / 256)) - 1][i1];
+
+                                if (block is BlockContext || block is Pipe)
                                 {
-                                    if (block is BlockContext || block is Pipe)
-                                    {
-                                        sprite.Collision(block);
-                                        if (mario.context.ShowHitbox)
-                                            sprite.ShowHitbox = true;
-                                        else sprite.ShowHitbox = false;
-                                    }
+                                    sprite.Collision(block);
+                                    if (mario.context.ShowHitbox)
+                                        sprite.ShowHitbox = true;
+                                    else sprite.ShowHitbox = false;
                                 }
                             }
-                            foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
+                        }
+                        foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
+                        {
+                            if (block is BlockContext || block is Pipe)
+                            {
+                                sprite.Collision(block);
+                                if (mario.context.ShowHitbox)
+                                    sprite.ShowHitbox = true;
+                                else sprite.ShowHitbox = false;
+                            }
+                        }
+                        if (sprite.Position.X < 3328)
+                        {
+                            foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) + 1])
                             {
                                 if (block is BlockContext || block is Pipe)
                                 {
@@ -380,21 +403,9 @@ namespace Mario.Map
                                     else sprite.ShowHitbox = false;
                                 }
                             }
-                            if (sprite.Position.X < 3328)
-                            {
-                                foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) + 1])
-                                {
-                                    if (block is BlockContext || block is Pipe)
-                                    {
-                                        sprite.Collision(block);
-                                        if (mario.context.ShowHitbox)
-                                            sprite.ShowHitbox = true;
-                                        else sprite.ShowHitbox = false;
-                                    }
-                                }
-                            }
                         }
                     }
+                }
 
                     for (int i = 0; i < entities.enemyObjs.Count; i++)
                     {

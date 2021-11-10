@@ -8,6 +8,7 @@ using Mario.States;
 using Mario.Sprites.Mario;
 using Mario.Sprites.Items;
 using Mario.Map;
+using Mario.Sprites.Projectiles;
 
 namespace Mario.Sprites.Enemies
 {
@@ -161,6 +162,19 @@ namespace Mario.Sprites.Enemies
                     System.Diagnostics.Debug.WriteLine("");
                     isMoving = true;
                     shellDirection = 1;
+                }
+
+            }
+
+            if (collider is Fireball)
+            {
+                if (hitbox.TouchTopOf(collider.Hitbox) || hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    dead = true;
+                    deleted = true;
+                    (collider as Fireball).Deleted = true;
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
                 }
 
             }

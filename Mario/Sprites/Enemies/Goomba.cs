@@ -7,13 +7,46 @@ using System.Text;
 using Mario.States;
 using Mario.Sprites.Mario;
 using Mario.Sprites.Items;
-//using Mario.Sprites;
-//using Mario;
+using Mario.Sprites.Projectiles;
 
 namespace Mario.Sprites.Enemies
 {
     class Goomba : SpriteTemplate
     {
+        int timeSinceLastFrame;
+        int millisecondsPerFrame;
+        int currentFrame;
+        int Columns;
+        Texture2D textureLeft;
+        Texture2D textureRight;
+        Vector2 position;
+        Vector2 velocity;
+        bool direction;
+        bool facingLeft;
+        Game1 Theatre;
+        bool dead;
+        public Vector2 Position
+        {
+            get { return position; }
+        }
+        private bool showHitbox;
+        public bool ShowHitbox
+        {
+            get { return showHitbox; }
+            set { showHitbox = value; }
+        }
+        Rectangle hitbox;
+        public Rectangle Hitbox
+        {
+            get { return hitbox; }
+            set { hitbox = value; }
+        }
+        public bool isShell { get; set; }
+        public bool delete()
+        {
+            return true;
+        }
+
         public Goomba(Game1 theatre, Vector2 location)
         {
             textureLeft = theatre.Content.Load<Texture2D>("enemies/goomba/goombaLeft");
