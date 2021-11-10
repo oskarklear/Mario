@@ -54,6 +54,7 @@ namespace Mario.Trackers
             coinSprite.Update();
             if (Tracker.lives == 0)
             {
+                Theatre.IsMenuVisible = true;
                 Theatre.map.menu.SwitchOverlay(new GameOverState(HeadsUpDisplay,Theatre.map.menu));
             }
         }
