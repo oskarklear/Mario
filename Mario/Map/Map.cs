@@ -524,12 +524,16 @@ namespace Mario.Map
             bgObjects.Clear();
             menu.SwitchOverlay(new NoOverlayState(font,menu));
             theatre.IsMenuVisible = false;
-            
             reset = true;
+            if (!mario.warped)
+                    ResetTimeRemainingCommand.Execute();
             GenerateMap();
+            mario.warp = false;
+            mario.warped = false;
+            mario.isWarpable = false;
             mario.Position = new Vector2(100, 230);
             mario.context.SetPowerUpState(new StandardMarioState());
-            ResetTimeRemainingCommand.Execute();
+            
         }
         public void HardReset()
         {
