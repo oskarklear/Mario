@@ -513,12 +513,11 @@ namespace Mario.Sprites.Mario
             warpsound.Play();
             warp = true;
             warpAnimCount = 0;
-            //System.Diagnostics.Debug.WriteLine("fuck");
         }
 
         public override void Collision(ISprite collider)
         {
-            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha || collider is SidePipe || collider is LongPipe)
+            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha || collider is SidePipe || collider is LongPipe || collider is SpikeBlock)
             {
                 if (collider is Pipe)
                 {
@@ -552,7 +551,7 @@ namespace Mario.Sprites.Mario
                         hitbox.Y = collider.Hitbox.Y - hitbox.Height - 1;
                         position.Y = hitbox.Y;
                         context.Velocity.Y = 0f;    
-                        if (collider is Piranha)
+                        if (collider is Piranha || collider is SpikeBlock)
                         {
                             System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
@@ -590,7 +589,7 @@ namespace Mario.Sprites.Mario
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba || collider is Piranha)
+                        if (collider is Goomba || collider is Piranha || collider is SpikeBlock)
                         {
                             System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
@@ -624,7 +623,7 @@ namespace Mario.Sprites.Mario
                             hitbox.X = collider.Hitbox.X + hitbox.Width + 18;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba || collider is Piranha)
+                        if (collider is Goomba || collider is Piranha || collider is SpikeBlock)
                         {
                             if (delay <= 0)
                             {

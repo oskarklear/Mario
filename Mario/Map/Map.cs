@@ -201,6 +201,9 @@ namespace Mario.Map
                                 ublock.SetState(new UsedBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(ublock);
                                 break;
+                            case 3: //Spike block
+                                collisionZones[(i * 15 + 32) / 256].Add(new SpikeBlock(theatre, new Vector2(i * 16, j * 16)));
+                                break;
                             case 4: //Upside down pipe
                                 collisionZones[(i * 15 + 32) / 256].Add(new UpsidedownPipe(theatre, new Vector2(i * 16, j * 15)));
                                 break;

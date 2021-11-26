@@ -843,6 +843,18 @@
 /processorParam:TextureFormat=Color
 /build:obstacles/sidepipe.png
 
+#begin obstacles/SMM-SMW-Spikes.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:obstacles/SMM-SMW-Spikes.png;obstacles/SpikeBlock.png
+
 #begin obstacles/UBrickBlock.png
 /importer:TextureImporter
 /processor:TextureProcessor
