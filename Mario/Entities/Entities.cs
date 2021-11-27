@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Mario.Sprites;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using Mario.Sprites.Items;
 using Mario.Sprites.Projectiles;
+using Mario.Sprites.Enemies;
 
 namespace Mario.Entities
 {
@@ -14,6 +16,12 @@ namespace Mario.Entities
         public List<ISprite> fireBallObjs = new List<ISprite>();
         public List<ISprite> enemyObjs = new List<ISprite>();
 
+        private Game1 gameObj;
+
+        public DynamicEntities(Game1 theatre)
+        {
+            gameObj = theatre;
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -39,6 +47,16 @@ namespace Mario.Entities
             {
                 enemy.Update();
             }
+        }
+
+        public void NewKoopa(Vector2 location)
+        {
+            enemyObjs.Add(new Koopa(gameObj, new Vector2(location.X, location.Y)));
+        }
+
+        public void NewParakoopa(Vector2 location)
+        {
+            enemyObjs.Add(new Parakoopa(gameObj, new Vector2(location.X, location.Y)));
         }
     }
 }

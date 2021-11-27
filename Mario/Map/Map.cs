@@ -77,7 +77,7 @@ namespace Mario.Map
         {
             this.theatre = theatre;
             tracker = this.theatre.tracker;
-            entities = new DynamicEntities();
+            entities = new DynamicEntities(theatre);
             overworld = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
             underground = File.ReadLines("1-1Sub.csv").Select(x => x.Split(',')).ToArray();
             reset = false;
@@ -239,6 +239,9 @@ namespace Mario.Map
                                 break;
                             case 32:  //Piranha
                                 entities.enemyObjs.Add(new Piranha(theatre, new Vector2(i * BLOCK + 5, j * BLOCK - 17)));
+                                break;
+                            case 33: //Parakoopa
+                                entities.enemyObjs.Add(new Parakoopa(theatre, new Vector2(i * BLOCK, j * BLOCK)));
                                 break;
                             case 51: //Cloud
                                 bgLayerFar.Sprites.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));

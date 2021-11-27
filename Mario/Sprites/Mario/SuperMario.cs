@@ -518,7 +518,7 @@ namespace Mario.Sprites.Mario
 
         public override void Collision(ISprite collider)
         {
-            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha || collider is SidePipe || collider is LongPipe)
+            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha || collider is Parakoopa || collider is SidePipe || collider is LongPipe)
             {
                 if (collider is Pipe)
                 {
@@ -561,7 +561,7 @@ namespace Mario.Sprites.Mario
                                 delay = delaytime;
                             }
                         }
-                        if (collider is Goomba)
+                        if (collider is Goomba || collider is Parakoopa)
                         {
                             //collider.Collision(this);
                             context.stomp.Play();
@@ -590,7 +590,7 @@ namespace Mario.Sprites.Mario
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
 
-                        if (collider is Goomba || collider is Piranha)
+                        if (collider is Goomba || collider is Piranha || collider is Parakoopa)
                         {
                             System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
