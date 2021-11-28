@@ -34,6 +34,7 @@ namespace Mario.Sprites.Mario
         public bool overworld;
         int delay;
         public Vector2 spawn;
+        
 
         public MarioContext context { get; set; }
 
@@ -301,52 +302,99 @@ namespace Mario.Sprites.Mario
                 }
             }
 
-            if (context.GetPowerUpState().ToString().Equals("FireMario"))
-            {
-                switch (context.GetActionState().ToString())
+                if (context.GetPowerUpState().ToString().Equals("FireMario"))
                 {
-                    case "IdleState":
-                        if (context.facingLeft)
-                            texture = gameObj.Content.Load<Texture2D>("mario/fireIdleMarioL");
-                        else
-                            texture = gameObj.Content.Load<Texture2D>("mario/fireIdleMarioR");
-                        columns = 1;
-                        isAnimated = false;
-                        break;
-                    case "CrouchingState":
-                        if (context.facingLeft)
-                            texture = gameObj.Content.Load<Texture2D>("mario/fireCrouchingMarioL");
-                        else
-                            texture = gameObj.Content.Load<Texture2D>("mario/fireCrouchingMarioR");
-                        columns = 1;
-                        isAnimated = false;
-                        break;
-                    case "JumpingState":
-                        if (context.facingLeft)
-                            texture = gameObj.Content.Load<Texture2D>("mario/fireJumpingMarioL");
-                        else
-                            texture = gameObj.Content.Load<Texture2D>("mario/fireJumpingMarioR");
-                        columns = 1;
-                        isAnimated = false;
-                        break;
-                    case "FallingState":
-                        if (context.facingLeft)
-                            texture = gameObj.Content.Load<Texture2D>("mario/fireFallingMarioL");
-                        else
-                            texture = gameObj.Content.Load<Texture2D>("mario/fireFallingMarioR");
-                        columns = 1;
-                        isAnimated = false;
-                        break;
-                    case "RunningState":
-                        if (context.facingLeft)
-                            texture = gameObj.Content.Load<Texture2D>("mario/fireRunningMarioL");
-                        else
-                            texture = gameObj.Content.Load<Texture2D>("mario/fireRunningMarioR");
-                        columns = 3;
-                        isAnimated = true;
-                        break;
+                    switch (context.GetActionState().ToString())
+                    {
+                        case "IdleState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/fireIdleMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/fireIdleMarioR");
+                            columns = 1;
+                            isAnimated = false;
+                            break;
+                        case "CrouchingState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/fireCrouchingMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/fireCrouchingMarioR");
+                            columns = 1;
+                            isAnimated = false;
+                            break;
+                        case "JumpingState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/fireJumpingMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/fireJumpingMarioR");
+                            columns = 1;
+                            isAnimated = false;
+                            break;
+                        case "FallingState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/fireFallingMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/fireFallingMarioR");
+                            columns = 1;
+                            isAnimated = false;
+                            break;
+                        case "RunningState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/fireRunningMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/fireRunningMarioR");
+                            columns = 3;
+                            isAnimated = true;
+                            break;
+                    }
+
+                    if (context.GetPowerUpState().ToString().Equals("CapeMario"))
+                    {
+                        switch (context.GetActionState().ToString())
+                        {
+                            case "IdleState":
+                                if (context.facingLeft)
+                                    texture = gameObj.Content.Load<Texture2D>("mario/CapeIdleMarioL");
+                                else
+                                    texture = gameObj.Content.Load<Texture2D>("mario/CapeIdleMarioR");
+                                columns = 1;
+                                isAnimated = false;
+                                break;
+                            case "CrouchingState":
+                                if (context.facingLeft)
+                                    texture = gameObj.Content.Load<Texture2D>("mario/CapeCrouchingMarioL");
+                                else
+                                    texture = gameObj.Content.Load<Texture2D>("mario/CapeCrouchingMarioR");
+                                columns = 1;
+                                isAnimated = false;
+                                break;
+                            case "JumpingState":
+                                if (context.facingLeft)
+                                    texture = gameObj.Content.Load<Texture2D>("mario/CapeJumpingMarioL");
+                                else
+                                    texture = gameObj.Content.Load<Texture2D>("mario/CapeJumpingMarioR");
+                                columns = 1;
+                                isAnimated = false;
+                                break;
+                            case "FallingState":
+                                if (context.facingLeft)
+                                    texture = gameObj.Content.Load<Texture2D>("mario/CapeFallingMarioL");
+                                else
+                                    texture = gameObj.Content.Load<Texture2D>("mario/CapeFallingMarioR");
+                                columns = 1;
+                                isAnimated = false;
+                                break;
+                            case "RunningState":
+                                if (context.facingLeft)
+                                    texture = gameObj.Content.Load<Texture2D>("mario/CapeRunningMarioL");
+                                else
+                                    texture = gameObj.Content.Load<Texture2D>("mario/CapeRunningMarioR");
+                                columns = 3;
+                                isAnimated = true;
+                                break;
+                        }
+                    }
                 }
-            }
 
             if (context.GetPowerUpState().ToString().Equals("DeadMario"))
             {
