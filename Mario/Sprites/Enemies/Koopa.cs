@@ -20,6 +20,7 @@ namespace Mario.Sprites.Enemies
         int shellDirection;
         int shellSpeed;
         bool dead;
+        int invincibility;
 
         public Koopa(Game1 theatre, Vector2 location)
         {
@@ -48,7 +49,7 @@ namespace Mario.Sprites.Enemies
             dead = false;
             shellDirection = 1;
             shellSpeed = 2;
-
+            invincibility = 10;
             topCollisionOffset = 2;
             rightCollisionOffset = 2;
             leftCollisionOffset = 8;
@@ -98,6 +99,7 @@ namespace Mario.Sprites.Enemies
 
         public override void Move()
         {
+            System.Diagnostics.Debug.WriteLine("Koopa: " + hitbox.X + ", " + hitbox.Y);
             if (horizontalDirection)
             {
                 position.X += velocity.X;
@@ -112,6 +114,11 @@ namespace Mario.Sprites.Enemies
 
         public override void Update()
         {
+            if (invincibility > 0)
+            {
+                invincibility--;
+            }
+
             if (!isShell)
             {
                 Gravity();
@@ -244,12 +251,13 @@ namespace Mario.Sprites.Enemies
 
         public override void MarioCollision(ISprite collider)
         {
-            if (collider is SuperMario)
+            if (collider is SuperMario && invincibility <= 0)
             {
                 obtained = true;
                 hitbox = Rectangle.Empty;
                 velocity.X = 0f;
                 velocity.Y = 0f;
+                gameObj.map.entities.NewKoopaShell(position);
                 gameObj.tracker.AddPointsCommand(100);
             }
         }

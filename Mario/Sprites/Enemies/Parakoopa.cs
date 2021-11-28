@@ -52,7 +52,7 @@ namespace Mario.Sprites.Enemies
 
         public override void Move()
         {
-            System.Diagnostics.Debug.WriteLine("Koopa: " + hitbox.X + ", " + hitbox.Y);
+            //System.Diagnostics.Debug.WriteLine("Koopa: " + hitbox.X + ", " + hitbox.Y);
             if (counter < 100)
             {
                 if (verticalDirection)

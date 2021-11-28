@@ -54,6 +54,11 @@ namespace Mario.Entities
             enemyObjs.Add(new Koopa(gameObj, new Vector2(location.X, location.Y)));
         }
 
+        public void NewKoopaShell(Vector2 location)
+        {
+            enemyObjs.Add(new KoopaShell(gameObj, new Vector2(location.X, location.Y + 7)));
+        }
+
         public void NewParakoopa(Vector2 location)
         {
             enemyObjs.Add(new Parakoopa(gameObj, new Vector2(location.X, location.Y)));

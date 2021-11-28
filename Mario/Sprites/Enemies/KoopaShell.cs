@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Mario.Sprites.Enemies
 {
-    class koopaShell : ISprite
+    /*class koopaShell : ISprite
     {
         Texture2D texture;
         public Vector2 position;
@@ -38,8 +38,8 @@ namespace Mario.Sprites.Enemies
         {
             position = location;
 
-            if (color == 0) theatre.Content.Load<Texture2D>("enemies/koopa/koopa_shell_green_init");
-            else theatre.Content.Load<Texture2D>("enemies/koopa/red_init");
+            if (color == 0) texture = theatre.Content.Load<Texture2D>("enemies/koopa/koopa_shell_green_init");
+            else texture = theatre.Content.Load<Texture2D>("enemies/koopa/red_init");
 
             hitbox = new Rectangle((int)location.X, (int)location.Y, 10, 10);
             showHitbox = false;
@@ -47,7 +47,7 @@ namespace Mario.Sprites.Enemies
             direction = 1;
             isMoving = false;
             speed = 2;
-
+            //deleted = true;
         }
 
         public void Collision(ISprite collider)
@@ -101,5 +101,57 @@ namespace Mario.Sprites.Enemies
             }
         }
 
+    }*/
+
+    class KoopaShell : SpriteTemplate
+    {
+        public KoopaShell(Game1 theatre, Vector2 location)
+        {
+            gameObj = theatre;
+            texture = theatre.Content.Load<Texture2D>("enemies/koopa/koopa_shell_green_init");
+            position = location;
+            velocity.Y = 1f;
+            velocity.X = 0f;
+            hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
+            showHitbox = false;
+            obtained = false;
+            spawning = false;
+            isAnimated = false;
+            useGravity = true;
+            spawnsFromBlock = false;
+        }
+
+        public override void TopCollide(ISprite collider)
+        {
+            if (hitbox.TouchTopOf(collider.Hitbox))
+            {
+                hitbox.Y = collider.Hitbox.Y - hitbox.Height - topCollisionOffset;
+                position.Y = hitbox.Y;
+                horizontalDirection = gameObj.map.Mario.Position.X < position.X ? true : false;
+                velocity.X = 2f;
+            }
+        }
+
+        public override void RightCollide(ISprite collider)
+        {
+            if (hitbox.TouchRightOf(collider.Hitbox))
+            {
+                hitbox.X = collider.Hitbox.X + hitbox.Width + rightCollisionOffset;
+                position.X = hitbox.X;
+                horizontalDirection = true;
+                velocity.X = 2f;
+            }
+        }
+
+        public override void LeftCollide(ISprite collider)
+        {
+            if (hitbox.TouchLeftOf(collider.Hitbox))
+            {
+                hitbox.X = collider.Hitbox.X - hitbox.Width - leftCollisionOffset;
+                position.X = hitbox.X;
+                horizontalDirection = false;
+                velocity.X = 2f;
+            }
+        }
     }
 }

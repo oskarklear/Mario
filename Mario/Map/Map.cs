@@ -437,9 +437,9 @@ namespace Mario.Map
 
                         if (sprite.Delete())
                         {
-                            entities.entityObjs.Remove(sprite);
-                            sprite = null;
-                            break;
+                            //entities.entityObjs.Remove(sprite);
+                            //sprite = null;
+                            //break;
                         }
 
                         if (sprite is Piranha)
