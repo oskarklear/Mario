@@ -26,11 +26,12 @@ namespace Mario.Map
         protected const int BRICKBLOCK = 11;
         protected const int RMQBLOCK = 12;
         protected const int GMQBLOCK = 13;
-        protected const int FLOWERQBLOCK = 14;
+        protected const int FLOWERQBLOCK = 14;       
         protected const int STARQBLOCK = 15;
         protected const int COINQBLOCK = 16;
         protected const int ONECOINBRICKBLOCK = 17;
         protected const int TENCOINBRICKBLOCK = 18;
+        protected const int BALLOONQBLOCK = 21;
         protected const int PIPE = 6;
         public List<ISprite> bgObjects = new List<ISprite>();
         public List<ISprite>[] collisionZones = new List<ISprite>[14];
@@ -156,6 +157,11 @@ namespace Mario.Map
                                 fireFlowerQuestionBlock.SetState(new FireFlowerQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(fireFlowerQuestionBlock);
                                 break;
+                            case BALLOONQBLOCK: //Fire Flower Question Block
+                                BlockContext pBalloonQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                pBalloonQuestionBlock.SetState(new PBalloonQuestionBlockState());
+                                collisionZones[(i * BLOCK) / 256].Add(pBalloonQuestionBlock);
+                                break;
                             case STARQBLOCK: //Star Question Block
                                 BlockContext starQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 starQuestionBlock.SetState(new StarQuestionBlockState());
@@ -230,6 +236,9 @@ namespace Mario.Map
                                 break;
                             case 133:  //Fire Flower
                                 entities.entityObjs.Add(new FireFlower(theatre, new Vector2(i * BLOCK, j * BLOCK)));
+                                break;
+                            case 134:  //P Balloon
+                                entities.entityObjs.Add(new PBalloon(theatre, new Vector2(i * BLOCK, j * BLOCK)));
                                 break;
                             case 144:  //Star
                                 entities.entityObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK), Mario));

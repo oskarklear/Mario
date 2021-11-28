@@ -679,6 +679,11 @@ namespace Mario.Sprites.Mario
                         collider.Collision(this);
                         context.GetFireFlower();
                     }
+                    if (collider is PBalloon)
+                    {
+                        collider.Collision(this);
+                        //Add get p balloon command
+                    }
                     else if (collider is RedMushroom)
                     {
                         collider.Collision(this);
