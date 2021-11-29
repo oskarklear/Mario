@@ -281,6 +281,25 @@ namespace Mario.States
 		}
 	}
 
+	class CapeFeatherQuestionBlockState : BlockState
+	{
+		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
+		{
+			context.powerup_appears.Play();
+			context.SetState(new UsedBlockState());
+			Vector2 featherLocation = sprite.GetLocation();
+			featherLocation.Y -= 3;
+			dynamicEntities.entityObjs.Add(new CapeFeather(context.GetGame(), featherLocation, superMario));
+			this.Movement(sprite);
+
+		}
+
+		public override string ToString()
+		{
+			return "QuestionBlock";
+		}
+	}
+
 	class StarQuestionBlockState : BlockState
 	{
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)

@@ -85,7 +85,7 @@ namespace Mario.Sprites
             }
         }
 
-        public void Gravity()
+        public virtual void Gravity()
         {
             if (useGravity) position.Y += velocity.Y;
         }

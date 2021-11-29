@@ -32,6 +32,7 @@ namespace Mario.Map
         protected const int ONECOINBRICKBLOCK = 17;
         protected const int TENCOINBRICKBLOCK = 18;
         protected const int BALLOONQBLOCK = 21;
+        protected const int FEATHERQBLOCK = 22;
         protected const int PIPE = 6;
         public List<ISprite> bgObjects = new List<ISprite>();
         public List<ISprite>[] collisionZones = new List<ISprite>[14];
@@ -152,12 +153,17 @@ namespace Mario.Map
                                 greenMushroomQuestionBlock.SetState(new GreenMushroomQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(greenMushroomQuestionBlock);
                                 break;
+                            case FEATHERQBLOCK: //Cape Feather Question Block
+                                BlockContext capeFeatherQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                capeFeatherQuestionBlock.SetState(new CapeFeatherQuestionBlockState());
+                                collisionZones[(i * BLOCK) / 256].Add(capeFeatherQuestionBlock);
+                                break;
                             case FLOWERQBLOCK: //Fire Flower Question Block
                                 BlockContext fireFlowerQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 fireFlowerQuestionBlock.SetState(new FireFlowerQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(fireFlowerQuestionBlock);
                                 break;
-                            case BALLOONQBLOCK: //Fire Flower Question Block
+                            case BALLOONQBLOCK: //P Balloon Question Block
                                 BlockContext pBalloonQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 pBalloonQuestionBlock.SetState(new PBalloonQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(pBalloonQuestionBlock);
@@ -233,6 +239,9 @@ namespace Mario.Map
                                 break;
                             case 112:  //Red Mushroom
                                 entities.entityObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
+                                break;
+                            case 113:  //Cape Feather
+                                entities.entityObjs.Add(new CapeFeather(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
                                 break;
                             case 133:  //Fire Flower
                                 entities.entityObjs.Add(new FireFlower(theatre, new Vector2(i * BLOCK, j * BLOCK)));
