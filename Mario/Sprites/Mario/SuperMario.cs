@@ -518,7 +518,7 @@ namespace Mario.Sprites.Mario
 
         public override void Collision(ISprite collider)
         {
-            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha || collider is Parakoopa || collider is SidePipe || collider is LongPipe)
+            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is KoopaShell || collider is Piranha || collider is Parakoopa || collider is SidePipe || collider is LongPipe)
             {
                 if (collider is Pipe)
                 {

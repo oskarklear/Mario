@@ -99,7 +99,7 @@ namespace Mario.Sprites.Enemies
 
         public override void Move()
         {
-            System.Diagnostics.Debug.WriteLine("Koopa: " + hitbox.X + ", " + hitbox.Y);
+            //System.Diagnostics.Debug.WriteLine("Koopa: " + hitbox.X + ", " + hitbox.Y);
             if (horizontalDirection)
             {
                 position.X += velocity.X;
@@ -313,6 +313,7 @@ namespace Mario.Sprites.Enemies
                 {
                     obtained = true;
                     (collider as Fireball).Deleted = true;
+                    hitbox = Rectangle.Empty;
                     velocity.X = 0f;
                     velocity.Y = 0f;
                 }

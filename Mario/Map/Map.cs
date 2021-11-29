@@ -435,12 +435,12 @@ namespace Mario.Map
                         ISprite sprite = entities.enemyObjs[i];
                         //sprite.Collision(mario);
 
-                        if (sprite.Delete())
+/*                        if (sprite.Delete())
                         {
-                            //entities.entityObjs.Remove(sprite);
-                            //sprite = null;
-                            //break;
-                        }
+                            entities.entityObjs.Remove(sprite);
+                            sprite = null;
+                            break;
+                        }*/
 
                         if (sprite is Piranha)
                         {
@@ -496,6 +496,7 @@ namespace Mario.Map
                                 }
                             }
                         }
+                        if (sprite is KoopaShell) sprite.Collision(mario);
                         mario.Collision(sprite);
                     }
 

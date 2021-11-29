@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Mario.Sprites.Mario;
+using Mario.Sprites.Items;
 
 namespace Mario.Sprites.Enemies
 {
@@ -110,7 +112,7 @@ namespace Mario.Sprites.Enemies
             gameObj = theatre;
             texture = theatre.Content.Load<Texture2D>("enemies/koopa/koopa_shell_green_init");
             position = location;
-            velocity.Y = 1f;
+            velocity.Y = 2f;
             velocity.X = 0f;
             hitbox = new Rectangle((int)location.X, (int)location.Y, 16, 16);
             showHitbox = false;
@@ -119,6 +121,35 @@ namespace Mario.Sprites.Enemies
             isAnimated = false;
             useGravity = true;
             spawnsFromBlock = false;
+            pipeRightCollisionOffset = 5;
+            pipeLeftCollisionOffset = 5;
+        }
+
+        public override void Move()
+        {
+            if (horizontalDirection && !spawning)
+            {
+                position.X += velocity.X;
+            }
+            else if (!horizontalDirection && !spawning)
+            {
+                position.X -= velocity.X;
+            }
+        }
+
+
+        public override void MarioCollision(ISprite collider)
+        {
+            //if (collider is SuperMario)
+            //{
+                //obtained = true;
+                //hitbox = Rectangle.Empty;
+                //velocity.X = 0f;
+                //velocity.Y = 0f;
+                //System.Diagnostics.Debug.WriteLine("diortgnujegoivn");
+                //System.Diagnostics.Debug.WriteLine("YVelocity: " + velocity.Y);
+                //System.Diagnostics.Debug.WriteLine("XVelocity: " + velocity.X);
+            //}
         }
 
         public override void TopCollide(ISprite collider)
@@ -127,8 +158,16 @@ namespace Mario.Sprites.Enemies
             {
                 hitbox.Y = collider.Hitbox.Y - hitbox.Height - topCollisionOffset;
                 position.Y = hitbox.Y;
-                horizontalDirection = gameObj.map.Mario.Position.X < position.X ? true : false;
-                velocity.X = 2f;
+                if (collider is SuperMario)
+                {
+                    horizontalDirection = gameObj.map.Mario.Position.X < position.X ? true : false;
+                    velocity.X = 2f;
+                }
+                if (collider is Pipe)
+                {
+                    horizontalDirection = !horizontalDirection;
+                    velocity.X = 2f;
+                }
             }
         }
 
@@ -136,10 +175,19 @@ namespace Mario.Sprites.Enemies
         {
             if (hitbox.TouchRightOf(collider.Hitbox))
             {
-                hitbox.X = collider.Hitbox.X + hitbox.Width + rightCollisionOffset;
+                if (collider is Pipe) hitbox.X = collider.Hitbox.X + hitbox.Width + pipeRightCollisionOffset;
+                else hitbox.X = collider.Hitbox.X + hitbox.Width + rightCollisionOffset;
                 position.X = hitbox.X;
-                horizontalDirection = true;
-                velocity.X = 2f;
+                if (collider is SuperMario)
+                {
+                    horizontalDirection = true;
+                    velocity.X = 2f;
+                }
+                if (collider is Pipe)
+                {
+                    horizontalDirection = !horizontalDirection;
+                    velocity.X = 2f;
+                }
             }
         }
 
@@ -147,10 +195,19 @@ namespace Mario.Sprites.Enemies
         {
             if (hitbox.TouchLeftOf(collider.Hitbox))
             {
-                hitbox.X = collider.Hitbox.X - hitbox.Width - leftCollisionOffset;
+                if (collider is Pipe) hitbox.X = collider.Hitbox.X - hitbox.Width - pipeLeftCollisionOffset;
+                else hitbox.X = collider.Hitbox.X - hitbox.Width - leftCollisionOffset;
                 position.X = hitbox.X;
-                horizontalDirection = false;
-                velocity.X = 2f;
+                if (collider is SuperMario)
+                {
+                    horizontalDirection = false;
+                    velocity.X = 2f;
+                }
+                if (collider is Pipe)
+                {
+                    horizontalDirection = !horizontalDirection;
+                    velocity.X = 2f;
+                }
             }
         }
     }

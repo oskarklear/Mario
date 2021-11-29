@@ -125,6 +125,7 @@ namespace Mario.Sprites.Enemies
                 {
                     obtained = true;
                     (collider as Fireball).Deleted = true;
+                    hitbox = Rectangle.Empty;
                     velocity.X = 0f;
                     velocity.Y = 0f;
                 }

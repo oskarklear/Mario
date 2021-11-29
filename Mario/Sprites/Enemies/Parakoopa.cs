@@ -86,6 +86,27 @@ namespace Mario.Sprites.Enemies
             }
         }
 
+        public override void Collision(ISprite collider)
+        {
+            MarioCollision(collider);
+
+            if (collider is Fireball)
+            {
+                if (hitbox.TouchTopOf(collider.Hitbox) || hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    obtained = true;
+                    (collider as Fireball).Deleted = true;
+                    hitbox = Rectangle.Empty;
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
+            }
+
+            TopCollide(collider);
+            RightCollide(collider);
+            LeftCollide(collider);
+            BottomCollide(collider);
+        }
 
         /*public override void Collision(ISprite collider)
         {
