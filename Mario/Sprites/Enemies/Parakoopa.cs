@@ -30,12 +30,10 @@ namespace Mario.Sprites.Enemies
             obtained = false;
             spawning = false;
             verticalDirection = true;
-            //horizontalDirection = false;
             doesMove = true;
             facingLeft = true;
             isAnimated = true;
             useGravity = false;
-            //spawnsFromBlock = false;
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 15;
             currentFrame = 0;
@@ -52,7 +50,6 @@ namespace Mario.Sprites.Enemies
 
         public override void Move()
         {
-            //System.Diagnostics.Debug.WriteLine("Koopa: " + hitbox.X + ", " + hitbox.Y);
             if (counter < 100)
             {
                 if (verticalDirection)
@@ -74,7 +71,6 @@ namespace Mario.Sprites.Enemies
 
         public override void MarioCollision(ISprite collider)
         {
-            //System.Diagnostics.Debug.WriteLine("hello");
             if (collider is SuperMario)
             {
                 obtained = true;
@@ -82,7 +78,6 @@ namespace Mario.Sprites.Enemies
                 velocity.X = 0f;
                 velocity.Y = 0f;
                 gameObj.map.entities.NewKoopa(position);
-                System.Diagnostics.Debug.WriteLine("TOUCHING");
             }
         }
 

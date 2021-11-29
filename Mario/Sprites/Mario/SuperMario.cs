@@ -355,7 +355,6 @@ namespace Mario.Sprites.Mario
                 texture = gameObj.Content.Load<Texture2D>("mario/deadMario");
                 columns = 2;
                 isAnimated = true;
-                //hitbox = Rectangle.Empty;
                 MediaPlayer.Stop();
                 deathTimer--;
                 if (deathTimer <= 0 && topHeight > 0)
@@ -395,7 +394,6 @@ namespace Mario.Sprites.Mario
             //If mario is not touching ground, GRAVITY
             if (!context.isTouchingTop)
             {
-                //kinematics.AccelerateDown(context);
                 if (context.GetActionState() is FallingState)
                 {
                     kinematics.AccelerateDown(context);
@@ -421,9 +419,6 @@ namespace Mario.Sprites.Mario
 
                     hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
 
-
-                //else if (context.GetPowerUpState().ToString().Equals("DeadMario"))
-                //hitbox = Rectangle.Empty;
                 else
                 {
 
@@ -447,14 +442,12 @@ namespace Mario.Sprites.Mario
                     if (warpAnimCount < 30)
                     {
                         position.Y += 1;
-                        //position.X += 10;
                         warpAnimCount++;
                     }
                     else
                     {
                         warped = true;
                         overworld = !overworld;
-                        //System.Diagnostics.Debug.WriteLine("BIG ASS");
                     }
                 }
                 else
@@ -462,14 +455,12 @@ namespace Mario.Sprites.Mario
                     if (warpAnimCount < 30)
                     {
                         position.X += 1;
-                        //position.X += 10;
                         warpAnimCount++;
                     }
                     else
                     {
                         warped = true;
                         overworld = !overworld;
-                        //System.Diagnostics.Debug.WriteLine("BIG ASS");
                     }
                 }
                 
@@ -513,7 +504,6 @@ namespace Mario.Sprites.Mario
             warpsound.Play();
             warp = true;
             warpAnimCount = 0;
-            //System.Diagnostics.Debug.WriteLine("fuck");
         }
 
         public override void Collision(ISprite collider)
@@ -554,7 +544,6 @@ namespace Mario.Sprites.Mario
                         context.Velocity.Y = 0f;    
                         if (collider is Piranha)
                         {
-                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
@@ -592,7 +581,6 @@ namespace Mario.Sprites.Mario
 
                         if (collider is Goomba || collider is Piranha || collider is Parakoopa)
                         {
-                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
@@ -657,7 +645,6 @@ namespace Mario.Sprites.Mario
                             position.Y = hitbox.Y;
                             if (collider is Goomba || collider is Koopa || collider is Piranha)
                             {
-                                System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                                 if (delay <= 0)
                                 {
                                     context.TakeDamage();
