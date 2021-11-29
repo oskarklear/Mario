@@ -161,6 +161,8 @@ namespace Mario.Sprites.Mario
 
         public override void Update()
         {
+            System.Diagnostics.Debug.WriteLine(context.GetPowerUpState().ToString());
+            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
             if (!warp)
             {
 
@@ -399,8 +401,62 @@ namespace Mario.Sprites.Mario
                         }
                     }
                 }
+                if (context.GetPowerUpState().ToString().Equals("CapeMario"))
+                {
+                    switch (context.GetActionState().ToString())
+                    {
+                        case "IdleState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeIdleMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeIdleMarioR");
+                            columns = 1;
+                            isAnimated = false;
+                            break;
+                        case "CrouchingState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeCrouchingMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeCrouchingMarioR");
+                            columns = 1;
+                            isAnimated = false;
+                            break;
+                        case "JumpingState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeJumpingMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeJumpingMarioR");
+                            columns = 1;
+                            isAnimated = false;
+                            break;
+                        case "FallingState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeFallingMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeFallingMarioR");
+                            columns = 1;
+                            isAnimated = false;
+                            break;
+                        case "RunningState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeRunningMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeRunningMarioR");
+                            columns = 3;
+                            isAnimated = true;
+                            break;
+                        case "GlidingState":
+                            if (context.facingLeft)
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeGlidingMarioL");
+                            else
+                                texture = gameObj.Content.Load<Texture2D>("mario/CapeGlidingMarioR");
+                            columns = 3;
+                            isAnimated = true;
+                            break;
+                    }
+                }
 
-            if (context.GetPowerUpState().ToString().Equals("DeadMario"))
+                if (context.GetPowerUpState().ToString().Equals("DeadMario"))
             {
                 context.Velocity.X = 0f;
                 context.Velocity.Y = 0f;
@@ -761,6 +817,11 @@ namespace Mario.Sprites.Mario
                     else if (collider is GoalGateMovingPart)
                     {
                         collider.Collision(this);
+                    }
+                    else if(collider is CapeFeather)
+                    {
+                        collider.Collision(this);
+                        context.GetCape();
                     }
                 }
             }
