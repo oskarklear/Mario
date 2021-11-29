@@ -45,7 +45,8 @@ namespace Mario.Sprites.Mario
         private int deathTimer; //Used for the death animation
         private int topHeight; //Used for the death animation
         private SoundEffect warpsound;
-
+        public bool beatLevel;
+        private int timer;
 
         public SuperMario(Game1 theatre, Vector2 location, MarioContext context)
         {
@@ -66,6 +67,8 @@ namespace Mario.Sprites.Mario
             deathTimer = 60;
             topHeight = 30;
             warpsound = theatre.Content.Load<SoundEffect>("SoundEffects/pipe");
+            beatLevel = false;
+            timer = 0;
         }
 
         public void MoveLeftCommand()
@@ -705,6 +708,7 @@ namespace Mario.Sprites.Mario
                     else if (collider is GoalGateMovingPart)
                     {
                         collider.Collision(this);
+                        timer = 420;
                     }
                 }
             }

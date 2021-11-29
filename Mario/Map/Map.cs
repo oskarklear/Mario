@@ -42,6 +42,12 @@ namespace Mario.Map
             get { return theatre; }
             set { theatre = value; }
         }
+        private int levelnum;
+        public int Levelnum
+        {
+            get { return levelnum; }
+            set { levelnum = value; }
+        }
         private SuperMario mario;
         public SuperMario Mario
         {
@@ -61,7 +67,10 @@ namespace Mario.Map
         private const int COINH = 16;
         private const int COINW = 12;
         private const int BLOCK = 16;
-        string[][] overworld;
+        List<string[][]> levels;
+        string[][] level1;
+        string[][] level2;
+        string[][] level3;
         string[][] underground;
         bool inOverworld;
         Song OverworldTheme;
@@ -78,7 +87,12 @@ namespace Mario.Map
             this.theatre = theatre;
             tracker = this.theatre.tracker;
             entities = new DynamicEntities();
-            overworld = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
+            levels = new List<string[][]>();
+            levelnum = 0;
+            level1 = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
+            level2 = File.ReadLines("1-2.csv").Select(x => x.Split(',')).ToArray();
+            level3 = File.ReadLines("1-3.csv").Select(x => x.Split(',')).ToArray();
+            levels.Add(level1); levels.Add(level2); levels.Add(level3);
             underground = File.ReadLines("1-1Sub.csv").Select(x => x.Split(',')).ToArray();
             reset = false;
             camera = new Camera(theatre.Graphics.GraphicsDevice.Viewport);
@@ -107,7 +121,7 @@ namespace Mario.Map
             {
                 MediaPlayer.Play(OverworldTheme);
                 width = OVERWORLDWIDTH;
-                map = overworld;
+                map = levels[levelnum];
             }
             else
             {
@@ -586,6 +600,7 @@ namespace Mario.Map
             {
                 collisionZones[i].Clear();
             }
+            levelnum = 0;
             entities.enemyObjs.Clear();
             entities.entityObjs.Clear();
             entities.fireBallObjs.Clear();

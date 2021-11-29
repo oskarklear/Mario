@@ -278,6 +278,29 @@ namespace Mario
                         }
                         break;
 
+                    case (int)Keys.LeftShift:
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            context.ToggleHitbox();
+                        }
+                        break;
+
+                    case (int)Keys.Enter:
+                        if (count > 10)
+                        {
+                            if (map.Levelnum < 2)
+                                map.Levelnum = map.Levelnum + 1;
+                            else
+                                map.Levelnum = 0;
+                            map.Reset();
+                            count = 0;
+                        }
+                        
+                        break;
                     //Reset
                     case (int)Keys.R:
                         map.HardReset();
