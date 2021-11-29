@@ -37,12 +37,6 @@ namespace Mario.Sprites.Items
             pipeLeftCollisionOffset = 5;
         }
 
-        /*        public bool delete()
-                {
-                    if (obtained) return true;
-                    else return false;
-                }*/
-
         public override void MarioCollision(ISprite collider)
         {
             if (collider is SuperMario)
