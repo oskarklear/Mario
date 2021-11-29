@@ -20,7 +20,7 @@ namespace Mario.Sprites.Mario
         protected const int MAPW = 3584;
         protected const int MAPH = 272;
         protected const int delaytime = 100;
-
+        
         public bool spawning;
         public bool spawned;
 
@@ -34,6 +34,7 @@ namespace Mario.Sprites.Mario
         public bool overworld;
         int delay;
         public Vector2 spawn;
+        public int glideDelay;
         
 
         public MarioContext context { get; set; }
@@ -67,20 +68,23 @@ namespace Mario.Sprites.Mario
             deathTimer = 60;
             topHeight = 30;
             warpsound = theatre.Content.Load<SoundEffect>("SoundEffects/pipe");
+            glideDelay = 0;
         }
 
         public void MoveLeftCommand()
         {
-            if (!(context.GetPowerUpState() is DeadMarioState))
+            if (!(context.GetPowerUpState() is DeadMarioState)&&(!(context.GetPowerUpState() is CapeMarioState&&glideDelay>0)))
             {
+                glideDelay = 100;
                 context.GetActionState().FaceLeftTransition();
             }
         }
 
         public void MoveRightCommand()
         {
-            if (!(context.GetPowerUpState() is DeadMarioState))
+            if (!(context.GetPowerUpState() is DeadMarioState) && (!(context.GetPowerUpState() is CapeMarioState && glideDelay > 0)))
             {
+                glideDelay = 100;
                 if (!isWarpableVertical)
                 {
                     context.GetActionState().FaceRightTransition();
@@ -428,7 +432,10 @@ namespace Mario.Sprites.Mario
                     currentFrame = 0;
                 timeSinceLastFrame++;
             }
-
+                if (glideDelay > 0)
+                {
+                    glideDelay--;
+                }
                 //set mario's new pos
                 position.X += context.Velocity.X;
                 position.Y -= context.Velocity.Y;

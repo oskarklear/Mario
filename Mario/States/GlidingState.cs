@@ -23,6 +23,7 @@ namespace Mario.States
             marioContext.isFalling = false;
             marioContext.isTouchingTop = false;
             marioContext.jump.Play();
+            
         }
 
         public override void Exit()
@@ -51,7 +52,7 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
-            if (marioContext.jumpHeight > 12 || marioContext.isTouchingBottom)
+            /*if (marioContext.jumpHeight > 12 || marioContext.isTouchingBottom)
             {
                 FallingTransition();
             }
@@ -59,6 +60,7 @@ namespace Mario.States
             {
                 kinematics.AccelerateUp(marioContext);
             }
+            */
         }
 
         public override void FallingTransition()
@@ -68,43 +70,19 @@ namespace Mario.States
 
         public override void FaceLeftTransition()
         {
-            /*if (!marioContext.facingLeft)
-            {
-                marioContext.facingLeft = true;
-            }
-            else
-            {
-                if (marioContext.isTouchingRight)
-                    marioContext.Velocity.X = 0;
-                else
-                    kinematics.AccelerateLeft(marioContext);
-
-            }*/
-            kinematics.IdleXDecelerate(marioContext);
             if (marioContext.Velocity.X > 0)
             {
-                marioContext.Velocity.X -= (float)0.1;
+                kinematics.AccelerateUp(marioContext);
             }
-            else
-            {
-                FallingTransition();
-            }
+           
             
         }
 
         public override void FaceRightTransition()
         {
-            if (marioContext.facingLeft)
+            if (marioContext.Velocity.X < 0)
             {
-                marioContext.facingLeft = false;
-            }
-            else
-            {
-                if (marioContext.isTouchingLeft)
-                    marioContext.Velocity.X = 0;
-                else
-                    kinematics.AccelerateRight(marioContext);
-
+                kinematics.AccelerateUp(marioContext);
             }
         }
 
@@ -134,14 +112,14 @@ namespace Mario.States
                 marioContext.idleState.Enter(this);
             else
             {
-                if (marioContext.jumpHeight < 8 && !marioContext.isFalling)
-                {
-                    JumpingTransition();
-                }
-                else
-                {
+                //if (marioContext.jumpHeight < 8 && !marioContext.isFalling)
+                //{
+                   // JumpingTransition();
+                //}
+                //else
+                //{
                     FallingTransition();
-                }
+                //}
             }
         }
 
