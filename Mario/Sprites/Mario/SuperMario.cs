@@ -77,7 +77,7 @@ namespace Mario.Sprites.Mario
         {
             if (!(context.GetPowerUpState() is DeadMarioState)&&(!(context.GetPowerUpState() is CapeMarioState&&glideDelay>0 && context.GetActionState() is GlidingState)))
             {
-                glideDelay = 100;
+                glideDelay = 50;
                 context.GetActionState().FaceLeftTransition();
             }
         }
@@ -86,7 +86,7 @@ namespace Mario.Sprites.Mario
         {
             if (!(context.GetPowerUpState() is DeadMarioState) && (!(context.GetPowerUpState() is CapeMarioState && glideDelay > 0 && context.GetActionState() is GlidingState)))
             {
-                glideDelay = 100;
+                glideDelay = 50;
                 if (!isWarpableVertical)
                 {
                     context.GetActionState().FaceRightTransition();
@@ -507,6 +507,14 @@ namespace Mario.Sprites.Mario
                 if (glideDelay > 0)
                 {
                     glideDelay--;
+                }
+                if (glideDelay > 25&&context.GetActionState() is GlidingState)
+                {
+                    kinematics.AccelerateUp(context);
+                }
+                else if(glideDelay<25&&context.GetActionState() is GlidingState)
+                {
+                    kinematics.AccelerateDownCape(context);
                 }
                 //set mario's new pos
                 position.X += context.Velocity.X;

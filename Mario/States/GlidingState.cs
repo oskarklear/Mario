@@ -20,9 +20,11 @@ namespace Mario.States
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
             kinematics.AccelerateUp(marioContext);
+            //kinematics.AccelerateUp(marioContext);
             marioContext.isFalling = false;
             marioContext.isTouchingTop = false;
             marioContext.jump.Play();
+            
             
         }
 
@@ -65,11 +67,18 @@ namespace Mario.States
 
         public override void FallingTransition()
         {
-            marioContext.fallingState.Enter(this);
+            //marioContext.fallingState.Enter(this);
         }
 
         public override void FaceLeftTransition()
         {
+
+            if (marioContext.isTouchingRight || marioContext.isTouchingLeft)
+            {
+                marioContext.fallingState.Enter(this);
+                marioContext.Velocity.X = 0;
+            }
+
             if (marioContext.Velocity.X > 0)
             {
                 kinematics.AccelerateUp(marioContext);
@@ -80,6 +89,12 @@ namespace Mario.States
 
         public override void FaceRightTransition()
         {
+            if (marioContext.isTouchingLeft||marioContext.isTouchingRight)
+            {
+                marioContext.fallingState.Enter(this);
+                marioContext.Velocity.X = 0;
+            }
+
             if (marioContext.Velocity.X < 0)
             {
                 kinematics.AccelerateUp(marioContext);
@@ -93,12 +108,15 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
-            kinematics.XDecelerateToRight(marioContext);
+            //kinematics.XDecelerateToRight(marioContext);
+            kinematics.AccelerateDownCape(marioContext);
         }
 
         public override void FaceRightDiscontinueTransition()
         {
-            kinematics.XDecelerateToLeft(marioContext);
+            //kinematics.XDecelerateToLeft(marioContext);
+            //kinematics.IdleYDecelerate(marioContext);
+            kinematics.AccelerateDownCape(marioContext);
         }
 
         public override void RunningDiscontinueTransition()
@@ -114,18 +132,18 @@ namespace Mario.States
             {
                 //if (marioContext.jumpHeight < 8 && !marioContext.isFalling)
                 //{
-                   // JumpingTransition();
+                // JumpingTransition();
                 //}
                 //else
                 //{
-                    FallingTransition();
+                marioContext.fallingState.Enter(this);
                 //}
             }
         }
 
         public override string ToString()
         {
-            return ("JumpingState");
+            return ("GlidingState");
         }
     }
 }

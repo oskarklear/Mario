@@ -73,7 +73,15 @@ namespace Mario.Movement
             }
             context.jumpHeight -= (float)0.4;
         }
-
+        public void AccelerateDownCape(MarioContext context)
+        {
+            float marioTopDownSpeed = (float)-3.0;
+            if (context.Velocity.Y > marioTopDownSpeed)
+            {
+                context.Velocity.Y -= (float)0.1;
+            }
+            context.jumpHeight -= (float)0.1;
+        }
         public void IdleXDecelerate(MarioContext context)
         {
             if (context.Velocity.X != 0)
