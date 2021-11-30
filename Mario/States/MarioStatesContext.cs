@@ -99,6 +99,7 @@ public class MarioContext
 
 	public void PressRight()
 	{
+		System.Diagnostics.Debug.Write("Face Right Transition");
 		ActionState.FaceRightTransition();
 	}
 
