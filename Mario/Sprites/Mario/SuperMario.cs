@@ -426,8 +426,8 @@ namespace Mario.Sprites.Mario
                                 texture = gameObj.Content.Load<Texture2D>("mario/capeIdleMarioL");
                             else
                                 texture = gameObj.Content.Load<Texture2D>("mario/capeIdleMarioR");
-                            columns = 1;
-                            isAnimated = false;
+                            columns = 4;
+                            isAnimated = true;
                             break;
                         case "CrouchingState":
                             if (context.facingLeft)
@@ -458,7 +458,7 @@ namespace Mario.Sprites.Mario
                                 texture = gameObj.Content.Load<Texture2D>("mario/capeRunningMarioL");
                             else
                                 texture = gameObj.Content.Load<Texture2D>("mario/capeRunningMarioR");
-                            columns = 3;
+                            columns = 4;
                             isAnimated = true;
                             break;
                         case "GlidingState":
