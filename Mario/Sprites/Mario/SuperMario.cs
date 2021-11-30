@@ -75,7 +75,7 @@ namespace Mario.Sprites.Mario
 
         public void MoveLeftCommand()
         {
-            if (!(context.GetPowerUpState() is DeadMarioState)&&(!(context.GetPowerUpState() is CapeMarioState&&glideDelay>0)))
+            if (!(context.GetPowerUpState() is DeadMarioState)&&(!(context.GetPowerUpState() is CapeMarioState&&glideDelay>0 && context.GetActionState() is GlidingState)))
             {
                 glideDelay = 100;
                 context.GetActionState().FaceLeftTransition();
@@ -84,7 +84,7 @@ namespace Mario.Sprites.Mario
 
         public void MoveRightCommand()
         {
-            if (!(context.GetPowerUpState() is DeadMarioState) && (!(context.GetPowerUpState() is CapeMarioState && glideDelay > 0)))
+            if (!(context.GetPowerUpState() is DeadMarioState) && (!(context.GetPowerUpState() is CapeMarioState && glideDelay > 0 && context.GetActionState() is GlidingState)))
             {
                 glideDelay = 100;
                 if (!isWarpableVertical)
