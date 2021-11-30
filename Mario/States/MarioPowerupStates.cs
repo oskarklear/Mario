@@ -8,10 +8,53 @@ namespace Mario.States
 		public abstract void GetMushroom(MarioContext context);
 		public abstract void GetFireFlower(MarioContext context);
         public abstract void DieInPit(MarioContext context);
+        public abstract void GetPBalloon(MarioContext context);
 	}
+
+    class PBalloonMarioState : MarioPowerupState
+    {
+        public override void GetPBalloon(MarioContext context)
+        {
+            context.powerup.Play();
+        }
+
+        public override void GetFireFlower(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new FireMarioState());
+        }
+
+        public override void GetMushroom(MarioContext context)
+        {
+            context.powerup.Play();
+        }
+
+        public override void TakeDamage(MarioContext context)
+        {
+            context.SetPowerUpState(new SuperMarioState());
+        }
+
+        public override void DieInPit(MarioContext context)
+        {
+            context.death.Play();
+            context.SetPowerUpState(new DeadMarioState());
+            context.Theatre.tracker.RemoveLifeCommand();
+        }
+
+        public override string ToString()
+        {
+            return "PBalloonMario";
+        }
+    }
 
     class StandardMarioState : MarioPowerupState
     {
+        public override void GetPBalloon(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new PBalloonMarioState());
+        }
+
         public override void GetFireFlower(MarioContext context)
         {
             context.powerup.Play();
@@ -46,6 +89,11 @@ namespace Mario.States
 
     class SuperMarioState : MarioPowerupState
     {
+        public override void GetPBalloon(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new PBalloonMarioState());
+        }
         public override void GetFireFlower(MarioContext context)
         {
             context.powerup.Play();
@@ -77,6 +125,11 @@ namespace Mario.States
 
     class FireMarioState : MarioPowerupState
     {
+        public override void GetPBalloon(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new PBalloonMarioState());
+        }
         public override void GetFireFlower(MarioContext context)
         {
             context.powerup.Play();
@@ -107,6 +160,10 @@ namespace Mario.States
 
     class DeadMarioState : MarioPowerupState
     {
+        public override void GetPBalloon(MarioContext context)
+        {
+            //ur dead idiot
+        }
         public override void GetFireFlower(MarioContext context)
         {
             //does nothing

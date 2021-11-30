@@ -113,6 +113,11 @@ public class MarioContext
 		PowerupState.GetMushroom(this);
     }
 
+	public void GetPBalloon()
+    {
+		PowerupState.GetPBalloon(this);
+    }
+
 	public void GetFireFlower()
     {
 		PowerupState.GetFireFlower(this);

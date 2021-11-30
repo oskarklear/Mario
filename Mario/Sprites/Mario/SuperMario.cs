@@ -160,6 +160,13 @@ namespace Mario.Sprites.Mario
             {
 
                 fireballCooldown += 1;
+                System.Diagnostics.Debug.WriteLine(context.GetPowerUpState().ToString());
+                if (context.GetPowerUpState().ToString().Equals("PBalloonMario"))
+                {
+
+                    texture = gameObj.Content.Load<Texture2D>("mario/PBalloonMario_B");                    
+
+                }
                 if (context.GetPowerUpState().ToString().Equals("StandardMario"))
                 {
                     switch (context.GetActionState().ToString())
@@ -715,6 +722,12 @@ namespace Mario.Sprites.Mario
                     else if (collider is GoalGateMovingPart)
                     {
                         collider.Collision(this);
+                    }
+                    else if (collider is PBalloon)
+                    {
+                        collider.Collision(this);
+                        context.GetPBalloon();
+                        context.death.Play();
                     }
                 }
             }
