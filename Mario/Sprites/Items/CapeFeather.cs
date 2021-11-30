@@ -43,10 +43,6 @@ namespace Mario.Sprites.Items
             pipeLeftCollisionOffset = 5;
             displacement = 0;
         }
-        public override void Gravity()
-        {
-            if (useGravity) position.Y += velocity.Y;
-        }
 
         public override void SpawnFromBlock()
         {
@@ -89,15 +85,6 @@ namespace Mario.Sprites.Items
             }
         }
 
-        public override void Update()
-        {
-            Gravity();
-            Animate();
-            SetHitbox();
-            SpawnFromBlock();
-            Move();
-        }
-
         public override void MarioCollision(ISprite collider)
         {
             if (collider is SuperMario)
@@ -111,7 +98,11 @@ namespace Mario.Sprites.Items
         public override void Collision(ISprite collider)
         {
             if (!spawning)
-            {
+            {               
+                if (position.Y >= 300)
+                {
+                    obtained = true;
+                }
                 MarioCollision(collider);
             }
         }
