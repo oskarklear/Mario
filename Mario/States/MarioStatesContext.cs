@@ -115,7 +115,7 @@ public class MarioContext
 	}
     public void GetMushroom()
     {
-		PowerupState.GetCape(this);
+		PowerupState.GetMushroom(this);
     }
 	public void GetCape()
     {

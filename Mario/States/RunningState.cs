@@ -49,7 +49,7 @@ namespace Mario.States
         public override void JumpingTransition()
         {
             //System.Diagnostics.Debug.WriteLine("jumping");
-            if (!marioContext.jumped&&marioContext.Velocity.X>2&&marioContext.GetPowerUpState() is CapeMarioState)
+            if (!marioContext.jumped&&marioContext.Velocity.X>6&&marioContext.GetPowerUpState() is CapeMarioState)
                 marioContext.glidingState.Enter(this);
             else if (!marioContext.jumped)
             {
