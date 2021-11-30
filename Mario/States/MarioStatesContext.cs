@@ -13,6 +13,7 @@ public class MarioContext
 	public MarioActionState jumpingState;
 	public MarioActionState fallingState;
 	public MarioActionState crouchingState;
+	public MarioActionState glidingState;
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
 	public Vector2 Velocity;
@@ -52,6 +53,7 @@ public class MarioContext
 		jumpingState = new JumpingState(this);
 		fallingState = new FallingState(this);
 		crouchingState = new CrouchingState(this);
+		glidingState = new GlidingState(this);
 		jumpHeight = 0;
 		showHitbox = false;
 		this.Theatre = theatre;
@@ -112,7 +114,11 @@ public class MarioContext
 	}
     public void GetMushroom()
     {
-		PowerupState.GetMushroom(this);
+		PowerupState.GetCape(this);
+    }
+	public void GetCape()
+    {
+		PowerupState.GetCape(this);
     }
 
 	public void GetPBalloon()
