@@ -87,7 +87,16 @@ namespace Mario.Sprites.Items
                     }
                 }
             }
-        }       
+        }
+
+        public override void Update()
+        {
+            Gravity();
+            Animate();
+            SetHitbox();
+            SpawnFromBlock();
+            Move();
+        }
 
         public override void MarioCollision(ISprite collider)
         {
