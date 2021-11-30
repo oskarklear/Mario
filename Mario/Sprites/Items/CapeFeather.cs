@@ -11,6 +11,10 @@ namespace Mario.Sprites.Items
 {
     class CapeFeather : SpriteTemplate
     {
+        private float displacement;
+        private const int RIGHTLIMIT = 20;
+        private const int LEFTLIMIT = -20;
+        private const int UPPERLIMIT = 30;
         public CapeFeather(Game1 theatre, Vector2 location, SuperMario mario)
         {
             gameObj = theatre;
@@ -24,39 +28,66 @@ namespace Mario.Sprites.Items
             showHitbox = false;
             obtained = false;
             spawning = true;
-            horizontalDirection = mario.Position.X < position.X ? true : false;
-            doesMove = false;
+            horizontalDirection = false;
+            doesMove = true;
             facingLeft = true;
             isAnimated = false;
             useGravity = true;
             spawnsFromBlock = true;
-            endPosition = (int)position.Y - 13;
+            endPosition = (int)position.Y - UPPERLIMIT;
             topCollisionOffset = 2;
             rightCollisionOffset = 2;
             leftCollisionOffset = 2;
             bottomCollisionOffset = 0;
             pipeRightCollisionOffset = 10;
             pipeLeftCollisionOffset = 5;
+            displacement = 0;
         }
         public override void Gravity()
         {
             if (useGravity) position.Y += velocity.Y;
         }
 
-        public virtual void Move()
+        public override void SpawnFromBlock()
+        {
+            if (spawnsFromBlock)
+            {
+                if (position.Y > endPosition && spawning)
+                {
+                    position.Y -= 5;
+                    hitbox.Y -= 5;
+                }
+                else if (position.Y == endPosition && spawning)
+                {
+                    spawning = false;
+                }
+            }
+        }
+
+        public override void Move()
         {
             if (doesMove)
             {
                 if (horizontalDirection && !spawning)
                 {
-                    position.X += velocity.X;
+                    position.X += velocity.X - (displacement / (2*RIGHTLIMIT));
+                    displacement += velocity.X - (displacement / (2 * RIGHTLIMIT)) ;
+                    if (displacement > RIGHTLIMIT)
+                    {
+                        horizontalDirection = false;
+                    }
                 }
                 else if (!horizontalDirection && !spawning)
                 {
-                    position.X -= velocity.X;
+                    position.X -= velocity.X + (displacement / (2 * LEFTLIMIT));
+                    displacement -= velocity.X + (displacement / (2 * LEFTLIMIT));
+                    if (displacement < LEFTLIMIT)
+                    {
+                        horizontalDirection = true;
+                    }
                 }
             }
-        }
+        }       
 
         public override void MarioCollision(ISprite collider)
         {
