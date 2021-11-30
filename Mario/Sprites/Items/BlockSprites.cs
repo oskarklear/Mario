@@ -30,7 +30,8 @@ namespace Mario.Sprites
         public bool animated;
         protected int currentFrame;
         protected int totalFrames;
-        public int timer;
+        protected int timer;
+        public bool spinning;
         Vector2 position;
         protected Rectangle sourceRectangle;
         protected Rectangle destinationRectangle;
@@ -92,10 +93,10 @@ namespace Mario.Sprites
         public void Spin()
         {
             this.Texture = Theatre.Content.Load<Texture2D>("spinningblock");
-            while (timer > 0)
-                
-            timer = 350;
-            this.Texture = Theatre.Content.Load<Texture2D>("obstacles/Brick Block");
+            this.destinationRectangle = Rectangle.Empty;
+            this.Columns = 4;
+            this.totalFrames = 4;
+            spinning = true;
         }
 
         public Vector2 GetLocation()
@@ -105,7 +106,22 @@ namespace Mario.Sprites
 
         public virtual void Update()
         {
-            timer--;
+            if (spinning)
+                timer--;
+            if (timer < 0 && this is BrickBlockSprite)
+            {
+                spinning = false;
+            }
+            if (!spinning && this is BrickBlockSprite)
+            {
+                this.Texture = Theatre.Content.Load<Texture2D>("obstacles/Brick Block");
+                timer = 350;
+                spinning = false;
+                //this.destinationRectangle
+                this.Columns = 1;
+                this.totalFrames = 1;
+            }
+
             if (moveDistance < moveRange && moving)
             {
                 Location.Y-=3;

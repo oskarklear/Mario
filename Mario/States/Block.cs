@@ -31,6 +31,8 @@ namespace Mario.States
 			get { return Location; }
 		}
 		public bool isShell { get; set; }
+		public bool spinning;
+		public int timer;
 		Game1 Theatre;
 		List<BrokenBlockSprite> rubbleList;
 		DynamicEntities entities;
@@ -117,7 +119,14 @@ namespace Mario.States
 
 		public void Update()
 		{
-            if(!rubbleActive){
+			timer--;
+			if (timer < 0)
+			{
+				timer = 350;
+				spinning = false;
+				this.Hitbox = new Rectangle((int)Location.X, (int)Location.Y, 16, 16);
+			}
+			if (!rubbleActive){
 				sprite.Update();
 			}
 			foreach(BrokenBlockSprite rubble in rubbleList)
@@ -356,11 +365,14 @@ namespace Mario.States
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
 			//context.bump.Play();
-			this.Movement(sprite);
-			if (Mario.GetPowerUpState().ToString().Equals("SuperMario") || Mario.GetPowerUpState().ToString().Equals("FireMario"))
-			{
-				Destroy(context);
-			}
+			//this.Movement(sprite);
+			sprite.Spin();
+			context.Hitbox = Rectangle.Empty;
+			//context.
+			//if (Mario.GetPowerUpState().ToString().Equals("SuperMario") || Mario.GetPowerUpState().ToString().Equals("FireMario"))
+			//{
+			//	Destroy(context);
+			//}
 		}
 
 		public override string ToString()

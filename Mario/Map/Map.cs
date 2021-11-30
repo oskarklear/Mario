@@ -299,9 +299,7 @@ namespace Mario.Map
             bgLayerFar.Draw(spriteBatch);
             bgLayerMid.Draw(spriteBatch);
             bgLayerNear.Draw(spriteBatch);
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(0f)));
-            menu.Draw(spriteBatch);
-            spriteBatch.End();
+            
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(1f)));
             foreach (ISprite obj in bgObjects)
                 obj.Draw(spriteBatch);
@@ -313,6 +311,9 @@ namespace Mario.Map
                     obj.Draw(spriteBatch);
             }
 
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(0f)));
+            menu.Draw(spriteBatch);
             spriteBatch.End();
 
 
