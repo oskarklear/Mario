@@ -407,49 +407,49 @@ namespace Mario.Sprites.Mario
                     {
                         case "IdleState":
                             if (context.facingLeft)
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeIdleMarioL");
+                                texture = gameObj.Content.Load<Texture2D>("mario/capeIdleMarioL");
                             else
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeIdleMarioR");
+                                texture = gameObj.Content.Load<Texture2D>("mario/capeIdleMarioR");
                             columns = 1;
                             isAnimated = false;
                             break;
                         case "CrouchingState":
                             if (context.facingLeft)
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeCrouchingMarioL");
+                                texture = gameObj.Content.Load<Texture2D>("mario/bigCrouchingMarioL");
                             else
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeCrouchingMarioR");
+                                texture = gameObj.Content.Load<Texture2D>("mario/bigCrouchingMarioR");
                             columns = 1;
                             isAnimated = false;
                             break;
                         case "JumpingState":
                             if (context.facingLeft)
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeJumpingMarioL");
+                                texture = gameObj.Content.Load<Texture2D>("mario/capeJumpingMarioL");
                             else
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeJumpingMarioR");
+                                texture = gameObj.Content.Load<Texture2D>("mario/capeJumpingMarioR");
                             columns = 1;
                             isAnimated = false;
                             break;
                         case "FallingState":
                             if (context.facingLeft)
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeFallingMarioL");
+                                texture = gameObj.Content.Load<Texture2D>("mario/capeJumpingMarioL");
                             else
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeFallingMarioR");
+                                texture = gameObj.Content.Load<Texture2D>("mario/capeJumpingMarioR");
                             columns = 1;
                             isAnimated = false;
                             break;
                         case "RunningState":
                             if (context.facingLeft)
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeRunningMarioL");
+                                texture = gameObj.Content.Load<Texture2D>("mario/capeRunningMarioL");
                             else
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeRunningMarioR");
+                                texture = gameObj.Content.Load<Texture2D>("mario/capeRunningMarioR");
                             columns = 3;
                             isAnimated = true;
                             break;
                         case "GlidingState":
                             if (context.facingLeft)
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeGlidingMarioL");
+                                texture = gameObj.Content.Load<Texture2D>("mario/capeGlidingMarioL");
                             else
-                                texture = gameObj.Content.Load<Texture2D>("mario/CapeGlidingMarioR");
+                                texture = gameObj.Content.Load<Texture2D>("mario/capeGlidingMarioR");
                             columns = 3;
                             isAnimated = true;
                             break;
