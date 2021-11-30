@@ -260,13 +260,17 @@ namespace Mario
 
                     // Damage avatar
                     case (int)Keys.O:
-                        if (GameObj.IsMenuVisible)
+                        if (count > 10)
                         {
-                            // Do nothing
-                        }
-                        else
-                        {
-                            context.TakeDamage();
+                            if (GameObj.IsMenuVisible)
+                            {
+                                // Do nothing
+                            }
+                            else
+                            {
+                                context.TakeDamage();
+                                count = 0;
+                            }
                         }
                         break;
 

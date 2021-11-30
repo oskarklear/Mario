@@ -779,7 +779,7 @@ namespace Mario.Sprites.Mario
                         {
                             hitbox.Y = collider.Hitbox.Y + hitbox.Height;
                             position.Y = hitbox.Y;
-                            if (collider is Goomba || collider is Koopa || collider is Piranha)
+                            if (collider is Goomba || collider is Koopa || collider is Piranha || collider is SpikeBlock)
                             {
                                 if (delay <= 0)
                                 {
