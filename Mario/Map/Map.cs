@@ -26,11 +26,13 @@ namespace Mario.Map
         protected const int BRICKBLOCK = 11;
         protected const int RMQBLOCK = 12;
         protected const int GMQBLOCK = 13;
-        protected const int FLOWERQBLOCK = 14;
+        protected const int FLOWERQBLOCK = 14;       
         protected const int STARQBLOCK = 15;
         protected const int COINQBLOCK = 16;
         protected const int ONECOINBRICKBLOCK = 17;
         protected const int TENCOINBRICKBLOCK = 18;
+        protected const int BALLOONQBLOCK = 21;
+        protected const int FEATHERQBLOCK = 22;
         protected const int PIPE = 6;
         public List<ISprite> bgObjects = new List<ISprite>();
         public List<ISprite>[] collisionZones = new List<ISprite>[14];
@@ -165,10 +167,20 @@ namespace Mario.Map
                                 greenMushroomQuestionBlock.SetState(new GreenMushroomQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(greenMushroomQuestionBlock);
                                 break;
+                            case FEATHERQBLOCK: //Cape Feather Question Block
+                                BlockContext capeFeatherQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                capeFeatherQuestionBlock.SetState(new CapeFeatherQuestionBlockState());
+                                collisionZones[(i * BLOCK) / 256].Add(capeFeatherQuestionBlock);
+                                break;
                             case FLOWERQBLOCK: //Fire Flower Question Block
                                 BlockContext fireFlowerQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
                                 fireFlowerQuestionBlock.SetState(new FireFlowerQuestionBlockState());
                                 collisionZones[(i * BLOCK) / 256].Add(fireFlowerQuestionBlock);
+                                break;
+                            case BALLOONQBLOCK: //P Balloon Question Block
+                                BlockContext pBalloonQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
+                                pBalloonQuestionBlock.SetState(new PBalloonQuestionBlockState());
+                                collisionZones[(i * BLOCK) / 256].Add(pBalloonQuestionBlock);
                                 break;
                             case STARQBLOCK: //Star Question Block
                                 BlockContext starQuestionBlock = new BlockContext(theatre, new Vector2(i * BLOCK, j * BLOCK));
@@ -242,8 +254,14 @@ namespace Mario.Map
                             case 112:  //Red Mushroom
                                 entities.entityObjs.Add(new RedMushroom(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
                                 break;
+                            case 113:  //Cape Feather
+                                entities.entityObjs.Add(new CapeFeather(theatre, new Vector2(i * MUSHROOM, j * MUSHROOM), Mario));
+                                break;
                             case 133:  //Fire Flower
                                 entities.entityObjs.Add(new FireFlower(theatre, new Vector2(i * BLOCK, j * BLOCK)));
+                                break;
+                            case 134:  //P Balloon
+                                entities.entityObjs.Add(new PBalloon(theatre, new Vector2(i * BLOCK, j * BLOCK)));
                                 break;
                             case 144:  //Star
                                 entities.entityObjs.Add(new Star(theatre, new Vector2(i * BLOCK, j * BLOCK), Mario));
@@ -578,6 +596,7 @@ namespace Mario.Map
             {
                 collisionZones[i].Clear();
             }
+            mario.context.isBallooned = false;
             entities.enemyObjs.Clear();
             entities.entityObjs.Clear();
             entities.fireBallObjs.Clear();
@@ -597,6 +616,7 @@ namespace Mario.Map
             mario.Position = spawnPos;
             mario.context.SetActionState(new IdleState(mario.context));
             ResetPointsCommand.Execute();
+            mario.balloonTimer = 0;
         }
 
         public void HardReset()
@@ -606,6 +626,8 @@ namespace Mario.Map
                 collisionZones[i].Clear();
             }
             levelnum = 0;
+            mario.context.isBallooned = false;
+            mario.balloonTimer = 0;
             entities.enemyObjs.Clear();
             entities.entityObjs.Clear();
             entities.fireBallObjs.Clear();

@@ -6,23 +6,24 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Mario.States
 {
-    public class JumpingState : MarioActionState
+    public class GlidingState : MarioActionState
     {
-        public JumpingState(MarioContext context)
+        public GlidingState(MarioContext context)
         {
             marioContext = context;
             PowerUpState = context.GetPowerUpState();
-            kinematics = new Kinematics(context);
+            kinematics = new Kinematics();
         }
 
         public override void Enter(IMarioActionState previousActionState)
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
-            kinematics.AccelerateUp();
+            kinematics.AccelerateUp(marioContext);
             marioContext.isFalling = false;
             marioContext.isTouchingTop = false;
-            if (!marioContext.isBallooned) marioContext.jump.Play();
+            marioContext.jump.Play();
+            
         }
 
         public override void Exit()
@@ -51,55 +52,37 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
-            int maxHeight;
-            if (marioContext.dashing)
-                maxHeight = 12 + (int)Math.Abs(marioContext.Velocity.X * 2);
-            else
-                maxHeight = 12;
-            if (marioContext.jumpHeight > maxHeight || marioContext.isTouchingBottom)
+            /*if (marioContext.jumpHeight > 12 || marioContext.isTouchingBottom)
             {
                 FallingTransition();
             }
             else
             {
-                kinematics.AccelerateUp(); 
+                kinematics.AccelerateUp(marioContext);
             }
+            */
         }
 
         public override void FallingTransition()
         {
             marioContext.fallingState.Enter(this);
-        }    
+        }
 
         public override void FaceLeftTransition()
         {
-            if (!marioContext.facingLeft)
+            if (marioContext.Velocity.X > 0)
             {
-                marioContext.facingLeft = true;
+                kinematics.AccelerateUp(marioContext);
             }
-            else
-            {
-                if (marioContext.isTouchingRight)
-                    marioContext.Velocity.X = 0;
-                else
-                    kinematics.AccelerateLeft();
-
-            }
+           
+            
         }
 
         public override void FaceRightTransition()
         {
-            if (marioContext.facingLeft)
+            if (marioContext.Velocity.X < 0)
             {
-                marioContext.facingLeft = false;
-            }
-            else
-            {
-                if (marioContext.isTouchingLeft)
-                    marioContext.Velocity.X = 0;
-                else
-                    kinematics.AccelerateRight();
-
+                kinematics.AccelerateUp(marioContext);
             }
         }
 
@@ -110,12 +93,12 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
-            kinematics.XDecelerateToRight();
+            kinematics.XDecelerateToRight(marioContext);
         }
 
         public override void FaceRightDiscontinueTransition()
         {
-            kinematics.XDecelerateToLeft();
+            kinematics.XDecelerateToLeft(marioContext);
         }
 
         public override void RunningDiscontinueTransition()
@@ -129,14 +112,14 @@ namespace Mario.States
                 marioContext.idleState.Enter(this);
             else
             {
-                if (marioContext.jumpHeight < 8 && !marioContext.isFalling)
-                {
-                    JumpingTransition();
-                }
-                else
-                {
+                //if (marioContext.jumpHeight < 8 && !marioContext.isFalling)
+                //{
+                   // JumpingTransition();
+                //}
+                //else
+                //{
                     FallingTransition();
-                }
+                //}
             }
         }
 

@@ -55,6 +55,11 @@ namespace Mario.States
         {
             if (marioContext.isTouchingTop)
                 StandingTransition();
+
+            if (marioContext.isBallooned)
+            {
+                marioContext.jumpingState.Enter(this); 
+            }
         }
 
         public override void FallingTransition()

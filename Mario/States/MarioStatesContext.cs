@@ -13,10 +13,12 @@ public class MarioContext
 	public MarioActionState jumpingState;
 	public MarioActionState fallingState;
 	public MarioActionState crouchingState;
+	public MarioActionState glidingState;
 	MarioActionState ActionState;
 	MarioPowerupState PowerupState;
 	public Vector2 Velocity;
 	public bool facingLeft;
+	public bool isBallooned;
 	public bool isTouchingLeft { get; set; }
 	public bool isTouchingRight { get; set; }
 	public bool isTouchingTop { get; set; }
@@ -52,6 +54,7 @@ public class MarioContext
 		jumpingState = new JumpingState(this);
 		fallingState = new FallingState(this);
 		crouchingState = new CrouchingState(this);
+		glidingState = new GlidingState(this);
 		jumpHeight = 0;
 		showHitbox = false;
 		this.Theatre = theatre;
@@ -108,12 +111,23 @@ public class MarioContext
 
 	public void TakeDamage()
     {
-		PowerupState.TakeDamage(this);
-    }
-	public void GetMushroom()
+        PowerupState.TakeDamage(this);
+		isBallooned = false;
+	}
+    public void GetMushroom()
     {
-		PowerupState.GetMushroom(this);
+		PowerupState.GetCape(this);
     }
+	public void GetCape()
+    {
+		PowerupState.GetCape(this);
+    }
+
+	public void GetPBalloon()
+    {
+		PowerupState.GetPBalloon(this);
+		isBallooned = true;
+	}
 
 	public void GetFireFlower()
     {

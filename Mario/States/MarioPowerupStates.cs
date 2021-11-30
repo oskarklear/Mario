@@ -8,10 +8,58 @@ namespace Mario.States
 		public abstract void GetMushroom(MarioContext context);
 		public abstract void GetFireFlower(MarioContext context);
         public abstract void DieInPit(MarioContext context);
-	}
+        public abstract void GetCape(MarioContext context);
+        public abstract void GetPBalloon(MarioContext context);
+    }
+       
+
+    class PBalloonMarioState : MarioPowerupState
+    {
+        public override void GetPBalloon(MarioContext context)
+        {
+            context.powerup.Play();
+        }
+
+        public override void GetFireFlower(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new FireMarioState());
+        }
+
+        public override void GetMushroom(MarioContext context)
+        {
+            context.powerup.Play();
+        }
+
+        public override void TakeDamage(MarioContext context)
+        {
+            context.SetPowerUpState(new SuperMarioState());
+        }
+
+        public override void DieInPit(MarioContext context)
+        {
+            context.death.Play();
+            context.SetPowerUpState(new DeadMarioState());
+            context.Theatre.tracker.RemoveLifeCommand();
+        }
+        public override void GetCape(MarioContext context)
+        {
+
+        }
+        public override string ToString()
+        {
+            return "PBalloonMario";
+        }
+    }
 
     class StandardMarioState : MarioPowerupState
     {
+        public override void GetPBalloon(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new PBalloonMarioState());
+        }
+
         public override void GetFireFlower(MarioContext context)
         {
             context.powerup.Play();
@@ -38,6 +86,12 @@ namespace Mario.States
             context.Theatre.tracker.RemoveLifeCommand();
         }
 
+        public override void GetCape(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new CapeMarioState());
+        }
+
         public override string ToString()
         {
             return "StandardMario";
@@ -46,6 +100,11 @@ namespace Mario.States
 
     class SuperMarioState : MarioPowerupState
     {
+        public override void GetPBalloon(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new PBalloonMarioState());
+        }
         public override void GetFireFlower(MarioContext context)
         {
             context.powerup.Play();
@@ -69,6 +128,12 @@ namespace Mario.States
             context.SetPowerUpState(new DeadMarioState());
         }
 
+        public override void GetCape(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new CapeMarioState());
+        }
+
         public override string ToString()
         {
             return "SuperMario";
@@ -77,6 +142,11 @@ namespace Mario.States
 
     class FireMarioState : MarioPowerupState
     {
+        public override void GetPBalloon(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new PBalloonMarioState());
+        }
         public override void GetFireFlower(MarioContext context)
         {
             context.powerup.Play();
@@ -99,6 +169,12 @@ namespace Mario.States
             context.SetPowerUpState(new DeadMarioState());
         }
 
+        public override void GetCape(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new CapeMarioState());
+        }
+
         public override string ToString()
         {
             return "FireMario";
@@ -107,6 +183,10 @@ namespace Mario.States
 
     class DeadMarioState : MarioPowerupState
     {
+        public override void GetPBalloon(MarioContext context)
+        {
+            //ur dead idiot
+        }
         public override void GetFireFlower(MarioContext context)
         {
             //does nothing
@@ -127,9 +207,54 @@ namespace Mario.States
             context.SetPowerUpState(new DeadMarioState());
         }
 
+        public override void GetCape(MarioContext context)
+        {
+            //do nothing
+        }
+
         public override string ToString()
         {
             return "DeadMario";
+        }
+    }
+
+    class CapeMarioState : MarioPowerupState
+    {
+        public override void GetFireFlower(MarioContext context)
+        {
+            context.powerup.Play();
+            context.SetPowerUpState(new FireMarioState());
+        }
+
+        public override void GetMushroom(MarioContext context)
+        {
+            context.powerup.Play();
+        }
+
+        public override void TakeDamage(MarioContext context)
+        {
+            context.powerdown.Play();
+            context.SetPowerUpState(new SuperMarioState());
+        }
+
+        public override void DieInPit(MarioContext context)
+        {
+            context.death.Play();
+            context.SetPowerUpState(new DeadMarioState());
+        }
+
+        public override void GetCape(MarioContext context)
+        {
+            context.powerup.Play();
+           
+        }
+        public override void GetPBalloon(MarioContext context)
+        {
+
+        }
+        public override string ToString()
+        {
+            return "CapeMario";
         }
     }
 }
