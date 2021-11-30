@@ -62,7 +62,7 @@ namespace Mario.Sprites.Mario
             overworld = true;
             entities = theatre.map.entities;
             this.context = context;
-            kinematics = new Kinematics();
+            kinematics = new Kinematics(context);
             delay = 0;
             deathTimer = 60;
             topHeight = 30;
@@ -399,7 +399,7 @@ namespace Mario.Sprites.Mario
             {
                 if (context.GetActionState() is FallingState)
                 {
-                    kinematics.AccelerateDown(context);
+                    kinematics.AccelerateDown();
                 }
                 else
                 {

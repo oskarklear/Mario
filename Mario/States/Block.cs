@@ -202,6 +202,7 @@ namespace Mario.States
 		protected void Movement(BlockSprite sprite)
 		{
 			sprite.setMovement(10);
+			//sprite.Spin();
 		}
 	}
 
@@ -354,7 +355,7 @@ namespace Mario.States
 
 		public override void Bump(BlockContext context, MarioContext Mario, BlockSprite sprite, DynamicEntities dynamicEntities, SuperMario superMario)
 		{
-			context.bump.Play();
+			//context.bump.Play();
 			this.Movement(sprite);
 			if (Mario.GetPowerUpState().ToString().Equals("SuperMario") || Mario.GetPowerUpState().ToString().Equals("FireMario"))
 			{

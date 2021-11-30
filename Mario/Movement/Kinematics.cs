@@ -7,30 +7,39 @@ namespace Mario.Movement
 {
     public class Kinematics
     {
-        public Kinematics()
+        private MarioContext context;
+        public Kinematics(MarioContext Context)
         {
-
+            this.context = Context;
         }
 
-        public void AccelerateLeft(MarioContext context)
+        public void AccelerateLeft()
         {
-            float marioTopLeftSpeed = (float)-3.0;
+            float marioTopLeftSpeed;
+            if (context.dashing)
+                marioTopLeftSpeed = (float)-6.0;
+            else
+                marioTopLeftSpeed = (float)-3.0;
             if (context.Velocity.X > marioTopLeftSpeed)
             {
                 context.Velocity.X -= (float)0.2;
             }
         }
 
-        public void AccelerateRight(MarioContext context)
+        public void AccelerateRight()
         {
-            float marioTopRightSpeed = (float)3.0;
+            float marioTopRightSpeed;
+            if (context.dashing)
+                marioTopRightSpeed = (float)6.0;
+            else
+                marioTopRightSpeed = (float)3.0;
             if (context.Velocity.X < marioTopRightSpeed)
             {
                 context.Velocity.X += (float)0.2;
             }
         }
 
-        public void AccelerateUp(MarioContext context)
+        public void AccelerateUp()
         {
             float marioTopUpSpeed = (float)3.0;
             if (context.Velocity.Y < marioTopUpSpeed)
@@ -40,7 +49,7 @@ namespace Mario.Movement
             context.jumpHeight += (float)0.7;
         }
 
-        public void AccelerateDown(MarioContext context)
+        public void AccelerateDown()
         {
             float marioTopDownSpeed = (float)-3.0;
             if (context.Velocity.Y > marioTopDownSpeed)
@@ -50,7 +59,7 @@ namespace Mario.Movement
             context.jumpHeight -= (float)0.4;
         }
 
-        public void IdleXDecelerate(MarioContext context)
+        public void IdleXDecelerate()
         {
             if (context.Velocity.X != 0)
             {
@@ -71,7 +80,7 @@ namespace Mario.Movement
             }
         }
 
-        public void IdleYDecelerate(MarioContext context)
+        public void IdleYDecelerate()
         {
             if (context.Velocity.Y != 0)
             {
@@ -91,7 +100,7 @@ namespace Mario.Movement
             }
         }
 
-        public void XDecelerateToLeft(MarioContext context)
+        public void XDecelerateToLeft()
         {
             if (context.Velocity.X != 0)
             {
@@ -100,7 +109,7 @@ namespace Mario.Movement
             }
         }
 
-        public void XDecelerateToRight(MarioContext context)
+        public void XDecelerateToRight()
         {
             if (context.Velocity.X != 0)
             {
@@ -108,7 +117,7 @@ namespace Mario.Movement
                     context.Velocity.X += (float)0.1;
             }
         }
-        public void YDecelerateToUp(MarioContext context)
+        public void YDecelerateToUp()
         {
             if (context.Velocity.Y != 0)
             {
@@ -117,7 +126,7 @@ namespace Mario.Movement
             }
 
         }
-        public void YDecelerateToDown(MarioContext context)
+        public void YDecelerateToDown()
         {
             if (context.Velocity.Y != 0)
             {

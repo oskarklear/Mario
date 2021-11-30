@@ -9,7 +9,7 @@ namespace Mario.States
     {
         public CrouchingState(MarioContext context)
         {
-            kinematics = new Kinematics();
+            kinematics = new Kinematics(context);
             marioContext = context;
             PowerUpState = context.GetPowerUpState();
         }
@@ -50,7 +50,7 @@ namespace Mario.States
 
         public override void FallingTransition()
         {
-            kinematics.IdleXDecelerate(marioContext);
+            kinematics.IdleXDecelerate();
         }
 
         public override void FaceLeftTransition()
@@ -67,7 +67,7 @@ namespace Mario.States
 
         public override void CrouchingDiscontinueTransition()
         {
-            kinematics.YDecelerateToUp(marioContext);
+            kinematics.YDecelerateToUp();
             if (marioContext.Velocity.X > 0)
                 Exit();
             else
@@ -76,12 +76,12 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
-            kinematics.XDecelerateToRight(marioContext);
+            kinematics.XDecelerateToRight();
         }
 
         public override void FaceRightDiscontinueTransition()
         {
-            kinematics.XDecelerateToLeft(marioContext);
+            kinematics.XDecelerateToLeft();
         }
 
         public override void RunningDiscontinueTransition()

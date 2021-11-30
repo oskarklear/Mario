@@ -40,6 +40,7 @@ public class MarioContext
 	public SoundEffect oneup { get; }
 	public SoundEffect powerdown { get; }
 	public SoundEffect fireball { get; }
+	public bool dashing { get; set; }
 
 	public MarioContext(Game1 theatre)
 	{
@@ -54,6 +55,7 @@ public class MarioContext
 		jumpHeight = 0;
 		showHitbox = false;
 		this.Theatre = theatre;
+		dashing = false;
 		jump = theatre.Content.Load<SoundEffect>("SoundEffects/jump");
 		powerup = theatre.Content.Load<SoundEffect>("SoundEffects/powerup");
 		stomp = theatre.Content.Load<SoundEffect>("SoundEffects/stomp");

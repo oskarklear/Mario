@@ -77,6 +77,10 @@ namespace Mario
 
             List<Input> inputs = GetInput();
             count++;
+            if (previousKeyboardState.IsKeyDown(Keys.LeftShift))
+                context.dashing = true;
+            else
+                context.dashing = false;
             foreach (Input input in inputs) {
 
                 switch (input.Key)
@@ -285,7 +289,7 @@ namespace Mario
                         }
                         else
                         {
-                            context.ToggleHitbox();
+                            //context.dashing = true;
                         }
                         break;
 

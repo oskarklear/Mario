@@ -25,10 +25,12 @@ namespace Mario.Sprites
         protected Vector2 Location;
         protected int moveDistance;
         protected int moveRange;
+        public Game1 Theatre;
         public bool moving;
         public bool animated;
         protected int currentFrame;
         protected int totalFrames;
+        public int timer;
         Vector2 position;
         protected Rectangle sourceRectangle;
         protected Rectangle destinationRectangle;
@@ -87,6 +89,15 @@ namespace Mario.Sprites
             return false;
         }
 
+        public void Spin()
+        {
+            this.Texture = Theatre.Content.Load<Texture2D>("spinningblock");
+            while (timer > 0)
+                
+            timer = 350;
+            this.Texture = Theatre.Content.Load<Texture2D>("obstacles/Brick Block");
+        }
+
         public Vector2 GetLocation()
         {
             return Location;
@@ -94,6 +105,7 @@ namespace Mario.Sprites
 
         public virtual void Update()
         {
+            timer--;
             if (moveDistance < moveRange && moving)
             {
                 Location.Y-=3;
@@ -131,6 +143,7 @@ namespace Mario.Sprites
     {
         public BrickBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
+            Theatre = theatre;
             Texture = theatre.Content.Load<Texture2D>("obstacles/Brick Block");
             Location = location;
             moveDistance = 0;
@@ -145,6 +158,7 @@ namespace Mario.Sprites
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 10;
             ShowHitbox = false;
+            timer = 350;
         }        
     }
 
