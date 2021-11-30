@@ -387,18 +387,6 @@
 /processorParam:TextureFormat=Color
 /build:items/green_mushroom.png
 
-#begin items/p_balloon.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:items/p_balloon.png
-
 #begin items/red_mushroom.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -542,42 +530,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/bigRunningMarioR.png
-
-#begin mario/capeGlidingMarioL.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:mario/capeGlidingMarioL.png
-
-#begin mario/capeGlidingMarioR.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:mario/capeGlidingMarioR.png
-
-#begin mario/capeIdleMarioL.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:mario/capeIdleMarioL.png
 
 #begin mario/capeIdleMarioL.png
 /importer:TextureImporter
@@ -794,30 +746,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/marioSheet.png
-
-#begin mario/PBalloonMario_A.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:mario/PBalloonMario_A.png
-
-#begin mario/PBalloonMario_B.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:mario/PBalloonMario_B.png
 
 #begin mario/smallCrouchingMarioL.png
 /importer:TextureImporter

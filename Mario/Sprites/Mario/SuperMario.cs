@@ -528,10 +528,10 @@ namespace Mario.Sprites.Mario
                 {
                         if (!context.isBallooned)
                         {
-                            kinematics.AccelerateDown(context);
+                            kinematics.AccelerateDown();
                         } else
                         {
-                            kinematics.AccelerateDownBalloon(context);
+                            kinematics.AccelerateDownBalloon();
                         }
                 }
                 else
