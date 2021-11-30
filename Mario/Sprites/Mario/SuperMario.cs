@@ -819,8 +819,9 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is CapeFeather)
                     {
+                        System.Diagnostics.Debug.WriteLine("------------------cape-----------------");
                         collider.Collision(this);
-                        //Add get cape feather command
+                        context.GetCape();
                     }
                     else if (collider is RedMushroom)
                     {
@@ -848,11 +849,6 @@ namespace Mario.Sprites.Mario
                     else if (collider is GoalGateMovingPart)
                     {
                         collider.Collision(this);
-                    }
-                    else if(collider is CapeFeather)
-                    {
-                        collider.Collision(this);
-                        context.GetCape();
                     }
                 }
             }

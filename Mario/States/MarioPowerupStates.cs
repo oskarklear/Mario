@@ -9,9 +9,9 @@ namespace Mario.States
 		public abstract void GetFireFlower(MarioContext context);
         public abstract void DieInPit(MarioContext context);
         public abstract void GetCape(MarioContext context);
-	}
         public abstract void GetPBalloon(MarioContext context);
-	}
+    }
+       
 
     class PBalloonMarioState : MarioPowerupState
     {
@@ -42,7 +42,10 @@ namespace Mario.States
             context.SetPowerUpState(new DeadMarioState());
             context.Theatre.tracker.RemoveLifeCommand();
         }
+        public override void GetCape(MarioContext context)
+        {
 
+        }
         public override string ToString()
         {
             return "PBalloonMario";
@@ -245,7 +248,10 @@ namespace Mario.States
             context.powerup.Play();
            
         }
+        public override void GetPBalloon(MarioContext context)
+        {
 
+        }
         public override string ToString()
         {
             return "CapeMario";
