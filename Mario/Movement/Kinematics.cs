@@ -12,6 +12,7 @@ namespace Mario.Movement
 
         }
 
+
         public void AccelerateLeft(MarioContext context)
         {
             float marioTopLeftSpeed = (float)-3.0;
@@ -32,12 +33,25 @@ namespace Mario.Movement
 
         public void AccelerateUp(MarioContext context)
         {
+
             float marioTopUpSpeed = (float)3.0;
-            if (context.Velocity.Y < marioTopUpSpeed)
-            {
-                context.Velocity.Y += (float)0.7;              
-            }
-            context.jumpHeight += (float)0.7;
+            if (context.isBallooned) marioTopUpSpeed = 1;
+
+
+                if (context.Velocity.Y < marioTopUpSpeed)
+                {
+                    if (!context.isBallooned)
+                    {
+                        context.Velocity.Y += (float)0.7;
+                    } else
+                    {
+                        context.Velocity.Y += (float)0.4;
+                    }
+                    
+                }
+                context.jumpHeight += (float)0.7;
+            
+
         }
 
         public void AccelerateDown(MarioContext context)
@@ -46,6 +60,16 @@ namespace Mario.Movement
             if (context.Velocity.Y > marioTopDownSpeed)
             {
                 context.Velocity.Y -= (float)0.4;              
+            }
+            context.jumpHeight -= (float)0.4;
+        }
+
+        public void AccelerateDownBalloon(MarioContext context)
+        {
+            float marioTopDownSpeed = (float)-3.0;
+            if (context.Velocity.Y > marioTopDownSpeed)
+            {
+                context.Velocity.Y -= (float)0.025;
             }
             context.jumpHeight -= (float)0.4;
         }

@@ -33,6 +33,7 @@ namespace Mario.Sprites.Mario
         public bool isWarpableVertical;
         public bool overworld;
         int delay;
+        public int balloonTimer;
         public Vector2 spawn;
 
         public MarioContext context { get; set; }
@@ -66,6 +67,7 @@ namespace Mario.Sprites.Mario
             deathTimer = 60;
             topHeight = 30;
             warpsound = theatre.Content.Load<SoundEffect>("SoundEffects/pipe");
+            balloonTimer = 0;
         }
 
         public void MoveLeftCommand()
@@ -163,8 +165,15 @@ namespace Mario.Sprites.Mario
                 System.Diagnostics.Debug.WriteLine(context.GetPowerUpState().ToString());
                 if (context.GetPowerUpState().ToString().Equals("PBalloonMario"))
                 {
-
-                    texture = gameObj.Content.Load<Texture2D>("mario/PBalloonMario_B");                    
+                    if (balloonTimer < 10)
+                    {
+                        texture = gameObj.Content.Load<Texture2D>("mario/PBalloonMario_A");
+                        balloonTimer++;
+                    } else
+                    {
+                        texture = gameObj.Content.Load<Texture2D>("mario/PBalloonMario_B");
+                    }
+                    
 
                 }
                 if (context.GetPowerUpState().ToString().Equals("StandardMario"))
@@ -405,7 +414,13 @@ namespace Mario.Sprites.Mario
                 //kinematics.AccelerateDown(context);
                 if (context.GetActionState() is FallingState)
                 {
-                    kinematics.AccelerateDown(context);
+                        if (!context.isBallooned)
+                        {
+                            kinematics.AccelerateDown(context);
+                        } else
+                        {
+                            kinematics.AccelerateDownBalloon(context);
+                        }
                 }
                 else
                 {
@@ -689,7 +704,7 @@ namespace Mario.Sprites.Mario
                     else if (collider is PBalloon)
                     {
                         collider.Collision(this);
-                        //Add get p balloon command
+                        context.GetPBalloon();
                     }
                     else if (collider is CapeFeather)
                     {
@@ -722,12 +737,6 @@ namespace Mario.Sprites.Mario
                     else if (collider is GoalGateMovingPart)
                     {
                         collider.Collision(this);
-                    }
-                    else if (collider is PBalloon)
-                    {
-                        collider.Collision(this);
-                        context.GetPBalloon();
-                        context.death.Play();
                     }
                 }
             }

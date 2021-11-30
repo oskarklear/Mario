@@ -577,6 +577,7 @@ namespace Mario.Map
             {
                 collisionZones[i].Clear();
             }
+            mario.context.isBallooned = false;
             entities.enemyObjs.Clear();
             entities.entityObjs.Clear();
             entities.fireBallObjs.Clear();
@@ -596,6 +597,7 @@ namespace Mario.Map
             mario.Position = spawnPos;
             mario.context.SetActionState(new IdleState(mario.context));
             ResetPointsCommand.Execute();
+            mario.balloonTimer = 0;
         }
 
         public void HardReset()
@@ -604,6 +606,8 @@ namespace Mario.Map
             {
                 collisionZones[i].Clear();
             }
+            mario.context.isBallooned = false;
+            mario.balloonTimer = 0;
             entities.enemyObjs.Clear();
             entities.entityObjs.Clear();
             entities.fireBallObjs.Clear();

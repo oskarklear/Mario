@@ -17,6 +17,7 @@ public class MarioContext
 	MarioPowerupState PowerupState;
 	public Vector2 Velocity;
 	public bool facingLeft;
+	public bool isBallooned;
 	public bool isTouchingLeft { get; set; }
 	public bool isTouchingRight { get; set; }
 	public bool isTouchingTop { get; set; }
@@ -106,9 +107,10 @@ public class MarioContext
 
 	public void TakeDamage()
     {
-		PowerupState.TakeDamage(this);
-    }
-	public void GetMushroom()
+        PowerupState.TakeDamage(this);
+		isBallooned = false;
+	}
+    public void GetMushroom()
     {
 		PowerupState.GetMushroom(this);
     }
@@ -116,7 +118,8 @@ public class MarioContext
 	public void GetPBalloon()
     {
 		PowerupState.GetPBalloon(this);
-    }
+		isBallooned = true;
+	}
 
 	public void GetFireFlower()
     {

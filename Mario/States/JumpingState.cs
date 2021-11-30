@@ -22,7 +22,7 @@ namespace Mario.States
             kinematics.AccelerateUp(marioContext);
             marioContext.isFalling = false;
             marioContext.isTouchingTop = false;
-            marioContext.jump.Play();
+            if (!marioContext.isBallooned) marioContext.jump.Play();
         }
 
         public override void Exit()
