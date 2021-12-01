@@ -77,7 +77,7 @@ namespace Mario
 
             List<Input> inputs = GetInput();
             count++;
-            if (previousKeyboardState.IsKeyDown(Keys.LeftShift))
+            if (previousKeyboardState.IsKeyDown(Keys.LeftShift) || previousKeyboardState.IsKeyDown(Keys.Space))
                 context.dashing = true;
             else
                 context.dashing = false;

@@ -50,7 +50,7 @@ namespace Mario.Sprites.Enemies
 
         public override void Move()
         {
-            if (counter < 100)
+            if (counter < 200)
             {
                 if (verticalDirection)
                 {
