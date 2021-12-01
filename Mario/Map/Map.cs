@@ -343,8 +343,8 @@ namespace Mario.Map
             {
                 //entities.Update();
                 mario.Update();
-                if ((int)mario.Position.X == 1792)
-                    spawnPos = CHECKPOINT;
+                //if ((int)mario.Position.X == 1792)
+                    //spawnPos = CHECKPOINT;
                 if (!mario.context.GetPowerUpState().ToString().Equals("DeadMario"))
                 {
                     //Zone behind Mario

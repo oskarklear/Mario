@@ -729,7 +729,7 @@ namespace Mario.Sprites.Mario
                     {
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
-                        if (collider is KoopaShell && (collider as KoopaShell).velocity.X < 1.5)
+                        if (collider is KoopaShell && (collider as KoopaShell).velocity.X < -1.5)
                         {
                             if (delay <= 0)
                             {
@@ -819,7 +819,7 @@ namespace Mario.Sprites.Mario
                                         delay = delaytime;
                                 }
                             }
-                            if (collider is Goomba || collider is Koopa || collider is Piranha || collider is SpikeBlock || collider is KoopaShell)
+                            if (collider is Goomba || collider is Koopa || collider is Piranha || collider is SpikeBlock)
                             {
                                 if (delay <= 0)
                                 {
