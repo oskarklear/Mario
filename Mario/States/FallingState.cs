@@ -11,7 +11,7 @@ namespace Mario.States
         {
             marioContext = context;
             PowerUpState = context.GetPowerUpState();
-            kinematics = new Kinematics();
+            kinematics = new Kinematics(context);
         }
 
         public override void Enter(IMarioActionState previousActionState)
@@ -23,7 +23,7 @@ namespace Mario.States
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
             marioContext.isFalling = true;
-            kinematics.AccelerateDown(marioContext);
+            kinematics.AccelerateDown();
         }
 
         public override void Exit()
@@ -75,7 +75,7 @@ namespace Mario.States
 
             if (!marioContext.facingLeft)
                 marioContext.facingLeft = true;
-            kinematics.AccelerateLeft(marioContext);
+            kinematics.AccelerateLeft();
         }
 
         public override void FaceRightTransition()
@@ -84,7 +84,7 @@ namespace Mario.States
                 RunningTransition();
             if (marioContext.facingLeft)
                 marioContext.facingLeft = false;
-            kinematics.AccelerateRight(marioContext);
+            kinematics.AccelerateRight();
         }
 
         public override void CrouchingDiscontinueTransition()
@@ -95,13 +95,13 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
-            kinematics.XDecelerateToRight(marioContext);
+            kinematics.XDecelerateToRight();
             if (marioContext.isTouchingTop)
                 StandingTransition();
         }
         public override void FaceRightDiscontinueTransition()
         {
-            kinematics.XDecelerateToLeft(marioContext);
+            kinematics.XDecelerateToLeft();
             if (marioContext.isTouchingTop)
                 StandingTransition();
         }

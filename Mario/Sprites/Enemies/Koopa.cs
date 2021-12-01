@@ -20,6 +20,7 @@ namespace Mario.Sprites.Enemies
         int shellDirection;
         int shellSpeed;
         bool dead;
+        int invincibility;
 
         public Koopa(Game1 theatre, Vector2 location)
         {
@@ -48,6 +49,13 @@ namespace Mario.Sprites.Enemies
             dead = false;
             shellDirection = 1;
             shellSpeed = 2;
+            invincibility = 10;
+            topCollisionOffset = 2;
+            rightCollisionOffset = 2;
+            leftCollisionOffset = 8;
+            bottomCollisionOffset = 0;
+            pipeRightCollisionOffset = 12;
+            pipeLeftCollisionOffset = 10;
         }
 
         public override void DrawSprite(SpriteBatch spriteBatch, Rectangle sourceRectangle, int width, int height)
@@ -91,6 +99,7 @@ namespace Mario.Sprites.Enemies
 
         public override void Move()
         {
+            //System.Diagnostics.Debug.WriteLine("Koopa: " + hitbox.X + ", " + hitbox.Y);
             if (horizontalDirection)
             {
                 position.X += velocity.X;
@@ -105,6 +114,11 @@ namespace Mario.Sprites.Enemies
 
         public override void Update()
         {
+            if (invincibility > 0)
+            {
+                invincibility--;
+            }
+
             if (!isShell)
             {
                 Gravity();
@@ -123,7 +137,7 @@ namespace Mario.Sprites.Enemies
             }
         }
 
-        public override void Collision(ISprite collider)
+        /*public override void Collision(ISprite collider)
         {
             if (collider is SuperMario)
             {
@@ -233,6 +247,82 @@ namespace Mario.Sprites.Enemies
                     position.Y = hitbox.Y;
                 }
             }
+        }*/
+
+        public override void MarioCollision(ISprite collider)
+        {
+            if (collider is SuperMario && invincibility <= 0)
+            {
+                obtained = true;
+                hitbox = Rectangle.Empty;
+                velocity.X = 0f;
+                velocity.Y = 0f;
+                gameObj.map.entities.NewKoopaShell(position);
+                gameObj.tracker.AddPointsCommand(100);
+            }
+        }
+
+        public override void TopCollide(ISprite collider)
+        {
+            if (hitbox.TouchTopOf(collider.Hitbox))
+            {
+                hitbox.Y = collider.Hitbox.Y - hitbox.Height - topCollisionOffset;
+                position.Y = hitbox.Y;
+                velocity.Y = 0f;
+            }
+            else
+            {
+                velocity.Y = 1f;
+            }
+        }
+
+        public override void RightCollide(ISprite collider)
+        {
+            if (hitbox.TouchRightOf(collider.Hitbox))
+            {
+                if (collider is Pipe) hitbox.X = collider.Hitbox.X + hitbox.Width + pipeRightCollisionOffset;
+                else hitbox.X = collider.Hitbox.X + hitbox.Width + rightCollisionOffset;
+                position.X = hitbox.X;
+                horizontalDirection = !horizontalDirection;
+                velocity.Y = 0f;
+            }
+            else
+            {
+                velocity.Y = 1f;
+            }
+        }
+
+        public override void LeftCollide(ISprite collider)
+        {
+            if (hitbox.TouchLeftOf(collider.Hitbox))
+            {
+                if (collider is Pipe) hitbox.X = collider.Hitbox.X - hitbox.Width - pipeLeftCollisionOffset;
+                else hitbox.X = collider.Hitbox.X - hitbox.Width - leftCollisionOffset;
+                position.X = hitbox.X;
+                horizontalDirection = !horizontalDirection;
+            }
+        }
+
+        public override void Collision(ISprite collider)
+        {
+            MarioCollision(collider);
+
+            if (collider is Fireball)
+            {
+                if (hitbox.TouchTopOf(collider.Hitbox) || hitbox.TouchBottomOf(collider.Hitbox) || hitbox.TouchLeftOf(collider.Hitbox) || hitbox.TouchRightOf(collider.Hitbox))
+                {
+                    obtained = true;
+                    (collider as Fireball).Deleted = true;
+                    hitbox = Rectangle.Empty;
+                    velocity.X = 0f;
+                    velocity.Y = 0f;
+                }
+            }
+
+            TopCollide(collider);
+            RightCollide(collider);
+            LeftCollide(collider);
+            BottomCollide(collider);
         }
 
     }

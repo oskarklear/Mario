@@ -12,14 +12,14 @@ namespace Mario.States
         {
             marioContext = context;
             PowerUpState = context.GetPowerUpState();
-            kinematics = new Kinematics();
+            kinematics = new Kinematics(context);
         }
 
         public override void Enter(IMarioActionState previousActionState)
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
-            kinematics.AccelerateUp(marioContext);
+            kinematics.AccelerateUp();
             marioContext.isFalling = false;
             marioContext.isTouchingTop = false;
             if (!marioContext.isBallooned) marioContext.jump.Play();
@@ -51,13 +51,18 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
-            if (marioContext.jumpHeight > 12 || marioContext.isTouchingBottom)
+            int maxHeight;
+            if (marioContext.dashing)
+                maxHeight = 12 + (int)Math.Abs(marioContext.Velocity.X * 2);
+            else
+                maxHeight = 12;
+            if (marioContext.jumpHeight > maxHeight || marioContext.isTouchingBottom)
             {
                 FallingTransition();
             }
             else
             {
-                kinematics.AccelerateUp(marioContext); 
+                kinematics.AccelerateUp(); 
             }
         }
 
@@ -77,7 +82,7 @@ namespace Mario.States
                 if (marioContext.isTouchingRight)
                     marioContext.Velocity.X = 0;
                 else
-                    kinematics.AccelerateLeft(marioContext);
+                    kinematics.AccelerateLeft();
 
             }
         }
@@ -93,7 +98,7 @@ namespace Mario.States
                 if (marioContext.isTouchingLeft)
                     marioContext.Velocity.X = 0;
                 else
-                    kinematics.AccelerateRight(marioContext);
+                    kinematics.AccelerateRight();
 
             }
         }
@@ -105,12 +110,12 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
-            kinematics.XDecelerateToRight(marioContext);
+            kinematics.XDecelerateToRight();
         }
 
         public override void FaceRightDiscontinueTransition()
         {
-            kinematics.XDecelerateToLeft(marioContext);
+            kinematics.XDecelerateToLeft();
         }
 
         public override void RunningDiscontinueTransition()

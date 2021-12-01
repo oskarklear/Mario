@@ -12,18 +12,17 @@ namespace Mario.States
         {
             marioContext = context;
             PowerUpState = context.GetPowerUpState();
-            kinematics = new Kinematics();
+            kinematics = new Kinematics(context);
         }
 
         public override void Enter(IMarioActionState previousActionState)
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
-            kinematics.AccelerateUp(marioContext);
-            //kinematics.AccelerateUp(marioContext);
+            kinematics.AccelerateUp();
             marioContext.isFalling = false;
             marioContext.isTouchingTop = false;
-            marioContext.jump.Play();
+            marioContext.capeglide.Play();
             
             
         }
@@ -81,7 +80,7 @@ namespace Mario.States
 
             if (marioContext.Velocity.X > 0)
             {
-                kinematics.AccelerateUp(marioContext);
+                kinematics.AccelerateUp();
             }
            
             
@@ -97,7 +96,7 @@ namespace Mario.States
 
             if (marioContext.Velocity.X < 0)
             {
-                kinematics.AccelerateUp(marioContext);
+                kinematics.AccelerateUp();
             }
         }
 

@@ -77,6 +77,10 @@ namespace Mario
 
             List<Input> inputs = GetInput();
             count++;
+            if (previousKeyboardState.IsKeyDown(Keys.LeftShift))
+                context.dashing = true;
+            else
+                context.dashing = false;
             foreach (Input input in inputs) {
 
                 switch (input.Key)
@@ -256,13 +260,17 @@ namespace Mario
 
                     // Damage avatar
                     case (int)Keys.O:
-                        if (GameObj.IsMenuVisible)
+                        if (count > 10)
                         {
-                            // Do nothing
-                        }
-                        else
-                        {
-                            context.TakeDamage();
+                            if (GameObj.IsMenuVisible)
+                            {
+                                // Do nothing
+                            }
+                            else
+                            {
+                                context.TakeDamage();
+                                count = 0;
+                            }
                         }
                         break;
 
@@ -278,6 +286,29 @@ namespace Mario
                         }
                         break;
 
+                    case (int)Keys.LeftShift:
+                        if (GameObj.IsMenuVisible)
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            //context.dashing = true;
+                        }
+                        break;
+
+                    case (int)Keys.Enter:
+                        if (count > 10)
+                        {
+                            if (map.Levelnum < 2)
+                                map.Levelnum = map.Levelnum + 1;
+                            else
+                                map.Levelnum = 0;
+                            map.Reset();
+                            count = 0;
+                        }
+                        
+                        break;
                     //Reset
                     case (int)Keys.R:
                         map.HardReset();

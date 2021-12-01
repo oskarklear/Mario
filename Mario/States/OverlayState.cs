@@ -95,7 +95,7 @@ namespace Mario.States
         }
         public override void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.DrawString(MenuFont, "You Won! Press Q to quit, or R to restart. \nScore:"+context.Stats.points, new Vector2(100, 100), Color.Black);
+            spritebatch.DrawString(MenuFont, "Level Complete!\nQ: Quit \nEnter: Next Level \nScore:"+context.Stats.points, new Vector2(100, 100), Color.Black);
         }
 
         public override bool isActive()

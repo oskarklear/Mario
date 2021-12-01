@@ -77,6 +77,7 @@ namespace Mario.Sprites
 
         public override void Collision(ISprite collider)
         {
+
             if (position.Y > 228 && position.Y <= 240)
             {
                 Theatre.tracker.AddPointsCommand(100);
@@ -106,7 +107,6 @@ namespace Mario.Sprites
             Theatre.tracker.ConvertTimeToPoints();
             Theatre.map.menu.SwitchOverlay(new WinState(Theatre.map.font,Theatre.map.menu));
             Theatre.IsMenuVisible = true;
-            //Does nothing
         }
     }
 }

@@ -25,10 +25,13 @@ namespace Mario.Sprites
         protected Vector2 Location;
         protected int moveDistance;
         protected int moveRange;
+        public Game1 Theatre;
         public bool moving;
         public bool animated;
         protected int currentFrame;
         protected int totalFrames;
+        protected int timer;
+        public bool spinning;
         Vector2 position;
         protected Rectangle sourceRectangle;
         protected Rectangle destinationRectangle;
@@ -87,6 +90,15 @@ namespace Mario.Sprites
             return false;
         }
 
+        public void Spin()
+        {
+            this.Texture = Theatre.Content.Load<Texture2D>("spinningblock");
+            this.destinationRectangle = Rectangle.Empty;
+            this.Columns = 4;
+            this.totalFrames = 4;
+            spinning = true;
+        }
+
         public Vector2 GetLocation()
         {
             return Location;
@@ -94,6 +106,22 @@ namespace Mario.Sprites
 
         public virtual void Update()
         {
+            if (spinning)
+                timer--;
+            if (timer < 0 && this is BrickBlockSprite)
+            {
+                spinning = false;
+            }
+            if (!spinning && this is BrickBlockSprite)
+            {
+                this.Texture = Theatre.Content.Load<Texture2D>("obstacles/Brick Block");
+                timer = 350;
+                spinning = false;
+                //this.destinationRectangle
+                this.Columns = 1;
+                this.totalFrames = 1;
+            }
+
             if (moveDistance < moveRange && moving)
             {
                 Location.Y-=3;
@@ -131,6 +159,7 @@ namespace Mario.Sprites
     {
         public BrickBlockSprite(Game1 theatre, Vector2 location, BlockContext context)
         {
+            Theatre = theatre;
             Texture = theatre.Content.Load<Texture2D>("obstacles/Brick Block");
             Location = location;
             moveDistance = 0;
@@ -145,6 +174,7 @@ namespace Mario.Sprites
             timeSinceLastFrame = 0;
             millisecondsPerFrame = 10;
             ShowHitbox = false;
+            timer = 350;
         }        
     }
 

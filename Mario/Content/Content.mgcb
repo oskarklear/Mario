@@ -241,6 +241,30 @@
 /processorParam:TextureFormat=Color
 /build:enemies/koopa/koopa_shell_red_moving.png
 
+#begin enemies/parakoopa/parakoopa_left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/parakoopa/parakoopa_left.png
+
+#begin enemies/parakoopa/parakoopa_right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/parakoopa/parakoopa_right.png
+
 #begin enemies/piranha.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -518,42 +542,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mario/bigRunningMarioR.png
-
-#begin mario/capeGlidingMarioL.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:mario/capeGlidingMarioL.png
-
-#begin mario/capeGlidingMarioR.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:mario/capeGlidingMarioR.png
-
-#begin mario/capeIdleMarioL.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:mario/capeIdleMarioL.png
 
 #begin mario/capeIdleMarioL.png
 /importer:TextureImporter
@@ -1119,11 +1107,23 @@
 /processorParam:Quality=Best
 /build:SoundEffects/smw_1-up.wav;SoundEffects/1up.wav
 
+#begin SoundEffects/smw_balloon_get.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_balloon_get.wav
+
 #begin SoundEffects/smw_break_block.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/smw_break_block.wav;SoundEffects/break_block.wav
+
+#begin SoundEffects/smw_cape_rise.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_cape_rise.wav
 
 #begin SoundEffects/smw_coin.wav
 /importer:WavImporter
@@ -1136,6 +1136,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/smw_course_clear.wav;SoundEffects/course_clear.wav
+
+#begin SoundEffects/smw_feather_get.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_feather_get.wav
 
 #begin SoundEffects/smw_fireball.wav
 /importer:WavImporter
@@ -1196,6 +1202,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/smw_stomp.wav;SoundEffects/stomp.wav
+
+#begin spinningblock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spinningblock.png
 
 #begin UndergroundTheme.wav
 /importer:WavImporter

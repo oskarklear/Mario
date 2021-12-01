@@ -48,7 +48,8 @@ namespace Mario.Sprites.Mario
         private int deathTimer; //Used for the death animation
         private int topHeight; //Used for the death animation
         private SoundEffect warpsound;
-
+        public bool beatLevel;
+        private int timer;
 
         public SuperMario(Game1 theatre, Vector2 location, MarioContext context)
         {
@@ -64,11 +65,13 @@ namespace Mario.Sprites.Mario
             overworld = true;
             entities = theatre.map.entities;
             this.context = context;
-            kinematics = new Kinematics();
+            kinematics = new Kinematics(context);
             delay = 0;
             deathTimer = 60;
             topHeight = 30;
             warpsound = theatre.Content.Load<SoundEffect>("SoundEffects/pipe");
+            beatLevel = false;
+            timer = 0;
             balloonTimer = 0;
             glideDelay = 0;
         }
@@ -479,7 +482,6 @@ namespace Mario.Sprites.Mario
                 texture = gameObj.Content.Load<Texture2D>("mario/deadMario");
                 columns = 2;
                 isAnimated = true;
-                //hitbox = Rectangle.Empty;
                 MediaPlayer.Stop();
                 deathTimer--;
                 if (deathTimer <= 0 && topHeight > 0)
@@ -530,15 +532,14 @@ namespace Mario.Sprites.Mario
             //If mario is not touching ground, GRAVITY
             if (!context.isTouchingTop)
             {
-                //kinematics.AccelerateDown(context);
                 if (context.GetActionState() is FallingState)
                 {
                         if (!context.isBallooned)
                         {
-                            kinematics.AccelerateDown(context);
+                            kinematics.AccelerateDown();
                         } else
                         {
-                            kinematics.AccelerateDownBalloon(context);
+                            kinematics.AccelerateDownBalloon();
                         }
                 }
                 else
@@ -562,9 +563,6 @@ namespace Mario.Sprites.Mario
 
                     hitbox = new Rectangle((int)position.X, (int)position.Y, 14, 20);
 
-
-                //else if (context.GetPowerUpState().ToString().Equals("DeadMario"))
-                //hitbox = Rectangle.Empty;
                 else
                 {
 
@@ -588,14 +586,12 @@ namespace Mario.Sprites.Mario
                     if (warpAnimCount < 30)
                     {
                         position.Y += 1;
-                        //position.X += 10;
                         warpAnimCount++;
                     }
                     else
                     {
                         warped = true;
                         overworld = !overworld;
-                        //System.Diagnostics.Debug.WriteLine("BIG ASS");
                     }
                 }
                 else
@@ -603,14 +599,12 @@ namespace Mario.Sprites.Mario
                     if (warpAnimCount < 30)
                     {
                         position.X += 1;
-                        //position.X += 10;
                         warpAnimCount++;
                     }
                     else
                     {
                         warped = true;
                         overworld = !overworld;
-                        //System.Diagnostics.Debug.WriteLine("BIG ASS");
                     }
                 }
                 
@@ -658,7 +652,7 @@ namespace Mario.Sprites.Mario
 
         public override void Collision(ISprite collider)
         {
-            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is Piranha || collider is SidePipe || collider is LongPipe || collider is SpikeBlock)
+            if (collider is BlockContext || collider is Pipe || collider is Goomba || collider is Koopa || collider is KoopaShell || collider is Parakoopa || collider is Piranha || collider is SidePipe || collider is LongPipe || collider is SpikeBlock)
             {
                 if (collider is Pipe)
                 {
@@ -694,14 +688,13 @@ namespace Mario.Sprites.Mario
                         context.Velocity.Y = 0f;    
                         if (collider is Piranha || collider is SpikeBlock)
                         {
-                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
                                 delay = delaytime;
                             }
                         }
-                        if (collider is Goomba)
+                        if (collider is Goomba || collider is Parakoopa)
                         {
                             //collider.Collision(this);
                             context.stomp.Play();
@@ -722,6 +715,13 @@ namespace Mario.Sprites.Mario
                             System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
                             context.jumpingState.Enter(context.GetActionState());
                         }
+
+                        if (collider is KoopaShell)
+                        {
+                            context.stomp.Play();
+                            context.Velocity.Y = 4f;
+                            (collider as KoopaShell).velocity.X = 0f;
+                        }
                         context.isTouchingTop = true;
                     }
 
@@ -729,10 +729,17 @@ namespace Mario.Sprites.Mario
                     {
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
-
-                        if (collider is Goomba || collider is Piranha || collider is SpikeBlock)
+                        if (collider is KoopaShell && (collider as KoopaShell).velocity.X < 1.5)
                         {
-                            System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
+                            if (delay <= 0)
+                            {
+                                context.TakeDamage();
+                                if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                    delay = delaytime;
+                            }
+                        }
+                        if (collider is Goomba || collider is Piranha || collider is Parakoopa || collider is SpikeBlock)
+                        {
                             if (delay <= 0)
                             {
                                 context.TakeDamage();
@@ -763,7 +770,15 @@ namespace Mario.Sprites.Mario
                         else
                             hitbox.X = collider.Hitbox.X + hitbox.Width + 18;
                         position.X = hitbox.X;
-
+                        if (collider is KoopaShell && (collider as KoopaShell).velocity.X > 1.5)
+                        {
+                            if (delay <= 0)
+                            {
+                                context.TakeDamage();
+                                if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                    delay = delaytime;
+                            }
+                        }
                         if (collider is Goomba || collider is Piranha || collider is SpikeBlock)
                         {
                             if (delay <= 0)
@@ -795,9 +810,17 @@ namespace Mario.Sprites.Mario
                         {
                             hitbox.Y = collider.Hitbox.Y + hitbox.Height;
                             position.Y = hitbox.Y;
-                            if (collider is Goomba || collider is Koopa || collider is Piranha)
+                            if (collider is KoopaShell && (collider as KoopaShell).velocity.X > 0)
                             {
-                                System.Diagnostics.Debug.WriteLine("OWOWOWOWOWOWOWWOW");
+                                if (delay <= 0)
+                                {
+                                    context.TakeDamage();
+                                    if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
+                                        delay = delaytime;
+                                }
+                            }
+                            if (collider is Goomba || collider is Koopa || collider is Piranha || collider is SpikeBlock || collider is KoopaShell)
+                            {
                                 if (delay <= 0)
                                 {
                                     context.TakeDamage();
@@ -857,6 +880,7 @@ namespace Mario.Sprites.Mario
                     else if (collider is GoalGateMovingPart)
                     {
                         collider.Collision(this);
+                        timer = 420;
                     }
                 }
             }

@@ -44,6 +44,12 @@ namespace Mario.Map
             get { return theatre; }
             set { theatre = value; }
         }
+        private int levelnum;
+        public int Levelnum
+        {
+            get { return levelnum; }
+            set { levelnum = value; }
+        }
         private SuperMario mario;
         public SuperMario Mario
         {
@@ -63,7 +69,10 @@ namespace Mario.Map
         private const int COINH = 16;
         private const int COINW = 12;
         private const int BLOCK = 16;
-        string[][] overworld;
+        List<string[][]> levels;
+        string[][] level1;
+        string[][] level2;
+        string[][] level3;
         string[][] underground;
         bool inOverworld;
         Song OverworldTheme;
@@ -79,8 +88,13 @@ namespace Mario.Map
         {
             this.theatre = theatre;
             tracker = this.theatre.tracker;
-            entities = new DynamicEntities();
-            overworld = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
+            entities = new DynamicEntities(theatre);
+            levels = new List<string[][]>();
+            levelnum = 0;
+            level1 = File.ReadLines("1-1.csv").Select(x => x.Split(',')).ToArray();
+            level2 = File.ReadLines("1-2.csv").Select(x => x.Split(',')).ToArray();
+            level3 = File.ReadLines("1-3.csv").Select(x => x.Split(',')).ToArray();
+            levels.Add(level1); levels.Add(level2); levels.Add(level3);
             underground = File.ReadLines("1-1Sub.csv").Select(x => x.Split(',')).ToArray();
             reset = false;
             camera = new Camera(theatre.Graphics.GraphicsDevice.Viewport);
@@ -109,7 +123,7 @@ namespace Mario.Map
             {
                 MediaPlayer.Play(OverworldTheme);
                 width = OVERWORLDWIDTH;
-                map = overworld;
+                map = levels[levelnum];
             }
             else
             {
@@ -261,6 +275,9 @@ namespace Mario.Map
                             case 32:  //Piranha
                                 entities.enemyObjs.Add(new Piranha(theatre, new Vector2(i * BLOCK + 5, j * BLOCK - 17)));
                                 break;
+                            case 33: //Parakoopa
+                                entities.enemyObjs.Add(new Parakoopa(theatre, new Vector2(i * BLOCK, j * BLOCK)));
+                                break;
                             case 51: //Cloud
                                 bgLayerFar.Sprites.Add(new Cloud(Theatre, new Vector2(i * 16, j * 7)));
                                 break;
@@ -300,9 +317,7 @@ namespace Mario.Map
             bgLayerFar.Draw(spriteBatch);
             bgLayerMid.Draw(spriteBatch);
             bgLayerNear.Draw(spriteBatch);
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(0f)));
-            menu.Draw(spriteBatch);
-            spriteBatch.End();
+            
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(1f)));
             foreach (ISprite obj in bgObjects)
                 obj.Draw(spriteBatch);
@@ -314,6 +329,9 @@ namespace Mario.Map
                     obj.Draw(spriteBatch);
             }
 
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetViewMatrix(new Vector2(0f)));
+            menu.Draw(spriteBatch);
             spriteBatch.End();
 
 
@@ -450,14 +468,13 @@ namespace Mario.Map
 
                     for (int i = 0; i < entities.enemyObjs.Count; i++)
                     {
-                        ISprite sprite = entities.enemyObjs[i];
-                        //sprite.Collision(mario);
+                        ISprite sprite = entities.enemyObjs[i];;
 
                         if (sprite.Delete())
                         {
                             entities.entityObjs.Remove(sprite);
-                            sprite = null;
-                            break;
+                            //sprite = null;
+                            //break;
                         }
 
                         if (sprite is Piranha)
@@ -514,6 +531,7 @@ namespace Mario.Map
                                 }
                             }
                         }
+                        if (sprite is KoopaShell) sprite.Collision(mario);
                         mario.Collision(sprite);
                     }
 
@@ -606,6 +624,7 @@ namespace Mario.Map
             {
                 collisionZones[i].Clear();
             }
+            levelnum = 0;
             mario.context.isBallooned = false;
             mario.balloonTimer = 0;
             entities.enemyObjs.Clear();
