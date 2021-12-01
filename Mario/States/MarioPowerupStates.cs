@@ -17,7 +17,7 @@ namespace Mario.States
     {
         public override void GetPBalloon(MarioContext context)
         {
-            context.powerup.Play();
+            context.getPBalloon.Play();
         }
 
         public override void GetFireFlower(MarioContext context)
@@ -45,7 +45,8 @@ namespace Mario.States
         }
         public override void GetCape(MarioContext context)
         {
-
+            context.getCapeFeather.Play();
+            context.SetPowerUpState(new CapeMarioState());
         }
         public override string ToString()
         {
@@ -57,7 +58,7 @@ namespace Mario.States
     {
         public override void GetPBalloon(MarioContext context)
         {
-            context.powerup.Play();
+            context.getPBalloon.Play();
             context.SetPowerUpState(new PBalloonMarioState());
         }
 
@@ -89,7 +90,7 @@ namespace Mario.States
 
         public override void GetCape(MarioContext context)
         {
-            context.powerup.Play();
+            context.getCapeFeather.Play();
             context.SetPowerUpState(new CapeMarioState());
         }
 
@@ -103,7 +104,7 @@ namespace Mario.States
     {
         public override void GetPBalloon(MarioContext context)
         {
-            context.powerup.Play();
+            context.getPBalloon.Play();
             context.SetPowerUpState(new PBalloonMarioState());
         }
         public override void GetFireFlower(MarioContext context)
@@ -131,7 +132,7 @@ namespace Mario.States
 
         public override void GetCape(MarioContext context)
         {
-            context.powerup.Play();
+            context.getCapeFeather.Play();
             context.SetPowerUpState(new CapeMarioState());
         }
 
@@ -145,7 +146,7 @@ namespace Mario.States
     {
         public override void GetPBalloon(MarioContext context)
         {
-            context.powerup.Play();
+            context.getPBalloon.Play();
             context.SetPowerUpState(new PBalloonMarioState());
         }
         public override void GetFireFlower(MarioContext context)
@@ -172,7 +173,7 @@ namespace Mario.States
 
         public override void GetCape(MarioContext context)
         {
-            context.powerup.Play();
+            context.getCapeFeather.Play();
             context.SetPowerUpState(new CapeMarioState());
         }
 
@@ -246,12 +247,12 @@ namespace Mario.States
 
         public override void GetCape(MarioContext context)
         {
-            context.powerup.Play();
-           
+            context.getCapeFeather.Play();
         }
         public override void GetPBalloon(MarioContext context)
         {
-
+            context.getPBalloon.Play();
+            context.SetPowerUpState(new PBalloonMarioState());
         }
         public override string ToString()
         {

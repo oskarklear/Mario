@@ -468,15 +468,14 @@ namespace Mario.Map
 
                     for (int i = 0; i < entities.enemyObjs.Count; i++)
                     {
-                        ISprite sprite = entities.enemyObjs[i];
-                        //sprite.Collision(mario);
+                        ISprite sprite = entities.enemyObjs[i];;
 
-/*                        if (sprite.Delete())
+                        if (sprite.Delete())
                         {
                             entities.entityObjs.Remove(sprite);
-                            sprite = null;
-                            break;
-                        }*/
+                            //sprite = null;
+                            //break;
+                        }
 
                         if (sprite is Piranha)
                         {

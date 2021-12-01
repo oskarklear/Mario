@@ -1107,11 +1107,23 @@
 /processorParam:Quality=Best
 /build:SoundEffects/smw_1-up.wav;SoundEffects/1up.wav
 
+#begin SoundEffects/smw_balloon_get.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_balloon_get.wav
+
 #begin SoundEffects/smw_break_block.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/smw_break_block.wav;SoundEffects/break_block.wav
+
+#begin SoundEffects/smw_cape_rise.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_cape_rise.wav
 
 #begin SoundEffects/smw_coin.wav
 /importer:WavImporter
@@ -1124,6 +1136,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SoundEffects/smw_course_clear.wav;SoundEffects/course_clear.wav
+
+#begin SoundEffects/smw_feather_get.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/smw_feather_get.wav
 
 #begin SoundEffects/smw_fireball.wav
 /importer:WavImporter

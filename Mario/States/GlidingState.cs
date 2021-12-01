@@ -22,7 +22,7 @@ namespace Mario.States
             kinematics.AccelerateUp();
             marioContext.isFalling = false;
             marioContext.isTouchingTop = false;
-            marioContext.jump.Play();
+            marioContext.capeglide.Play();
             
         }
 

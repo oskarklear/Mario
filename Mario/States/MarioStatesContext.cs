@@ -42,6 +42,9 @@ public class MarioContext
 	public SoundEffect oneup { get; }
 	public SoundEffect powerdown { get; }
 	public SoundEffect fireball { get; }
+	public SoundEffect capeglide { get; }
+	public SoundEffect getPBalloon { get; }
+	public SoundEffect getCapeFeather { get; }
 	public bool dashing { get; set; }
 
 	public MarioContext(Game1 theatre)
@@ -67,6 +70,9 @@ public class MarioContext
 		oneup = theatre.Content.Load<SoundEffect>("SoundEffects/1up");
 		powerdown = theatre.Content.Load<SoundEffect>("SoundEffects/pipe");
 		fireball = theatre.Content.Load<SoundEffect>("SoundEffects/fireball");
+		capeglide = theatre.Content.Load<SoundEffect>("SoundEffects/smw_cape_rise");
+		getPBalloon = theatre.Content.Load<SoundEffect>("SoundEffects/smw_balloon_get");
+		getCapeFeather = theatre.Content.Load<SoundEffect>("SoundEffects/smw_feather_get");
 	}
 
 	public MarioActionState GetActionState()

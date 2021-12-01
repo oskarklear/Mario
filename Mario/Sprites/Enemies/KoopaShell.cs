@@ -24,7 +24,7 @@ namespace Mario.Sprites.Enemies
             isAnimated = false;
             useGravity = true;
             spawnsFromBlock = false;
-            pipeRightCollisionOffset = 5;
+            pipeRightCollisionOffset = 17;
             pipeLeftCollisionOffset = 5;
         }
 
