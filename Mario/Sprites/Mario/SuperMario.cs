@@ -566,7 +566,7 @@ namespace Mario.Sprites.Mario
                     if (context.GetActionState().ToString().Equals("CrouchingState"))
                         hitbox = new Rectangle((int)position.X, (int)position.Y + 12, 15, 15);
                     else
-                        hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 28);
+                        hitbox = new Rectangle((int)position.X, (int)position.Y, 15, 26);
 
                 }
 
