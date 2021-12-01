@@ -513,7 +513,7 @@ namespace Mario.Sprites.Mario
                 }
                 else if(glideDelay<25&&context.GetActionState() is GlidingState)
                 {
-                    kinematics.AccelerateDownCape(context);
+                    kinematics.AccelerateDownCape();
                 }
                 //set mario's new pos
                 position.X += context.Velocity.X;
@@ -860,6 +860,7 @@ namespace Mario.Sprites.Mario
                     {
                         System.Diagnostics.Debug.WriteLine("------------------cape-----------------");
                         collider.Collision(this);
+                        context.firstJump = true;
                         context.GetCape();
                     }
                     else if (collider is RedMushroom)

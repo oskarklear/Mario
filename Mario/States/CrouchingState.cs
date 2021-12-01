@@ -50,7 +50,7 @@ namespace Mario.States
 
         public override void FallingTransition()
         {
-            kinematics.IdleXDecelerate(marioContext);
+            kinematics.IdleXDecelerate();
         }
 
         public override void FaceLeftTransition()
