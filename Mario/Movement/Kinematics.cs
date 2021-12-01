@@ -55,19 +55,18 @@ namespace Mario.Movement
             float marioTopUpSpeed = (float)3.0;
             if (context.isBallooned) marioTopUpSpeed = 1;
 
-
-                if (context.Velocity.Y < marioTopUpSpeed)
+            if (context.Velocity.Y < marioTopUpSpeed)
+            {
+                if (!context.isBallooned)
                 {
-                    if (!context.isBallooned)
-                    {
-                        context.Velocity.Y += (float)0.7;
-                    } else
-                    {
-                        context.Velocity.Y += (float)0.4;
-                    }
-                    
+                    context.Velocity.Y += (float)0.7;
+                } else
+                {
+                    context.Velocity.Y += (float)0.4;
                 }
-                context.jumpHeight += (float)0.7;
+                    
+            }
+            context.jumpHeight += (float)0.7;
             
 
         }
