@@ -14,13 +14,13 @@ namespace Mario.Sprites.Items
         private float displacement;
         private const int RIGHTLIMIT = 20;
         private const int LEFTLIMIT = -20;
-        private const int UPPERLIMIT = 50;
+        private const int UPPERLIMIT = 60;
         public CapeFeather(Game1 theatre, Vector2 location, SuperMario mario)
         {
             gameObj = theatre;
             textureLeft = theatre.Content.Load<Texture2D>("items/cape_featherL");
             textureRight = theatre.Content.Load<Texture2D>("items/cape_featherR");
-            texture = facingLeft ? textureLeft : textureRight;
+            texture = textureLeft;
             position = location;
             velocity.X = 1f;
             velocity.Y = 0.5f;
@@ -35,6 +35,8 @@ namespace Mario.Sprites.Items
             useGravity = true;
             spawnsFromBlock = true;
             endPosition = (int)position.Y - UPPERLIMIT;
+            rows = 1;
+            columns = 1;
             topCollisionOffset = 2;
             rightCollisionOffset = 2;
             leftCollisionOffset = 2;
@@ -75,13 +77,30 @@ namespace Mario.Sprites.Items
                 }
                 else if (!horizontalDirection && !spawning)
                 {
-                    position.X -= velocity.X + (displacement / (2 * LEFTLIMIT));
-                    displacement -= velocity.X + (displacement / (2 * LEFTLIMIT));
+                    position.X -= velocity.X - (-displacement / (2 * RIGHTLIMIT));
+                    displacement -= velocity.X - (-displacement / (2 * RIGHTLIMIT));
                     if (displacement < LEFTLIMIT)
                     {
                         horizontalDirection = true;
                     }
                 }
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+
+            if (!obtained)
+            {
+                if (horizontalDirection)
+                {
+                    spriteBatch.Draw(textureRight, position, Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(textureLeft, position, Color.White);
+                }
+                MakeHitbox(spriteBatch, showHitbox);
             }
         }
 
