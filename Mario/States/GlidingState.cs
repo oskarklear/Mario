@@ -100,12 +100,12 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
-            kinematics.AccelerateDownCape(marioContext);
+            kinematics.AccelerateDownCape();
         }
 
         public override void FaceRightDiscontinueTransition()
         {
-            kinematics.AccelerateDownCape(marioContext);
+            kinematics.AccelerateDownCape();
         }
 
         public override void RunningDiscontinueTransition()
@@ -118,6 +118,7 @@ namespace Mario.States
             if (marioContext.isTouchingTop)
             {
                 marioContext.idleState.Enter(this);
+            }
             else
             {
                 marioContext.fallingState.Enter(this);
