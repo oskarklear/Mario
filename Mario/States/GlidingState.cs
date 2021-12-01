@@ -23,8 +23,6 @@ namespace Mario.States
             marioContext.isFalling = false;
             marioContext.isTouchingTop = false;
             marioContext.capeglide.Play();
-            
-            
         }
 
         public override void Exit()
@@ -53,20 +51,12 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
-            /*if (marioContext.jumpHeight > 12 || marioContext.isTouchingBottom)
-            {
-                FallingTransition();
-            }
-            else
-            {
-                kinematics.AccelerateUp(marioContext);
-            }
-            */
+
         }
 
         public override void FallingTransition()
         {
-            //marioContext.fallingState.Enter(this);
+
         }
 
         public override void FaceLeftTransition()
@@ -82,13 +72,11 @@ namespace Mario.States
             {
                 kinematics.AccelerateUp();
             }
-           
-            
         }
 
         public override void FaceRightTransition()
         {
-            if (marioContext.isTouchingLeft||marioContext.isTouchingRight || marioContext.isTouchingTop)
+            if (marioContext.isTouchingLeft || marioContext.isTouchingRight || marioContext.isTouchingTop)
             {
                 marioContext.fallingState.Enter(this);
                 marioContext.Velocity.X = 0;
@@ -107,14 +95,11 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
-            //kinematics.XDecelerateToRight(marioContext);
             kinematics.AccelerateDownCape(marioContext);
         }
 
         public override void FaceRightDiscontinueTransition()
         {
-            //kinematics.XDecelerateToLeft(marioContext);
-            //kinematics.IdleYDecelerate(marioContext);
             kinematics.AccelerateDownCape(marioContext);
         }
 
@@ -129,14 +114,7 @@ namespace Mario.States
                 marioContext.idleState.Enter(this);
             else
             {
-                //if (marioContext.jumpHeight < 8 && !marioContext.isFalling)
-                //{
-                // JumpingTransition();
-                //}
-                //else
-                //{
                 marioContext.fallingState.Enter(this);
-                //}
             }
         }
 
