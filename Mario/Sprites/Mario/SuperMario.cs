@@ -573,6 +573,9 @@ namespace Mario.Sprites.Mario
 
                 }
 
+                if (context.GetPowerUpState().ToString().Equals("PBalloonMario"))
+                    hitbox = new Rectangle((int)position.X, (int)position.Y, 25, 28);
+
                 //Reset collision
                 context.isTouchingTop = false;
                 context.isTouchingBottom = false;
