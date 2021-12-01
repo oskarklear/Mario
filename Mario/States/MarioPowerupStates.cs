@@ -22,8 +22,10 @@ namespace Mario.States
 
         public override void GetFireFlower(MarioContext context)
         {
+            
             context.powerup.Play();
             context.SetPowerUpState(new FireMarioState());
+            context.isBallooned = false;
         }
 
         public override void GetMushroom(MarioContext context)
@@ -34,6 +36,7 @@ namespace Mario.States
         public override void TakeDamage(MarioContext context)
         {
             context.powerdown.Play();
+            context.isBallooned = false;
             context.SetPowerUpState(new SuperMarioState());
         }
 
@@ -60,6 +63,7 @@ namespace Mario.States
     {
         public override void GetPBalloon(MarioContext context)
         {
+            context.isBallooned = true;
             context.getPBalloon.Play();
             context.SetPowerUpState(new PBalloonMarioState());
         }
@@ -106,6 +110,7 @@ namespace Mario.States
     {
         public override void GetPBalloon(MarioContext context)
         {
+            context.isBallooned = true;
             context.getPBalloon.Play();
             context.SetPowerUpState(new PBalloonMarioState());
         }
@@ -148,6 +153,7 @@ namespace Mario.States
     {
         public override void GetPBalloon(MarioContext context)
         {
+            context.isBallooned = true;
             context.getPBalloon.Play();
             context.SetPowerUpState(new PBalloonMarioState());
         }
