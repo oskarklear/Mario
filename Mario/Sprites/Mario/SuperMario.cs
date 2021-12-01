@@ -512,7 +512,7 @@ namespace Mario.Sprites.Mario
                 }
                 if (glideDelay > 25&&context.GetActionState() is GlidingState)
                 {
-                    kinematics.AccelerateUp(context);
+                    kinematics.AccelerateUp();
                 }
                 else if(glideDelay<25&&context.GetActionState() is GlidingState)
                 {
