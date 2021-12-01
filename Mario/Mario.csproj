@@ -25,7 +25,6 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Code Reviews\Sprint5\" />
     <Folder Include="Sprites\Blocks\" />
   </ItemGroup>
 </Project>
