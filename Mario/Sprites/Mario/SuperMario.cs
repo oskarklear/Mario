@@ -902,7 +902,7 @@ namespace Mario.Sprites.Mario
             if (position.Y < 0)
                 position.Y = 0;
 
-            if (position.Y > MAPH - hitbox.Height)
+            if (position.Y > (MAPH + 25))
             {
                 context.DieInPit();
                 position.Y = MAPH - hitbox.Height;
