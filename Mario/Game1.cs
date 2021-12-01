@@ -61,9 +61,6 @@ namespace Mario
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            //System.Diagnostics.Debug.WriteLine("Mario: " + map.Mario.hitbox.X + ", " + map.Mario.hitbox.Y);
             gp1.UpdateInput();
             kb.UpdateInput();
             map.Update();
