@@ -1,9 +1,15 @@
 ﻿Author: Kyle Shin
 Date: 11/30/21
 Sprint: 5
-Name of the file being reviewed: SpikeBlock.cs
+Name of the file being reviewed: Kinematics.cs
 Author: Oskar Klear
 Comments:
 - Parameters removed for  method - less coupling
-- New methods added have magic numbers
-- 
+- More magic numbers
+- Medium cyclomatic complexity for new methods
+- Methods are generally becoming more messy
+
+Minutes taken: 5
+
+Hypothetical Change: Use more constants to reduce magic numbers. Maybe create more methods tailored
+toward specific states, such as an AccelerateUpCape() method as well as an AccelerateUpBalloon()method.

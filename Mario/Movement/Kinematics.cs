@@ -62,7 +62,6 @@ namespace Mario.Movement
             if (context.isBallooned) marioTopUpSpeed = (float)0.5;
             if (context.isCape && context.firstJump && context.dashing) marioTopUpSpeed = (float)6.0;
 
-            System.Diagnostics.Debug.WriteLine("FirstJump: " + context.firstJump);
             if (context.Velocity.Y < marioTopUpSpeed)
             {
                 if (context.isCape && context.firstJump && context.dashing)
