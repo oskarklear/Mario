@@ -1,0 +1,12 @@
+Oskar Klear
+11/30/2021
+Sprint 5
+CapeFeather.cs
+Kyle
+- Move method is lengthy, could be reworked to be more efficient. All the move method does is move the feather down. Instead of doing complex code to move it back and forth, could use a falling animation. Could effectively eliminate magic numbers.
+- Not enough comments, especially for Move. Very difficult to understand what is doing what.
+- High cyclomatic complexity, again mostly in move.
+- SpawnFromBlock also has high cyclomatic complexity and magic numbers.
+
+8 Minutes
+- I would definitely rework this to eliminate the complexity in the move method. I would keep the code that moves it down, but I would use a swinging back and forth animation rather than programming it to move that way.
