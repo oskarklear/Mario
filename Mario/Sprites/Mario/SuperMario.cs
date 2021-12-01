@@ -659,7 +659,6 @@ namespace Mario.Sprites.Mario
                     if (hitbox.TouchTopOf((collider as Pipe).WarpHitbox) && (collider as Pipe).Warpable)
                     {
                         isWarpableHorizontal = true;
-                        System.Diagnostics.Debug.WriteLine("big farty");
                     }
                 }
                 if (collider is SidePipe)
@@ -668,7 +667,6 @@ namespace Mario.Sprites.Mario
                     {
 
                         isWarpableVertical = true;
-                        System.Diagnostics.Debug.Write("big farty left");
                     }
                 }
                 if (collider is BlockContext && ((collider as BlockContext).GetState() is HiddenBlockState))
@@ -701,7 +699,6 @@ namespace Mario.Sprites.Mario
                             context.Velocity.Y = 4f;                           
                             collider.Collision(this);
                             context.jumpHeight = 0;
-                            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
                             context.jumpingState.Enter(context.GetActionState());
                         }
 
@@ -712,7 +709,6 @@ namespace Mario.Sprites.Mario
                             collider.Collision(this);
                             context.Velocity.Y = 4f;
                             context.jumpHeight = 0;
-                            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
                             context.jumpingState.Enter(context.GetActionState());
                         }
 
@@ -858,7 +854,6 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is CapeFeather)
                     {
-                        System.Diagnostics.Debug.WriteLine("------------------cape-----------------");
                         collider.Collision(this);
                         context.firstJump = true;
                         context.GetCape();

@@ -499,7 +499,7 @@ namespace Mario.Map
                         {
                             foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) - 1])
                             {
-                                if (block is BlockContext || block is Pipe)
+                                if (block is BlockContext || block is Pipe || block is SpikeBlock)
                                 {
                                     sprite.Collision(block);
                                     if (mario.context.ShowHitbox)
@@ -510,7 +510,7 @@ namespace Mario.Map
                         }
                         foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256))])
                         {
-                            if (block is BlockContext || block is Pipe)
+                            if (block is BlockContext || block is Pipe || block is SpikeBlock)
                             {
                                 sprite.Collision(block);
                                 if (mario.context.ShowHitbox)
@@ -522,7 +522,7 @@ namespace Mario.Map
                         {
                             foreach (ISprite block in collisionZones[((int)(sprite.Position.X / 256)) + 1])
                             {
-                                if (block is BlockContext || block is Pipe)
+                                if (block is BlockContext || block is Pipe || block is SpikeBlock)
                                 {
                                     sprite.Collision(block);
                                     if (mario.context.ShowHitbox)
