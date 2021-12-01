@@ -30,7 +30,11 @@ namespace Mario.Trackers
         public void AddCoinCommand()
         {
             coins++;
-            if (coins % 100 == 0) AddLifeCommand();
+            if (coins % 100 == 0)
+            {
+                AddLifeCommand();
+                coins = 0;
+            }
             AddPointsCommand(200);
         }
 
