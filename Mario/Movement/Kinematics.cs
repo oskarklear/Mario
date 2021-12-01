@@ -18,7 +18,7 @@ namespace Mario.Movement
         public void AccelerateLeft()
         {
             float marioTopLeftSpeed;
-            if (context.dashing)
+            if (context.dashing && !context.isBallooned)
                 marioTopLeftSpeed = (float)-6.0;
             else
                 marioTopLeftSpeed = (float)-3.0;
@@ -38,7 +38,7 @@ namespace Mario.Movement
         public void AccelerateRight()
         {
             float marioTopRightSpeed;
-            if (context.dashing)
+            if (context.dashing && !context.isBallooned)
                 marioTopRightSpeed = (float)6.0;
             else
                 marioTopRightSpeed = (float)3.0;

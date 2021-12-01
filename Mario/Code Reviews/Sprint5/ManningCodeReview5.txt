@@ -1,0 +1,26 @@
+﻿Reviewer: Matthew Manning
+
+Date: 11/30/2021
+
+Sprint 5
+
+File: GlidingState.cs
+
+File Author: Bennett Palmer
+
+Comments:
+
+- The velocity vector from MarioContext is being directly accessed by GlidingState on line 68, 71, 82, and 85, meaning the vector is a public variable. This should
+  probably be made into a private variable and then have a get method to get the value and modify it.
+
+- The idleState and fallingState MarioActionState variables from MarioContext are being directly accessed by GlidingState on lines 35, 67, 81, 114, and 117, meaning
+  variables are public. These should probably be made into private variables and then have get methods to get them.
+
+- The JumpingTransition and FallingTransition methods don't have a "Does nothing" comment like the rest of the methods that are not needed for Gliding State. This 
+  isn't a huge deal, but for the sake of consistency they should either all have a comment of some sort or none should.
+
+Minute taken: 10 minutes
+
+Hypothetically we could refactor our code such that we don't set various variables as public when they don't have a need to be. This is a bad coding practice and
+is widespread throughout our code base and not isolated to this instance here. Our current implementation of GlidingState could support changing these to private
+inside MarioContext and rather than calling the variables directly, GlidingContext could call the getter methods.
