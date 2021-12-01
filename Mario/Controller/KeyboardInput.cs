@@ -286,17 +286,6 @@ namespace Mario
                         }
                         break;
 
-                    case (int)Keys.LeftShift:
-                        if (GameObj.IsMenuVisible)
-                        {
-                            // Do nothing
-                        }
-                        else
-                        {
-                            //context.dashing = true;
-                        }
-                        break;
-
                     case (int)Keys.Enter:
                         if (count > 10)
                         {
