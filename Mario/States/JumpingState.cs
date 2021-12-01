@@ -53,7 +53,7 @@ namespace Mario.States
         {
             int maxHeight;
             if (marioContext.dashing)
-                maxHeight = 12 + (int)Math.Abs(marioContext.Velocity.X * 2);
+                maxHeight = 12 + (int)Math.Abs(marioContext.Velocity.X * 1.25);
             else
                 maxHeight = 12;
             if (marioContext.jumpHeight > maxHeight || marioContext.isTouchingBottom)
