@@ -18,8 +18,6 @@ namespace Mario.Sprites.Items
             showHitbox = false;
         }
 
-        public override void SetHitbox()
-        {
-        }
+
     }
 }
