@@ -1,0 +1,26 @@
+﻿Dan Jones -- Code review
+
+Author of Code:  
+Date: 11/30/2021
+Sprint: 5
+File name: spriteTemplate.cs
+Authors: Kyle Shin, Bennett Palmer, Dan Jones 
+
+(I couldn't think of anything else to review for this sprint)
+
+Comments: 
+
+- The addition of context.IsBallooned is a pretty gross way to accomplish the PBalloon behavior. We have a
+	tendency to rely on public variables rather than using proper design patterns. 
+
+- Relying on context.death.Play(), and any context.* for that matter is bad OOP. We should have really gone back and 
+	fixed our disgusting code. 
+
+
+Mins taken: 10 mins
+
+I would change our code to use getters and setters for isBallooned, and a Play() boolean to set
+	so in its update it'll get triggered rather than changing these directly in here. 
+
+If I was more bold, I'd refactor the code completely to have clean seperation of the bahavior and we 
+	wouldn't even need getters and setters in here.
