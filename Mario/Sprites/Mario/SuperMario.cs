@@ -492,7 +492,7 @@ namespace Mario.Sprites.Mario
                 }
             }
 
-            if (isAnimated)
+            //if (isAnimated)
             {
                 if (timeSinceLastFrame > millisecondsPerFrame)
                 {
@@ -618,7 +618,7 @@ namespace Mario.Sprites.Mario
         {
             if (delay % 10 == 0)
             {
-                if (isAnimated)
+                //if (isAnimated)
                 {
                     int width = texture.Width / columns;
                     int height = texture.Height / rows;
@@ -629,10 +629,10 @@ namespace Mario.Sprites.Mario
                     Rectangle destinationRectangle = new Rectangle((int)position.X - 7, (int)position.Y, width, height);
                     spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, Color.White);
                 }
-                else
-                {
-                    spriteBatch.Draw(texture, position, Color.White);
-                }
+                //else
+                //{
+                //    spriteBatch.Draw(texture, position, Color.White);
+                //}
             }
 
             MakeHitbox(spriteBatch, showHitbox);

@@ -148,6 +148,8 @@ namespace Mario.Sprites
             SetHitbox();
             SpawnFromBlock();
             Move();
+            if (position.X < 0 || position.X > 3584)
+                obtained = true;
         }
 
         public virtual void DrawSprite(SpriteBatch spriteBatch, Rectangle sourceRectangle, int width, int height)
