@@ -14,7 +14,7 @@ namespace Mario.Sprites.Items
         private float displacement;
         private const int RIGHTLIMIT = 20;
         private const int LEFTLIMIT = -20;
-        private const int UPPERLIMIT = 50;
+        private const int UPPERLIMIT = 60;
         public CapeFeather(Game1 theatre, Vector2 location, SuperMario mario)
         {
             gameObj = theatre;
