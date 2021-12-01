@@ -37,6 +37,7 @@ public class MarioContext
 	public SoundEffect jump { get; }
 	public SoundEffect powerup { get; }
 	public SoundEffect stomp { get; }
+	public SoundEffect kick { get; }
 	public SoundEffect coin { get; }
 	public SoundEffect death { get; }
 	public SoundEffect oneup { get; }
@@ -66,6 +67,7 @@ public class MarioContext
 		powerup = theatre.Content.Load<SoundEffect>("SoundEffects/powerup");
 		stomp = theatre.Content.Load<SoundEffect>("SoundEffects/stomp");
 		coin = theatre.Content.Load<SoundEffect>("SoundEffects/coin");
+		kick = theatre.Content.Load<SoundEffect>("SoundEffects/kick");
 		death = theatre.Content.Load<SoundEffect>("SoundEffects/death");
 		oneup = theatre.Content.Load<SoundEffect>("SoundEffects/1up");
 		powerdown = theatre.Content.Load<SoundEffect>("SoundEffects/pipe");

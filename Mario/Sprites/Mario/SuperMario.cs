@@ -738,6 +738,10 @@ namespace Mario.Sprites.Mario
                                     delay = delaytime;
                             }
                         }
+                        else if (collider is KoopaShell)
+                        {
+                            context.kick.Play();
+                        }
                         if (collider is Goomba || collider is Piranha || collider is Parakoopa || collider is SpikeBlock)
                         {
                             if (delay <= 0)
@@ -770,7 +774,7 @@ namespace Mario.Sprites.Mario
                         else
                             hitbox.X = collider.Hitbox.X + hitbox.Width + 18;
                         position.X = hitbox.X;
-                        if (collider is KoopaShell && !(collider as KoopaShell).horizontalDirection)
+                        if (collider is KoopaShell && (collider as KoopaShell).horizontalDirection)
                         {
                             if (delay <= 0)
                             {
@@ -778,6 +782,10 @@ namespace Mario.Sprites.Mario
                                 if (!context.GetPowerUpState().ToString().Equals("DeadMario"))
                                     delay = delaytime;
                             }
+                        }
+                        else if (collider is KoopaShell)
+                        {
+                            context.kick.Play();
                         }
                         if (collider is Goomba || collider is Piranha || collider is SpikeBlock)
                         {
