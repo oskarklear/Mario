@@ -51,7 +51,6 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
-            System.Diagnostics.Debug.WriteLine("Height: " + marioContext.jumpHeight);
             int maxHeight;
             if (marioContext.dashing)
                 maxHeight = 12 + (int)Math.Abs(marioContext.Velocity.X * 1.25);
