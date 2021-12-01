@@ -22,6 +22,9 @@ namespace Mario.Movement
                 marioTopLeftSpeed = (float)-6.0;
             else
                 marioTopLeftSpeed = (float)-3.0;
+            if (context.isBallooned) marioTopLeftSpeed = (float)-2;
+
+
             if (context.Velocity.X > marioTopLeftSpeed)
             {
                 context.Velocity.X -= (float)HACCEL;
@@ -39,6 +42,9 @@ namespace Mario.Movement
                 marioTopRightSpeed = (float)6.0;
             else
                 marioTopRightSpeed = (float)3.0;
+
+            if (context.isBallooned) marioTopRightSpeed = (float)2;
+
             if (context.Velocity.X < marioTopRightSpeed)
             {
                 context.Velocity.X += (float)HACCEL;
@@ -83,7 +89,7 @@ namespace Mario.Movement
 
         public void AccelerateDownBalloon()
         {
-            float marioTopDownSpeed = (float)-3.0;
+            float marioTopDownSpeed = (float)-0.75;
             if (context.Velocity.Y > marioTopDownSpeed)
             {
                 context.Velocity.Y -= (float)0.025;
