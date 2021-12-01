@@ -1,1 +1,9 @@
-﻿
+﻿Author: Kyle Shin
+Date: 11/30/21
+Sprint: 5
+Name of the file being reviewed: SpikeBlock.cs
+Author: Oskar Klear
+Comments:
+- Parameters removed for  method - less coupling
+- New methods added have magic numbers
+- 

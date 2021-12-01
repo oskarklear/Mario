@@ -19,6 +19,8 @@ public class MarioContext
 	public Vector2 Velocity;
 	public bool facingLeft;
 	public bool isBallooned;
+	public bool isCape;
+	public bool firstJump;
 	public bool isTouchingLeft { get; set; }
 	public bool isTouchingRight { get; set; }
 	public bool isTouchingTop { get; set; }
@@ -63,6 +65,8 @@ public class MarioContext
 		showHitbox = false;
 		this.Theatre = theatre;
 		dashing = false;
+		isCape = false;
+		firstJump = false;
 		jump = theatre.Content.Load<SoundEffect>("SoundEffects/jump");
 		powerup = theatre.Content.Load<SoundEffect>("SoundEffects/powerup");
 		stomp = theatre.Content.Load<SoundEffect>("SoundEffects/stomp");
@@ -122,6 +126,7 @@ public class MarioContext
     {
         PowerupState.TakeDamage(this);
 		isBallooned = false;
+		isCape = false;
 	}
     public void GetMushroom()
     {
@@ -130,6 +135,7 @@ public class MarioContext
 	public void GetCape()
     {
 		PowerupState.GetCape(this);
+		isCape = true;
     }
 
 	public void GetPBalloon()

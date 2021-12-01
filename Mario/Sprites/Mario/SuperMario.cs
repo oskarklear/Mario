@@ -513,7 +513,7 @@ namespace Mario.Sprites.Mario
                 }
                 else if(glideDelay<25&&context.GetActionState() is GlidingState)
                 {
-                    kinematics.AccelerateDownCape(context);
+                    kinematics.AccelerateDownCape();
                 }
                 //set mario's new pos
                 position.X += context.Velocity.X;

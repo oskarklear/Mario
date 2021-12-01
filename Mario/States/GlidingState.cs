@@ -13,6 +13,7 @@ namespace Mario.States
             marioContext = context;
             PowerUpState = context.GetPowerUpState();
             kinematics = new Kinematics(context);
+            context.firstJump = true;
         }
 
         public override void Enter(IMarioActionState previousActionState)
@@ -82,6 +83,11 @@ namespace Mario.States
             {
                 kinematics.AccelerateUp();
             }
+
+            if (marioContext.Velocity.Y < 0)
+            {
+                marioContext.firstJump = false;
+            }
            
             
         }
@@ -98,6 +104,10 @@ namespace Mario.States
             {
                 kinematics.AccelerateUp();
             }
+            if (marioContext.Velocity.Y < 0)
+            {
+                marioContext.firstJump = false;
+            }
         }
 
         public override void CrouchingDiscontinueTransition()
@@ -108,14 +118,15 @@ namespace Mario.States
         public override void FaceLeftDiscontinueTransition()
         {
             //kinematics.XDecelerateToRight(marioContext);
-            kinematics.AccelerateDownCape(marioContext);
+            kinematics.AccelerateDownCape();
+
         }
 
         public override void FaceRightDiscontinueTransition()
         {
             //kinematics.XDecelerateToLeft(marioContext);
             //kinematics.IdleYDecelerate(marioContext);
-            kinematics.AccelerateDownCape(marioContext);
+            kinematics.AccelerateDownCape();
         }
 
         public override void RunningDiscontinueTransition()
@@ -126,18 +137,21 @@ namespace Mario.States
         public override void JumpingDiscontinueTransition()
         {
             if (marioContext.isTouchingTop)
-                marioContext.idleState.Enter(this);
-            else
             {
-                //if (marioContext.jumpHeight < 8 && !marioContext.isFalling)
-                //{
-                // JumpingTransition();
-                //}
-                //else
-                //{
+                marioContext.idleState.Enter(this);
+            }               
+            /*else
+            {
+                if (marioContext.jumpHeight < 20 && marioContext.firstJump)
+                {
+                    kinematics.AccelerateUp();
+                }                
+                else
+                {
                 marioContext.fallingState.Enter(this);
-                //}
-            }
+                marioContext.firstJump = false;
+                }
+            }*/
         }
 
         public override string ToString()

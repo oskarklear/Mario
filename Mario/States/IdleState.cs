@@ -37,7 +37,7 @@ namespace Mario.States
             if (marioContext.GetPowerUpState().ToString() != "DeadMario")
             {
                 marioContext.crouchingState.Enter(this);
-                kinematics.IdleXDecelerate(marioContext);
+                kinematics.IdleXDecelerate();
 
             }
         }
@@ -96,12 +96,12 @@ namespace Mario.States
 
         public override void FaceLeftDiscontinueTransition()
         {
-            kinematics.IdleXDecelerate(marioContext);
+            kinematics.IdleXDecelerate();
         }
 
         public override void FaceRightDiscontinueTransition()
         {
-            kinematics.IdleXDecelerate(marioContext);
+            kinematics.IdleXDecelerate();
         }
 
         public override void RunningDiscontinueTransition()
