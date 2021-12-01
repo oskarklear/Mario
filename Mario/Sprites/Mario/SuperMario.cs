@@ -166,13 +166,10 @@ namespace Mario.Sprites.Mario
 
         public override void Update()
         {
-            System.Diagnostics.Debug.WriteLine(context.GetPowerUpState().ToString());
-            System.Diagnostics.Debug.WriteLine(context.GetActionState().ToString());
             if (!warp)
             {
 
                 fireballCooldown += 1;
-                System.Diagnostics.Debug.WriteLine(context.GetPowerUpState().ToString());
                 if (context.GetPowerUpState().ToString().Equals("PBalloonMario"))
                 {
                     if (balloonTimer < 10)
