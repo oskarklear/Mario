@@ -858,7 +858,6 @@ namespace Mario.Sprites.Mario
                     }
                     else if (collider is CapeFeather)
                     {
-                        System.Diagnostics.Debug.WriteLine("------------------cape-----------------");
                         collider.Collision(this);
                         context.firstJump = true;
                         context.GetCape();

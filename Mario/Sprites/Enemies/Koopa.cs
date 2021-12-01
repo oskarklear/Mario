@@ -114,6 +114,8 @@ namespace Mario.Sprites.Enemies
 
         public override void Update()
         {
+            if (position.X < -16 || position.X > 3584 || position.Y > 300)
+                obtained = true;
             if (invincibility > 0)
             {
                 invincibility--;

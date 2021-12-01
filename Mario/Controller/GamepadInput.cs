@@ -63,7 +63,10 @@ namespace Mario
         public void UpdateInput()
         {
             ActivateIdle.ActivateIdleCommand();
-
+            if (previousGamePadState.IsButtonDown(Buttons.B))
+                context.dashing = true;
+            else
+                context.dashing = false;
             List<Input> inputs = GetInput();
             foreach (Input input in inputs)
                 switch (input.Key)

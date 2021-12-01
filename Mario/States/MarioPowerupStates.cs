@@ -46,7 +46,6 @@ namespace Mario.States
             context.death.Play();
             context.Theatre.tracker.RemoveLifeCommand();
             context.SetPowerUpState(new DeadMarioState());
-            //context.Theatre.tracker.RemoveLifeCommand();
         }
         public override void GetCape(MarioContext context)
         {
@@ -136,6 +135,7 @@ namespace Mario.States
         {
             context.death.Play();
             context.SetPowerUpState(new DeadMarioState());
+            context.Theatre.tracker.RemoveLifeCommand();
         }
 
         public override void GetCape(MarioContext context)
@@ -178,6 +178,7 @@ namespace Mario.States
         {
             context.death.Play();
             context.SetPowerUpState(new DeadMarioState());
+            context.Theatre.tracker.RemoveLifeCommand();
         }
 
         public override void GetCape(MarioContext context)

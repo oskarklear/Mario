@@ -65,7 +65,7 @@ namespace Mario.Movement
             {
                 if (context.isCape && context.firstJump && context.dashing)
                 {
-                    context.Velocity.Y += (float)2.0;
+                    context.Velocity.Y += (float)3.0;
                 }
                 else if (!context.isBallooned)
                 {
