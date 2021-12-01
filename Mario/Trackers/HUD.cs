@@ -75,11 +75,11 @@ namespace Mario.Trackers
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Theatre.map.camera.GetViewMatrix(new Vector2(1f)));
-            spriteBatch.DrawString(HeadsUpDisplay, "Mario", PlayerHUDPos, Color.White);
-            spriteBatch.DrawString(HeadsUpDisplay, "TIME\n" + (Tracker.timeRemaining / 60).ToString(), TimeHUDPos, Color.Yellow);
-            spriteBatch.DrawString(HeadsUpDisplay, "X" + Tracker.lives.ToString(), LivesHUDPos, Color.White);
-            spriteBatch.DrawString(HeadsUpDisplay, "X" + Tracker.coins.ToString(), CoinHUDPos, Color.White);
-            spriteBatch.DrawString(HeadsUpDisplay, Tracker.points.ToString(), ScoreHUDPos, Color.White);
+            spriteBatch.DrawString(HeadsUpDisplay, "Mario", PlayerHUDPos, Color.Purple);
+            spriteBatch.DrawString(HeadsUpDisplay, "TIME\n" + (Tracker.timeRemaining / 60).ToString(), TimeHUDPos, Color.Purple);
+            spriteBatch.DrawString(HeadsUpDisplay, "X" + Tracker.lives.ToString(), LivesHUDPos, Color.Purple);
+            spriteBatch.DrawString(HeadsUpDisplay, "X" + Tracker.coins.ToString(), CoinHUDPos, Color.Purple);
+            spriteBatch.DrawString(HeadsUpDisplay, Tracker.points.ToString(), ScoreHUDPos, Color.Purple);
             coinSprite.Draw(spriteBatch);
             Marioicon.Draw(spriteBatch);
             spriteBatch.End();
