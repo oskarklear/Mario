@@ -39,12 +39,14 @@ namespace Mario.States
 
         public override void DieInPit(MarioContext context)
         {
+            context.isBallooned = false;
             context.death.Play();
             context.SetPowerUpState(new DeadMarioState());
             context.Theatre.tracker.RemoveLifeCommand();
         }
         public override void GetCape(MarioContext context)
         {
+            context.isBallooned = false;
             context.getCapeFeather.Play();
             context.SetPowerUpState(new CapeMarioState());
         }
