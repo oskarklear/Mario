@@ -95,7 +95,7 @@ namespace Mario.Movement
             float marioTopDownSpeed = (float)-3.0;
             if (context.Velocity.Y > marioTopDownSpeed)
             {
-                context.Velocity.Y -= (float)0.1;
+                context.Velocity.Y -= (float)0.2;
             }
             context.jumpHeight -= (float)0.1;
         }
