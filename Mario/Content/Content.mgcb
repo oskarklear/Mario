@@ -543,6 +543,30 @@
 /processorParam:TextureFormat=Color
 /build:mario/bigRunningMarioR.png
 
+#begin mario/capeGlidingMarioL.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/capeGlidingMarioL.png
+
+#begin mario/capeGlidingMarioR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mario/capeGlidingMarioR.png
+
 #begin mario/capeIdleMarioL.png
 /importer:TextureImporter
 /processor:TextureProcessor
