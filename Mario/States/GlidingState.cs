@@ -52,7 +52,15 @@ namespace Mario.States
         }
         public override void JumpingTransition()
         {
+            if (marioContext.Velocity.Y < 0)
+            {
+                marioContext.firstJump = false;
+            }
 
+            if (marioContext.isTouchingTop)
+            {
+                marioContext.idleState.Enter(this);
+            }
         }
 
         public override void FallingTransition()

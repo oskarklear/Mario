@@ -18,6 +18,7 @@ namespace Mario.States
         {
             PreviousActionState = previousActionState;
             marioContext.SetActionState(this);
+            marioContext.firstJump = true;
             if (marioContext.Velocity.Y == 0)
                 marioContext.jumpHeight = 0;
         }

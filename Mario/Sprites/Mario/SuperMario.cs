@@ -860,6 +860,7 @@ namespace Mario.Sprites.Mario
                     {
                         System.Diagnostics.Debug.WriteLine("------------------cape-----------------");
                         collider.Collision(this);
+                        context.firstJump = true;
                         context.GetCape();
                     }
                     else if (collider is RedMushroom)
