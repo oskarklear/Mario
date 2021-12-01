@@ -729,7 +729,7 @@ namespace Mario.Sprites.Mario
                     {
                         hitbox.X = collider.Hitbox.X - hitbox.Width;
                         position.X = hitbox.X;
-                        if (collider is KoopaShell && (collider as KoopaShell).velocity.X < -1.5)
+                        if (collider is KoopaShell && (collider as KoopaShell).horizontalDirection)
                         {
                             if (delay <= 0)
                             {
@@ -770,7 +770,7 @@ namespace Mario.Sprites.Mario
                         else
                             hitbox.X = collider.Hitbox.X + hitbox.Width + 18;
                         position.X = hitbox.X;
-                        if (collider is KoopaShell && (collider as KoopaShell).velocity.X > 1.5)
+                        if (collider is KoopaShell && !(collider as KoopaShell).horizontalDirection)
                         {
                             if (delay <= 0)
                             {
