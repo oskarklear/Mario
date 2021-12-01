@@ -1,0 +1,11 @@
+Code Review Author:Bennett Palmer
+Date:11/30/21
+Sprint 5
+Reviewing Parakoopa.cs
+Author:Matt Manning
+Code Quality comments:
+Some magic numbers and unhelpfully named variables, such as counter. Otherwise, It is a pretty
+simple and well designed file.
+Time taken to complete code review:10 minutes.
+A possible future change could be adding unique flight patterns to the parakoopas, rather than simply moving up and down.
+the code could incorporate this by using more detailed behavior depending on specific value ranges of the counter.

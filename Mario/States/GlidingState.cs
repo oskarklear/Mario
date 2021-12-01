@@ -72,7 +72,7 @@ namespace Mario.States
         public override void FaceLeftTransition()
         {
 
-            if (marioContext.isTouchingRight || marioContext.isTouchingLeft)
+            if (marioContext.isTouchingRight || marioContext.isTouchingLeft || marioContext.isTouchingTop)
             {
                 marioContext.fallingState.Enter(this);
                 marioContext.Velocity.X = 0;
@@ -88,7 +88,7 @@ namespace Mario.States
 
         public override void FaceRightTransition()
         {
-            if (marioContext.isTouchingLeft||marioContext.isTouchingRight)
+            if (marioContext.isTouchingLeft||marioContext.isTouchingRight || marioContext.isTouchingTop)
             {
                 marioContext.fallingState.Enter(this);
                 marioContext.Velocity.X = 0;
