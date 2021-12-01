@@ -148,7 +148,7 @@ namespace Mario.Sprites
             SetHitbox();
             SpawnFromBlock();
             Move();
-            if (position.X < 0 || position.X > 3584)
+            if (position.X < -30 || position.X > 3584)
                 obtained = true;
         }
 
