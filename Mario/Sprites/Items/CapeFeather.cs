@@ -12,8 +12,8 @@ namespace Mario.Sprites.Items
     class CapeFeather : SpriteTemplate
     {
         private float displacement;
-        private const int RIGHTLIMIT = 25;
-        private const int LEFTLIMIT = -25;
+        private const int RIGHTLIMIT = 20;
+        private const int LEFTLIMIT = -20;
         private const int UPPERLIMIT = 50;
         public CapeFeather(Game1 theatre, Vector2 location, SuperMario mario)
         {
@@ -64,7 +64,6 @@ namespace Mario.Sprites.Items
 
         public override void Move()
         {
-            System.Diagnostics.Debug.WriteLine("Displacement feather: " + displacement);
             if (doesMove)
             {
                 if (horizontalDirection && !spawning)
@@ -78,8 +77,8 @@ namespace Mario.Sprites.Items
                 }
                 else if (!horizontalDirection && !spawning)
                 {
-                    position.X -= velocity.X + (displacement / (2 * LEFTLIMIT));
-                    displacement -= velocity.X + (displacement / (2 * LEFTLIMIT));
+                    position.X -= velocity.X - (-displacement / (2 * RIGHTLIMIT));
+                    displacement -= velocity.X - (-displacement / (2 * RIGHTLIMIT));
                     if (displacement < LEFTLIMIT)
                     {
                         horizontalDirection = true;
