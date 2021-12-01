@@ -60,10 +60,16 @@ namespace Mario.Movement
 
             float marioTopUpSpeed = (float)3.0;
             if (context.isBallooned) marioTopUpSpeed = (float)0.5;
+            if (context.isCape && context.firstJump && context.dashing) marioTopUpSpeed = (float)6.0;
 
+            System.Diagnostics.Debug.WriteLine("FirstJump: " + context.firstJump);
             if (context.Velocity.Y < marioTopUpSpeed)
             {
-                if (!context.isBallooned)
+                if (context.isCape && context.firstJump && context.dashing)
+                {
+                    context.Velocity.Y += (float)2.0;
+                }
+                else if (!context.isBallooned)
                 {
                     context.Velocity.Y += (float)0.7;
                 } else
@@ -96,7 +102,7 @@ namespace Mario.Movement
             }
             context.jumpHeight -= (float)0.4;
         }
-        public void AccelerateDownCape(MarioContext context)
+        public void AccelerateDownCape()
         {
             float marioTopDownSpeed = (float)-3.0;
             if (context.Velocity.Y > marioTopDownSpeed)
@@ -105,7 +111,7 @@ namespace Mario.Movement
             }
             context.jumpHeight -= (float)0.1;
         }
-        public void IdleXDecelerate(MarioContext context)
+        public void IdleXDecelerate()
         {
             if (context.Velocity.X != 0)
             {
