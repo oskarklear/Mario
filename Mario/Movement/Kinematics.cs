@@ -8,6 +8,8 @@ namespace Mario.Movement
     public class Kinematics
     {
         private MarioContext context;
+        private const double HACCEL = 0.2;
+
         public Kinematics(MarioContext Context)
         {
             this.context = Context;
@@ -22,7 +24,11 @@ namespace Mario.Movement
                 marioTopLeftSpeed = (float)-3.0;
             if (context.Velocity.X > marioTopLeftSpeed)
             {
-                context.Velocity.X -= (float)0.2;
+                context.Velocity.X -= (float)HACCEL;
+            }
+            else if (context.Velocity.X < marioTopLeftSpeed - HACCEL)
+            {
+                context.Velocity.X += (float)HACCEL;
             }
         }
 
@@ -35,7 +41,11 @@ namespace Mario.Movement
                 marioTopRightSpeed = (float)3.0;
             if (context.Velocity.X < marioTopRightSpeed)
             {
-                context.Velocity.X += (float)0.2;
+                context.Velocity.X += (float)HACCEL;
+            }
+            else if (context.Velocity.X > marioTopRightSpeed + HACCEL)
+            {
+                context.Velocity.X -= (float)HACCEL;
             }
         }
 
